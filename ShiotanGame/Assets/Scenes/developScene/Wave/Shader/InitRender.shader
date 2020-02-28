@@ -1,7 +1,6 @@
-﻿//テクスチャ合成用シェーダ
-//参考 http://karanokan.info/2018/10/08/post-1155/
+﻿//レンダーテクスチャの初期化用シェーダ
 
-Shader "Unlit/TextureAdd"
+Shader "Unlit/InitRender"
 {
     Properties
     {
@@ -9,11 +8,9 @@ Shader "Unlit/TextureAdd"
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" "Queue" = "Transparent" }
+        Tags { "RenderType"="Opaque" }
         LOD 100
 
-		ZWrite Off
-		Blend SrcAlpha OneMinusSrcAlpha
         Pass
         {
             CGPROGRAM
@@ -38,11 +35,7 @@ Shader "Unlit/TextureAdd"
             };
 
             sampler2D _MainTex;
-			sampler2D _AddTex;
             float4 _MainTex_ST;
-			float4 _AddTex_ST;
-			float4 _UVPosition;
-			float _Size;
 
             v2f vert (appdata v)
             {
@@ -55,21 +48,9 @@ Shader "Unlit/TextureAdd"
 
             fixed4 frag (v2f i) : SV_Target
 			{
-				//画像を合成する
-
-				//画像のテクセルが合成先の画像の範囲内にあるか判定
-				float com;
-				com = step(_UVPosition.x - _Size, i.uv.x);
-				com = step(i.uv.x, _UVPosition.x + _Size) * com;
-				com = step(_UVPosition.y - _Size, i.uv.y) * com;
-				com = step(i.uv.y, _UVPosition.y + _Size)* com;
-
-				fixed4 col1 = tex2D(_MainTex, i.uv);
-				fixed4 col2 = tex2D(_AddTex, (i.uv - (_UVPosition - _Size)) * 0.5 / _Size);
-
-				col2.a = col2.a * com;
-				fixed alpha = col2.a + (1 - col2.a) * col1.a;
-				fixed4 col = fixed4((col2.rgb * col2.a + (col1.rgb * col1.a * (1 - col2.a))) / alpha, alpha);
+				float4 col;
+				col.rgb = 0.5;
+				col.a = 1.0;
 				return col;
 			}
             ENDCG
