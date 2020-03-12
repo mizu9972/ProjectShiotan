@@ -371,6 +371,8 @@ GameObject:
   - component: {fileID: 1125268427}
   - component: {fileID: 1125268429}
   - component: {fileID: 1125268428}
+  - component: {fileID: 1125268430}
+  - component: {fileID: 1125268431}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -410,7 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -433,6 +435,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1125268426}
   m_CullTransparentMesh: 0
+--- !u!114 &1125268430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125268426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d75dd7570c92fe4292f9a0c37108899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFadeOut: 0
+  isFadeIn: 0
+--- !u!114 &1125268431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125268426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c7264905f14a64a8cc6aea7b082a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionRun: 0
+  NextSceneName: TestScene
+  BeforSceneName: 
 --- !u!1 &1734802025
 GameObject:
   m_ObjectHideFlags: 0
