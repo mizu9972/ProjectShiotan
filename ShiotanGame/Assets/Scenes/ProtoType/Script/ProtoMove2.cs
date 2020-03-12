@@ -94,9 +94,9 @@ public class ProtoMove2 : MonoBehaviour
                 Nowkasoku = 0;
             }
         }
-                
+        
         //減速処理（移動）
-        if (speed > 0.5f)
+            if (speed > 0.5f)
         {
             speed *= gensokuritu;
         }
