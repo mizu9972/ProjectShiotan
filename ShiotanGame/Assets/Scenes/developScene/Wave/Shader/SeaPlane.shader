@@ -61,7 +61,7 @@
 			{
 				fixed4 col = tex2D(_MainTex,i.uv);//色
 			//col = float4(0.0f, 1.0f, 1.0f, 1);
-			//col = fixed4(col.x, col.x, col.x, 1.0);
+			col = fixed4(0, col.x, col.x, 1.0);
 
 			return col;
 			}
