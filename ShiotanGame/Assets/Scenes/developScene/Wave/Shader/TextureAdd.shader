@@ -6,6 +6,9 @@ Shader "Unlit/TextureAdd"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+		_AddTex("BlushTexture",2D) = "white"{}
+		_UVPosition("UV Position", VECTOR) = (0.5, 0.5, 0, 0)
+		_Size("PaintSize",Range(0.001,0.5)) = 0.1
     }
     SubShader
     {
