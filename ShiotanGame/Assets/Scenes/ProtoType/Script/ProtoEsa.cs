@@ -33,6 +33,7 @@ public class ProtoEsa : MonoBehaviour
             {
                 var bulletInstance = Instantiate<GameObject>(EsaPrefab, this.transform.position, this.transform.rotation);
                 bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * 12, ForceMode.VelocityChange);
+                bulletInstance.tag = "Esa";     // ピラニアが追いかける対象の判別にタグが必要だったため追加　青木
                 Destroy(bulletInstance, 5.0f);
                 wait += Time.deltaTime;
             }
