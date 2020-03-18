@@ -9,6 +9,8 @@ public class ProtoEsa : MonoBehaviour
 
     public float wait;
 
+    public float throwrange;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +34,7 @@ public class ProtoEsa : MonoBehaviour
             if (wait == 0.0f)
             {
                 var bulletInstance = Instantiate<GameObject>(EsaPrefab, this.transform.position, this.transform.rotation);
-                bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * 12, ForceMode.VelocityChange);
+                bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * throwrange, ForceMode.VelocityChange);
                 Destroy(bulletInstance, 5.0f);
                 wait += Time.deltaTime;
             }
