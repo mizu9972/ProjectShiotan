@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 297457332959070036}
   - component: {fileID: 297457332959070035}
   - component: {fileID: 297457332959070034}
-  - component: {fileID: 297457332959070039}
   - component: {fileID: 297457332959070038}
   m_Layer: 0
   m_Name: Esa
@@ -93,19 +92,6 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &297457332959070039
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297457332959070033}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 9
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &297457332959070038
 Rigidbody:
