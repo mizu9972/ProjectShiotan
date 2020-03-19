@@ -703,8 +703,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 0.93, y: 24.18, z: -27.98}
-  m_LocalScale: {x: 1, y: 1.4218749, z: 1.421875}
+  m_LocalPosition: {x: 0.63, y: 26.58, z: -21.31}
+  m_LocalScale: {x: 1, y: 1.4218749, z: 1.45}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -1207,6 +1207,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2275299239096031875, guid: d567913d2152efc42a8a072da434734c,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275299239096031875, guid: d567913d2152efc42a8a072da434734c,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2275299239096031932, guid: d567913d2152efc42a8a072da434734c,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1216,6 +1226,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275299239387900472, guid: d567913d2152efc42a8a072da434734c,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2275299239387900472, guid: d567913d2152efc42a8a072da434734c,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2275299239387900473, guid: d567913d2152efc42a8a072da434734c,
         type: 3}
@@ -1255,7 +1275,7 @@ PrefabInstance:
     - target: {fileID: 8138944460817355879, guid: d567913d2152efc42a8a072da434734c,
         type: 3}
       propertyPath: MoveSpeed
-      value: 7
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8138944460817355879, guid: d567913d2152efc42a8a072da434734c,
         type: 3}
@@ -1390,8 +1410,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waruspeed: 7
-  Maxspeed: 20
-  kasoku: 5
+  Maxspeed: 16
+  kasoku: 15
   MaxKasoku: 25
   gensokuritu: 0.97
   brake: 0.95
