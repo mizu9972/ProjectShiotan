@@ -54,7 +54,10 @@ public class FlockBase : MonoBehaviour {
                     AttackTarget();
                 }
             }
-            TargetPosList.Add(TargetObject.transform.position);
+            if(TargetObject)
+            {
+                TargetPosList.Add(TargetObject.transform.position);
+            }
         }
         // ターゲットを追っていないときの処理
         else {
