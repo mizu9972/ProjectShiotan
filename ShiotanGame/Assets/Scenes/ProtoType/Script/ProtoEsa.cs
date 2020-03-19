@@ -36,7 +36,7 @@ public class ProtoEsa : MonoBehaviour
         }
 
         //えさ投げる
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown("joystick button 0"))
         {
             if (wait == 0.0f)
             {

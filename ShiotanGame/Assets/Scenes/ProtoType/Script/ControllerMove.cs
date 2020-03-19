@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProtoMove2 : MonoBehaviour
+public class ControllerMove : MonoBehaviour
 {
+    [Header("スピード調整用")]
     [SerializeField]
     float waruspeed;    //スピード調整用
 
@@ -14,6 +15,7 @@ public class ProtoMove2 : MonoBehaviour
     [SerializeField] float kasoku;          //加速値
     [SerializeField] float MaxKasoku;       //最大加速スピード
 
+    [Header("スピードの減速率")]
     [SerializeField] float gensokuritu;     //減速の割合（%）
     public float brake;          //プレイヤーのブレーキ時の減速度
 
@@ -22,7 +24,6 @@ public class ProtoMove2 : MonoBehaviour
     // Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
     public Rigidbody rb;
 
-    // Start is called before the first frame update
     void Start()
     {
         //Player_pos = GetComponent<Transform>().position; //最初の時点でのプレイヤーのポジションを取得
@@ -31,7 +32,6 @@ public class ProtoMove2 : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //回転の度合い
@@ -40,56 +40,26 @@ public class ProtoMove2 : MonoBehaviour
         //現在の速度取得
         Vector3 Max = rb.velocity;
 
+        //コントローラー入力　取得
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        if (Mathf.Sign(h) >= 1 || Mathf.Sign(v) >= 1)
-        {
-            Debug.Log(h + "||" + v);
-        }
-
+        //コントローラー入力しているとき
         if (h != 0 || v != 0)
         {
+            //コントローラー入力時　移動
             speed = Maxspeed;
+
+            //プレイヤーの位置に入力の値足す
             Vector3 targetPositon = new Vector3(transform.position.x + h, transform.position.y, transform.position.z + v);
 
+            //進行方向に回転していく
             Quaternion targetRotation = Quaternion.LookRotation(targetPositon - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step);
         }
 
-        //左へ進む
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            speed = Maxspeed;
-            //指定した方向にゆっくり回転する場合
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, -90f, 0), step);
-        }
-
-        //右へ進む
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            speed = Maxspeed;
-            //指定した方向にゆっくり回転する場合
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 90f, 0), step);
-        }
-
-        //上へ進む
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            speed = Maxspeed;
-            //指定した方向にゆっくり回転する場合
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), step);
-        }
-
-        //下へ進む
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            speed = Maxspeed;
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 180.0f, 0), step);
-        }
-
         //加速
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown("joystick button 1"))
         {
             Nowkasoku += kasoku;
 
@@ -111,7 +81,7 @@ public class ProtoMove2 : MonoBehaviour
                 Nowkasoku = 0;
             }
         }
-
+        
         //減速処理（移動）
         if (speed > 0.5f)
         {

@@ -210,7 +210,7 @@ Transform:
   m_LocalScale: {x: 1, y: 9, z: 44}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &233406792
 GameObject:
@@ -485,7 +485,7 @@ Transform:
   m_LocalScale: {x: 1, y: 9, z: 44}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &790643585
 GameObject:
@@ -533,7 +533,7 @@ MonoBehaviour:
   EsaPrefab: {fileID: 297457332959070033, guid: b5bd1073dec40174a9085a7e2fe0569c,
     type: 3}
   Destroytime: 5
-  throwrange: 10
+  throwrange: 5
 --- !u!1 &873393611
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,7 +799,7 @@ Transform:
   m_LocalScale: {x: 1, y: 9, z: 44}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1127240010
 GameObject:
@@ -910,7 +910,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1171992887
 GameObject:
@@ -1133,7 +1133,7 @@ Transform:
   m_LocalScale: {x: 1, y: 9, z: 44}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1001 &1408641972
 PrefabInstance:
@@ -1190,7 +1190,7 @@ PrefabInstance:
     - target: {fileID: 2275299238097315581, guid: d567913d2152efc42a8a072da434734c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2275299238097315581, guid: d567913d2152efc42a8a072da434734c,
         type: 3}
@@ -1257,6 +1257,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flock
       objectReference: {fileID: 0}
+    - target: {fileID: 7416150112516020718, guid: d567913d2152efc42a8a072da434734c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8138944460817355879, guid: d567913d2152efc42a8a072da434734c,
         type: 3}
       propertyPath: InstantPositionCorrct.x
@@ -1297,7 +1302,7 @@ GameObject:
   - component: {fileID: 1458527732}
   - component: {fileID: 1458527731}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Plane1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1406,7 +1411,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1916783085}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edb21777f4db4b64d9ae3b0d49696cfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 299a4a634f5f4a442af80bcab7c49f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   waruspeed: 7
