@@ -36,15 +36,13 @@ public class ProtoEsa : MonoBehaviour
         }
 
         //えさ投げる
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown("joystick button 0")|| Input.GetKey(KeyCode.Space))
         {
             if (wait == 0.0f)
             {
                 var bulletInstance = Instantiate<GameObject>(EsaPrefab, this.transform.position, this.transform.rotation);
                 bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * throwrange, ForceMode.VelocityChange);
-                bulletInstance.tag = "Esa";     // ピラニアが追いかける対象の判別にタグが必要だったため追加　青木
-                bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * throwrange, ForceMode.VelocityChange);
-                Destroy(bulletInstance, 5.0f);
+                Destroy(bulletInstance, Destroytime);
                 wait += Time.deltaTime;
             }
         }
