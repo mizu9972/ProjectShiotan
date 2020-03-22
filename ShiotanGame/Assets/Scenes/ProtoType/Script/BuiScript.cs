@@ -11,7 +11,7 @@ public class BuiScript : MonoBehaviour
     private int MoveOn;
 
     // Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
-    public Rigidbody rb;
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
@@ -80,6 +80,21 @@ public class BuiScript : MonoBehaviour
 
                 //Rigidbodyを停止
                 rb.velocity = Vector3.zero;
+            }
+        }
+
+        //マウス右クリック
+        if (Input.GetMouseButtonUp(1))
+        {
+            if (rb.useGravity == false)
+            {
+                rb.useGravity = true;
+            }
+            else
+            {
+                rb.useGravity = false;
+                pos.y += 5;
+                this.transform.position = pos;
             }
         }
     }
