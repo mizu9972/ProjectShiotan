@@ -31,31 +31,6 @@ public class BuiScript : MonoBehaviour
         Vector3 pos = myTransform.position;
 
 
-        // 左ボタンクリック
-        if (Input.GetMouseButtonUp(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            int layerMask = (1 << LayerMask.NameToLayer("Hit"));
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
-            {
-                //レイが当たった位置を得るよ
-                Vector3 clickpos = hit.point;
-                Bui.transform.position = clickpos;
-            }
-        }
-
-        //移動フラグ　初期化
-        MoveOn = 0;
-
-        //回転の度合い
-        float step = 3.0f * Time.deltaTime;
-
-        //コントローラー入力　取得
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-
         //左へ進む
         if (Input.GetKey(KeyCode.LeftArrow))
         {
@@ -88,6 +63,26 @@ public class BuiScript : MonoBehaviour
             pos.z -= speed;
         }
 
-        //myTransform.position = pos;  // 座標を設定
+
+        // マウス左クリック
+        if (Input.GetMouseButtonUp(0))
+        {
+            //カメラから例をとばす
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            //レイヤー"Hit"のオブジェクトに当たったか
+            int layerMask = (1 << LayerMask.NameToLayer("Hit"));
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            {
+                //レイが当たった位置を得る
+                Vector3 clickpos = hit.point;
+                Bui.transform.position = clickpos;
+
+                //Rigidbodyを停止
+                rb.velocity = Vector3.zero;
+            }
+        }
     }
 }
