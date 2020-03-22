@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BuiScript : MonoBehaviour
 {
-    public GameObject Bui;
-
     public float speed;
     public float rbspeed;
 
@@ -18,7 +16,7 @@ public class BuiScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        rb = this.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -78,7 +76,7 @@ public class BuiScript : MonoBehaviour
             {
                 //レイが当たった位置を得る
                 Vector3 clickpos = hit.point;
-                Bui.transform.position = clickpos;
+                this.transform.position = clickpos;
 
                 //Rigidbodyを停止
                 rb.velocity = Vector3.zero;
