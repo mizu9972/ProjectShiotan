@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuiScript : MonoBehaviour
+public class BuiScript : Subject
 {
     public float speed;
     public float rbspeed;
@@ -88,13 +88,19 @@ public class BuiScript : MonoBehaviour
         {
             if (rb.useGravity == false)
             {
+                //ブイ下げ
                 rb.useGravity = true;
+
+                Notify(NotifyAttribute.BUOY_DOWN);
             }
             else
             {
+                //ブイ上げ
                 rb.useGravity = false;
                 pos.y += 5;
                 this.transform.position = pos;
+
+                Notify(NotifyAttribute.BUOY_UP);
             }
         }
     }

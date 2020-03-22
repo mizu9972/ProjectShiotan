@@ -6,30 +6,45 @@ using UnityEngine.AI;
 public class EnemyNav : MonoBehaviour
 {
     [SerializeField, Header("GameManager")]
-    GameObject m_GameManager = null;
+    protected GameObject m_GameManager = null;
 
-    private NavMeshAgent m_NavAgent;
-    private GameObject m_TargetObject = null;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField, Header("追跡")]
+    protected bool isChaseActive = true;
+
+    protected NavMeshAgent m_NavAgent;
+    protected GameObject m_TargetObject = null;
+    protected GameObject m_Player = null;
+
+    private Vector3 InitPosition;
+    protected void Init()
     {
-        m_NavAgent = this.GetComponent<NavMeshAgent>();
-        m_TargetObject = m_GameManager.GetComponent<GameManagerScript>().Player;
+        InitPosition = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
 
+        m_NavAgent = this.GetComponent<NavMeshAgent>();
+        m_Player = m_GameManager.GetComponent<GameManagerScript>().Player;
+
+        m_TargetObject = m_Player;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        Chase();
-    }
+    //void Update()
+    //{
+    //    if (isChaseActive)
+    //    {
+    //        Chase();
+    //    }
+    //}
 
     //プレイヤーを追いかける
-    private void Chase()
+    protected void Chase()
     {
         if (m_TargetObject != null)
         {
             m_NavAgent.destination = m_TargetObject.transform.position;
+        }
+        else
+        {
+            m_NavAgent.destination = InitPosition;
         }
     }
 }

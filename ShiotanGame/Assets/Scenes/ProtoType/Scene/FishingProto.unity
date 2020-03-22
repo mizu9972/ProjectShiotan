@@ -481,10 +481,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 336791985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e370fbd2318f9945971f658abeafd74, type: 3}
+  m_Script: {fileID: 11500000, guid: 12f3a279f95481c49a18993e72bafa93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_GameManager: {fileID: 1095402058}
+  isChaseActive: 1
 --- !u!195 &336791991
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -727,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1277256120}
-  Enemy: {fileID: 1277256120}
+  Enemy: {fileID: 336791985}
 --- !u!4 &1095402060
 Transform:
   m_ObjectHideFlags: 0
