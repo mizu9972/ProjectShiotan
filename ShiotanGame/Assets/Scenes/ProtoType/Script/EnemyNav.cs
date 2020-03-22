@@ -8,12 +8,14 @@ public class EnemyNav : MonoBehaviour
     [SerializeField, Header("GameManager")]
     GameObject m_GameManager = null;
 
-    NavMeshAgent m_NavAgent;
-    
+    private NavMeshAgent m_NavAgent;
+    private GameObject m_TargetObject = null;
     // Start is called before the first frame update
     void Start()
     {
         m_NavAgent = this.GetComponent<NavMeshAgent>();
+        m_TargetObject = m_GameManager.GetComponent<GameManagerScript>().Player;
+
     }
 
     // Update is called once per frame
@@ -25,10 +27,9 @@ public class EnemyNav : MonoBehaviour
     //プレイヤーを追いかける
     private void Chase()
     {
-        var Player_ = m_GameManager.GetComponent<GameManagerScript>().Player;
-        if (Player_ != null)
+        if (m_TargetObject != null)
         {
-            m_NavAgent.destination = Player_.transform.position;
+            m_NavAgent.destination = m_TargetObject.transform.position;
         }
     }
 }
