@@ -48,8 +48,44 @@ public class AutoMove : MonoBehaviour
             {
                 m_Iter = 0;
             }
-
+            m_NowTargetPoint = CheckPointList[m_Iter].position;
             m_NavMeshAgent.destination = CheckPointList[m_Iter].position;
+
+            this.NavStop(2.0f);
         }
+    }
+
+    public void setTargetPosition(Transform targetTrans)
+    {
+        //現在追いかけている対象を保存
+        m_NowTargetPoint = m_NavMeshAgent.destination;
+
+        //追いかける対象を変更
+        m_NavMeshAgent.destination = targetTrans.position;
+    }
+
+    public void ResetTargetPosition()
+    {
+        //保存した対象へ追いかける
+        m_NavMeshAgent.destination = m_NowTargetPoint;
+    }
+
+    //その場で停止
+    public void NavStop()
+    {
+        m_NavMeshAgent.isStopped = true;
+    }
+
+    //一定時間停止
+    public void NavStop(float StoppingSecond)
+    {
+        m_NavMeshAgent.isStopped = true;
+        Observable.Timer(System.TimeSpan.FromSeconds(StoppingSecond)).Take(1).Subscribe(_ => m_NavMeshAgent.isStopped = false).AddTo(this);//一定時間後に再開
+    }
+
+    //再開
+    public void NavStart()
+    {
+        m_NavMeshAgent.isStopped = false;
     }
 }
