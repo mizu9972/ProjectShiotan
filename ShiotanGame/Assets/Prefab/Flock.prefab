@@ -239,7 +239,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7416150112516020718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -9.21}
+  m_LocalPosition: {x: 0, y: 0, z: -2.53}
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children:
   - {fileID: 2275299239096031932}
@@ -301,7 +301,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7416150112516020718}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0000002, z: 1.0000002}
@@ -335,12 +335,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Piranha: {fileID: 4033062712018228441, guid: a4ea4c81cc5c0ee4e800630512e7181c, type: 3}
-  PiranihaCount: 0
+  PiranihaCount: 3
   ChildPiranha: []
   InstantPositionCorrct: {x: 1, y: 0, z: 1}
-  MoveSpeed: 7
+  MoveSpeed: 14
   AttackPower: 0
-  PiranhaChaceDirayFrame: 15
+  PiranhaChaceDirayFrame: 9
   TargetPosList: []
   TargetObject: {fileID: 0}
   IsChase: 0
