@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -361,6 +361,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -433,6 +434,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8970de7ff17ef4f96c78cb5674f2c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerCamera: {fileID: 963194227}
+  Target: {fileID: 1916783085}
+  Range: {x: 25, y: 20, z: 50}
+  Distance: {x: 0, y: 0, z: -30}
+  isChase: 1
+  isRestriction: 1
 --- !u!1001 &1408641972
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -509,6 +528,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8138944460817355879, guid: d567913d2152efc42a8a072da434734c,
+        type: 3}
+      propertyPath: MoveSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d567913d2152efc42a8a072da434734c, type: 3}
@@ -636,11 +660,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb21777f4db4b64d9ae3b0d49696cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waruspeed: 7
-  Maxspeed: 16
-  kasoku: 15
-  MaxKasoku: 25
-  gensokuritu: 0.97
+  waruspeed: 5
+  Maxspeed: 13
+  kasoku: 2
+  MaxKasoku: 16
+  gensokuritu: 0.988
   brake: 0.95
   ang: 2
   rb: {fileID: 1916783087}
@@ -710,6 +734,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Stage
+      objectReference: {fileID: 0}
+    - target: {fileID: 6099317268162518429, guid: aef3930c7b3ebf2429774c974a7eb2bb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aef3930c7b3ebf2429774c974a7eb2bb, type: 3}
