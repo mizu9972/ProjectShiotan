@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EsaScript : MonoBehaviour
 {
-    //エサが消えるまでの時間　測る用の変数
-    private float wait;
-
     [Header("エサのオブジェクト")]
     public GameObject EsaPrefab;
 
@@ -16,7 +13,7 @@ public class EsaScript : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
 
@@ -25,7 +22,7 @@ public class EsaScript : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
         string layerName = LayerMask.LayerToName(other.gameObject.layer);
 
@@ -34,7 +31,6 @@ public class EsaScript : MonoBehaviour
             var EsaInstance = Instantiate<GameObject>(EsaPrefab, this.transform.position, this.transform.rotation);
             EsaInstance.tag = "Esa";
             Destroy(EsaInstance, Destroytime);
-            wait += Time.deltaTime;
 
             Destroy(this.gameObject);
         }

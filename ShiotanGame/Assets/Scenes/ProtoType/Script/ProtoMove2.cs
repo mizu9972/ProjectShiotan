@@ -41,7 +41,7 @@ public class ProtoMove2 : MonoBehaviour
         MoveOn = 0;
 
         //回転の度合い
-        float step = 3.0f * Time.deltaTime;
+        float step = ang * Time.deltaTime;
 
         //現在の速度取得
         Vector3 Max = rb.velocity;

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ProtoEsa : MonoBehaviour
 {
+    [Header("エサ投げるクールタイム")]
+    public float wait;
+
     //エサが消えるまでの時間　測る用の変数
-    private float wait;
+    private float time;
 
     [Header("エサのオブジェクト")]
     public GameObject EsaPrefab;
-
-    [Header("エサ消えるまでの時間")]
-    public float Destroytime;
 
     [Header("エサ投げる力")]
     public float throwrange;
@@ -19,31 +19,33 @@ public class ProtoEsa : MonoBehaviour
 
     void Start()
     {
-        
+        //最初から投げれる状態
+        time = wait;
     }
 
 
     void Update()
     {
-        //エサ消えるまでの時間
-        if(wait>0)
+        //エサ投げるまでのクールタイム
+        if(time<=wait)
         {
-            wait += Time.deltaTime;
-            if(wait> Destroytime)
-            {
-                wait = 0;
-            }
+            time += Time.deltaTime;
         }
 
         //えさ投げる
         if (Input.GetKeyDown("joystick button 0")|| Input.GetKey(KeyCode.Space))
         {
-            if (wait == 0.0f)
+            //クールタイム超えたら投げれる
+            if (time >=wait)
             {
                 var bulletInstance = Instantiate<GameObject>(EsaPrefab, this.transform.position, this.transform.rotation);
                 bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * throwrange, ForceMode.VelocityChange);
-                Destroy(bulletInstance, Destroytime);
-                wait += Time.deltaTime;
+
+                //エサ消える時間
+                Destroy(bulletInstance, 5);
+
+                //エサ再び投げるまでのクールタイム
+                time = 0;
             }
         }
     }
