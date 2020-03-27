@@ -43,14 +43,12 @@ public class ProtoMove : MonoBehaviour
         //左回転
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            // ワールド座標基準で、現在の回転量へ加算する
             this.transform.Rotate(0.0f, -ang, 0.0f);
         }
 
         //右回転
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            // ワールド座標基準で、現在の回転量へ加算する
             this.transform.Rotate(0.0f, ang, 0.0f);
         }
 
