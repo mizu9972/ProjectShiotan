@@ -64,10 +64,9 @@
 			//フラグメントシェーダー
 			fixed4 frag(v2f i) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex,i.uv);//色
-				fixed4 MainCol = tex2D(_MergeTex, i.uv2) * 0.50f;
-			//col = float4(0.0f, 1.0f, 1.0f, 1);
-				col = fixed4(MainCol.x + col.x, MainCol.y + col.x, MainCol.z + col.x, MainCol.w + col.x);
+				fixed4 col = tex2D(_MainTex,i.uv) + 0.5f;//色
+			fixed4 MainCol = tex2D(_MergeTex, i.uv2);
+				col = fixed4(MainCol.x * col.x, MainCol.y * col.x, MainCol.z * col.x, MainCol.w * col.x);
 
 				return col;
 			}
