@@ -65,9 +65,9 @@
 			fixed4 frag(v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex,i.uv) + 0.5f;//色
-			fixed4 MainCol = tex2D(_MergeTex, i.uv2);
+				fixed4 MainCol = tex2D(_MergeTex, i.uv2);
+				col = floor(col * 10) / 10.0;//小数点第二以下を切り捨て
 				col = fixed4(MainCol.x * col.x, MainCol.y * col.x, MainCol.z * col.x, MainCol.w * col.x);
-
 				return col;
 			}
 
