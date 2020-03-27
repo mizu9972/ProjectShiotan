@@ -6,7 +6,7 @@
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
-		//_MainTex("MainTex",2D) = "white" {}
+		_MergeTex("MergeTex",2D) = "white" {}
 	}
 		SubShader
 	{
@@ -23,20 +23,24 @@
 			#pragma target 3.0
 			#include "UnityCG.cginc"
 			sampler2D _MainTex;
+			sampler2D _MergeTex;
 
 			struct appdata
 			{
 				float4 vertex : POSITION;
 				float2 uv : TEXCOORD0;
+				float2 uv2 : TEXCOORD1;
 			};
 
 			struct v2f
 			{
 				float2 uv : TEXCOORD0;
+				float2 uv2 : TEXCOORD1;
 				float4 vertex : SV_POSITION;
 			};
 
 			float4 _MainTex_ST;
+			float4 _MergeTex_ST;
 			half _Glossiness;
 			half _Metallic;
 			fixed4 _Color;
@@ -53,17 +57,18 @@
 				v2f o;
 				o.vertex = UnityObjectToClipPos(IN.vertex);
 				o.uv = TRANSFORM_TEX(IN.uv, _MainTex);
+				o.uv2 = TRANSFORM_TEX(IN.uv2, _MergeTex);
 				return o;
 			}
 
 			//フラグメントシェーダー
 			fixed4 frag(v2f i) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex,i.uv);//色
-			//col = float4(0.0f, 1.0f, 1.0f, 1);
-			col = fixed4(0, col.x, col.x, 1.0);
-
-			return col;
+				fixed4 col = tex2D(_MainTex,i.uv) + 0.5f;//色
+				fixed4 MainCol = tex2D(_MergeTex, i.uv2);
+				col = floor(col * 10) / 10.0;//小数点第二以下を切り捨て
+				col = fixed4(MainCol.x * col.x, MainCol.y * col.x, MainCol.z * col.x, MainCol.w * col.x);
+				return col;
 			}
 
 			ENDCG

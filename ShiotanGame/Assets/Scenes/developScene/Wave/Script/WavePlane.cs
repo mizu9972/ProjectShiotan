@@ -150,7 +150,7 @@ public class WavePlane : MonoBehaviour
         RaycastHit hitInfo = new RaycastHit();
         if(Physics.Raycast(ray, out hitInfo, 2))
         {
-            //水面上ならシェーダーんいUV座標を計算して渡す
+            //水面上ならシェーダーにUV座標を計算して渡す
             Vector2 UVPos = UVDetector(hitInfo);
             matPaint.SetTexture("_MainTex", rTex);
             matPaint.SetVector("_UVPosition", new Vector4(UVPos.x, UVPos.y, 0, 0));

@@ -5,6 +5,7 @@
 		_MainTex("Texture", 2D) = "white" {}
 		_PhaseVelocity("PhaseVelocity",Range(0,0.5)) = 0.1
 		_Attenuation("Attenuation",Range(0.9,1.0)) = 1.0
+		_MaskTex("WaveAreaTexture",2D) = "white"{}
 		_DeltaUV("Delta UV",Float) = 1
 	}
     SubShader
@@ -41,6 +42,8 @@
 			float _PhaseVelocity;
 			float _Attenuation;
 			float _DeltaUV;
+			sampler2D _MaskTex;
+			float4 _MaskTex_ST;
 
             v2f vert (appdata v)
             {
@@ -65,7 +68,9 @@
 				- 4 * col.r;
 			dh = (2 * (col.r * 2 - col.g + dh * _PhaseVelocity) - 1) * _Attenuation;
 			
-			dh = (dh + 1) * 0.5;//-1~1の間に補正
+			//dh = (dh + 1) * 0.5;
+
+			dh = (dh * tex2D(_MaskTex, i.uv).r + 1) * 0.5;
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
 				return float4(dh, col.r, 0, 0);
