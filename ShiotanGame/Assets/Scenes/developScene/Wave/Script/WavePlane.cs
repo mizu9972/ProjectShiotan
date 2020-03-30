@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 public class WavePlane : MonoBehaviour
 {
     public Material waveMat, matPaint;
-    public Material mat_gray_tex;    //2019/11/09追加
+    public Material InitRanderMat;
     public Texture texBlush;
     public int TextureSize = 256;
     private Material mat;
@@ -18,12 +18,11 @@ public class WavePlane : MonoBehaviour
     {
         mat = gameObject.GetComponent<Renderer>().material;
         rTex = new RenderTexture(TextureSize, TextureSize, 0, RenderTextureFormat.RGFloat, RenderTextureReadWrite.Default);
-
-        //2019/11/07修正後
+        
         Texture2D texBuf = new Texture2D(1, 1);
         texBuf.SetPixel(0, 0, new Color(0.0f, 1.0f, 1.0f, 1));
         texBuf.Apply();
-        Graphics.Blit(texBuf, rTex, mat_gray_tex);
+        Graphics.Blit(texBuf, rTex, InitRanderMat);
 
         waveMat.SetTexture("_MainTex", rTex);
         waveMat.SetTexture("_MaskTex", null);
@@ -140,20 +139,29 @@ public class WavePlane : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        AwakeWave(other.transform, 0.1f, texBlush);
+    }
+
+    public void AwakeWave(Transform ObjectTrans,float PaintSize,Texture Tex)
+    {
         RenderTexture buf = RenderTexture.GetTemporary(rTex.width, rTex.height, 0, RenderTextureFormat.RGFloat);
 
         //レイを作成
-        Ray ray = new Ray(new Vector3(other.transform.position.x, other.transform.position.y + Vector3.up.y * 1, other.transform.position.z), Vector3.down);
+        Ray ray = new Ray(new Vector3(ObjectTrans.position.x, ObjectTrans.position.y + Vector3.up.y * 1, ObjectTrans.position.z), Vector3.down);
 
         Debug.DrawRay(ray.origin, ray.direction * 10, Color.red, 5);//デバッグ用　レイを可視化
 
         RaycastHit hitInfo = new RaycastHit();
-        if(Physics.Raycast(ray, out hitInfo, 2))
+        if (Physics.Raycast(ray, out hitInfo, 2))
         {
             //水面上ならシェーダーにUV座標を計算して渡す
             Vector2 UVPos = UVDetector(hitInfo);
             matPaint.SetTexture("_MainTex", rTex);
             matPaint.SetVector("_UVPosition", new Vector4(UVPos.x, UVPos.y, 0, 0));
+            matPaint.SetFloat("_Size", PaintSize);
+
+            matPaint.SetTexture("_AddTex", Tex);
+
             Graphics.Blit(rTex, buf, matPaint);
             Graphics.Blit(buf, rTex);
         }
