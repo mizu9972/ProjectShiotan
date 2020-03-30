@@ -40,7 +40,6 @@ public class AudioList : MonoBehaviour
             {
                 AudioDict[KeyList[cnt]] = Audiolist[cnt];
             }
-            
         }
 
     }
