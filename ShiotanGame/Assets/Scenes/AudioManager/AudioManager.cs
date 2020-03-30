@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [Header("BGM用のメインオーディオソース")]
+    public AudioSource BGM_audioSource;
+
+    [Header("サブBGM用のオーディオソース")]
+    public AudioSource BGM_subaudioSource;
+
+    [Header("SE用のオーディオソース")]
+    public AudioSource SE_audioSource;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
