@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource SE_audioSource;
 
     private Dictionary<string, AudioClip> ClipList = new Dictionary<string, AudioClip>();
-    private int Channel = 4;
+    //private int Channel = 4;
     void Start()
     {
         //オーディオリストを取得
