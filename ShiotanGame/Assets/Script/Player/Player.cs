@@ -19,9 +19,13 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //波処理
         SeaPlane = GameObject.FindGameObjectWithTag("SeaPlane");
-        m_WavePlaneScript = SeaPlane.GetComponent<WavePlane>();
-        Wave();
+        if (SeaPlane != null)
+        {
+            m_WavePlaneScript = SeaPlane.GetComponent<WavePlane>();
+            Wave();
+        }
     }
 
     // Update is called once per frame
@@ -32,7 +36,10 @@ public class Player : MonoBehaviour
 
     private void Wave()
     {
+        //TODO 移動時と停止時で間隔を変化させたい
+
+        //一定間隔毎に波を発生させる
         Observable.Interval(System.TimeSpan.FromSeconds(WaveInterval))
-            .Subscribe(_ => m_WavePlaneScript.AwakeWave(this.transform, 0.1f, WaveTex));
+            .Subscribe(_ => m_WavePlaneScript.AwakeWave(this.transform, 0.1f, WaveTex)).AddTo(this.gameObject);
     }
 }
