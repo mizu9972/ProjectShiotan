@@ -67,8 +67,6 @@
 				+ tex2D(_MainTex, coord - duv.zy).r
 				- 4 * col.r;
 			dh = (2 * (col.r * 2 - col.g + dh * _PhaseVelocity) - 1) * _Attenuation;
-			
-			//dh = (dh + 1) * 0.5;
 
 			dh = (dh * tex2D(_MaskTex, i.uv).r + 1) * 0.5;
                 // apply fog
