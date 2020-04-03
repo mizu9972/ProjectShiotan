@@ -137,10 +137,10 @@ public class WavePlane : MonoBehaviour
         RenderTexture.ReleaseTemporary(buf);
     }
 
-    public void OnTriggerEnter(Collider other)
-    {
-        AwakeWave(other.transform, 0.1f, texBlush);
-    }
+    //public void OnTriggerEnter(Collider other)
+    //{
+    //    AwakeWave(other.transform, 0.1f, texBlush);
+    //}
 
     public void AwakeWave(Transform ObjectTrans,float PaintSize,Texture Tex)
     {
