@@ -12,8 +12,11 @@ public class HPScript : MonoBehaviour
 
     private float time;
 
+    private RespawnScript resscript;
+
     void Start()
     {
+        resscript = GameObject.Find("Respawn").GetComponent<RespawnScript>();
         time = 0;
     }
 
@@ -23,6 +26,11 @@ public class HPScript : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        resscript.Respawn = true;
     }
 
     //当たっているとき常時判定

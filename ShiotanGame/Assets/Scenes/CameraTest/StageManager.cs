@@ -33,6 +33,10 @@ public class StageManager : MonoBehaviour
         
     }
 
+    private void OnValidate()
+    {
+        StageUpdate();
+    }
     [ContextMenu("StageUpdate")]
     void StageUpdate()
     {
