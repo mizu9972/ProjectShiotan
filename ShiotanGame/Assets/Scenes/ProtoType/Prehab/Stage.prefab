@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5201909103131432624}
+  - component: {fileID: 7199420862104896583}
   m_Layer: 0
   m_Name: Stage
   m_TagString: Untagged
@@ -36,6 +37,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7199420862104896583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6099317268162518429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5280c43fac38948a4b7cebdedec2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StageWidth:
+    value: 1
+  StageDepth:
+    value: 1
+  MyTrans: {fileID: 0}
 --- !u!1 &7515226069887205242
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +526,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SeaPlane
       objectReference: {fileID: 0}
+    - target: {fileID: 2485638966373170236, guid: 4c18cb36bd8b5e9498c23f24ccbeff52,
+        type: 3}
+      propertyPath: matPaint
+      value: 
+      objectReference: {fileID: 2100000, guid: 61ae6c72da0946048be3cc8f73b4788e, type: 2}
     - target: {fileID: 2485638966373170237, guid: 4c18cb36bd8b5e9498c23f24ccbeff52,
         type: 3}
       propertyPath: m_LocalPosition.x

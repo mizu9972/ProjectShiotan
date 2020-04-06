@@ -271,6 +271,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5201909103131432624, guid: aef3930c7b3ebf2429774c974a7eb2bb,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201909103131432624, guid: aef3930c7b3ebf2429774c974a7eb2bb,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6099317268162518429, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
       propertyPath: m_Name
@@ -453,7 +463,7 @@ Transform:
   - {fileID: 693289542}
   - {fileID: 872497780}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &693289541
 GameObject:
@@ -590,10 +600,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c5285b8a7fda94b82c684fdaa5a89c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wait: 0
   EsaPrefab: {fileID: 297457332959070033, guid: b5bd1073dec40174a9085a7e2fe0569c,
     type: 3}
-  Destroytime: 5
+  HPDawnEsa: {fileID: 0}
   throwrange: 10
+  count: 0
+  Hpscript: {fileID: 0}
 --- !u!1 &876286493
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,7 +707,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1.4218749, z: 1.45}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!1 &955102512
 GameObject:
@@ -785,7 +798,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1998467968 stripped
 GameObject:
