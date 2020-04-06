@@ -64,10 +64,14 @@
 			//フラグメントシェーダー
 			fixed4 frag(v2f i) : SV_Target
 			{
-				fixed4 col = tex2D(_MainTex,i.uv) - 0.5f;//色
-				fixed4 MainCol = tex2D(_MergeTex, i.uv2);
-				col = floor(col * 10) / 10.0;//小数点第二以下を切り捨て
-				col *= -1.0f;
+				fixed4 col = tex2D(_MainTex,i.uv);//波の色
+				col.x -= 0.5f;
+
+				fixed4 MainCol = tex2D(_MergeTex, i.uv2);//テクスチャ
+				
+				col.x = floor(col.x * 10) / 10.0f;//小数点第二以下を切り捨て
+				col.x *= -1.0f;
+				col.x *= col.z;//波の減衰
 				col = fixed4(MainCol.x + col.x, MainCol.y + col.x, MainCol.z + col.x, MainCol.w + col.x);
 				return col;
 			}

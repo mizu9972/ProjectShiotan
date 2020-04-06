@@ -59,6 +59,8 @@
 			float2 coord = i.uv;
             float4 col = tex2D(_MainTex, coord);
 			float3 duv = float3(_MainTex_TexelSize.x, _MainTex_TexelSize.y, 0) * _DeltaUV;
+
+			float pow;
 			
 			//波動方程式
 			float dh = tex2D(_MainTex, coord + duv.xz).r
@@ -68,10 +70,17 @@
 				- 4 * col.r;
 			dh = (2 * (col.r * 2 - col.g + dh * _PhaseVelocity) - 1) * _Attenuation;
 
-			dh = (dh * tex2D(_MaskTex, i.uv).r + 1) * 0.5;
-                // apply fog
+			dh = (dh * tex2D(_MaskTex, i.uv).r + 1) * 0.5f;
+
+			float sqCoord = sqrt(coord.x * coord.x + coord.y * coord.y);
+			float sqDuv = sqrt(duv.x * duv.x + duv.z * duv.z);
+			float Distance = sqCoord - sqDuv;
+			pow = 1.0f / Distance;
+			if (dh >= 0.5f) {
+				pow = 1.0f;
+			}
                 UNITY_APPLY_FOG(i.fogCoord, col);
-				return float4(dh, col.r, 0, 0);
+				return float4(dh, col.r, pow, col.b);
             }
             ENDCG
         }

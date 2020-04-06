@@ -17,7 +17,7 @@ public class WavePlane : MonoBehaviour
     void Start()
     {
         mat = gameObject.GetComponent<Renderer>().material;
-        rTex = new RenderTexture(TextureSize, TextureSize, 0, RenderTextureFormat.RGFloat, RenderTextureReadWrite.Default);
+        rTex = new RenderTexture(TextureSize, TextureSize, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Default);
         
         Texture2D texBuf = new Texture2D(1, 1);
         texBuf.SetPixel(0, 0, new Color(0.0f, 1.0f, 1.0f, 1));
@@ -126,7 +126,7 @@ public class WavePlane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RenderTexture buf = RenderTexture.GetTemporary(rTex.width, rTex.height, 0, RenderTextureFormat.RGFloat);
+        RenderTexture buf = RenderTexture.GetTemporary(rTex.width, rTex.height, 0, RenderTextureFormat.ARGBFloat);
 
         Graphics.Blit(rTex, buf, waveMat);
         Graphics.Blit(buf, rTex);
@@ -142,9 +142,10 @@ public class WavePlane : MonoBehaviour
     //    AwakeWave(other.transform, 0.1f, texBlush);
     //}
 
+    //波を発生させる
     public void AwakeWave(Transform ObjectTrans,float PaintSize,Texture Tex)
     {
-        RenderTexture buf = RenderTexture.GetTemporary(rTex.width, rTex.height, 0, RenderTextureFormat.RGFloat);
+        RenderTexture buf = RenderTexture.GetTemporary(rTex.width, rTex.height, 0, RenderTextureFormat.ARGBFloat);
 
         //レイを作成
         Ray ray = new Ray(new Vector3(ObjectTrans.position.x, ObjectTrans.position.y + Vector3.up.y * 1, ObjectTrans.position.z), Vector3.down);
