@@ -10,6 +10,7 @@ public class AIFlock : MonoBehaviour
 
     public List<GameObject> TargetList;
     public bool IsHit;
+    public bool IsAttack;
 
     [SerializeField, Header("Rayをスルーするレイヤー")]
     private LayerMask Mask;
@@ -46,23 +47,28 @@ public class AIFlock : MonoBehaviour
 
         // Rayを飛ばす
         IsHit = false;
-        if (TargetList.Count > 0) {
-            for (int i = 0; i < TargetList.Count; i++) {
-                if (IsHit = RayShot(TargetList[0])) {
-                    gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                    break;
-                }
-                else {
-                    TargetList.Add(TargetList[0]);
-                    TargetList.RemoveAt(0);
+        if (IsAttack) {
+            IsHit = true;
+        }
+        else {
+            if (TargetList.Count > 0) {
+                for (int i = 0; i < TargetList.Count; i++) {
+                    if (IsHit = RayShot(TargetList[0])) {
+                        gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                        break;
+                    }
+                    else {
+                        TargetList.Add(TargetList[0]);
+                        TargetList.RemoveAt(0);
+                    }
                 }
             }
-        }
-        // Targetがいないため初期位置に戻る処理
-        else {
-            gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            m_NavMeshAgent.destination = InitPos;
-            TargetPosList.Clear();
+            // Targetがいないため初期位置に戻る処理
+            else {
+                gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                m_NavMeshAgent.destination = InitPos;
+                TargetPosList.Clear();
+            }
         }
 
         // ターゲットを見つけた場合ターゲットのほうに向かう
@@ -213,4 +219,8 @@ public class AIFlock : MonoBehaviour
         }
         return newT;
     }
+
+    #region 当たり判定系
+
+    #endregion
 }

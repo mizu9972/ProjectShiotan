@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 #region ピラニアの性格enum
 enum PiranhaType {
@@ -43,6 +40,13 @@ public class PiranhaBase : MonoBehaviour
     PiranhaAction Action;
     private Rigidbody rb;
 
+    [SerializeField, Header("ピラニア1匹の攻撃力")]
+    public float AttackPower;
+
+    [SerializeField, Header("攻撃タイミングの最大誤差(s)")]
+    private float InstantAttackTimingCorrct = 0.0f;
+    private float LastAttackTime = 0.0f;
+
     // Normal1
     [SerializeField] private float AroundFlockMinAngle;
     [SerializeField] private float AroundFlockMaxAngle;
@@ -53,36 +57,6 @@ public class PiranhaBase : MonoBehaviour
     [SerializeField] private int TurnTiming;
     private float StartTime = 0.0f;
     private int TurnCount = 0;
-
-    #region Inspector拡張コード
-#if UNITY_EDITOR
-    [CustomEditor(typeof(PiranhaBase))]
-    [CanEditMultipleObjects]
-    public class PiranhaBaseEditor : Editor 
-    {
-        bool[] folding = new bool[15];
-        public override void OnInspectorGUI() 
-        {
-            PiranhaBase piranha = target as PiranhaBase;
-
-            /*--- カスタマイズ ---*/
-
-            if (folding[0] = EditorGUILayout.Foldout(folding[0], "通常行動時")) {
-                if (folding[1] = EditorGUILayout.Foldout(folding[1], "通常行動1")) {
-                    piranha.AroundFlockMinAngle = EditorGUILayout.FloatField("最小回転度数", piranha.AroundFlockMinAngle);
-                    piranha.AroundFlockMaxAngle = EditorGUILayout.FloatField("最大回転度数", piranha.AroundFlockMaxAngle);
-                }
-
-                if (folding[2] = EditorGUILayout.Foldout(folding[2], "通常行動2")) {
-                    piranha.MoveSpeed = EditorGUILayout.FloatField("移動速度", piranha.MoveSpeed);
-                    piranha.TurningTime = EditorGUILayout.FloatField("振り向くまでの時間", piranha.TurningTime);
-                    piranha.TurnTiming = EditorGUILayout.IntField("逆向きに向かうまでの振り向き回数", piranha.TurnTiming);
-                }
-            }
-        }
-    }
-#endif
-    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -288,4 +262,27 @@ public class PiranhaBase : MonoBehaviour
     }
 
 #endregion
+
+    public void AttackTimingDecision() 
+    {
+        InstantAttackTimingCorrct = Random.Range(0.0f, InstantAttackTimingCorrct);
+    }
+
+    public void FirstAttackTiming() {
+        if (LastAttackTime + transform.parent.GetComponent<FlockBase>().AttackCoolTime <= Time.time) {
+            LastAttackTime = Time.time - transform.parent.GetComponent<FlockBase>().AttackCoolTime + InstantAttackTimingCorrct;
+        }
+    }
+
+    public void Attack() 
+    {
+        // 攻撃できるかをチェック
+        if(LastAttackTime + transform.parent.GetComponent<FlockBase>().AttackCoolTime <= Time.time) {
+            // 攻撃
+            transform.parent.GetComponent<AIFlock>().TargetList[0].gameObject.GetComponent<HumanoidBase>().HP -= AttackPower;
+
+            // 攻撃時間を更新
+            LastAttackTime = Time.time;
+        }
+    }
 }

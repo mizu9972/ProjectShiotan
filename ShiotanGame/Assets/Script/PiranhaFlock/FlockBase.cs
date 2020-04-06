@@ -8,24 +8,19 @@ public class FlockBase : MonoBehaviour {
     private GameObject Piranha;      // ピラニアオブジェクトを入れるもの（なくてもできるけど一応配置してる）
 
     [SerializeField, Header("ピラニア生成数")]
-    private int PiranihaCount = 0;   // プランナーがレベルデザインやりやすい用
+    private int PiranhaCount = 0;   // プランナーがレベルデザインやりやすい用
 
     [HideInInspector] public List<GameObject> ChildPiranha;   // スクリプトで管理しないと、子の検索をかけた時に全ての子を返してくれないことがあったのでこういう設計にしています。
 
     [SerializeField, Header("ピラニア生成の生み出す誤差")]
     private Vector3 InstantPositionCorrct;     // ピラニア生成の座標の誤差をどこまで設定しますか?
 
+    [SerializeField, Header("再攻撃までのクールタイム")]
+    public float AttackCoolTime = 0.0f;
+
     private void Awake()
     {
-        // ピラニアカウント数分ピラニアを生成する
-        for (int i = 0; i < PiranihaCount; i++) {
-            Vector3 CreatePos = new Vector3(Random.Range(-InstantPositionCorrct.x, InstantPositionCorrct.x), Random.Range(-InstantPositionCorrct.y, InstantPositionCorrct.y), Random.Range(-InstantPositionCorrct.z, InstantPositionCorrct.z));
-            GameObject newObj = Instantiate(Piranha, gameObject.transform.position + CreatePos, Quaternion.identity, gameObject.transform);
-            newObj.transform.localScale = new Vector3(1 / gameObject.transform.localScale.x, 1 / gameObject.transform.localScale.y, 1 / gameObject.transform.localScale.z); // サイズ指定
-
-            // ToDo::ピラニアの動き方等もここで設定したい
-            ChildPiranha.Add(newObj);
-        }
+        CreatePiranha();    // 子を作成し、初期化する
     }
 
     void Start() 
@@ -50,5 +45,30 @@ public class FlockBase : MonoBehaviour {
         else {
             Debug.LogWarning(gameObject.transform.name + "にはピラニアが1匹もいません。");
         }
+    }
+
+    private void CreatePiranha() 
+    {
+        // ピラニアカウント数分ピラニアを生成する
+        for (int i = 0; i < PiranhaCount; i++) {
+            Vector3 CreatePos = new Vector3(Random.Range(-InstantPositionCorrct.x, InstantPositionCorrct.x), Random.Range(-InstantPositionCorrct.y, InstantPositionCorrct.y), Random.Range(-InstantPositionCorrct.z, InstantPositionCorrct.z));
+            GameObject newObj = Instantiate(Piranha, gameObject.transform.position + CreatePos, Quaternion.identity, gameObject.transform);
+            newObj.transform.localScale = new Vector3(1 / gameObject.transform.localScale.x, 1 / gameObject.transform.localScale.y, 1 / gameObject.transform.localScale.z); // サイズ指定
+
+            // ピラニアをリストに追加
+            ChildPiranha.Add(newObj);
+
+            // ピラニアのスクリプト等初期化 ToDo::ピラニアの動き方等もここで設定したい
+            ChildInit(newObj);
+        }
+    }
+
+    private void ChildInit(GameObject obj) 
+    {
+        // 子にそれぞれの攻撃力を持たせる
+        obj.GetComponent<PiranhaBase>().AttackPower = gameObject.GetComponent<HumanoidBase>().AttackPower / PiranhaCount;
+
+        // 攻撃の初期遅延タイミングを設定
+        obj.GetComponent<PiranhaBase>().AttackTimingDecision();
     }
 }
