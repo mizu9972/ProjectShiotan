@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HumanoidBase : MonoBehaviour {
+    [SerializeField] private float m_HP = 0;
+    [SerializeField] private float m_AttackPower = 0;
 
-    [SerializeField] private float m_HP {
+    #region Getter/Setter
+    public float HP {
         get { return m_HP; }
         set { m_HP = value; }
     }
-    [SerializeField] private float m_AttackPower {
+
+    public float AttackPower {
         get { return m_AttackPower; }
         set { m_AttackPower = value; }
     }
-
-
+    #endregion
 
     // Start is called before the first frame update
     void Start() {
