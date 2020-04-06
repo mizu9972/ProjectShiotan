@@ -11,8 +11,8 @@ public class StageManager : MonoBehaviour
     [SerializeField, Header("ステージの奥行き")]
     private FloatReactiveProperty StageDepth = new FloatReactiveProperty(1.0f);
 
-    [SerializeField,Header("Transform")]
-    private Transform MyTrans;
+    [SerializeField, Header("Transform")]
+    private Transform MyTrans = null;
     
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class StageManager : MonoBehaviour
         StageWidth.Subscribe(_ => StageUpdate());
         StageDepth.Subscribe(_ => StageUpdate());
 
-        if (!MyTrans)
+        if (MyTrans==null)
         {
             MyTrans = this.GetComponent<Transform>();
         }
