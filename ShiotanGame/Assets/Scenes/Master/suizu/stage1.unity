@@ -686,6 +686,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2001951985 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5201909103131432624, guid: aef3930c7b3ebf2429774c974a7eb2bb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7515226070803766680}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1365857096828441889
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -698,6 +704,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 1365857095899871316, guid: 03c9f096fc4c19f41835e91589ff3882,
+        type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 2397231272439150047, guid: dc291a23a77a6e84ab129cd7d456a8da,
+        type: 3}
     - target: {fileID: 1365857095899871317, guid: 03c9f096fc4c19f41835e91589ff3882,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -830,12 +842,12 @@ PrefabInstance:
     - target: {fileID: 5201909103131432624, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5201909103131432624, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6099317268162518429, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
@@ -847,6 +859,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7199420862104896583, guid: aef3930c7b3ebf2429774c974a7eb2bb,
+        type: 3}
+      propertyPath: StageWidth.value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199420862104896583, guid: aef3930c7b3ebf2429774c974a7eb2bb,
+        type: 3}
+      propertyPath: StageDepth.value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199420862104896583, guid: aef3930c7b3ebf2429774c974a7eb2bb,
+        type: 3}
+      propertyPath: MyTrans
+      value: 
+      objectReference: {fileID: 2001951985}
     - target: {fileID: 7515226069887205242, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
       propertyPath: m_StaticEditorFlags
