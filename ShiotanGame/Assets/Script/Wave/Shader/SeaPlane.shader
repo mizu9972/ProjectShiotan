@@ -69,9 +69,9 @@
 
 				fixed4 MainCol = tex2D(_MergeTex, i.uv2);//テクスチャ
 				
-				col.x = floor(col.x * 10) / 10.0f;//小数点第二以下を切り捨て
-				col.x *= -1.0f;
-				col.x *= col.z;//波の減衰
+				//col.x = floor(col.x * 10) / 10.0f;//小数点第二以下を切り捨て
+				col.x *= -1.0f;//波を白色で表現
+				//col.x *= col.z;//波の減衰
 				col = fixed4(MainCol.x + col.x, MainCol.y + col.x, MainCol.z + col.x, MainCol.w + col.x);
 				return col;
 			}
