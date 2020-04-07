@@ -10,6 +10,9 @@ public class WavePlane : MonoBehaviour
     public Material InitRanderMat;
     public Texture texBlush;
     public int TextureSize = 256;
+    private float Size = 0.1f;
+    public float PhaseVelocity = 0.2f;
+    public float Attenuation = 0.999f;
     private Material mat;
     private RenderTexture rTex;
 
@@ -29,9 +32,9 @@ public class WavePlane : MonoBehaviour
         matPaint.SetTexture("_AddTex", texBlush);
         mat.SetTexture("_HeightMap", rTex);
 
-        matPaint.SetFloat("_Size", Mathf.Max(0.1f, 0.01f));
-        waveMat.SetFloat("_PhaseVelocity", 0.2f);
-        waveMat.SetFloat("_Attenuation", 0.999f);
+        matPaint.SetFloat("_Size", Mathf.Max(Size, 0.01f));
+        waveMat.SetFloat("_PhaseVelocity", PhaseVelocity);
+        waveMat.SetFloat("_Attenuation", Attenuation);
         mat.SetFloat("_BumpScale", 0.1f);
     }
 
