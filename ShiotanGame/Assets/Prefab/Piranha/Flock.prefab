@@ -159,9 +159,10 @@ MonoBehaviour:
   IsAttack: 0
   Mask:
     serializedVersion: 2
-    m_Bits: 16384
+    m_Bits: 1064960
   RayDistance: 50
   PiranhaChaceDirayFrame: 15
+  ChaceAccuracy: 1
   TargetPosList: []
   MoveSpeed: 1
 --- !u!114 &-2034412314316543122
@@ -205,7 +206,7 @@ GameObject:
   - component: {fileID: 6641676052815623848}
   - component: {fileID: 6641676052815623850}
   - component: {fileID: 6641676052815623851}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: LostField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +312,7 @@ GameObject:
   - component: {fileID: 6641676053141563804}
   - component: {fileID: 6641676053141563806}
   - component: {fileID: 6641676053141563807}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: DiscoveryField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -420,7 +421,7 @@ GameObject:
   - component: {fileID: 1107789569188352441}
   - component: {fileID: 7433289676861455277}
   - component: {fileID: 2758675973806490439}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: AttackField
   m_TagString: Untagged
   m_Icon: {fileID: 0}

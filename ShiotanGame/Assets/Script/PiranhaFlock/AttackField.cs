@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackField : MonoBehaviour {
-    [SerializeField, Header("ピラニアが取得するアイテムTag")]
+    [SerializeField, Header("取得するアイテムTag")]
     private List<string> ItemTag;
 
     // 攻撃開始
