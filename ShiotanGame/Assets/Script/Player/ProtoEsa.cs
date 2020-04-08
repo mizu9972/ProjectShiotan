@@ -22,6 +22,9 @@ public class ProtoEsa : MonoBehaviour
     [Header("エサ投げれる回数")]
     public float count;
 
+    [SerializeField,Header("犠牲にするHP量")]
+    private float SacrificeHP;
+
     public HPScript Hpscript;
 
 
@@ -67,11 +70,23 @@ public class ProtoEsa : MonoBehaviour
                     Destroy(bulletInstance, 5);
 
                     Hpscript.HP--;
+
+                    //TODO ゲージのスクリプトのダメージ関数呼び出し
                 }
 
                 //エサ再び投げるまでのクールタイム
                 time = 0;
             }
         }
+    }
+
+    public float GetCount()//残エサの数を返す
+    {
+        return count;
+    }
+
+    public float GetSacrificeHP()//犠牲にするHP量を返す
+    {
+        return SacrificeHP;
     }
 }

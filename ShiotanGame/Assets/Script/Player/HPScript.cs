@@ -63,4 +63,9 @@ public class HPScript : MonoBehaviour
     {
         time = 0;
     }
+
+    public float GetNowHP()
+    {
+        return HP;
+    }
 }

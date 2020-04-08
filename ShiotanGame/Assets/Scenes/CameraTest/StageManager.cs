@@ -37,9 +37,13 @@ public class StageManager : MonoBehaviour
     {
         StageUpdate();
     }
+
     [ContextMenu("StageUpdate")]
     void StageUpdate()
     {
-        MyTrans.localScale = new Vector3(StageWidth.Value, 1.0f, StageDepth.Value);
+        if(MyTrans!=null)
+        {
+            MyTrans.localScale = new Vector3(StageWidth.Value, 1.0f, StageDepth.Value);
+        }
     }
 }
