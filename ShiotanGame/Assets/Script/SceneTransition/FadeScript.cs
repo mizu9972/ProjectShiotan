@@ -15,6 +15,10 @@ public class FadeScript : MonoBehaviour
     Image fadeImage;                //透明度を変更するパネルのイメージ
 
     private bool FadeSts = false;//trueでフェード終了 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
     void Start()
     {
         fadeImage = GetComponent<Image>();

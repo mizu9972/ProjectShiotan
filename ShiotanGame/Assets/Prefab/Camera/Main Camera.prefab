@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1365857095899871314}
   - component: {fileID: 1365857095899871315}
   - component: {fileID: 1365857095899871316}
+  - component: {fileID: -5289107609537419249}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -102,3 +103,18 @@ MonoBehaviour:
   Distance: {x: 0, y: 0, z: -30}
   isChase: 1
   isRestriction: 1
+--- !u!114 &-5289107609537419249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365857095899871312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c7264905f14a64a8cc6aea7b082a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionRun: 0
+  NextSceneName: 
+  BeforSceneName: 
