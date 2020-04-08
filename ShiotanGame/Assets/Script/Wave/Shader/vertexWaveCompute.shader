@@ -76,9 +76,7 @@
 			float sqDeltauv = sqrt(duv.x * duv.x + duv.z * duv.z);
 			float Distance = sqCoord - sqDeltauv;
 			pow = 1.0f / Distance;
-			if (dh >= 0.5f) {
-				pow = 1.0f;
-			}
+
                 UNITY_APPLY_FOG(i.fogCoord, col);
 				return float4(dh, col.r, pow, col.b);
             }
