@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DepthScanMat: {fileID: 2100000, guid: 1da242feaa98ff946b83046db2bd1611, type: 2}
   WaveComputeMat: {fileID: 2100000, guid: 098b17b7d4208e547b248f67f44f7e38, type: 2}
+  DepthViewMat_DEBUG: {fileID: 0}
 --- !u!20 &5384773329974846583
 Camera:
   m_ObjectHideFlags: 0
@@ -77,7 +78,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32768
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 1

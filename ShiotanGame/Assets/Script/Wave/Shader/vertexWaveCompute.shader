@@ -70,7 +70,7 @@
 				- 4 * col.r;
 			dh = (2 * (col.r * 2 - col.g + dh * _PhaseVelocity) - 1) * _Attenuation;
 
-			dh = (dh * tex2D(_MaskTex, i.uv).r + 1) * 0.5f;
+			dh = (dh * sign(abs(tex2D(_MaskTex, i.uv).r)) + 1) * 0.5f;
 
 			float sqCoord = sqrt(coord.x * coord.x + coord.y * coord.y);
 			float sqDeltauv = sqrt(duv.x * duv.x + duv.z * duv.z);
