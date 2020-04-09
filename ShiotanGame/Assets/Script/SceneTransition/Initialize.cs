@@ -1,0 +1,17 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Initialize : MonoBehaviour
+{
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void OnBoot()
+    {
+        // 必ず配置するオブジェクト用のシーンを読み込む
+        string managerSceneName = "SceneManager";
+        if (!SceneManager.GetSceneByName(managerSceneName).IsValid())
+            SceneManager.LoadScene(managerSceneName, LoadSceneMode.Additive);
+    }
+    
+}

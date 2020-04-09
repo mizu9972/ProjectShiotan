@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UniRx;
+using UniRx.Triggers;
 public class CameraTest : MonoBehaviour
 {
     [SerializeField]
     Camera PlayerCamera;
 
     [Header("追従するターゲット")]
-    public GameObject Target;
+    public GameObject Target = null;
 
     [Header("移動範囲(指定した値の正負が移動範囲になります)")]
     public Vector3 Range = new Vector3(10.0f,50.0f,10.0f);
@@ -27,6 +28,9 @@ public class CameraTest : MonoBehaviour
     {
         PlayerCamera = this.GetComponent<Camera>();
         MyTrans = PlayerCamera.transform;
+        this.UpdateAsObservable().
+            Where(_ => Target == null).
+            Subscribe(_ => Target = GameObject.FindGameObjectWithTag("Player"));
     }
 
     void Update()
@@ -43,9 +47,12 @@ public class CameraTest : MonoBehaviour
 
     private void ChaseTarget()//ターゲット追跡
     {
-        MyTrans.position = new Vector3(Target.transform.position.x + Distance.x,
+        if(Target!=null)
+        {
+            MyTrans.position = new Vector3(Target.transform.position.x + Distance.x,
                                        MyTrans.position.y + Distance.y,
                                        Target.transform.position.z + Distance.z);
+        }
     }
 
     private void MoveRestriction()//移動制限
