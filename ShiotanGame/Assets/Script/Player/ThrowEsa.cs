@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProtoEsa : MonoBehaviour
+public class ThrowEsa : MonoBehaviour
 {
     [Header("エサ投げるクールタイム")]
     public float wait;
@@ -25,11 +25,13 @@ public class ProtoEsa : MonoBehaviour
     [SerializeField,Header("犠牲にするHP量")]
     private float SacrificeHP;
 
-    public HPScript Hpscript;
+    private HumanoidBase HPcnt;
 
 
     void Start()
     {
+        HPcnt = this.GetComponentInParent<HumanoidBase>();
+
         //最初から投げれる状態
         time = wait;
     }
@@ -69,7 +71,7 @@ public class ProtoEsa : MonoBehaviour
                     //エサ消える時間
                     Destroy(bulletInstance, 5);
 
-                    Hpscript.HP--;
+                    HPcnt.HP--;
 
                     //TODO ゲージのスクリプトのダメージ関数呼び出し
                 }

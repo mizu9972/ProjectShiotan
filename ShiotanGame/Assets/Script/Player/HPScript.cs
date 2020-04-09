@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class HPScript : MonoBehaviour
 {
-    [Header("何秒でダメージはいるか")]
-    public float DamageTime;
-
-    [Header("体力")]
-    public float HP;
+    [SerializeField,Header("何秒でダメージはいるか")]
+    private float DamageTime;
+    
+    private HumanoidBase HPcnt;
 
     private float time;
 
@@ -17,12 +16,13 @@ public class HPScript : MonoBehaviour
     void Start()
     {
         resscript = GameObject.Find("Respawn").GetComponent<RespawnScript>();
+        HPcnt = this.GetComponent<HumanoidBase>();
         time = 0;
     }
 
     void Update()
     {
-        if(HP<=0)
+        if(HPcnt.HP<= 0)
         {
             Destroy(this.gameObject);
         }
@@ -48,12 +48,12 @@ public class HPScript : MonoBehaviour
         }
         if (layerName == "Enemy" && time > DamageTime)
         {
-            HP--;
+            HPcnt.HP--;
             time = 0;
         }
         if (layerName == "Fish" && time > DamageTime)
         {
-            HP--;
+            HPcnt.HP--;
             time = 0;
         }
     }
@@ -66,6 +66,6 @@ public class HPScript : MonoBehaviour
 
     public float GetNowHP()
     {
-        return HP;
+        return HPcnt.HP;
     }
 }
