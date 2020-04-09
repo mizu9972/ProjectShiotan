@@ -6,6 +6,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class AIFlock : MonoBehaviour
 {
+    private int Frame = 0;
+
     private Vector3 InitPos;
 
     public List<GameObject> TargetList;
@@ -18,7 +20,11 @@ public class AIFlock : MonoBehaviour
     [SerializeField, Header("Rayを飛ばす距離")]
     private float RayDistance;
 
-    [SerializeField] private int PiranhaChaceDirayFrame = 5;
+    [SerializeField,Header("ピラニアがターゲットのフレーム前の方向を向くフレーム")]
+    private int PiranhaChaceDirayFrame = 5;
+
+    [SerializeField, Header("ピラニアの追いかける精度 　　　高精度<--->低精度"),Range(1,60,order = 1)]
+    private int ChaceAccuracy = 1;
     [SerializeField] private List<Vector3> TargetPosList;
     [SerializeField] private float MoveSpeed;
 
@@ -40,6 +46,8 @@ public class AIFlock : MonoBehaviour
 
     public void AIUpdate() 
     {
+        Frame++;
+
         // ターゲットが2以上の時にソートを行う
         if (TargetList.Count > 1) {
             TargetSort();
@@ -77,7 +85,9 @@ public class AIFlock : MonoBehaviour
             // ディレイフレームを超え始めるとターゲットを追尾し、最初の座標を削除していく
             if (TargetPosList.Count > PiranhaChaceDirayFrame) {
                 TargetPosList.RemoveAt(0);
-                ChaseTarget();
+                if (Time.frameCount % ChaceAccuracy == 0) {
+                    ChaseTarget();
+                }
             }
             else {
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;

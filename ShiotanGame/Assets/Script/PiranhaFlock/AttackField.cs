@@ -3,8 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackField : MonoBehaviour {
+    [SerializeField, Header("取得するアイテムTag")]
+    private List<string> ItemTag;
+
     // 攻撃開始
     private void OnTriggerEnter(Collider other) {
+        // アイテム探索
+        bool IsItem = false;
+        foreach(string tag in ItemTag) {
+            if(other.tag == tag) {
+                IsItem = true;
+                break;
+            }
+        }
+
+        // アイテム使用処理
+        if (IsItem) {
+            other.gameObject.GetComponent<ItemBase>().UseItem();
+        }
+
         // ターゲットがいるときのみ処理を行う
         if (transform.parent.gameObject.GetComponent<AIFlock>().TargetList.Count > 0) {
             // 追いかけているオブジェクトと同一なら攻撃開始
