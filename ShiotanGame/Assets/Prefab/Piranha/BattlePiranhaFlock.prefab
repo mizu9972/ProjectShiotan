@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1256039856957010882}
   - component: {fileID: 2863596441337874786}
   - component: {fileID: 5369878280947695517}
+  - component: {fileID: 58808721156883158}
   m_Layer: 0
   m_Name: AttackField
   m_TagString: Untagged
@@ -93,6 +94,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &58808721156883158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5488803732882299166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ebbeb034451c84da87a431d7fd0cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackTag: []
 --- !u!1 &7092756686279447111
 GameObject:
   m_ObjectHideFlags: 0
