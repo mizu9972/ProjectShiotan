@@ -70,7 +70,15 @@
 				- 4 * col.r;
 			dh = (2 * (col.r * 2 - col.g + dh * _PhaseVelocity) - 1) * _Attenuation;
 
-			dh = (dh * sign(abs(tex2D(_MaskTex, i.uv).r)) + 1) * 0.5f;
+			//波紋のエリア計算
+			//dh = (dh * sign(abs(tex2D(_MaskTex, i.uv).r)) + 1) * 0.5f;//修正前
+			//修正後
+			float Mask;
+			Mask = abs(tex2D(_MaskTex, i.uv).r + 1);//テクスチャ情報を取り出し(絶対値を利用して正の値で取り出す)
+			Mask = 1 - sign(Mask);//0なら1 0以外は0にする
+
+			//波紋エリア反映
+			dh = (dh * Mask) * 0.5f;
 
 			float sqCoord = sqrt(coord.x * coord.x + coord.y * coord.y);
 			float sqDeltauv = sqrt(duv.x * duv.x + duv.z * duv.z);
