@@ -20,7 +20,10 @@ public class SceneTransition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.UpdateAsObservable().Where(_ => FadeStart).Take(1).Subscribe(_ => GameObject.Find("FadePanel").GetComponent<FadeScript>().SetIsFeadOut());
+        this.UpdateAsObservable().Where(_ => FadeStart).
+            Take(1).
+            Subscribe(_ => GameObject.Find("FadePanel").GetComponent<FadeScript>().SetIsFeadOut());
+
     }
 
     // Update is called once per frame
@@ -47,9 +50,10 @@ public class SceneTransition : MonoBehaviour
     private bool FeadOut()//フェード終了ならtrue,終了していなければfalseを返す
     {
         //フェードアウト実行
-        return GameObject.Find("FadePanel").GetComponent<FadeScript>().GetFeadStatus();
+        return GameObject.Find("FadePanel").GetComponent<FadeScript>().GetFeadOutStatus();
     }
 
+    
     public void SetTransitionRun()
     {
         //遷移実行フラグをtrueに

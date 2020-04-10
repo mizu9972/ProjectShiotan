@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; //パネルのイメージを操作するのに必要
-
+using UnityEngine.SceneManagement;
+using UniRx;
+using UniRx.Triggers;
 public class FadeScript : MonoBehaviour
 {
 
@@ -14,7 +16,8 @@ public class FadeScript : MonoBehaviour
 
     Image fadeImage;                //透明度を変更するパネルのイメージ
 
-    private bool FadeSts = false;//trueでフェード終了 
+    private bool FadeOutSts = false;//trueでフェード終了 
+    private bool FadeInSts = false;//trueでフェード終了 
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -26,18 +29,21 @@ public class FadeScript : MonoBehaviour
         green = fadeImage.color.g;
         blue = fadeImage.color.b;
         alfa = fadeImage.color.a;
+        // イベントにイベントハンドラーを追加
+        SceneManager.sceneLoaded += SceneLoaded;
+        SetIsFeadIn();
     }
 
     void Update()
     {
         if (isFadeIn)
         {
-            FadeSts = StartFadeIn();
+            FadeInSts = StartFadeIn();
         }
 
         if (isFadeOut)
         {
-            FadeSts = StartFadeOut();
+            FadeOutSts = StartFadeOut();
         }
     }
 
@@ -77,17 +83,41 @@ public class FadeScript : MonoBehaviour
     {
         alfa = 0.0f;
         isFadeOut = true;
-        FadeSts = false;
+        FadeOutSts = false;
     }
     public void SetIsFeadIn()//フェードアウトスタートをセット
     {
         alfa = 1.0f;
         isFadeIn = true;
-        FadeSts = false;
+        FadeInSts = false;
     }
 
-    public bool GetFeadStatus()
+    public bool GetFeadOutStatus()
     {
-        return FadeSts;
+        return FadeOutSts;
+    }
+
+    public bool GetFeadInStatus()
+    {
+        return FadeInSts;
+    }
+
+    private void ResetFlag()//全てのフラグをリセット
+    {
+
+        isFadeOut = false;
+        isFadeIn = false;
+        FadeOutSts = false;//trueでフェード終了 
+        FadeInSts = false;//trueでフェード終了 
+    }
+
+    // イベントハンドラー（イベント発生時に動かしたい処理）
+    void SceneLoaded(Scene nextScene, LoadSceneMode mode)//シーンが切り替わった時の処理
+    {
+        SetIsFeadIn();//シーンスタート時にフェードインを実行
+        //フェードイン終了後に全てのフラグをリセット
+        this.UpdateAsObservable().
+            Where(_ => !fadeImage.enabled).Take(1).
+            Subscribe(_ => ResetFlag());
     }
 }
