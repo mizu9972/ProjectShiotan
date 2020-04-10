@@ -8,21 +8,76 @@ public class EsaDestroy : MonoBehaviour
     private float Destroytime=0;
 
     private float time;
+    
+    //消滅カウント　スイッチ
+    private bool timeOnOff = true;
+
+    //エサ浮き沈み　スイッチ
+    private bool updawn=true;
+
+    private HumanoidBase HPcnt;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        HPcnt = this.GetComponent<HumanoidBase>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+        // 座標を取得
+        Vector3 pos = this.transform.position;
 
-        if(Destroytime<=time)
+        //消滅カウント
+        if (timeOnOff==true)
+        {
+            time += Time.deltaTime;
+        }
+
+        if(Destroytime<=time|| HPcnt.HP <= 0)
         {
             Destroy(this.gameObject);
+        }
+
+        //エサ　浮き沈み
+        if(updawn)
+        {
+            pos.y += 1.0f* Time.deltaTime;
+            if (0.3f <= this.transform.position.y)
+            {
+                updawn = false;
+            }
+        }
+        else
+        {
+            pos.y -= 1.0f * Time.deltaTime;
+            if (-0.3f >= this.transform.position.y)
+            {
+                updawn = true;
+            }
+        }
+
+        this.transform.position = pos;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        string layerName = LayerMask.LayerToName(other.gameObject.layer);
+
+        if (layerName == "Field")
+        {
+            timeOnOff = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        string layerName = LayerMask.LayerToName(other.gameObject.layer);
+
+        if (layerName == "Field")
+        {
+            timeOnOff = true;
         }
     }
 }
