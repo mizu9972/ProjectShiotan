@@ -141,6 +141,10 @@ public class AIFlock : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().velocity = transform.forward * MoveSpeed;  // 新追尾
     }
 
+    public void ReturnPosition() {
+
+    }
+
 
     /// <summary>
     /// ターゲットのソート
@@ -229,8 +233,4 @@ public class AIFlock : MonoBehaviour
         }
         return newT;
     }
-
-    #region 当たり判定系
-
-    #endregion
 }

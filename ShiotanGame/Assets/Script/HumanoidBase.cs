@@ -6,6 +6,8 @@ public class HumanoidBase : MonoBehaviour {
     [SerializeField] private float m_HP = 0;
     [SerializeField] private float m_AttackPower = 0;
 
+    [SerializeField] private GameObject m_AttackObject = null;
+
     #region Getter/Setter
     public float HP {
         get { return m_HP; }
@@ -15,6 +17,11 @@ public class HumanoidBase : MonoBehaviour {
     public float AttackPower {
         get { return m_AttackPower; }
         set { m_AttackPower = value; }
+    }
+
+    public GameObject AttackObject {
+        get { return m_AttackObject; }
+        set { m_AttackObject = value; }
     }
     #endregion
 
