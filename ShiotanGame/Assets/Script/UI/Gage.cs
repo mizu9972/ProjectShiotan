@@ -27,7 +27,7 @@ public class Gage : MonoBehaviour
         NowHP = Hp;
     }
 
-    public void Damage(float Hp)//ダメージ受ける
+    public void GageUpdate(float Hp)//ダメージ受ける
     {
         NowHP = Hp;//現在のHPを引数から取得
         //現在のHPと最大HPの割合でゲージのアニメーションを行う

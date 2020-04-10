@@ -13,6 +13,8 @@ public class HPScript : MonoBehaviour
 
     private RespawnScript resscript;
 
+    [SerializeField, Header("HPゲージのスクリプト")]
+    Gage GageScript;
     void Start()
     {
         resscript = GameObject.Find("Respawn").GetComponent<RespawnScript>();
