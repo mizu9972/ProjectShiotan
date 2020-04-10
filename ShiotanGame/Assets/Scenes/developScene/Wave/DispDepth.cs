@@ -15,4 +15,12 @@ public class DispDepth : MonoBehaviour
     {
         Graphics.Blit(source, dest, mat);
     }
+
+    public RenderTexture getDepthRenderTexture()
+    {
+        GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
+        RenderTexture retTex = new RenderTexture(Screen.width, Screen.height, 24, RenderTextureFormat.Depth);
+        Graphics.Blit(null, retTex, mat);
+        return retTex;
+    }
 }
