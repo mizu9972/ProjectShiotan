@@ -24,7 +24,7 @@ public class HPScript : MonoBehaviour
 
     void Update()
     {
-        if(HPcnt.HP<= 0)
+        if(HPcnt.NowHP<= 0)
         {
             Destroy(this.gameObject);
         }
@@ -43,6 +43,6 @@ public class HPScript : MonoBehaviour
 
     public float GetNowHP()
     {
-        return HPcnt.HP;
+        return HPcnt.NowHP;
     }
 }

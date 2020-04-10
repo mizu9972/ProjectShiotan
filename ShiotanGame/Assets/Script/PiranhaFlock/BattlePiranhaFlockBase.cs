@@ -38,12 +38,12 @@ public class BattlePiranhaFlockBase : MonoBehaviour
             TotalFlock.Add(Flock);
 
             // 各パラメータの更新
-            TotalHP += Flock.GetComponent<HumanoidBase>().HP;
-            TotalAttackPower += Flock.GetComponent<HumanoidBase>().AttackPower;
+            TotalHP += Flock.GetComponent<HumanoidBase>().InitHP;
+            TotalAttackPower += Flock.GetComponent<HumanoidBase>().InitAttackPower;
 
             // 現在のパラメータ設定
-            NowHP += Flock.GetComponent<HumanoidBase>().HP;
-            NowAttackPower = TotalAttackPower;
+            NowHP += Flock.GetComponent<HumanoidBase>().NowHP;
+            NowAttackPower += Flock.GetComponent<HumanoidBase>().NowAttackPower;
         }
     }
 

@@ -35,7 +35,7 @@ public class EsaDestroy : MonoBehaviour
             time += Time.deltaTime;
         }
 
-        if(Destroytime<=time|| HPcnt.HP <= 0)
+        if(Destroytime<=time|| HPcnt.NowHP <= 0)
         {
             Destroy(this.gameObject);
         }
