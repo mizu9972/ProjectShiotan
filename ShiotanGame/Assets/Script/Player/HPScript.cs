@@ -35,31 +35,6 @@ public class HPScript : MonoBehaviour
         resscript.Respawn = true;
     }
 
-    //当たっているとき常時判定
-    void OnCollisionStay(Collision other)
-    {
-        //HP減るまでの時間
-        time += 3.0f * Time.deltaTime;
-        
-        //当たっているもののレイヤー取得
-        string layerName = LayerMask.LayerToName(other.gameObject.layer);
-
-        if (layerName == "Esa" && time > DamageTime)
-        {
-
-        }
-        if (layerName == "Enemy" && time > DamageTime)
-        {
-            HPcnt.HP--;
-            time = 0;
-        }
-        if (layerName == "Fish" && time > DamageTime)
-        {
-            HPcnt.HP--;
-            time = 0;
-        }
-    }
-
     //当たるのをやめたとき
     void OnCollisionExit(Collision other)
     {

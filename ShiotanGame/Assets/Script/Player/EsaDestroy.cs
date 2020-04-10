@@ -61,23 +61,15 @@ public class EsaDestroy : MonoBehaviour
         this.transform.position = pos;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void TimeCountOnOff()
     {
-        string layerName = LayerMask.LayerToName(other.gameObject.layer);
-
-        if (layerName == "Field")
-        {
-            timeOnOff = false;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        string layerName = LayerMask.LayerToName(other.gameObject.layer);
-
-        if (layerName == "Field")
+        if (timeOnOff == false)
         {
             timeOnOff = true;
+        }
+        else
+        {
+            timeOnOff = false;
         }
     }
 }
