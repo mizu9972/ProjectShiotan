@@ -66,7 +66,7 @@ public class FlockBase : MonoBehaviour {
     private void ChildInit(GameObject obj) 
     {
         // 子にそれぞれの攻撃力を持たせる
-        obj.GetComponent<PiranhaBase>().AttackPower = gameObject.GetComponent<HumanoidBase>().AttackPower / PiranhaCount;
+        obj.GetComponent<PiranhaBase>().AttackPower = gameObject.GetComponent<HumanoidBase>().NowAttackPower / PiranhaCount;
 
         // 攻撃の初期遅延タイミングを設定
         obj.GetComponent<PiranhaBase>().AttackTimingDecision();

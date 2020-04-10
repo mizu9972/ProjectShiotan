@@ -38,7 +38,7 @@ public class AttackFieldPillarc : MonoBehaviour
         if (transform.parent.gameObject.GetComponent<AIPillarc>().TargetList.Count > 0) {
             if (other.gameObject == transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0]) {
                 // 攻撃
-                transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0].gameObject.GetComponent<HumanoidBase>().NowHP -= transform.parent.gameObject.GetComponent<HumanoidBase>().AttackPower;
+                transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0].gameObject.GetComponent<HumanoidBase>().NowHP -= transform.parent.gameObject.GetComponent<HumanoidBase>().NowAttackPower;
 
                 // 死んだかチェック
                 if (transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0].gameObject.GetComponent<HumanoidBase>().DeadCheck()) {
