@@ -31,7 +31,9 @@ public class WavePlane : MonoBehaviour
         texBuf.SetPixel(0, 0, new Color(0.0f, 1.0f, 1.0f, 1));
         texBuf.Apply();
         Graphics.Blit(texBuf, rTex, InitRanderMat);
+
         setMaskTex();
+        
         //シェーダー初期化-------------------------------------
         waveMat.SetTexture("_MainTex", rTex);
         waveMat.SetTexture("_MaskTex", texMask);

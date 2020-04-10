@@ -5,7 +5,7 @@
 		_MainTex("Texture", 2D) = "white" {}
 		_PhaseVelocity("PhaseVelocity",Range(0,0.5)) = 0.1
 		_Attenuation("Attenuation",Range(0.9,1.0)) = 1.0
-		_MaskTex("WaveAreaTexture",2D) = "white"{}
+		_MaskTex("WaveAreaTexture",2D) = "black"{}
 		_DeltaUV("Delta UV",Float) = 1
 	}
     SubShader
@@ -74,11 +74,11 @@
 			//dh = (dh * sign(abs(tex2D(_MaskTex, i.uv).r)) + 1) * 0.5f;//修正前
 			//修正後
 			float Mask;
-			Mask = abs(tex2D(_MaskTex, i.uv).r + 1);//テクスチャ情報を取り出し(絶対値を利用して正の値で取り出す)
+			Mask = abs(tex2D(_MaskTex, i.uv).r);//テクスチャ情報を取り出し(絶対値を利用して正の値で取り出す)
 			Mask = 1 - sign(Mask);//0なら1 0以外は0にする
 
 			//波紋エリア反映
-			dh = (dh * Mask) * 0.5f;
+			dh = (dh * Mask + 1) * 0.5f;
 
 			float sqCoord = sqrt(coord.x * coord.x + coord.y * coord.y);
 			float sqDeltauv = sqrt(duv.x * duv.x + duv.z * duv.z);
