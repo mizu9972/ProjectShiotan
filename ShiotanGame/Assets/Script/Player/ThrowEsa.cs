@@ -25,6 +25,9 @@ public class ThrowEsa : MonoBehaviour
     [SerializeField,Header("犠牲にするHP量")]
     private float SacrificeHP;
 
+
+    [SerializeField, Header("HPゲージのスクリプト")]
+    Gage GageScript;
     private HumanoidBase HPcnt;
 
 
@@ -34,6 +37,10 @@ public class ThrowEsa : MonoBehaviour
 
         //最初から投げれる状態
         time = wait;
+
+        //スクリプトを取得
+        GageScript = GameObject.Find("Gage").GetComponentInChildren<Gage>();
+        GageScript.InitGage(HPcnt.HP);//ゲージの初期化
     }
 
 
@@ -74,6 +81,8 @@ public class ThrowEsa : MonoBehaviour
                     HPcnt.HP--;
 
                     //TODO ゲージのスクリプトのダメージ関数呼び出し
+                    GageScript.Damage(HPcnt.HP);
+                    
                 }
 
                 //エサ再び投げるまでのクールタイム
