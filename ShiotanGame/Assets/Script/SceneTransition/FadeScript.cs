@@ -18,10 +18,7 @@ public class FadeScript : MonoBehaviour
 
     private bool FadeOutSts = false;//trueでフェード終了 
     private bool FadeInSts = false;//trueでフェード終了 
-    private void Awake()
-    {
-        DontDestroyOnLoad(this);
-    }
+    
     void Start()
     {
         fadeImage = GetComponent<Image>();
