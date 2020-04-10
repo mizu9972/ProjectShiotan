@@ -23,7 +23,7 @@ public class ChangeEsa : MonoBehaviour
     {
         string layerName = LayerMask.LayerToName(other.gameObject.layer);
 
-        if (layerName == "Stage")
+        if (layerName == "Stage_Floor")
         {
             var EsaInstance = Instantiate<GameObject>(EsaPrefab, this.transform.position, this.transform.rotation);
             EsaInstance.tag = "Esa";
