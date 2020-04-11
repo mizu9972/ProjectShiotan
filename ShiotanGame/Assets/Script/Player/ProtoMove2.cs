@@ -14,7 +14,9 @@ public class ProtoMove2 : MonoBehaviour
     [SerializeField] float kasoku;          //加速値
     [SerializeField] float MaxKasoku;       //最大加速スピード
 
-    [SerializeField] float gensokuritu;     //減速の割合（%）
+    [Header("減速の割合（%）"), SerializeField]
+    private float gensokuritu;
+
     public float brake;          //プレイヤーのブレーキ時の減速度
 
     [SerializeField] float ang;     //回転の度合い
@@ -101,21 +103,9 @@ public class ProtoMove2 : MonoBehaviour
         {
             speed = Maxspeed;
 
-            switch(MoveOn)
-            {
-                case 1:
-                    Max.z = Max.z * gensokuritu;
-                    rb.velocity = Max;
-                    break;
-
-                case 2:
-                    Max.x = Max.x * gensokuritu;
-                    rb.velocity = Max;
-                    break;
-
-                default:
-                    break;
-            }
+            Max.z = Max.z * 1;
+            Max.x = Max.x * 1;
+            rb.velocity = Max;
         }
 
         //加速
