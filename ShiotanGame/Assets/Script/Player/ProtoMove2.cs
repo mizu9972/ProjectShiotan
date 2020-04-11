@@ -39,9 +39,6 @@ public class ProtoMove2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //移動フラグ　初期化
-        MoveOn = 0;
-
         //回転の度合い
         float step = ang * Time.deltaTime;
 
@@ -55,7 +52,7 @@ public class ProtoMove2 : MonoBehaviour
         //コントローラー入力しているとき
         if (h != 0 || v != 0)
         {
-            MoveOn = 3;
+            speed = Maxspeed;
 
             //プレイヤーの位置に入力の値足す
             Vector3 targetPositon = new Vector3(transform.position.x + h, transform.position.y, transform.position.z + v);
@@ -69,7 +66,7 @@ public class ProtoMove2 : MonoBehaviour
             //左へ進む
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                MoveOn = 1;
+                speed = Maxspeed;
                 //指定した方向にゆっくり回転する場合
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, -90f, 0), step);
             }
@@ -77,7 +74,7 @@ public class ProtoMove2 : MonoBehaviour
             //右へ進む
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                MoveOn = 1;
+                speed = Maxspeed;
                 //指定した方向にゆっくり回転する場合
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 90f, 0), step);
             }
@@ -85,7 +82,7 @@ public class ProtoMove2 : MonoBehaviour
             //上へ進む
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                MoveOn = 2;
+                speed = Maxspeed;
                 //指定した方向にゆっくり回転する場合
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), step);
             }
@@ -93,19 +90,9 @@ public class ProtoMove2 : MonoBehaviour
             //下へ進む
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                MoveOn = 2;
+                speed = Maxspeed;
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 180.0f, 0), step);
             }
-        }
-
-        //移動の補正
-        if(MoveOn!=0)
-        {
-            speed = Maxspeed;
-
-            Max.z = Max.z * 1;
-            Max.x = Max.x * 1;
-            rb.velocity = Max;
         }
 
         //加速
@@ -132,6 +119,7 @@ public class ProtoMove2 : MonoBehaviour
                 Nowkasoku = 0;
             }
         }
+
         //減速処理（移動）
         if (speed > 0.5f)
         {
@@ -143,22 +131,25 @@ public class ProtoMove2 : MonoBehaviour
         }
 
         //初速度速くするための変数
-        float xspeed;
-        float speedx = Max.x;
-        float speedz = Max.z;
+        float xspeed=1;
+        float speedx = Mathf.Abs(Max.x);
+        float speedz = Mathf.Abs(Max.z);
 
         //現在のスピードの大きいほう(X・Z方向)と最大スピードの差分を取得(初速度を速くする用)
         if (speedx < speedz)
         {
-            xspeed = Maxspeed - Mathf.Abs(speedz);
+            if (speedz < 0.5f)
+            {
+                xspeed = Maxspeed - speedz;
+            }
         }
         else
         {
-            xspeed = Maxspeed - Mathf.Abs(speedx);
+            if (speedx < 0.5f)
+            {
+                xspeed = Maxspeed - speedx;
+            }
         }
-
-        //スピード調整用
-        xspeed /= waruspeed;
 
         //慣性での移動用
         rb.AddForce(this.gameObject.transform.forward * (speed + Nowkasoku) * xspeed, ForceMode.Acceleration);
