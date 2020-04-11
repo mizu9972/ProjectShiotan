@@ -8,7 +8,8 @@ Shader "Unlit/TextureAdd"
         _MainTex ("Texture", 2D) = "white" {}
 		_AddTex("BlushTexture",2D) = "white"{}
 		_UVPosition("UV Position", VECTOR) = (0.5, 0.5, 0, 0)
-		_Size("PaintSize",Range(0.001,0.5)) = 0.1
+		_SizeX("PaintSizeX",Range(0.001,0.5)) = 0.1
+		_SizeY("PaintSizeY",Range(0.001,0.5)) = 0.1
     }
     SubShader
     {
@@ -45,7 +46,8 @@ Shader "Unlit/TextureAdd"
             float4 _MainTex_ST;
 			float4 _AddTex_ST;
 			float4 _UVPosition;
-			float _Size;
+			float _SizeX;
+			float _SizeY;
 
             v2f vert (appdata v)
             {
@@ -62,13 +64,15 @@ Shader "Unlit/TextureAdd"
 
 				//画像のテクセルが合成先の画像の範囲内にあるか判定
 				float com;
-				com = step(_UVPosition.x - _Size, i.uv.x);
-				com = step(i.uv.x, _UVPosition.x + _Size) * com;
-				com = step(_UVPosition.y - _Size, i.uv.y) * com;
-				com = step(i.uv.y, _UVPosition.y + _Size)* com;
+				
+				com = step(_UVPosition.x - _SizeX, i.uv.x);
+				com = step(i.uv.x, _UVPosition.x + _SizeX) * com;
+				com = step(_UVPosition.y - _SizeY, i.uv.y) * com;
+				com = step(i.uv.y, _UVPosition.y + _SizeY)* com;
 
+				float2 size = { _SizeX ,_SizeY };
 				fixed4 col1 = tex2D(_MainTex, i.uv);
-				fixed4 col2 = tex2D(_AddTex, (i.uv - (_UVPosition - _Size)) * 0.5 / _Size);
+				fixed4 col2 = tex2D(_AddTex, (i.uv - (_UVPosition.xy - size.xy)) * 0.5 / size.xy);
 
 				col2.a = col2.a * com;
 				fixed alpha = col2.a + (1 - col2.a) * col1.a;

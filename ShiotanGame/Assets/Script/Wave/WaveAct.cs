@@ -13,6 +13,9 @@ public class WaveAct : MonoBehaviour
     [SerializeField, Header("波形テクスチャ")]
     Texture WaveTex = null;
 
+    [SerializeField, Header("波の大きさ")]
+    private float WaveSize = 0.1f;
+
     [SerializeField, Header("波発生間隔")]
     float WaveInterval = 1.0f;
 
@@ -41,6 +44,6 @@ public class WaveAct : MonoBehaviour
 
         //一定間隔毎に波を発生させる
         Observable.Interval(System.TimeSpan.FromSeconds(WaveInterval))
-            .Subscribe(_ => m_WavePlaneScript.AwakeWave(this.transform, 0.1f, WaveTex)).AddTo(this.gameObject);
+            .Subscribe(_ => m_WavePlaneScript.AwakeWave(this.transform, WaveSize, WaveTex)).AddTo(this.gameObject);
     }
 }
