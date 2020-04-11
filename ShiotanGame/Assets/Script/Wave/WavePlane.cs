@@ -29,12 +29,10 @@ public class WavePlane : MonoBehaviour
     {
         //取得
         myTrans = this.GetComponent<Transform>();
-        ScaleX = myTrans.localScale.x;
-        ScaleZ = myTrans.localScale.z;
+        ScaleX = myTrans.lossyScale.x;
+        ScaleZ = myTrans.lossyScale.z;
 
         mat = gameObject.GetComponent<Renderer>().material;
-
-        
 
         rTex = new RenderTexture(TextureSize, TextureSize, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Default);
         
@@ -187,7 +185,7 @@ public class WavePlane : MonoBehaviour
             matPaint.SetFloat("_SizeX", PaintSize / (ScaleX / 4.0f));
             matPaint.SetFloat("_SizeY", PaintSize / (ScaleZ / 4.0f));
 
-            Debug.Log("" + PaintSize / (ScaleX / 4.0f) + PaintSize / (ScaleZ / 4.0f));
+
             matPaint.SetTexture("_AddTex", Tex);
 
             Graphics.Blit(rTex, buf, matPaint);
