@@ -9,12 +9,17 @@ public class WavePlane : MonoBehaviour
     public Material waveMat, matPaint;
     public Material InitRanderMat;
     public Texture texBlush;
+    private Texture texMask = null;
     public int TextureSize = 256;
     private float Size = 0.1f;
     public float PhaseVelocity = 0.2f;
     public float Attenuation = 0.999f;
     private Material mat;
     private RenderTexture rTex;
+
+    [SerializeField, Header("深度スキャンカメラオブジェクト")]
+    private GameObject DepthScanCamera = null;
+    private DispDepth m_DepthScanCS;
 
     // Use this for initialization
     void Start()
@@ -27,8 +32,11 @@ public class WavePlane : MonoBehaviour
         texBuf.Apply();
         Graphics.Blit(texBuf, rTex, InitRanderMat);
 
+        setMaskTex();
+        
+        //シェーダー初期化-------------------------------------
         waveMat.SetTexture("_MainTex", rTex);
-        waveMat.SetTexture("_MaskTex", null);
+        waveMat.SetTexture("_MaskTex", texMask);
         matPaint.SetTexture("_AddTex", texBlush);
         mat.SetTexture("_HeightMap", rTex);
 
@@ -36,6 +44,7 @@ public class WavePlane : MonoBehaviour
         waveMat.SetFloat("_PhaseVelocity", PhaseVelocity);
         waveMat.SetFloat("_Attenuation", Attenuation);
         mat.SetFloat("_BumpScale", 0.1f);
+        //--------------------------------------------------
     }
 
     //UV座標検出
@@ -171,5 +180,17 @@ public class WavePlane : MonoBehaviour
         }
 
         RenderTexture.ReleaseTemporary(buf);
+    }
+
+    [ContextMenu("Scan")]
+    void setMaskTex()
+    {
+        if (DepthScanCamera == null)
+        {
+            return;
+        }
+
+        m_DepthScanCS = DepthScanCamera.GetComponent<DispDepth>();
+        texMask = m_DepthScanCS.getDepthRenderTexture();
     }
 }
