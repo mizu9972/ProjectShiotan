@@ -51,7 +51,8 @@ public class WavePlane : MonoBehaviour
 
         matPaint.SetFloat("_SizeX", Size / ScaleX / 4.0f);
         matPaint.SetFloat("_SizeY", Size / ScaleZ / 4.0f);
-        waveMat.SetFloat("_PhaseVelocity", PhaseVelocity);
+        
+        waveMat.SetFloat("_PhaseVelocity", PhaseVelocity / ScaleX);
         waveMat.SetFloat("_Attenuation", Attenuation);
         mat.SetFloat("_BumpScale", 0.1f);
         //--------------------------------------------------
