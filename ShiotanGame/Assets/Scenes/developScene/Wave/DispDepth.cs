@@ -19,7 +19,7 @@ public class DispDepth : MonoBehaviour
     public RenderTexture getDepthRenderTexture()
     {
         GetComponent<Camera>().depthTextureMode |= DepthTextureMode.Depth;
-        RenderTexture retTex = new RenderTexture(Screen.width, Screen.height, 24, RenderTextureFormat.Depth);
+        RenderTexture retTex = new RenderTexture(Screen.width, Screen.height, 24, RenderTextureFormat.Default);
         Graphics.Blit(null, retTex, mat);
         return retTex;
     }
