@@ -44,6 +44,8 @@ public class HumanoidBase : MonoBehaviour {
             Debug.LogWarning(gameObject.name + "のHPが0になっています。　設定してください");
         }
         m_NowHP = m_InitHP;
+
+        m_NowAttackPower = m_InitAttackPower;
     }
 
     /// <summary>
