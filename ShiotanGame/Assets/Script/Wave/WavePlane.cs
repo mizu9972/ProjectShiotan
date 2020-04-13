@@ -11,7 +11,7 @@ public class WavePlane : MonoBehaviour
     public Texture texBlush;
     private Texture texMask = null;
     public int TextureSize = 256;
-    private float Size = 0.1f;
+    public float Size = 1.0f;
     public float PhaseVelocity = 0.2f;
     public float Attenuation = 0.999f;
     private Material mat;
@@ -21,10 +21,19 @@ public class WavePlane : MonoBehaviour
     private GameObject DepthScanCamera = null;
     private DispDepth m_DepthScanCS;
 
+
+    private Transform myTrans;
+    private float ScaleX, ScaleZ;//水面オブジェクトのスケール
     // Use this for initialization
     void Start()
     {
+        //取得
+        myTrans = this.GetComponent<Transform>();
+        ScaleX = myTrans.lossyScale.x;
+        ScaleZ = myTrans.lossyScale.z;
+
         mat = gameObject.GetComponent<Renderer>().material;
+
         rTex = new RenderTexture(TextureSize, TextureSize, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Default);
         
         Texture2D texBuf = new Texture2D(1, 1);
@@ -40,8 +49,10 @@ public class WavePlane : MonoBehaviour
         matPaint.SetTexture("_AddTex", texBlush);
         mat.SetTexture("_HeightMap", rTex);
 
-        matPaint.SetFloat("_Size", Mathf.Max(Size, 0.01f));
-        waveMat.SetFloat("_PhaseVelocity", PhaseVelocity);
+        matPaint.SetFloat("_SizeX", Size / ScaleX / 4.0f);
+        matPaint.SetFloat("_SizeY", Size / ScaleZ / 4.0f);
+        
+        waveMat.SetFloat("_PhaseVelocity", PhaseVelocity / ScaleX);
         waveMat.SetFloat("_Attenuation", Attenuation);
         mat.SetFloat("_BumpScale", 0.1f);
         //--------------------------------------------------
@@ -171,7 +182,10 @@ public class WavePlane : MonoBehaviour
             Vector2 UVPos = UVDetector(hitInfo);
             matPaint.SetTexture("_MainTex", rTex);
             matPaint.SetVector("_UVPosition", new Vector4(UVPos.x, UVPos.y, 0, 0));
-            matPaint.SetFloat("_Size", PaintSize);
+            //matPaint.SetFloat("_Size", PaintSize);
+            matPaint.SetFloat("_SizeX", PaintSize / (ScaleX / 4.0f));
+            matPaint.SetFloat("_SizeY", PaintSize / (ScaleZ / 4.0f));
+
 
             matPaint.SetTexture("_AddTex", Tex);
 

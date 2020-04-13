@@ -7,6 +7,9 @@ public class EsaDestroy : MonoBehaviour
     [SerializeField,Header("エサ消えるまでの時間")]
     private float Destroytime=0;
 
+    [SerializeField, Header("エサ浮上位置")]
+    private float UpPos = 0;
+
     private float time;
     
     //消滅カウント　スイッチ
@@ -44,7 +47,7 @@ public class EsaDestroy : MonoBehaviour
         if(updawn)
         {
             pos.y += 1.0f* Time.deltaTime;
-            if (0.3f <= this.transform.position.y)
+            if (UpPos+0.3f <= this.transform.position.y)
             {
                 updawn = false;
             }
@@ -52,7 +55,7 @@ public class EsaDestroy : MonoBehaviour
         else
         {
             pos.y -= 1.0f * Time.deltaTime;
-            if (-0.3f >= this.transform.position.y)
+            if (UpPos - 0.3f >= this.transform.position.y)
             {
                 updawn = true;
             }
