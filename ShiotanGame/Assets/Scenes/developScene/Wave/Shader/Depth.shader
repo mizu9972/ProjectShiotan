@@ -40,7 +40,9 @@
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				fixed depth = UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture,i.uv));
+				float2 DestUV = 1.0f - i.uv;
+			
+				fixed depth = UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture,DestUV.xy));
 			depth = 1 - sign(abs(depth));
 				return fixed4(depth,depth,depth,1);
 			}
