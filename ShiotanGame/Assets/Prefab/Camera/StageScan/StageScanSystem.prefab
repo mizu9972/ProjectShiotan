@@ -51,6 +51,7 @@ MonoBehaviour:
   FloorTexName: Sample_Floor
   WallScanCamera: {fileID: 2672255071656518898}
   FloorScanCamera: {fileID: 3430079952088900519}
+  SeaPlane: {fileID: 0}
 --- !u!1 &58914637032497352
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,15 +226,15 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: -0.25
     y: 0
     width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 40
   m_Depth: 10
   m_CullingMask:
     serializedVersion: 2
@@ -345,15 +346,15 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: -0.25
     y: 0
     width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 40
   m_Depth: 11
   m_CullingMask:
     serializedVersion: 2
