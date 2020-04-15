@@ -21,13 +21,30 @@ public class StageScanSystem : MonoBehaviour
     private GameObject WallScanCamera = null;
     [SerializeField, Header("地面スキャンカメラ")]
     private GameObject FloorScanCamera = null;
-
+    [SerializeField, Header("水面オブジェクト")]
+    private GameObject SeaPlane = null;
 
     private float m_outputTime = 0.0f;//待機時間
 
     // Start is called before the first frame update
     void Start()
     {
+        if (SeaPlane == null)
+        {
+            SeaPlane = GameObject.FindWithTag("SeaPlane");
+        }
+        if (SeaPlane == null || WallScanCamera == null || FloorScanCamera == null)
+        {
+            return;
+        }
+
+        //水面オブジェクトのサイズ取得
+        var SeaSize = SeaPlane.transform.localScale.x;
+
+        //カメラのプロジェクションサイズ設定
+        WallScanCamera.GetComponent<Camera>().orthographicSize = 5 * SeaSize;
+        FloorScanCamera.GetComponent<Camera>().orthographicSize = 5 * SeaSize;
+
         //メイン処理
         Observable.Timer(System.TimeSpan.FromSeconds(m_outputTime))
             .Subscribe(_ => OutputTexture());
@@ -48,10 +65,6 @@ public class StageScanSystem : MonoBehaviour
 
     IEnumerator OutWallTexture()
     {
-        if (WallScanCamera == null)
-        {
-            yield break;//return
-        }
         WallScanCamera.SetActive(true);
 
         yield return new WaitForSeconds(1);//指定秒停止
@@ -84,11 +97,6 @@ public class StageScanSystem : MonoBehaviour
 
     IEnumerator OutFloorTexture()
     {
-        if(FloorScanCamera == null)
-        {
-            yield break;//return
-        }
-
         FloorScanCamera.SetActive(true);
 
         yield return new WaitForSeconds(1);//指定秒停止
