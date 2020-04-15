@@ -285,4 +285,16 @@ public class PiranhaBase : MonoBehaviour
             LastAttackTime = Time.time;
         }
     }
+
+    public void Attack(GameObject Target) 
+    {
+        // 攻撃できるかをチェック
+        if (LastAttackTime + transform.parent.GetComponent<FlockBase>().AttackCoolTime <= Time.time) {
+            // 攻撃
+            Target.GetComponent<HumanoidBase>().NowHP -= AttackPower;
+
+            // 攻撃時間を更新
+            LastAttackTime = Time.time;
+        }
+    }
 }
