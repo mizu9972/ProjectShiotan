@@ -29,8 +29,8 @@ public class AudioList : MonoBehaviour
     private void OnValidate()//インスペクタ上の数値が変更されたら
     {
         //配列達の初期化
-        Audiolist = new AudioClip[ArraySize];
-        KeyList = new string[ArraySize];
+        //Audiolist = new AudioClip[ArraySize];
+        //KeyList = new string[ArraySize];
 
         AudioDict.Clear();//オーディオのリストを一旦消去
 
