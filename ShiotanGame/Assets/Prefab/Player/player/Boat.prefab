@@ -644,9 +644,11 @@ GameObject:
   - component: {fileID: 3427629093436888486}
   - component: {fileID: 6220689215936321523}
   - component: {fileID: 4169545654540776854}
+  - component: {fileID: 8748456568859700663}
   - component: {fileID: 689809966271999756}
   - component: {fileID: 2466462572106162928}
   - component: {fileID: 3041477951263611024}
+  - component: {fileID: 2138763177160417109}
   m_Layer: 11
   m_Name: Boat
   m_TagString: Player
@@ -759,13 +761,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waruspeed: 0.97
+  speed: 0
   Maxspeed: 13
   kasoku: 3
   MaxKasoku: 18
-  gensokuritu: 0.97
+  gensoku: 0.97
   brake: 0.95
   ang: 0.9
-  rb: {fileID: 0}
+  rb: {fileID: 3427629093436888486}
+--- !u!114 &8748456568859700663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4615425887672774114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a48fc4402b2de4486558b549653602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &689809966271999756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -813,6 +828,25 @@ MonoBehaviour:
   m_NowHP: 0
   m_NowAttackPower: 0
   m_AttackObject: {fileID: 0}
+--- !u!95 &2138763177160417109
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4615425887672774114}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8c68017d3adf18e4d8516f51b4cc88a3, type: 3}
+  m_Controller: {fileID: 9100000, guid: 652962f50c2a3e64a912c689d06b0b91, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4634882403931059296
 GameObject:
   m_ObjectHideFlags: 0
