@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AudioList : MonoBehaviour
 {
+    
+
     [Header("配列のサイズ")]
     public uint ArraySize;
 
@@ -15,6 +17,8 @@ public class AudioList : MonoBehaviour
 
     [Header("オーディオリスト")]
     public Dictionary<string, AudioClip> AudioDict = new Dictionary<string, AudioClip>();
+
+    
 
     public void AudioListUpdate()
     {
@@ -41,6 +45,10 @@ public class AudioList : MonoBehaviour
                 AudioDict[KeyList[cnt]] = Audiolist[cnt];
             }
         }
+    }
 
+    public uint GetArraySize()
+    {
+        return ArraySize;
     }
 }

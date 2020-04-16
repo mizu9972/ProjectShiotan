@@ -9,8 +9,8 @@ public class SceneTransition : MonoBehaviour
     [SerializeField, Header("シーン遷移実行フラグ")]
     bool TransitionRun = false;
 
-    [Header("遷移先シーン名")]
-    public string NextSceneName;
+    
+    private string NextSceneName;//遷移先シーン名
 
     [Header("1つ前のシーン")]
     public string BeforSceneName;
@@ -42,6 +42,7 @@ public class SceneTransition : MonoBehaviour
         {
             if (FeadOut())//フェードアウト->遷移
             {
+                Debug.Log("遷移先シーン名：" + scenename);
                 SceneManager.LoadScene(scenename);
             }
         }  

@@ -13,12 +13,17 @@ public class AudioManager : MonoBehaviour
     [Header("SE用のオーディオソース")]
     public AudioSource SE_audioSource;
 
-    private Dictionary<string, AudioClip> ClipList = new Dictionary<string, AudioClip>();
+    private Dictionary<string, AudioClip> ClipList ;
+
+    private uint arraySize;//オーディオリストのサイズ
+
     //private int Channel = 4;
-    void Start()
+    void Awake()
     {
+        arraySize = this.GetComponent<AudioList>().GetArraySize();//要素数を取得
+
         //オーディオリストを取得
-        ClipList = this.GetComponent<AudioList>().AudioDict;
+        ClipList = new Dictionary<string, AudioClip>(this.GetComponent<AudioList>().AudioDict);
     }
 
     void Update()
@@ -31,6 +36,7 @@ public class AudioManager : MonoBehaviour
     {
         BGM_audioSource.loop = isLoop;//ループするかを設定
         BGM_audioSource.clip = ClipList[KeyName];//指定したキー名のオーディオクリップをセット
+        int a = 0;
         BGM_audioSource.Play();//指定したクリップを再生
     }
 
@@ -47,4 +53,13 @@ public class AudioManager : MonoBehaviour
     {
         SE_audioSource.PlayOneShot(ClipList[KeyName]);
     }
+
+    //private void ClipListInit()
+    //{
+    //    for (int cnt = 0; arraySize > cnt; cnt++)//オーディオのリストにキー名とファイルを登録
+    //    {
+    //        ClipList.Add();
+            
+    //    }
+    //}
 }
