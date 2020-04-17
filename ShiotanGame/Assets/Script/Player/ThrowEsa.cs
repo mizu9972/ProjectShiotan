@@ -72,7 +72,7 @@ public class ThrowEsa : MonoBehaviour
                     //エサ消える時間
                     Destroy(bulletInstance, 5);
 
-                    HPcnt.NowHP--;
+                    HPcnt.NowHP-=SacrificeHP;//犠牲にする分だけHPを減らす
                     
                 }
 

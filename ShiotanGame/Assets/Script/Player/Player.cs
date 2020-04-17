@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        
+        //現在のHPをゲージに反映
         GageScript.GageUpdate(this.GetComponent<HumanoidBase>().NowHP);
     }
 }
