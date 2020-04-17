@@ -89,7 +89,7 @@ public class WavePlane : MonoBehaviour
             pass = (val > -0.000001f && val < 0.000001f);
 
             //メッシュ内に存在するか
-            if (pass)
+            //if (pass)
             {
                 Vector3 pcp1 = Vector3.Cross(pos - p1, p2 - p1).normalized;
                 Vector3 pcp2 = Vector3.Cross(pos - p2, p3 - p2).normalized;
@@ -184,6 +184,7 @@ public class WavePlane : MonoBehaviour
         RaycastHit hitInfo = new RaycastHit();
         if (Physics.Raycast(ray, out hitInfo, 2))
         {
+
             //水面上ならシェーダーにUV座標を計算して渡す
             Vector2 UVPos = UVDetector(hitInfo);
             matPaint.SetTexture("_MainTex", rTex);
@@ -192,7 +193,7 @@ public class WavePlane : MonoBehaviour
             matPaint.SetFloat("_SizeX", PaintSize / (ScaleX / 4.0f));
             matPaint.SetFloat("_SizeY", PaintSize / (ScaleZ / 4.0f));
 
-
+            Debug.Log("" + UVPos);
             matPaint.SetTexture("_AddTex", Tex);
 
             Graphics.Blit(rTex, buf, matPaint);
