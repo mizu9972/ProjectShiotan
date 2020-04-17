@@ -21,7 +21,7 @@ public class ProtoMove2 : MonoBehaviour
     // Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
     public Rigidbody rb;
 
-    private PlayerAnimator Animation;
+    private PlayerAnimator Animation = null;
 
     //移動フラグ用変数
     private bool MoveOn;
@@ -31,7 +31,12 @@ public class ProtoMove2 : MonoBehaviour
     {
         // Rigidbodyコンポーネントを取得する
         rb = GetComponent<Rigidbody>();
-        Animation= GetComponent<PlayerAnimator>();
+
+        Animation = GetComponent<PlayerAnimator>();
+        if (Animation == null)
+        {
+            Animation = GetComponentInChildren<PlayerAnimator>();
+        }
     }
 
     // Update is called once per frame
