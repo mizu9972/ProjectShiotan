@@ -35,7 +35,7 @@ public class ProtoMove2 : MonoBehaviour
         Animation = GetComponent<PlayerAnimator>();
         if (Animation == null)
         {
-            Animation = GetComponentInChildren<PlayerAnimator>();
+            Animation = GetComponent<PlayerAnimator>();
         }
     }
 
