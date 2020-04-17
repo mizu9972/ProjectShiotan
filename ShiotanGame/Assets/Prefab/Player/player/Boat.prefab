@@ -149,7 +149,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580981418244738164}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: -0.054, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -760,9 +760,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb21777f4db4b64d9ae3b0d49696cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waruspeed: 0.97
-  speed: 0
-  Maxspeed: 13
+  waruspeed: 0.98
+  speed: 13
+  Maxspeed: 16
   kasoku: 3
   MaxKasoku: 18
   gensoku: 0.97
@@ -823,7 +823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc383a5fbc9fd9d49a91b61f465d66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitHP: 1
+  m_InitHP: 100
   m_InitAttackPower: 0
   m_NowHP: 0
   m_NowAttackPower: 0
