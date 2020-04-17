@@ -24,7 +24,7 @@ public class HPScript : MonoBehaviour
 
     void Update()
     {
-        if(HPcnt.NowHP<= 0)
+        if(HPcnt.DeadCheck())
         {
             Destroy(this.gameObject);
         }
