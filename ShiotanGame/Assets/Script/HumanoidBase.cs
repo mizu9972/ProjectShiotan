@@ -39,7 +39,7 @@ public class HumanoidBase : MonoBehaviour {
     #endregion
 
     // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         if (m_InitHP <= 0) {
             Debug.LogWarning(gameObject.name + "のHPが0になっています。　設定してください");
         }

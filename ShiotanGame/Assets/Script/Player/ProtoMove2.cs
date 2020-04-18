@@ -4,36 +4,39 @@ using UnityEngine;
 
 public class ProtoMove2 : MonoBehaviour
 {
-    [SerializeField]
-    float waruspeed;    //スピード調整用
+    [Header("スピード調整用"), SerializeField]private float waruspeed;
 
-    private float speed;                    //十字キーでの移動スピード
-    [SerializeField] float Maxspeed;        //最大移動スピード
+    [Header("十字キーでの移動スピード"), SerializeField] private float speed;
+    [Header("最大移動スピード"), SerializeField] private float Maxspeed;
 
-    private float Nowkasoku = 0;   //現在の加速度
-    [SerializeField] float kasoku;          //加速値
-    [SerializeField] float MaxKasoku;       //最大加速スピード
+    [Header("加速値"), SerializeField] private float kasoku;
+    [Header("最大加速スピード"),SerializeField] private float MaxKasoku;
+    private float Nowkasoku = 0;    //現在の加速度
 
-    [Header("減速の割合（%）"), SerializeField]
-    private float gensokuritu;
-
-    public float brake;          //プレイヤーのブレーキ時の減速度
-
-    [SerializeField] float ang;     //回転の度合い
+    [Header("減速の割合（%）"), SerializeField] private float gensoku;
+    [Header("プレイヤーのブレーキ時の減速度"), SerializeField] private float brake;
+    
+    [Header("回転の度合い"), SerializeField] float ang;
 
     // Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
     public Rigidbody rb;
 
+    private PlayerAnimator Animation = null;
+
     //移動フラグ用変数
-    private int MoveOn;
+    private bool MoveOn;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Player_pos = GetComponent<Transform>().position; //最初の時点でのプレイヤーのポジションを取得
-
         // Rigidbodyコンポーネントを取得する
         rb = GetComponent<Rigidbody>();
+
+        Animation = GetComponent<PlayerAnimator>();
+        if (Animation == null)
+        {
+            Animation = GetComponent<PlayerAnimator>();
+        }
     }
 
     // Update is called once per frame
@@ -45,6 +48,9 @@ public class ProtoMove2 : MonoBehaviour
         //現在の速度取得
         Vector3 Max = rb.velocity;
 
+        //移動フラグ
+        MoveOn = false;
+
         //コントローラー入力　取得
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -52,6 +58,7 @@ public class ProtoMove2 : MonoBehaviour
         //コントローラー入力しているとき
         if (h != 0 || v != 0)
         {
+            MoveOn = true;
             speed = Maxspeed;
 
             //プレイヤーの位置に入力の値足す
@@ -66,6 +73,7 @@ public class ProtoMove2 : MonoBehaviour
             //左へ進む
             if (Input.GetKey(KeyCode.LeftArrow))
             {
+                MoveOn = true;
                 speed = Maxspeed;
                 //指定した方向にゆっくり回転する場合
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, -90f, 0), step);
@@ -74,6 +82,7 @@ public class ProtoMove2 : MonoBehaviour
             //右へ進む
             if (Input.GetKey(KeyCode.RightArrow))
             {
+                MoveOn = true;
                 speed = Maxspeed;
                 //指定した方向にゆっくり回転する場合
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 90f, 0), step);
@@ -82,6 +91,7 @@ public class ProtoMove2 : MonoBehaviour
             //上へ進む
             if (Input.GetKey(KeyCode.UpArrow))
             {
+                MoveOn = true;
                 speed = Maxspeed;
                 //指定した方向にゆっくり回転する場合
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), step);
@@ -90,6 +100,7 @@ public class ProtoMove2 : MonoBehaviour
             //下へ進む
             if (Input.GetKey(KeyCode.DownArrow))
             {
+                MoveOn = true;
                 speed = Maxspeed;
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 180.0f, 0), step);
             }
@@ -99,6 +110,7 @@ public class ProtoMove2 : MonoBehaviour
         if (Input.GetKeyDown("joystick button 1")
             || Input.GetKeyDown(KeyCode.B))
         {
+            MoveOn = true;
             Nowkasoku += kasoku;
 
             //限界加速度制限
@@ -112,7 +124,7 @@ public class ProtoMove2 : MonoBehaviour
             //減速処理（加速）
             if (Nowkasoku > 0.5f)
             {
-                Nowkasoku *= gensokuritu;
+                Nowkasoku *= gensoku;
             }
             else
             {
@@ -120,10 +132,12 @@ public class ProtoMove2 : MonoBehaviour
             }
         }
 
+        Animation.SetAnimation(MoveOn);
+
         //減速処理（移動）
         if (speed > 0.5f)
         {
-            speed *= gensokuritu;
+            speed *= gensoku;
         }
         else
         {

@@ -16,11 +16,16 @@ public class WavePlane : MonoBehaviour
     public float Attenuation = 0.999f;
     private Material mat;
     private RenderTexture rTex;
+    private Material myMat;
+    //[SerializeField, Header("深度スキャンカメラオブジェクト")]
+    //private GameObject DepthScanCamera = null;
+    //private DispDepth m_DepthScanCS;
 
-    [SerializeField, Header("深度スキャンカメラオブジェクト")]
-    private GameObject DepthScanCamera = null;
-    private DispDepth m_DepthScanCS;
-
+    [Header("マスクテクスチャ")]
+    [SerializeField, Header("壁")]
+    private Texture WallMaskTex = null;
+    [SerializeField, Header("地面")]
+    private Texture FloorMaskTex = null;
 
     private Transform myTrans;
     private float ScaleX, ScaleZ;//水面オブジェクトのスケール
@@ -33,6 +38,7 @@ public class WavePlane : MonoBehaviour
         ScaleZ = myTrans.lossyScale.z;
 
         mat = gameObject.GetComponent<Renderer>().material;
+        //myMat = gameObject.GetComponent<Renderer>().material;
 
         rTex = new RenderTexture(TextureSize, TextureSize, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Default);
         
@@ -41,13 +47,13 @@ public class WavePlane : MonoBehaviour
         texBuf.Apply();
         Graphics.Blit(texBuf, rTex, InitRanderMat);
 
-        setMaskTex();
-        
         //シェーダー初期化-------------------------------------
         waveMat.SetTexture("_MainTex", rTex);
-        waveMat.SetTexture("_MaskTex", texMask);
+        waveMat.SetTexture("_MaskTex", WallMaskTex);
+
         matPaint.SetTexture("_AddTex", texBlush);
         mat.SetTexture("_HeightMap", rTex);
+        mat.SetTexture("_FloorTex", FloorMaskTex);
 
         matPaint.SetFloat("_SizeX", Size / ScaleX / 4.0f);
         matPaint.SetFloat("_SizeY", Size / ScaleZ / 4.0f);
@@ -83,7 +89,7 @@ public class WavePlane : MonoBehaviour
             pass = (val > -0.000001f && val < 0.000001f);
 
             //メッシュ内に存在するか
-            if (pass)
+            //if (pass)
             {
                 Vector3 pcp1 = Vector3.Cross(pos - p1, p2 - p1).normalized;
                 Vector3 pcp2 = Vector3.Cross(pos - p2, p3 - p2).normalized;
@@ -154,8 +160,8 @@ public class WavePlane : MonoBehaviour
         Graphics.Blit(rTex, buf, waveMat);
         Graphics.Blit(buf, rTex);
 
-        Material myMat = gameObject.GetComponent<Renderer>().material;
-        myMat.SetTexture("_MainTex", rTex);
+
+        mat.SetTexture("_MainTex", rTex);
 
         RenderTexture.ReleaseTemporary(buf);
     }
@@ -178,6 +184,7 @@ public class WavePlane : MonoBehaviour
         RaycastHit hitInfo = new RaycastHit();
         if (Physics.Raycast(ray, out hitInfo, 2))
         {
+
             //水面上ならシェーダーにUV座標を計算して渡す
             Vector2 UVPos = UVDetector(hitInfo);
             matPaint.SetTexture("_MainTex", rTex);
@@ -185,7 +192,6 @@ public class WavePlane : MonoBehaviour
             //matPaint.SetFloat("_Size", PaintSize);
             matPaint.SetFloat("_SizeX", PaintSize / (ScaleX / 4.0f));
             matPaint.SetFloat("_SizeY", PaintSize / (ScaleZ / 4.0f));
-
 
             matPaint.SetTexture("_AddTex", Tex);
 
@@ -195,16 +201,5 @@ public class WavePlane : MonoBehaviour
 
         RenderTexture.ReleaseTemporary(buf);
     }
-
-    [ContextMenu("Scan")]
-    void setMaskTex()
-    {
-        if (DepthScanCamera == null)
-        {
-            return;
-        }
-
-        m_DepthScanCS = DepthScanCamera.GetComponent<DispDepth>();
-        texMask = m_DepthScanCS.getDepthRenderTexture();
-    }
+    
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+//地形をスキャンするカメラのスクリプト
 public class DispDepth : MonoBehaviour
 {
     public Material mat;

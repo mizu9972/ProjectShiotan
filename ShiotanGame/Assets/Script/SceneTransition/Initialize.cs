@@ -9,7 +9,7 @@ public class Initialize : MonoBehaviour
     static void OnBoot()
     {
         // 必ず配置するオブジェクト用のシーンを読み込む
-        string managerSceneName = "SceneManager";
+        string managerSceneName = "ManagerScene";
         if (!SceneManager.GetSceneByName(managerSceneName).IsValid())
             SceneManager.LoadScene(managerSceneName, LoadSceneMode.Additive);
     }

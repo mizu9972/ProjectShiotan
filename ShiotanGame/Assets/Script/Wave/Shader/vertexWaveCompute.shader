@@ -75,7 +75,7 @@
 			//修正後
 			float Mask;
 			Mask = abs(tex2D(_MaskTex, i.uv).r);//テクスチャ情報を取り出し(絶対値を利用して正の値で取り出す)
-			Mask = 1 - sign(Mask);//0なら1 0以外は0にする
+			Mask = /*1 - */sign(Mask);//0なら1 0以外は0にする
 
 			//波紋エリア反映
 			dh = (dh * Mask + 1) * 0.5f;

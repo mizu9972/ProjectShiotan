@@ -127,11 +127,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edb21777f4db4b64d9ae3b0d49696cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waruspeed: 0.97
+  waruspeed: 0.985
+  speed: 13
   Maxspeed: 13
   kasoku: 3
   MaxKasoku: 18
-  gensokuritu: 0.97
+  gensoku: 1
   brake: 0.95
   ang: 0.9
   rb: {fileID: 2397231272439150045}
@@ -163,6 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SeaPlane: {fileID: 0}
   WaveTex: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+  WaveSize: 0.1
   WaveInterval: 1
 --- !u!114 &2325193369729146069
 MonoBehaviour:
@@ -176,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc383a5fbc9fd9d49a91b61f465d66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitHP: 1
+  m_InitHP: 4
   m_InitAttackPower: 0
   m_NowHP: 0
   m_NowAttackPower: 0
@@ -322,5 +324,5 @@ MonoBehaviour:
   HPDawnEsa: {fileID: 4974112199634221351, guid: c472a78f91e1da14bab306337f3cd104,
     type: 3}
   throwrange: 10
-  count: 3
-  SacrificeHP: 50
+  count: 1
+  SacrificeHP: 20

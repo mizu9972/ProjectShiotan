@@ -12,11 +12,13 @@ public class Player : MonoBehaviour
     {
         //スクリプトを取得
         GageScript = GameObject.Find("Gage").GetComponentInChildren<Gage>();
-        //TODO gageのinit処理を実装　GageScript.InitGage(HumanoidBaseの初期HP);//ゲージの初期化
+        
+        GageScript.InitGage(this.GetComponent<HumanoidBase>().InitHP);//ゲージの初期化
     }
 
     private void Update()
     {
-        //TODO ゲージのダメージ関数呼び出しGageScript.GageUpdate(HumanoidBaseの現在HP);
+        //現在のHPをゲージに反映
+        GageScript.GageUpdate(this.GetComponent<HumanoidBase>().NowHP);
     }
 }

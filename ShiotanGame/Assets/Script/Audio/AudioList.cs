@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AudioList : MonoBehaviour
 {
+    
+
     [Header("配列のサイズ")]
     public uint ArraySize;
 
@@ -15,6 +17,8 @@ public class AudioList : MonoBehaviour
 
     [Header("オーディオリスト")]
     public Dictionary<string, AudioClip> AudioDict = new Dictionary<string, AudioClip>();
+
+    
 
     public void AudioListUpdate()
     {
@@ -29,8 +33,8 @@ public class AudioList : MonoBehaviour
     private void OnValidate()//インスペクタ上の数値が変更されたら
     {
         //配列達の初期化
-        Audiolist = new AudioClip[ArraySize];
-        KeyList = new string[ArraySize];
+        //Audiolist = new AudioClip[ArraySize];
+        //KeyList = new string[ArraySize];
 
         AudioDict.Clear();//オーディオのリストを一旦消去
 
@@ -41,6 +45,10 @@ public class AudioList : MonoBehaviour
                 AudioDict[KeyList[cnt]] = Audiolist[cnt];
             }
         }
+    }
 
+    public uint GetArraySize()
+    {
+        return ArraySize;
     }
 }
