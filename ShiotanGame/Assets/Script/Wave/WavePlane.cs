@@ -193,7 +193,6 @@ public class WavePlane : MonoBehaviour
             matPaint.SetFloat("_SizeX", PaintSize / (ScaleX / 4.0f));
             matPaint.SetFloat("_SizeY", PaintSize / (ScaleZ / 4.0f));
 
-            Debug.Log("" + UVPos);
             matPaint.SetTexture("_AddTex", Tex);
 
             Graphics.Blit(rTex, buf, matPaint);
