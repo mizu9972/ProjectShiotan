@@ -62,6 +62,7 @@ public class AIFlock : MonoBehaviour
             if (TargetList.Count > 0) {
                 for (int i = 0; i < TargetList.Count; i++) {
                     if (IsHit = RayShot(TargetList[0])) {
+                        gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
                         gameObject.GetComponent<NavMeshAgent>().enabled = false;
                         break;
                     }
