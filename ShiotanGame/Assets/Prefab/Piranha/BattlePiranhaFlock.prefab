@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 58808721156883158}
   m_Layer: 0
   m_Name: AttackField
-  m_TagString: Untagged
+  m_TagString: FlockPiranhaBattleField
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22ebbeb034451c84da87a431d7fd0cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackTag: []
 --- !u!1 &7092756686279447111
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ Transform:
   m_GameObject: {fileID: 7092756686279447111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children:
   - {fileID: 472628825872677023}
   - {fileID: 1726979210309841113}
@@ -213,7 +214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1726979210309841113
 Transform:
   m_ObjectHideFlags: 0

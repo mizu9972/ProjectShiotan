@@ -1,0 +1,234 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BattleFieldBase : MonoBehaviour
+{
+    private GameObject BattleCenter;
+    private bool IsHostility = false;
+    private string PlayerTag = "Player";
+
+    private List<GameObject> TotalEnemy;
+    private int MaxEnemyCount = 0;
+    private List<GameObject> TotalFlock;
+    private HumanoidBase TotalFlockHumanoidBase;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        TotalFlockHumanoidBase = new HumanoidBase();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        BattleOfEnemAndFlock();
+        BattleEndCheck();
+        UpdatePosition();
+    }
+
+    #region BattleFieldBaseで使う関数
+    #region 攻撃系
+    /// <summary>
+    /// 敵とピラニア群のバトル関数
+    /// </summary>
+    private void BattleOfEnemAndFlock() 
+    {
+        // ピラニア群と敵が存在し、敵対している場合に処理を行う
+        if ((TotalFlock.Count > 0 && TotalEnemy.Count > 0) && IsHostility) {
+            // ピラニア群からの攻撃
+            AttackFlock();
+            AttackEnemy();
+        }
+        // ピラニア群と敵のセンターへの攻撃
+        else{
+            AttackFoodFlock();
+            AttackFoodEnemy();
+        }
+    }
+
+    /// <summary>
+    /// ピラニア群の攻撃    
+    /// </summary>
+    private void AttackFlock() 
+    {
+        int AttackCount = 0;
+        if (TotalFlock.Count > 0) {
+            foreach (GameObject Flock in TotalFlock) {
+                foreach (GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
+                    if (TotalEnemy.Count > 0) {
+                        // ターゲットに順番に攻撃するようにしてます
+                        Piranha.GetComponent<PiranhaBase>().Attack(TotalEnemy[AttackCount % TotalEnemy.Count]);
+
+                        // 死んだかの確認
+                        if (TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<HumanoidBase>().DeadCheck()) {
+                            // ToDo::死んだときのエフェクト等を表示
+
+                            // ターゲットから削除
+                            TotalEnemy.RemoveAt(AttackCount % TotalEnemy.Count);
+                        }
+                        AttackCount++;
+                    }
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 敵の攻撃
+    /// </summary>
+    private void AttackEnemy() 
+    {
+        if(TotalEnemy.Count > 0) {
+            foreach(GameObject Enemy in TotalEnemy) {
+                // ToDo::エフェクトの作成
+
+                // 攻撃
+                TotalFlockHumanoidBase.NowHP -= Enemy.GetComponent<HumanoidBase>().NowAttackPower;
+            }
+        }
+    }
+
+    /// <summary>
+    /// ピラニア群の餌への攻撃
+    /// </summary>
+    private void AttackFoodFlock() {
+        if (TotalFlock.Count > 0) {
+            foreach (GameObject Flock in TotalFlock) {
+                foreach (GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
+                    Piranha.GetComponent<PiranhaBase>().Attack(BattleCenter);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 敵の餌への攻撃
+    /// </summary>
+    private void AttackFoodEnemy() {
+        if (TotalEnemy.Count > 0) {
+            foreach (GameObject Enemy in TotalEnemy) {
+                // ToDo::エフェクトの作成
+
+                // 攻撃
+                BattleCenter.GetComponent<HumanoidBase>().NowHP -= Enemy.GetComponent<HumanoidBase>().NowAttackPower;
+            }
+        }
+    }
+    #endregion
+    #region 死亡系
+    private void BattleEndCheck() {
+        // ピラニア群が死んだか、敵がいなくなった時のみ処理を行う
+        if(TotalFlockDeadCheck() || TotalEnemyDeadCheck()) {
+            DestroyThisField();
+        }
+    }
+
+    /// <summary>
+    /// プレイヤーのデッドチェック
+    /// </summary>
+    /// <returns></returns>
+    private bool TotalFlockDeadCheck() {
+        if (TotalFlock.Count > 0) {
+            if (TotalFlockHumanoidBase.NowHP <= 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// エネミーのデッドチェック
+    /// </summary>
+    /// <returns></returns>
+    private bool TotalEnemyDeadCheck() {
+        if (TotalEnemy.Count <= 0 && MaxEnemyCount > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// このフィールドを削除するときに実行
+    /// </summary>
+    private void DestroyThisField() {
+        // 各ピラニアのHPを設定しなおす
+        foreach (GameObject Flock in TotalFlock) {
+            foreach (GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
+                Piranha.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / (Flock.GetComponent<FlockBase>().ChildPiranha.Count * TotalFlock.Count);
+            }
+        }
+
+        // バトルの中心地を削除
+        Destroy(BattleCenter);
+
+        // 削除
+        Destroy(gameObject);
+    }
+    #endregion
+    #region etc
+    /// <summary>
+    /// 座標を更新
+    /// </summary>
+    private void UpdatePosition() {
+        if (BattleCenter) {
+            gameObject.transform.position = BattleCenter.transform.position;
+        }
+    }
+    #endregion
+    #endregion
+
+    #region 外部からアクセスする関数
+    /// <summary>
+    ///  バトル地の設定
+    /// </summary>
+    /// <param name="obj"></param>
+    public void SetBattleCenter(GameObject obj) 
+    {
+        BattleCenter = obj;
+
+        // センターがプレイヤーのタグの場合、敵対しない
+        if(BattleCenter.tag == PlayerTag) {
+            IsHostility = true;
+        }
+        else {
+            IsHostility = false;
+            // ToDo::餌の自動削除停止
+
+        }
+    }
+
+    /// <summary>
+    /// 設定されているバトル地を取得
+    /// </summary>
+    /// <returns></returns>
+    public GameObject GetBattkeCenter() {
+        return BattleCenter;
+    }
+
+    /// <summary>
+    /// ピラニア群の追加
+    /// </summary>
+    /// <param name="Flock"></param>
+    public void AddFlock(GameObject Flock) 
+    {
+        TotalFlock.Add(Flock);
+
+        TotalFlockHumanoidBase.InitHP += Flock.GetComponent<HumanoidBase>().InitHP;
+        TotalFlockHumanoidBase.InitAttackPower += Flock.GetComponent<HumanoidBase>().InitAttackPower;
+
+        TotalFlockHumanoidBase.NowHP += Flock.GetComponent<HumanoidBase>().NowHP;
+        TotalFlockHumanoidBase.NowAttackPower += Flock.GetComponent<HumanoidBase>().NowAttackPower;
+    }
+
+    /// <summary>
+    /// 敵の追加
+    /// </summary>
+    /// <param name="Enemy"></param>
+    public void AddEnemy(GameObject Enemy) 
+    {
+        TotalEnemy.Add(Enemy);
+        MaxEnemyCount++;
+    }
+    #endregion
+}

@@ -39,6 +39,7 @@ public class BattlePiranhaFlockBase : MonoBehaviour
     {
         AttackTarget();
         UpdateThisHumanoidBase();
+        UpdatePosition();
     }
 
     void AttackTarget() 
@@ -65,6 +66,24 @@ public class BattlePiranhaFlockBase : MonoBehaviour
         DissolutionCheck();
     }
 
+    /// <summary>
+    /// 座標の更新
+    /// </summary>
+    private void UpdatePosition() 
+    {
+        gameObject.transform.position = BattleCenter.transform.position;
+
+        //Vector3 newPos = Vector3.zero;
+        //foreach(GameObject Flock in TotalFlock) {
+        //    newPos += Flock.transform.position;
+        //}
+        //newPos /= TotalFlock.Count;
+        //gameObject.transform.position = newPos;
+    }
+
+    /// <summary>
+    /// HumanoidBaseの更新
+    /// </summary>
     private void UpdateThisHumanoidBase() 
     {
         NowHP = gameObject.GetComponent<HumanoidBase>().NowHP;
@@ -92,9 +111,9 @@ public class BattlePiranhaFlockBase : MonoBehaviour
                 // TargetList[0].GetComponent<>()
 
                 // ピラニア群の攻撃フィールドをONにする
-                TargetList[0].transform.Find("AttackField").gameObject.SetActive(true);
+                TotalFlock[0].transform.Find("AttackField").gameObject.SetActive(true);
 
-                TargetList.Remove(TargetList[0]);
+                TotalFlock.Remove(TotalFlock[0]);
             }
         }
     }
