@@ -6,8 +6,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class AIFlock : MonoBehaviour
 {
-    private int Frame = 0;
-
     private Vector3 InitPos;
 
     public List<GameObject> TargetList;
@@ -46,7 +44,22 @@ public class AIFlock : MonoBehaviour
 
     public void AIUpdate() 
     {
-        Frame++;
+        // Missingになったオブジェクトがあれば削除する
+        List<int> DeleteArrayNum = new List<int>();
+        for(int i = 0; i < TargetList.Count; i++) {
+            if(TargetList[i] == null) {
+                DeleteArrayNum.Add(i);
+            }
+        }
+        
+        if(TargetList.Count == DeleteArrayNum.Count) {
+            TargetList.Clear();
+        }
+        else {
+            for (int i = DeleteArrayNum.Count; i > 0; i--) {
+                TargetList.RemoveAt(DeleteArrayNum[i]);
+            }
+        }
 
         // ターゲットが2以上の時にソートを行う
         if (TargetList.Count > 1) {
@@ -61,19 +74,27 @@ public class AIFlock : MonoBehaviour
         else {
             if (TargetList.Count > 0) {
                 for (int i = 0; i < TargetList.Count; i++) {
-                    if (IsHit = RayShot(TargetList[0])) {
-                        gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
-                        gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                        break;
+                    if (TargetList[0] != null) {
+                        if (IsHit = RayShot(TargetList[0])) {
+                            gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
+                            gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                            break;
+                        }
+                        else {
+                            // レイが当たらなかったターゲットは後ろに持ってくる
+                            TargetList.Add(TargetList[0]);
+                            TargetList.RemoveAt(0);
+                        }
                     }
+                    // ターゲットがいなくなった場合、削除
                     else {
-                        TargetList.Add(TargetList[0]);
                         TargetList.RemoveAt(0);
                     }
                 }
             }
             // Targetがいないため初期位置に戻る処理
             else {
+                gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
                 TargetPosList.Clear();

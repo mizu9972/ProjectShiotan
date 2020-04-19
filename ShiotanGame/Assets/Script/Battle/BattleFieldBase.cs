@@ -8,16 +8,10 @@ public class BattleFieldBase : MonoBehaviour
     private bool IsHostility = false;
     private string PlayerTag = "Player";
 
-    private List<GameObject> TotalEnemy;
+    private List<GameObject> TotalEnemy = new List<GameObject>();
     private int MaxEnemyCount = 0;
-    private List<GameObject> TotalFlock;
-    private HumanoidBase TotalFlockHumanoidBase;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        TotalFlockHumanoidBase = new HumanoidBase();
-    }
+    private List<GameObject> TotalFlock = new List<GameObject>();
+    [SerializeField] private HumanoidBase TotalFlockHumanoidBase = new HumanoidBase();
 
     // Update is called once per frame
     void Update()
@@ -96,7 +90,12 @@ public class BattleFieldBase : MonoBehaviour
         if (TotalFlock.Count > 0) {
             foreach (GameObject Flock in TotalFlock) {
                 foreach (GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
-                    Piranha.GetComponent<PiranhaBase>().Attack(BattleCenter);
+                    if (BattleCenter != null) {
+                        Piranha.GetComponent<PiranhaBase>().Attack(BattleCenter);
+                    }
+                    else {
+                        DestroyThisField();
+                    }
                 }
             }
         }
@@ -108,10 +107,16 @@ public class BattleFieldBase : MonoBehaviour
     private void AttackFoodEnemy() {
         if (TotalEnemy.Count > 0) {
             foreach (GameObject Enemy in TotalEnemy) {
-                // ToDo::エフェクトの作成
+                if (BattleCenter != null) {
 
-                // 攻撃
-                BattleCenter.GetComponent<HumanoidBase>().NowHP -= Enemy.GetComponent<HumanoidBase>().NowAttackPower;
+                    // ToDo::エフェクトの作成
+
+                    // 攻撃
+                    BattleCenter.GetComponent<HumanoidBase>().NowHP -= Enemy.GetComponent<HumanoidBase>().NowAttackPower;
+                }
+                else {
+                    DestroyThisField();
+                }
             }
         }
     }
@@ -154,9 +159,7 @@ public class BattleFieldBase : MonoBehaviour
     private void DestroyThisField() {
         // 各ピラニアのHPを設定しなおす
         foreach (GameObject Flock in TotalFlock) {
-            foreach (GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
-                Piranha.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / (Flock.GetComponent<FlockBase>().ChildPiranha.Count * TotalFlock.Count);
-            }
+            Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
         }
 
         // バトルの中心地を削除
@@ -202,7 +205,7 @@ public class BattleFieldBase : MonoBehaviour
     /// 設定されているバトル地を取得
     /// </summary>
     /// <returns></returns>
-    public GameObject GetBattkeCenter() {
+    public GameObject GetBattleCenter() {
         return BattleCenter;
     }
 
@@ -212,6 +215,10 @@ public class BattleFieldBase : MonoBehaviour
     /// <param name="Flock"></param>
     public void AddFlock(GameObject Flock) 
     {
+        if (TotalFlock.Count <= 0) {
+            TotalFlockHumanoidBase = new HumanoidBase();
+        }
+
         TotalFlock.Add(Flock);
 
         TotalFlockHumanoidBase.InitHP += Flock.GetComponent<HumanoidBase>().InitHP;

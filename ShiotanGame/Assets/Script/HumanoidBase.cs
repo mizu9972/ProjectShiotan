@@ -48,18 +48,6 @@ public class HumanoidBase : MonoBehaviour {
         m_NowAttackPower = m_InitAttackPower;
     }
 
-    void Start(float InitHP, float InitAtk) {
-        InitHP = m_InitHP;
-        InitAtk = m_InitAttackPower;
-
-        if (m_InitHP <= 0) {
-            Debug.LogWarning(gameObject.name + "のHPが0になっています。　設定してください");
-        }
-        m_NowHP = m_InitHP;
-
-        m_NowAttackPower = m_InitAttackPower;
-    }
-
     /// <summary>
     /// HPが0になっているかをチェック
     /// </summary>

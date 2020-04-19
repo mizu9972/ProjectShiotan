@@ -10,6 +10,25 @@ public class AttackField : MonoBehaviour {
     private string BattleFlockTag = "FlockPiranhaBattleField";
     [SerializeField]private List<GameObject> NearBattleFlock = new List<GameObject>();  // 近くでピラニアが群れで攻撃しているオブジェクトを保存
 
+    private void Update() {
+        // Missingになったオブジェクトがあれば削除する
+        List<int> DeleteArrayNum = new List<int>();
+        for (int i = 0; i < NearBattleFlock.Count; i++) {
+            if (NearBattleFlock[i] == null) {
+                DeleteArrayNum.Add(i);
+            }
+        }
+
+        if (NearBattleFlock.Count == DeleteArrayNum.Count) {
+            NearBattleFlock.Clear();
+        }
+        else {
+            for (int i = DeleteArrayNum.Count; i > 0; i--) {
+                NearBattleFlock.RemoveAt(DeleteArrayNum[i]);
+            }
+        }
+    }
+
     // 攻撃開始
     private void OnTriggerEnter(Collider other) {
         // アイテム探索
@@ -28,8 +47,8 @@ public class AttackField : MonoBehaviour {
 
         // 近くで攻撃している群れがあれば保存
         if (other.tag == BattleFlockTag) {
-            if (!NearBattleFlock.Contains(other.gameObject.transform.parent.gameObject)) {
-                NearBattleFlock.Add(other.gameObject.transform.parent.gameObject);
+            if (!NearBattleFlock.Contains(other.gameObject)) {
+                NearBattleFlock.Add(other.gameObject);
             }
         }
 
@@ -40,9 +59,9 @@ public class AttackField : MonoBehaviour {
                 gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = other.gameObject;
                 GameObject FoundObject = null;
                 if (NearBattleFlock.Count > 0) {
-                    BattlePiranhaFlockBase test = NearBattleFlock[0].GetComponent<BattlePiranhaFlockBase>();
+                    //BattlePiranhaFlockBase test = NearBattleFlock[0].GetComponent<BattlePiranhaFlockBase>();
                     foreach (GameObject Battle in NearBattleFlock) {
-                        if (Battle.GetComponent<BattlePiranhaFlockBase>().BattleCenter == gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject) {
+                        if (Battle.GetComponent<BattleFieldBase>().GetBattleCenter() == gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject) {
                             FoundObject = Battle;
                             break;
                         }
@@ -50,13 +69,13 @@ public class AttackField : MonoBehaviour {
                 }
 
                 if (FoundObject) {
-                    FoundObject.GetComponent<BattlePiranhaFlockBase>().ParticipationFlock(gameObject.transform.parent.gameObject);
-                    FoundObject.GetComponent<BattlePiranhaFlockBase>().BattleCenter = gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject;
+                    FoundObject.GetComponent<BattleFieldBase>().AddFlock(gameObject.transform.parent.gameObject);
+                    FoundObject.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
                 }
                 else {
                     GameObject CreateObj = Instantiate(BattlePrefab, gameObject.transform.position, gameObject.transform.rotation);
-                    CreateObj.GetComponent<BattlePiranhaFlockBase>().ParticipationFlock(gameObject.transform.parent.gameObject);
-                    CreateObj.GetComponent<BattlePiranhaFlockBase>().BattleCenter = gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject;
+                    CreateObj.GetComponent<BattleFieldBase>().AddFlock(gameObject.transform.parent.gameObject);
+                    CreateObj.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
                 }
                 transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = true;
             }
