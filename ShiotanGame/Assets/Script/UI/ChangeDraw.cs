@@ -10,6 +10,8 @@ public class ChangeDraw : MonoBehaviour
     [SerializeField, Header("子オブジェクトたち")]
     private List<Image> ChildObjects = new List<Image>();
 
+    [SerializeField, Header("ゲージの透明度")]
+    private Color col;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,5 +36,16 @@ public class ChangeDraw : MonoBehaviour
     {
         isActive = sts;//引数で受け取ったステータスを代入
         this.gameObject.SetActive(isActive);
+    }
+
+    private void OnValidate()//インスペクタ上の数値が変更されたら
+    {   
+        //設定されたアルファ値のみをゲージに設定
+        int cnt = 0;
+        foreach (Image childImg in ChildObjects)
+        {
+            ChildObjects[cnt].color = new Color(ChildObjects[cnt].color.r, ChildObjects[cnt].color.g, ChildObjects[cnt].color.b, col.a); 
+            cnt++;
+        }
     }
 }
