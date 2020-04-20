@@ -78,7 +78,7 @@ public class BattleFieldBase : MonoBehaviour
                 // ToDo::エフェクトの作成
 
                 // 攻撃
-                TotalFlockHumanoidBase.NowHP -= Enemy.GetComponent<HumanoidBase>().NowAttackPower;
+                Enemy.GetComponent<EnemyAttack>().Attack(TotalFlockHumanoidBase);
             }
         }
     }
@@ -112,7 +112,7 @@ public class BattleFieldBase : MonoBehaviour
                     // ToDo::エフェクトの作成
 
                     // 攻撃
-                    BattleCenter.GetComponent<HumanoidBase>().NowHP -= Enemy.GetComponent<HumanoidBase>().NowAttackPower;
+                    Enemy.GetComponent<EnemyAttack>().Attack(BattleCenter.GetComponent<HumanoidBase>());
                 }
                 else {
                     DestroyThisField();

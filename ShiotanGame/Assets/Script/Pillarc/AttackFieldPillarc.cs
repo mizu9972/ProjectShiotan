@@ -107,7 +107,7 @@ public class AttackFieldPillarc : MonoBehaviour
                     CreateObj.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
                     AffiliationBattleField = CreateObj;
                 }
-                transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = true;
+                transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = true;
             }
         }
     }

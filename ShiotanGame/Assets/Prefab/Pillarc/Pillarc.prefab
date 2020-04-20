@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 991534734217847507}
   - component: {fileID: 5975615750982883880}
   - component: {fileID: -2034412314316543122}
+  - component: {fileID: 6525308444280935112}
   - component: {fileID: 6641676052028214182}
   m_Layer: 0
   m_Name: Pillarc
@@ -179,6 +180,19 @@ MonoBehaviour:
   m_NowHP: 0
   m_NowAttackPower: 0
   m_AttackObject: {fileID: 0}
+--- !u!114 &6525308444280935112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6641676052028213849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98482d99bf6f92e41b19e2354930a08c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackCoolDown: 1
 --- !u!64 &6641676052028214182
 MeshCollider:
   m_ObjectHideFlags: 0
