@@ -8,9 +8,9 @@ public class BattleFieldBase : MonoBehaviour
     private bool IsHostility = false;
     private string PlayerTag = "Player";
 
-    private List<GameObject> TotalEnemy = new List<GameObject>();
+    [SerializeField] private List<GameObject> TotalEnemy = new List<GameObject>();
     private int MaxEnemyCount = 0;
-    private List<GameObject> TotalFlock = new List<GameObject>();
+    [SerializeField] private List<GameObject> TotalFlock = new List<GameObject>();
     [SerializeField] private HumanoidBase TotalFlockHumanoidBase = new HumanoidBase();
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class BattleFieldBase : MonoBehaviour
     private void BattleOfEnemAndFlock() 
     {
         // ピラニア群と敵が存在し、敵対している場合に処理を行う
-        if ((TotalFlock.Count > 0 && TotalEnemy.Count > 0) && IsHostility) {
+        if ((TotalFlock.Count > 0 && TotalEnemy.Count > 0) && !IsHostility) {
             // ピラニア群からの攻撃
             AttackFlock();
             AttackEnemy();
