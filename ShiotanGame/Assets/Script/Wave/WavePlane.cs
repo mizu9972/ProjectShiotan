@@ -12,8 +12,8 @@ public class WavePlane : MonoBehaviour
     private Texture texMask = null;
     public int TextureSize = 256;
     public float Size = 1.0f;
-    public float PhaseVelocity = 0.2f;
-    public float Attenuation = 0.999f;
+    public float PhaseVelocity = 0.2f;//波の速度
+    public float Attenuation = 0.999f;//減衰率
     private Material mat;
     private RenderTexture rTex;
     private Material myMat;
@@ -22,6 +22,7 @@ public class WavePlane : MonoBehaviour
     //private DispDepth m_DepthScanCS;
 
     [Header("マスクテクスチャ")]
+    
     [SerializeField, Header("壁")]
     private Texture WallMaskTex = null;
     [SerializeField, Header("地面")]
