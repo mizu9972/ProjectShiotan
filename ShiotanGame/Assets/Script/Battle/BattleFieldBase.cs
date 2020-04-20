@@ -124,7 +124,7 @@ public class BattleFieldBase : MonoBehaviour
     #region 死亡系
     private void BattleEndCheck() {
         // ピラニア群が死んだか、敵がいなくなった時のみ処理を行う
-        if(TotalFlockDeadCheck() || TotalEnemyDeadCheck()) {
+        if(TotalFlockDeadCheck() || TotalEnemyDeadCheck() || IsFlockAndEnemyNon()) {
             DestroyThisField();
         }
     }
@@ -153,6 +153,14 @@ public class BattleFieldBase : MonoBehaviour
         return false;
     }
 
+
+    private bool IsFlockAndEnemyNon() {
+        if(TotalFlock.Count <= 0 && TotalEnemy.Count <= 0) {
+            return true;
+        }
+        return false;
+    }
+
     /// <summary>
     /// このフィールドを削除するときに実行
     /// </summary>
@@ -162,11 +170,14 @@ public class BattleFieldBase : MonoBehaviour
             Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
         }
 
-        // ToDo::餌の時に自動削除再開
+        // 餌の時のみ処理を行う(敵対するものだけ処理を行うという風になっている)
+        if (!IsHostility) {
+            // ToDo::餌の時に自動削除再開
 
 
-        // バトルの中心地を削除
-        Destroy(BattleCenter);
+            // バトルの中心地を削除
+            Destroy(BattleCenter);
+        }
 
         // 削除
         Destroy(gameObject);
@@ -253,7 +264,15 @@ public class BattleFieldBase : MonoBehaviour
     /// <param name="Flock">削除オブジェクト</param>
     public void RemoveFlock(GameObject Flock) {
         if (TotalFlock.Contains(Flock)) {
+            // 各パラメータの振り分けと初期の更新
             Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
+            TotalFlockHumanoidBase.NowHP -= TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
+            TotalFlockHumanoidBase.InitHP -= Flock.GetComponent<HumanoidBase>().InitHP;
+
+            Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowAttackPower / TotalFlock.Count;
+            TotalFlockHumanoidBase.NowAttackPower -= TotalFlockHumanoidBase.NowAttackPower / TotalFlock.Count;
+            TotalFlockHumanoidBase.InitAttackPower -= Flock.GetComponent<HumanoidBase>().InitAttackPower;
+
             TotalFlock.Remove(Flock);
         }
     }
