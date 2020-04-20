@@ -97,6 +97,7 @@ public class AIFlock : MonoBehaviour
                 gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 TargetPosList.Clear();
             }
         }
@@ -123,6 +124,7 @@ public class AIFlock : MonoBehaviour
                 gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero; 
                 TargetPosList.Clear();
             }
         }
