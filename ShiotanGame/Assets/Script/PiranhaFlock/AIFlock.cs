@@ -120,6 +120,7 @@ public class AIFlock : MonoBehaviour
             }
             // ターゲットが見つからない場合初期位置に戻る
             else {
+                gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
                 TargetPosList.Clear();

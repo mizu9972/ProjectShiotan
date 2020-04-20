@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class AIPillarc : MonoBehaviour
 {
-    private int Frame = 0;
-
     private Vector3 InitPos;
 
     public List<GameObject> TargetList;
@@ -30,7 +29,8 @@ public class AIPillarc : MonoBehaviour
     private NavMeshAgent m_NavMeshAgent;
 
     // Start is called before the first frame update
-    void Start() {
+    void Start() 
+    {
         InitPos = gameObject.transform.position;
 
         m_NavMeshAgent = gameObject.GetComponent<NavMeshAgent>();
@@ -42,8 +42,24 @@ public class AIPillarc : MonoBehaviour
         m_NavMeshAgent.destination = InitPos;
     }
 
-    public void AIUpdate() {
-        Frame++;
+    public void AIUpdate() 
+    {
+        // Missingになったオブジェクトがあれば削除する
+        List<int> DeleteArrayNum = new List<int>();
+        for (int i = 0; i < TargetList.Count; i++) {
+            if (TargetList[i] == null) {
+                DeleteArrayNum.Add(i);
+            }
+        }
+
+        if (TargetList.Count == DeleteArrayNum.Count) {
+            TargetList.Clear();
+        }
+        else {
+            for (int i = DeleteArrayNum.Count; i > 0; i--) {
+                TargetList.RemoveAt(DeleteArrayNum[i]);
+            }
+        }
 
         // ターゲットが2以上の時にソートを行う
         if (TargetList.Count > 1) {
@@ -58,19 +74,27 @@ public class AIPillarc : MonoBehaviour
         else {
             if (TargetList.Count > 0) {
                 for (int i = 0; i < TargetList.Count; i++) {
-                    if (IsHit = RayShot(TargetList[0])) {
-                        gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
-                        gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                        break;
+                    if (TargetList[0] != null) {
+                        if (IsHit = RayShot(TargetList[0])) {
+                            gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
+                            gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                            break;
+                        }
+                        else {
+                            // レイが当たらなかったターゲットは後ろに持ってくる
+                            TargetList.Add(TargetList[0]);
+                            TargetList.RemoveAt(0);
+                        }
                     }
+                    // ターゲットがいなくなった場合、削除
                     else {
-                        TargetList.Add(TargetList[0]);
                         TargetList.RemoveAt(0);
                     }
                 }
             }
             // Targetがいないため初期位置に戻る処理
             else {
+                gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
                 TargetPosList.Clear();
@@ -79,25 +103,28 @@ public class AIPillarc : MonoBehaviour
 
         // ターゲットを見つけた場合ターゲットのほうに向かう
         if (IsHit) {
-            //m_NavMeshAgent.destination = TargetList[0].transform.position;
-            // ディレイフレームを超え始めるとターゲットを追尾し、最初の座標を削除していく
-            if (TargetPosList.Count > PiranhaChaceDirayFrame) {
-                TargetPosList.RemoveAt(0);
-                if (Time.frameCount % ChaceAccuracy == 0) {
-                    ChaseTarget();
+            if (TargetList.Count > 0) {
+                //m_NavMeshAgent.destination = TargetList[0].transform.position;
+                // ディレイフレームを超え始めるとターゲットを追尾し、最初の座標を削除していく
+                if (TargetPosList.Count > PiranhaChaceDirayFrame) {
+                    TargetPosList.RemoveAt(0);
+                    if (Time.frameCount % ChaceAccuracy == 0) {
+                        ChaseTarget();
+                    }
                 }
+                else {
+                    gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                }
+                // ToDo::もし、ついていたら追いかけずに攻撃する
+                TargetPosList.Add(TargetList[0].transform.position);
             }
+            // ターゲットが見つからない場合初期位置に戻る
             else {
-                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+                gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                m_NavMeshAgent.destination = InitPos;
+                TargetPosList.Clear();
             }
-            // ToDo::もし、ついていたら追いかけずに攻撃する
-            TargetPosList.Add(TargetList[0].transform.position);
-        }
-        // ターゲットが見つからない場合初期位置に戻る
-        else {
-            gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            m_NavMeshAgent.destination = InitPos;
-            TargetPosList.Clear();
         }
     }
 
