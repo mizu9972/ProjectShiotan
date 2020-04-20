@@ -162,6 +162,7 @@ public class AIPillarc : MonoBehaviour
     /// </summary>
     private void ChaseTarget() {
         gameObject.transform.LookAt(TargetPosList[0]);  // ターゲットの方向を向く
+        gameObject.transform.localEulerAngles = new Vector3(0.0f, gameObject.transform.localEulerAngles.y, 0.0f); // y軸のみ向かせる
         gameObject.GetComponent<Rigidbody>().velocity = transform.forward * MoveSpeed;  // 新追尾
     }
 
