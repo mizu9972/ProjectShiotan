@@ -67,7 +67,6 @@ public class WaveAct : MonoBehaviour
 
     IEnumerator Wave()
     {
-        //TODO 移動時と停止時で間隔を変化させたい
 
         //一定間隔毎に波を発生させる
         m_WavePlaneScript.AwakeWave(this.transform, WaveSize, WaveTex);
