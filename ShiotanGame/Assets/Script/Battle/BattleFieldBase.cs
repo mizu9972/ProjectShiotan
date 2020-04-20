@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BattleFieldBase : MonoBehaviour
 {
-    private GameObject BattleCenter;
+    [SerializeField] private GameObject BattleCenter;
     private bool IsHostility = false;
     private string PlayerTag = "Player";
 

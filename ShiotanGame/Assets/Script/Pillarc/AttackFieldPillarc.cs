@@ -84,6 +84,12 @@ public class AttackFieldPillarc : MonoBehaviour
         if (transform.parent.gameObject.GetComponent<AIPillarc>().TargetList.Count > 0) {
             // 追いかけているオブジェクトと同一なら攻撃開始
             if (other.gameObject == transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0]) {
+                // 現在所属のフィールドが存在するなら抜ける処理を行う
+                if (AffiliationBattleField) {
+                    AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveFlock(gameObject.transform.parent.gameObject);
+                    AffiliationBattleField = null;
+                }
+
                 gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = other.gameObject;
                 GameObject FoundObject = null;
                 if (NearBattleFlock.Count > 0) {
