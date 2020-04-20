@@ -103,25 +103,27 @@ public class AIFlock : MonoBehaviour
 
         // ターゲットを見つけた場合ターゲットのほうに向かう
         if (IsHit) {
-            //m_NavMeshAgent.destination = TargetList[0].transform.position;
-            // ディレイフレームを超え始めるとターゲットを追尾し、最初の座標を削除していく
-            if (TargetPosList.Count > PiranhaChaceDirayFrame) {
-                TargetPosList.RemoveAt(0);
-                if (Time.frameCount % ChaceAccuracy == 0) {
-                    ChaseTarget();
+            if (TargetList.Count > 0) {
+                //m_NavMeshAgent.destination = TargetList[0].transform.position;
+                // ディレイフレームを超え始めるとターゲットを追尾し、最初の座標を削除していく
+                if (TargetPosList.Count > PiranhaChaceDirayFrame) {
+                    TargetPosList.RemoveAt(0);
+                    if (Time.frameCount % ChaceAccuracy == 0) {
+                        ChaseTarget();
+                    }
                 }
+                else {
+                    gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                }
+                // ToDo::もし、ついていたら追いかけずに攻撃する
+                TargetPosList.Add(TargetList[0].transform.position);
             }
+            // ターゲットが見つからない場合初期位置に戻る
             else {
-                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                m_NavMeshAgent.destination = InitPos;
+                TargetPosList.Clear();
             }
-            // ToDo::もし、ついていたら追いかけずに攻撃する
-            TargetPosList.Add(TargetList[0].transform.position);
-        }
-        // ターゲットが見つからない場合初期位置に戻る
-        else {
-            gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            m_NavMeshAgent.destination = InitPos;
-            TargetPosList.Clear();
         }
     }
 

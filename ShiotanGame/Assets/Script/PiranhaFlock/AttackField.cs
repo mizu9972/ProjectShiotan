@@ -8,7 +8,8 @@ public class AttackField : MonoBehaviour {
 
     [SerializeField, Header("ピラニアが攻撃する際のプレハブ")] private GameObject BattlePrefab;
     private string BattleFlockTag = "FlockPiranhaBattleField";
-    [SerializeField]private List<GameObject> NearBattleFlock = new List<GameObject>();  // 近くでピラニアが群れで攻撃しているオブジェクトを保存
+    [SerializeField] private List<GameObject> NearBattleFlock = new List<GameObject>();  // 近くでピラニアが群れで攻撃しているオブジェクトを保存
+    [SerializeField] private GameObject AffiliationBattleField;
 
     private void Update() {
         // Missingになったオブジェクトがあれば削除する
@@ -71,11 +72,13 @@ public class AttackField : MonoBehaviour {
                 if (FoundObject) {
                     FoundObject.GetComponent<BattleFieldBase>().AddFlock(gameObject.transform.parent.gameObject);
                     FoundObject.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                    AffiliationBattleField = FoundObject;
                 }
                 else {
                     GameObject CreateObj = Instantiate(BattlePrefab, gameObject.transform.position, gameObject.transform.rotation);
                     CreateObj.GetComponent<BattleFieldBase>().AddFlock(gameObject.transform.parent.gameObject);
                     CreateObj.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                    AffiliationBattleField = CreateObj;
                 }
                 transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = true;
             }
@@ -111,12 +114,21 @@ public class AttackField : MonoBehaviour {
             }
         }
 
-        // ターゲットがいるときのみ処理を行う
-        if (transform.parent.gameObject.GetComponent<AIFlock>().TargetList.Count > 0) {
-            if (other.gameObject == transform.parent.gameObject.GetComponent<AIFlock>().TargetList[0]) {
-                gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = null;
-                transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = false;
-            }
+        // バトルから抜ける
+        if(other.gameObject == AffiliationBattleField) {
+            gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+            transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = false;
+
+            AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveFlock(gameObject.transform.parent.gameObject);
+            AffiliationBattleField = null;
         }
+
+        //// ターゲットがいるときのみ処理を行う
+        //if (transform.parent.gameObject.GetComponent<AIFlock>().TargetList.Count > 0) {
+        //    if (other.gameObject == transform.parent.gameObject.GetComponent<AIFlock>().TargetList[0]) {
+        //        gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+        //        transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = false;
+        //    }
+        //}
     }
 }

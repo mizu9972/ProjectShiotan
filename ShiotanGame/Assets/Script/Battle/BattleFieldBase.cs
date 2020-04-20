@@ -162,6 +162,9 @@ public class BattleFieldBase : MonoBehaviour
             Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
         }
 
+        // ToDo::餌の時に自動削除再開
+
+
         // バトルの中心地を削除
         Destroy(BattleCenter);
 
@@ -226,6 +229,12 @@ public class BattleFieldBase : MonoBehaviour
 
         TotalFlockHumanoidBase.NowHP += Flock.GetComponent<HumanoidBase>().NowHP;
         TotalFlockHumanoidBase.NowAttackPower += Flock.GetComponent<HumanoidBase>().NowAttackPower;
+
+        // ピラニア群のバトル初動
+        foreach(GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
+            // 攻撃タイミングの調整
+            Piranha.GetComponent<PiranhaBase>().FirstAttackTiming();
+        }
     }
 
     /// <summary>
@@ -236,6 +245,27 @@ public class BattleFieldBase : MonoBehaviour
     {
         TotalEnemy.Add(Enemy);
         MaxEnemyCount++;
+    }
+
+    /// <summary>
+    /// ピラニア群の削除
+    /// </summary>
+    /// <param name="Flock">削除オブジェクト</param>
+    public void RemoveFlock(GameObject Flock) {
+        if (TotalFlock.Contains(Flock)) {
+            Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
+            TotalFlock.Remove(Flock);
+        }
+    }
+
+    /// <summary>
+    /// 敵の削除
+    /// </summary>
+    /// <param name="Enemy">削除オブジェクト</param>
+    public void RemoveEnemy(GameObject Enemy) {
+        if (TotalEnemy.Contains(Enemy)) {
+            TotalFlock.Remove(Enemy);
+        }
     }
     #endregion
 }
