@@ -13,7 +13,7 @@
 	}
 		SubShader
 	{
-			Tags { "RenderType" = "Opaque" "Queue" = "Overlay" }
+			Tags { "RenderType" = "Opaque" "Queue" = "Background" }
 			Blend SrcAlpha OneMinusSrcAlpha
 			LOD 200
 			Pass
