@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackField : MonoBehaviour {
+public class AttackFieldSparkEel : MonoBehaviour
+{
     [SerializeField, Header("取得するアイテムTag")]
     private List<string> ItemTag;
 
-    [SerializeField, Header("ピラニアが攻撃する際のプレハブ")] private GameObject BattlePrefab;
+    [SerializeField, Header("電気ウナギが攻撃する際のプレハブ")] private GameObject BattlePrefab;
     private string BattleFlockTag = "FlockPiranhaBattleField";
-    [SerializeField] private List<GameObject> NearBattleFlock = new List<GameObject>();  // 近くでピラニアが群れで攻撃しているオブジェクトを保存
+    [SerializeField] private List<GameObject> NearBattleFlock = new List<GameObject>();  // 近くで攻撃しているオブジェクトを保存
     [SerializeField] private GameObject AffiliationBattleField;
 
     private void Update() {
@@ -27,10 +28,36 @@ public class AttackField : MonoBehaviour {
 
     // 攻撃開始
     private void OnTriggerEnter(Collider other) {
+        // 旧Ver
+        {
+            //// アイテム探索
+            //bool IsItem = false;
+            //foreach (string tag in ItemTag) {
+            //    if (other.tag == tag) {
+            //        IsItem = true;
+            //        break;
+            //    }
+            //}
+
+            //// アイテム使用処理
+            //if (IsItem) {
+            //    other.gameObject.GetComponent<ItemBase>().UseItem();
+            //}
+
+            //// ターゲットがいるときのみ処理を行う
+            //if (transform.parent.gameObject.GetComponent<AIPillarc>().TargetList.Count > 0) {
+            //    // 追いかけているオブジェクトと同一なら攻撃開始
+            //    if (other.gameObject == transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0]) {
+            //        transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = true;
+            //    }
+            //}
+        }
+
+        // 新Ver
         // アイテム探索
         bool IsItem = false;
-        foreach(string tag in ItemTag) {
-            if(other.tag == tag) {
+        foreach (string tag in ItemTag) {
+            if (other.tag == tag) {
                 IsItem = true;
                 break;
             }
@@ -49,9 +76,9 @@ public class AttackField : MonoBehaviour {
         }
 
         // ターゲットがいるときのみ処理を行う
-        if (transform.parent.gameObject.GetComponent<AIFlock>().TargetList.Count > 0) {
+        if (transform.parent.gameObject.GetComponent<AISparkEel>().TargetList.Count > 0) {
             // 追いかけているオブジェクトと同一なら攻撃開始
-            if (other.gameObject == transform.parent.gameObject.GetComponent<AIFlock>().TargetList[0]) {
+            if (other.gameObject == transform.parent.gameObject.GetComponent<AISparkEel>().TargetList[0]) {
                 // 現在所属のフィールドが存在するなら抜ける処理を行う
                 if (AffiliationBattleField) {
                     AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveFlock(gameObject.transform.parent.gameObject);
@@ -71,17 +98,17 @@ public class AttackField : MonoBehaviour {
                 }
 
                 if (FoundObject) {
-                    FoundObject.GetComponent<BattleFieldBase>().AddFlock(gameObject.transform.parent.gameObject);
+                    FoundObject.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                     FoundObject.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
                     AffiliationBattleField = FoundObject;
                 }
                 else {
                     GameObject CreateObj = Instantiate(BattlePrefab, gameObject.transform.position, gameObject.transform.rotation);
-                    CreateObj.GetComponent<BattleFieldBase>().AddFlock(gameObject.transform.parent.gameObject);
+                    CreateObj.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                     CreateObj.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
                     AffiliationBattleField = CreateObj;
                 }
-                transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = true;
+                transform.parent.gameObject.GetComponent<AISparkEel>().IsAttack = true;
             }
         }
     }
@@ -89,18 +116,17 @@ public class AttackField : MonoBehaviour {
     // 攻撃
     //private void OnTriggerStay(Collider other) {
     //    // ターゲットがいるときのみ処理を行う
-    //    if (transform.parent.gameObject.GetComponent<AIFlock>().TargetList.Count > 0) {
-    //        if (other.gameObject == transform.parent.gameObject.GetComponent<AIFlock>().TargetList[0]) {
-    //            foreach (GameObject Piranha in transform.parent.gameObject.GetComponent<FlockBase>().ChildPiranha) {
-    //                Piranha.GetComponent<PiranhaBase>().Attack();
+    //    if (transform.parent.gameObject.GetComponent<AIPillarc>().TargetList.Count > 0) {
+    //        if (other.gameObject == transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0]) {
+    //            // 攻撃
+    //            transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0].gameObject.GetComponent<HumanoidBase>().NowHP -= transform.parent.gameObject.GetComponent<HumanoidBase>().NowAttackPower;
 
-    //                // 死んだかチェック
-    //                if (transform.parent.gameObject.GetComponent<AIFlock>().TargetList[0].gameObject.GetComponent<HumanoidBase>().DeadCheck()) {
-    //                    // 死んでいる場合、ターゲットを削除し、攻撃を終了する
-    //                    transform.parent.gameObject.GetComponent<AIFlock>().TargetList.RemoveAt(0);
-    //                    transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = false;
-    //                    return;
-    //                }
+    //            // 死んだかチェック
+    //            if (transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0].gameObject.GetComponent<HumanoidBase>().DeadCheck()) {
+    //                // 死んでいる場合、ターゲットを削除し、攻撃を終了する
+    //                transform.parent.gameObject.GetComponent<AIPillarc>().TargetList.RemoveAt(0);
+    //                transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = false;
+    //                return;
     //            }
     //        }
     //    }
@@ -108,6 +134,17 @@ public class AttackField : MonoBehaviour {
 
     // 攻撃中断
     private void OnTriggerExit(Collider other) {
+        // 旧Ver
+        {
+            //// ターゲットがいるときのみ処理を行う
+            //if (transform.parent.gameObject.GetComponent<AIPillarc>().TargetList.Count > 0) {
+            //    if (other.gameObject == transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0]) {
+            //        transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = false;
+            //    }
+            //}
+        }
+
+        // 新Ver
         if (other.tag == BattleFlockTag) {
             // 近くで攻撃している群れであれば削除
             if (NearBattleFlock.Contains(other.gameObject)) {
@@ -116,20 +153,12 @@ public class AttackField : MonoBehaviour {
         }
 
         // バトルから抜ける
-        if(other.gameObject == AffiliationBattleField) {
+        if (other.gameObject == AffiliationBattleField) {
             gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = null;
-            transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = false;
+            transform.parent.gameObject.GetComponent<AISparkEel>().IsAttack = false;
 
-            AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveFlock(gameObject.transform.parent.gameObject);
+            AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveEnemy(gameObject.transform.parent.gameObject);
             AffiliationBattleField = null;
         }
-
-        //// ターゲットがいるときのみ処理を行う
-        //if (transform.parent.gameObject.GetComponent<AIFlock>().TargetList.Count > 0) {
-        //    if (other.gameObject == transform.parent.gameObject.GetComponent<AIFlock>().TargetList[0]) {
-        //        gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = null;
-        //        transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = false;
-        //    }
-        //}
     }
 }

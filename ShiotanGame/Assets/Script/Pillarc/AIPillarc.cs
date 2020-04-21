@@ -48,16 +48,7 @@ public class AIPillarc : MonoBehaviour
         List<int> DeleteArrayNum = new List<int>();
         for (int i = 0; i < TargetList.Count; i++) {
             if (TargetList[i] == null) {
-                DeleteArrayNum.Add(i);
-            }
-        }
-
-        if (TargetList.Count == DeleteArrayNum.Count) {
-            TargetList.Clear();
-        }
-        else {
-            for (int i = DeleteArrayNum.Count; i > 0; i--) {
-                TargetList.RemoveAt(DeleteArrayNum[i]);
+                TargetList.Remove(TargetList[i]);
             }
         }
 
