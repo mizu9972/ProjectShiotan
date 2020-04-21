@@ -12,18 +12,22 @@ public class WavePlane : MonoBehaviour
     private Texture texMask = null;
     public int TextureSize = 256;
     public float Size = 1.0f;
-    public float PhaseVelocity = 0.2f;//波の速度
-    public float Attenuation = 0.999f;//減衰率
+
+    [SerializeField, Header("波の速度")]
+    private float PhaseVelocity = 0.2f;//波の速度
+
+    [SerializeField,Header("波の減衰率")]
+    private float Attenuation = 0.999f;//減衰率
     private Material mat;
     private RenderTexture rTex;
     private Material myMat;
-    //[SerializeField, Header("深度スキャンカメラオブジェクト")]
-    //private GameObject DepthScanCamera = null;
-    //private DispDepth m_DepthScanCS;
 
-    [Header("マスクテクスチャ")]
-    
-    [SerializeField, Header("壁")]
+    [SerializeField, Header("潮テクスチャ")]
+    private Texture TideTexture = null;
+    [SerializeField, Header("潮テクスチャの明るさ"), Range(0.0f, 1.0f)]
+    private float TideLitRate = 1.0f;
+
+    [SerializeField, Header("壁"), Header("マスクテクスチャ")]
     private Texture WallMaskTex = null;
     [SerializeField, Header("地面")]
     private Texture FloorMaskTex = null;
@@ -49,19 +53,30 @@ public class WavePlane : MonoBehaviour
         Graphics.Blit(texBuf, rTex, InitRanderMat);
 
         //シェーダー初期化-------------------------------------
-        waveMat.SetTexture("_MainTex", rTex);
-        waveMat.SetTexture("_MaskTex", WallMaskTex);
+        {
 
-        matPaint.SetTexture("_AddTex", texBlush);
-        mat.SetTexture("_HeightMap", rTex);
-        mat.SetTexture("_FloorTex", FloorMaskTex);
+            //テクスチャ設定
+            {
+                waveMat.SetTexture("_MainTex", rTex);
+                waveMat.SetTexture("_MaskTex", WallMaskTex);
 
-        matPaint.SetFloat("_SizeX", Size / ScaleX / 4.0f);
-        matPaint.SetFloat("_SizeY", Size / ScaleZ / 4.0f);
-        
-        waveMat.SetFloat("_PhaseVelocity", PhaseVelocity / ScaleX);
-        waveMat.SetFloat("_Attenuation", Attenuation);
-        mat.SetFloat("_BumpScale", 0.1f);
+                matPaint.SetTexture("_AddTex", texBlush);
+                mat.SetTexture("_HeightMap", rTex);
+                mat.SetTexture("_FloorTex", FloorMaskTex);
+
+                mat.SetTexture("_TideTex", TideTexture);
+            }
+
+            //パラメータ初期化
+            mat.SetFloat("_TideLitRate", TideLitRate);
+
+            matPaint.SetFloat("_SizeX", Size / ScaleX / 4.0f);
+            matPaint.SetFloat("_SizeY", Size / ScaleZ / 4.0f);
+
+            waveMat.SetFloat("_PhaseVelocity", PhaseVelocity / ScaleX);
+            waveMat.SetFloat("_Attenuation", Attenuation);
+            mat.SetFloat("_BumpScale", 0.1f);
+        }
         //--------------------------------------------------
     }
 
