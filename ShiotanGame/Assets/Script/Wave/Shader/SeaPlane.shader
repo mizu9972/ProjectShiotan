@@ -8,10 +8,12 @@
 		_Metallic("Metallic", Range(0,1)) = 0.0
 		_MergeTex("MergeTex",2D) = "white" {}
 		_FloorTex("FloorTex",2D) = "black" {}
+		_TideTex("TideTex",2D) = "black" {}
+		_ScrollTime("ScrollTime", Float) = 1.0
 	}
 		SubShader
 	{
-			Tags { "RenderType" = "Opaque" "Queue" = "Transparent" }
+			Tags { "RenderType" = "Opaque" "Queue" = "Background" }
 			Blend SrcAlpha OneMinusSrcAlpha
 			LOD 200
 			Pass
@@ -27,6 +29,7 @@
 			sampler2D _MainTex;
 			sampler2D _MergeTex;
 			sampler2D _FloorTex;
+			sampler2D _TideTex;
 
 			struct appdata
 			{
@@ -34,6 +37,7 @@
 				float2 uv : TEXCOORD0;
 				float2 uv2 : TEXCOORD1;
 				float2 uv3 :TEXCOORD2;
+				float2 Scrolluv :TEXCOORD3;
 			};
 
 			struct v2f
@@ -41,12 +45,16 @@
 				float2 uv : TEXCOORD0;
 				float2 uv2 : TEXCOORD1;
 				float2 uv3 :TEXCOORD2;
+				float2 Scrolluv :TEXCOORD3;
 				float4 vertex : SV_POSITION;
 			};
 
 			float4 _MainTex_ST;
 			float4 _MergeTex_ST;
 			float4 _FloorTex_ST;
+			float4 _TideTex_ST;
+			float _TideLitRate;
+			float _ScrollTime;
 			half _Glossiness;
 			half _Metallic;
 			fixed4 _Color;
@@ -65,6 +73,7 @@
 				o.uv = TRANSFORM_TEX(IN.uv, _MainTex);
 				o.uv2 = TRANSFORM_TEX(IN.uv2, _MergeTex);
 				o.uv3 = TRANSFORM_TEX(IN.uv3, _FloorTex);
+				o.Scrolluv = TRANSFORM_TEX(IN.Scrolluv, _TideTex);
 				return o;
 			}
 
@@ -76,15 +85,15 @@
 
 				fixed4 MainCol = tex2D(_MergeTex, i.uv2);//テクスチャ
 				fixed4 FloorMaskCol = 1.0f - tex2D(_FloorTex, i.uv3);
+
+				fixed4 TideTexCol = tex2D(_TideTex, i.uv2 + _Time * _ScrollTime) * _TideLitRate;//潮テクスチャ uvスクロールさせる
 				//col.x = floor(col.x * 10) / 10.0f;//小数点第二以下を切り捨て
 				col.x *= -1.0f;//波を白色で表現
-				//col.x *= col.z;//波の減衰
-				col = fixed4(MainCol.x + col.x, MainCol.y + col.x, MainCol.z + col.x, MainCol.w + col.x);
+				col = fixed4(MainCol.x + TideTexCol.x + col.x, MainCol.y + TideTexCol.y + col.x, MainCol.z + TideTexCol.z + col.x, MainCol.w + TideTexCol.w + col.x);
 				col.w = col.w * FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z;
 
 				
 				return col;
-				//return fixed4(1.0, 1.0, 1.0, 0);
 			}
 
 			ENDCG
