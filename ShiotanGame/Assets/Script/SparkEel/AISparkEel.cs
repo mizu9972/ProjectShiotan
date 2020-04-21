@@ -125,6 +125,14 @@ public class AISparkEel : MonoBehaviour
                 TargetPosList.Clear();
             }
         }
+
+        // 電撃攻撃を行うかを指定
+        if(gameObject.GetComponent<NavMeshAgent>().remainingDistance <= 1.0f) {
+            gameObject.GetComponent<SparkEelBase>().IsSpark = true;
+        }
+        else {
+            gameObject.GetComponent<SparkEelBase>().IsSpark = false;
+        }
     }
 
     // Rayをターゲットに飛ばして当たったかを返す
