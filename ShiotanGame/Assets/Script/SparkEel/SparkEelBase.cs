@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class SparkEelBase : MonoBehaviour
 {
     [SerializeField] private GameObject SparkField;
+    public bool IsSpark = true;
 
     void Start() {
     }
@@ -15,6 +16,8 @@ public class SparkEelBase : MonoBehaviour
         gameObject.GetComponent<AISparkEel>().AIUpdate();
 
         // 電撃処理
-        SparkField.GetComponent<SparkEelSparkAttackField>().SparkFieldUpdate();
+        if (IsSpark) {
+            SparkField.GetComponent<SparkEelSparkAttackField>().SparkFieldUpdate();
+        }
     }
 }

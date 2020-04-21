@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 6383217873552187742}
   - component: {fileID: 3139759606093655265}
   - component: {fileID: 8757544578464741237}
+  - component: {fileID: 6446406089402960558}
   - component: {fileID: 1587971154986242225}
   - component: {fileID: 2326061983383444231}
   - component: {fileID: 423765099480748365}
@@ -213,6 +214,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!195 &6446406089402960558
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122783824100154819}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 5
+  m_Acceleration: 50
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &1587971154986242225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,11 +267,11 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 0
-  RayDistance: 0
+  RayDistance: 50
   SparkEelChaceDirayFrame: 5
   ChaceAccuracy: 1
   TargetPosList: []
-  MoveSpeed: 0
+  MoveSpeed: 14
 --- !u!64 &423765099480748365
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -739,6 +762,21 @@ PrefabInstance:
       propertyPath: ShapeModule.m_Mesh
       value: 
       objectReference: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 5195420978006719028, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
+        type: 3}
+      propertyPath: ShapeModule.m_MeshSpawn.mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195420978006719028, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
+        type: 3}
+      propertyPath: ShapeModule.placementMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195420978006719028, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
+        type: 3}
+      propertyPath: ShapeModule.m_MeshSpawn.spread
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5195420978006719177, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
         type: 3}
       propertyPath: m_Name
@@ -798,6 +836,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195420978006719178, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195420978006719178, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195420978006719178, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1ee38627d5d95d4fb8a0e70f940ad12, type: 3}

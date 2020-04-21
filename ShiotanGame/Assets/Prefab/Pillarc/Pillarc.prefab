@@ -158,11 +158,11 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 1048576
-  RayDistance: 0
+  RayDistance: 50
   PiranhaChaceDirayFrame: 5
   ChaceAccuracy: 1
   TargetPosList: []
-  MoveSpeed: 0
+  MoveSpeed: 14
 --- !u!114 &-2034412314316543122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,8 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc383a5fbc9fd9d49a91b61f465d66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitHP: 0
-  m_InitAttackPower: 0
+  m_InitHP: 100
+  m_InitAttackPower: 10
   m_NowHP: 0
   m_NowAttackPower: 0
   m_AttackObject: {fileID: 0}
@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98482d99bf6f92e41b19e2354930a08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DropFood: 0
   AttackCoolDown: 1
 --- !u!64 &6641676052028214182
 MeshCollider:
