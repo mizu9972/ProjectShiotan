@@ -4,6 +4,9 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
+
+using UniRx;
+
 public class WavePlane : MonoBehaviour
 {
     public Material waveMat, matPaint;
@@ -16,7 +19,7 @@ public class WavePlane : MonoBehaviour
     [SerializeField, Header("波の速度")]
     private float PhaseVelocity = 0.2f;//波の速度
 
-    [SerializeField,Header("波の減衰率")]
+    [SerializeField, Header("波の減衰率")]
     private float Attenuation = 0.999f;//減衰率
     private Material mat;
     private RenderTexture rTex;
@@ -46,7 +49,7 @@ public class WavePlane : MonoBehaviour
         //myMat = gameObject.GetComponent<Renderer>().material;
 
         rTex = new RenderTexture(TextureSize, TextureSize, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Default);
-        
+
         Texture2D texBuf = new Texture2D(1, 1);
         texBuf.SetPixel(0, 0, new Color(0.0f, 1.0f, 1.0f, 1));
         texBuf.Apply();
@@ -187,8 +190,22 @@ public class WavePlane : MonoBehaviour
     //    AwakeWave(other.transform, 0.1f, texBlush);
     //}
 
+    private class AwakeWaveArg{
+        public float PaintSize;
+        public Vector2 UVPos;
+        public Texture Tex;
+        public RenderTexture buf;
+
+        public AwakeWaveArg(float PaintSize_, Vector2 UVPos_, Texture Tex_, RenderTexture buf_)
+        {
+            PaintSize = PaintSize_;
+            UVPos = UVPos_;
+            Tex = Tex_;
+            buf = buf_;
+        }
+    }
     //波を発生させる
-    public void AwakeWave(Transform ObjectTrans,float PaintSize,Texture Tex)
+    public void AwakeWave(Transform ObjectTrans,float PaintSize,Texture Tex,float LoopSecond = 0.0f,float AwakeIntervalSecond = 1.0f)
     {
         RenderTexture buf = RenderTexture.GetTemporary(rTex.width, rTex.height, 0, RenderTextureFormat.ARGBFloat);
 
@@ -203,19 +220,37 @@ public class WavePlane : MonoBehaviour
 
             //水面上ならシェーダーにUV座標を計算して渡す
             Vector2 UVPos = UVDetector(hitInfo);
-            matPaint.SetTexture("_MainTex", rTex);
-            matPaint.SetVector("_UVPosition", new Vector4(UVPos.x, UVPos.y, 0, 0));
-            //matPaint.SetFloat("_Size", PaintSize);
-            matPaint.SetFloat("_SizeX", PaintSize / (ScaleX / 4.0f));
-            matPaint.SetFloat("_SizeY", PaintSize / (ScaleZ / 4.0f));
 
-            matPaint.SetTexture("_AddTex", Tex);
+            //波発生
+            StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf));
 
-            Graphics.Blit(rTex, buf, matPaint);
-            Graphics.Blit(buf, rTex);
+            //波を連続して発生させる処理
+            var StopWaveLoopSelect = Observable.Timer(System.TimeSpan.FromSeconds(LoopSecond));
+            var LoopWaveFunction = Observable.Interval(System.TimeSpan.FromSeconds(AwakeIntervalSecond))
+                .TakeUntil(StopWaveLoopSelect)
+                .Subscribe(_ => StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf)));
+
+
         }
 
+
         RenderTexture.ReleaseTemporary(buf);
+    }
+
+    IEnumerator LoopWaveFunction(AwakeWaveArg Arg)
+    {
+        matPaint.SetTexture("_MainTex", rTex);
+        matPaint.SetVector("_UVPosition", new Vector4(Arg.UVPos.x, Arg.UVPos.y, 0, 0));
+        //matPaint.SetFloat("_Size", PaintSize);
+        matPaint.SetFloat("_SizeX", Arg.PaintSize / (ScaleX / 4.0f));
+        matPaint.SetFloat("_SizeY", Arg.PaintSize / (ScaleZ / 4.0f));
+
+        matPaint.SetTexture("_AddTex", Arg.Tex);
+
+        Graphics.Blit(rTex, Arg.buf, matPaint);
+        Graphics.Blit(Arg.buf, rTex);
+
+        yield break;
     }
     
 }
