@@ -205,9 +205,10 @@ public class AIPillarc : MonoBehaviour
             }
         }
 
-        // ターゲットソートが終わってから最初にプレイヤーを入れる
+        // ターゲットソートが終わってから最後にプレイヤーを入れる
         if (Player) {
-            TargetList.Insert(0, Player);
+            //TargetList.Insert(0, Player);
+            TargetList.Add(Player);
         }
     }
 
