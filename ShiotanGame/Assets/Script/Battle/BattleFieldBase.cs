@@ -11,7 +11,7 @@ public class BattleFieldBase : MonoBehaviour
     [SerializeField] private List<GameObject> TotalEnemy = new List<GameObject>();
     private int MaxEnemyCount = 0;
     [SerializeField] private List<GameObject> TotalFlock = new List<GameObject>();
-    [SerializeField] private HumanoidBase TotalFlockHumanoidBase = new HumanoidBase();
+    [SerializeField] private HumanoidBase TotalFlockHumanoidBase;
 
     // Update is called once per frame
     void Update()
@@ -78,7 +78,7 @@ public class BattleFieldBase : MonoBehaviour
                 // ToDo::エフェクトの作成
 
                 // 攻撃
-                Enemy.GetComponent<EnemyAttack>().Attack(TotalFlockHumanoidBase);
+                Enemy.GetComponent<EnemyBase>().Attack(TotalFlockHumanoidBase);
             }
         }
     }
@@ -112,7 +112,7 @@ public class BattleFieldBase : MonoBehaviour
                     // ToDo::エフェクトの作成
 
                     // 攻撃
-                    Enemy.GetComponent<EnemyAttack>().Attack(BattleCenter.GetComponent<HumanoidBase>());
+                    Enemy.GetComponent<EnemyBase>().Attack(BattleCenter.GetComponent<HumanoidBase>());
                 }
                 else {
                     DestroyThisField();
@@ -230,7 +230,8 @@ public class BattleFieldBase : MonoBehaviour
     public void AddFlock(GameObject Flock) 
     {
         if (TotalFlock.Count <= 0) {
-            TotalFlockHumanoidBase = new HumanoidBase();
+            gameObject.AddComponent<HumanoidBase>();
+            TotalFlockHumanoidBase = gameObject.GetComponent<HumanoidBase>();
         }
 
         TotalFlock.Add(Flock);
@@ -283,7 +284,7 @@ public class BattleFieldBase : MonoBehaviour
     /// <param name="Enemy">削除オブジェクト</param>
     public void RemoveEnemy(GameObject Enemy) {
         if (TotalEnemy.Contains(Enemy)) {
-            TotalFlock.Remove(Enemy);
+            TotalEnemy.Remove(Enemy);
         }
     }
     #endregion

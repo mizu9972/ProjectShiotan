@@ -17,17 +17,12 @@ public class AttackFieldPillarc : MonoBehaviour
         List<int> DeleteArrayNum = new List<int>();
         for (int i = 0; i < NearBattleFlock.Count; i++) {
             if (NearBattleFlock[i] == null) {
-                DeleteArrayNum.Add(i);
+                NearBattleFlock.Remove(NearBattleFlock[i]);
             }
         }
 
-        if (NearBattleFlock.Count == DeleteArrayNum.Count) {
-            NearBattleFlock.Clear();
-        }
-        else {
-            for (int i = DeleteArrayNum.Count; i > 0; i--) {
-                NearBattleFlock.RemoveAt(DeleteArrayNum[i]);
-            }
+        if(AffiliationBattleField == null) {
+            AffiliationBattleField = null;
         }
     }
 
