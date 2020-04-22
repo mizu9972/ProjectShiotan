@@ -160,8 +160,21 @@ public class AIFlock : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().velocity = transform.forward * MoveSpeed;  // 追尾
     }
 
-    public void ReturnPosition() {
+    // 強制散会
+    public void CompulsionReturnPosition() {
+        gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+        gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        m_NavMeshAgent.destination = InitPos;
+        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        TargetPosList.Clear();
+    }
 
+    // 帰宅したかどうか
+    public bool ReturnHomeCompleted() {
+        if(gameObject.GetComponent<NavMeshAgent>().remainingDistance <= 1.0f) {
+            return true;
+        }
+        return false;
     }
 
 

@@ -25,6 +25,19 @@ public class AttackField : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// バトルから抜ける処理
+    /// </summary>
+    public void RemoveBattle() {
+        if (AffiliationBattleField) {
+            gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+            transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = false;
+
+            AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveFlock(gameObject.transform.parent.gameObject);
+            AffiliationBattleField = null;
+        }
+    }
+
     // 攻撃開始
     private void OnTriggerEnter(Collider other) {
         // アイテム探索

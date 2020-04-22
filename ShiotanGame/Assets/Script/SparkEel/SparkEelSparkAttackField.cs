@@ -65,7 +65,14 @@ public class SparkEelSparkAttackField : MonoBehaviour
     /// </summary>
     private void Spark() {
         foreach(GameObject target in Target) {
-            target.GetComponent<HumanoidBase>().NowHP -= AttackPower;
+            // ピラニアのみ散会
+            if (target.name == "Flock") {
+                target.GetComponent<FlockBase>().ForcedMeeting();
+            }
+            // それ以外はダメージ
+            else {
+                target.GetComponent<HumanoidBase>().NowHP -= AttackPower;
+            }
         }
     }
 

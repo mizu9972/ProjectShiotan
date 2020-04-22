@@ -18,6 +18,10 @@ public class FlockBase : MonoBehaviour {
     [SerializeField, Header("再攻撃までのクールタイム")]
     public float AttackCoolTime = 0.0f;
 
+    private AttackField ThisAttackField;
+
+    private bool IsChese = true;
+
     private void Awake()
     {
         CreatePiranha();    // 子を作成し、初期化する
@@ -25,12 +29,20 @@ public class FlockBase : MonoBehaviour {
 
     void Start() 
     {
+        ThisAttackField = gameObject.transform.Find("AttackField").gameObject.GetComponent<AttackField>();
     }
 
     void Update() 
     {
         // 群衆AIの処理を行う
-        gameObject.GetComponent<AIFlock>().AIUpdate();
+        if (IsChese) {
+            gameObject.GetComponent<AIFlock>().AIUpdate();
+        }
+        else {
+            ThisAttackField.RemoveBattle();
+            gameObject.GetComponent<AIFlock>().CompulsionReturnPosition();
+            IsChese = gameObject.GetComponent<AIFlock>().ReturnHomeCompleted();
+        }
 
         // 各ピラニアの動き
         if (ChildPiranha.Count > 0) {
@@ -70,5 +82,13 @@ public class FlockBase : MonoBehaviour {
 
         // 攻撃の初期遅延タイミングを設定
         obj.GetComponent<PiranhaBase>().AttackTimingDecision();
+    }
+
+    /// <summary>
+    /// 強制散会させるやつ
+    /// </summary>
+    public void ForcedMeeting() {
+        IsChese = false;
+        // ToDo::BattleFieldに所属しているときに、脱退処理
     }
 }
