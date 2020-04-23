@@ -259,6 +259,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &634859042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1669475251397863595, guid: aef3930c7b3ebf2429774c974a7eb2bb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7515226070803766680}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +455,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 555045782639581922, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1198724771569141183, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
+        type: 3}
+      propertyPath: SeaPlane
+      value: 
+      objectReference: {fileID: 634859042}
+    - target: {fileID: 1198724771569141183, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
+        type: 3}
+      propertyPath: WaveTex
+      value: 
+      objectReference: {fileID: 2800000, guid: e08ca0caade35ee4c80813a1d574a157, type: 3}
+    - target: {fileID: 1198724771569141183, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
+        type: 3}
+      propertyPath: RandomFlag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6641676052028213849, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
       propertyPath: m_Name

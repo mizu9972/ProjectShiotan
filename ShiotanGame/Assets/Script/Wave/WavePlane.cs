@@ -38,7 +38,7 @@ public class WavePlane : MonoBehaviour
     private Transform myTrans;
     private float ScaleX, ScaleZ;//水面オブジェクトのスケール
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         //取得
         myTrans = this.GetComponent<Transform>();
@@ -195,17 +195,19 @@ public class WavePlane : MonoBehaviour
         public Vector2 UVPos;
         public Texture Tex;
         public RenderTexture buf;
+        public float RandomFlag;
 
-        public AwakeWaveArg(float PaintSize_, Vector2 UVPos_, Texture Tex_, RenderTexture buf_)
+        public AwakeWaveArg(float PaintSize_, Vector2 UVPos_, Texture Tex_, RenderTexture buf_,float RandomFlag_)
         {
             PaintSize = PaintSize_;
             UVPos = UVPos_;
             Tex = Tex_;
             buf = buf_;
+            RandomFlag = RandomFlag_;
         }
     }
     //波を発生させる
-    public void AwakeWave(Transform ObjectTrans,float PaintSize,Texture Tex,float LoopSecond = 0.0f,float AwakeIntervalSecond = 1.0f)
+    public void AwakeWave(Transform ObjectTrans,float PaintSize,Texture Tex,float RandomFlag = 0.0f,float LoopSecond = 0.0f,float AwakeIntervalSecond = 1.0f)
     {
         RenderTexture buf = RenderTexture.GetTemporary(rTex.width, rTex.height, 0, RenderTextureFormat.ARGBFloat);
 
@@ -222,13 +224,13 @@ public class WavePlane : MonoBehaviour
             Vector2 UVPos = UVDetector(hitInfo);
 
             //波発生
-            StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf));
+            StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf, RandomFlag));
 
             //波を連続して発生させる処理
             var StopWaveLoopSelect = Observable.Timer(System.TimeSpan.FromSeconds(LoopSecond));
             var LoopWaveFunction = Observable.Interval(System.TimeSpan.FromSeconds(AwakeIntervalSecond))
                 .TakeUntil(StopWaveLoopSelect)
-                .Subscribe(_ => StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf)));
+                .Subscribe(_ => StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf, RandomFlag)));
 
 
         }
@@ -246,6 +248,7 @@ public class WavePlane : MonoBehaviour
         matPaint.SetFloat("_SizeY", Arg.PaintSize / (ScaleZ / 4.0f));
 
         matPaint.SetTexture("_AddTex", Arg.Tex);
+        matPaint.SetFloat("_RamdomFlag", Arg.RandomFlag);
 
         Graphics.Blit(rTex, Arg.buf, matPaint);
         Graphics.Blit(Arg.buf, rTex);
