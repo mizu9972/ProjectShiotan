@@ -59,6 +59,6 @@ public class CameraTest : MonoBehaviour
     {
         MyTrans.position = new Vector3(Mathf.Clamp(MyTrans.position.x,-Range.x,Range.x),
                                        Mathf.Clamp(MyTrans.position.y, -Range.y, Range.y),
-                                       Mathf.Clamp(MyTrans.position.z, -Range.z, Range.z));
+                                       Mathf.Clamp(MyTrans.position.z, -Range.z+Distance.z, Range.z));
     }
 }
