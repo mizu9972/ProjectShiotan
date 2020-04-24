@@ -145,7 +145,7 @@ PrefabInstance:
     - target: {fileID: 6641676052028213849, guid: 148e47cff4de2dd49a5720222cd90fbc,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6641676052028214179, guid: 148e47cff4de2dd49a5720222cd90fbc,
         type: 3}
@@ -433,7 +433,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 5.126e-42, y: 1.05e-43, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 5.427e-42, y: 6e-44, z: 0, w: 1.3e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -462,6 +462,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_NowAttackPower
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -2034412314316543122, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
+        type: 3}
+      propertyPath: m_InitHP
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 155268251320892177, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
@@ -571,7 +576,7 @@ PrefabInstance:
     - target: {fileID: 6641676052028213849, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6641676052028214179, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
@@ -1253,12 +1258,12 @@ PrefabInstance:
     - target: {fileID: 1173501009296241763, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
       propertyPath: StageWidth.value
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1173501009296241763, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
       propertyPath: StageDepth.value
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1173501009296241763, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
@@ -1548,12 +1553,12 @@ PrefabInstance:
     - target: {fileID: 7593554252688041309, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7593554252688041309, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7593554252688041309, guid: aef3930c7b3ebf2429774c974a7eb2bb,
         type: 3}
