@@ -8,8 +8,8 @@ Shader "Unlit/TextureAdd"
         _MainTex ("Texture", 2D) = "white" {}
 		_AddTex("BlushTexture",2D) = "white"{}
 		_UVPosition("UV Position", VECTOR) = (0.5, 0.5, 0, 0)
-		_SizeX("PaintSizeX",Range(0.001,0.5)) = 0.1
-		_SizeY("PaintSizeY",Range(0.001,0.5)) = 0.1
+		_SizeX("PaintSizeX",Float) = 0.1
+		_SizeY("PaintSizeY",Float) = 0.1
 		_RamdomFlag("RamdomFlag",Float) = 1.0
     }
     SubShader

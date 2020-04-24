@@ -35,16 +35,22 @@ public class WavePlane : MonoBehaviour
     [SerializeField, Header("地面")]
     private Texture FloorMaskTex = null;
 
-    private Transform myTrans;
+    private Transform myTrans;//自身のtransform
+    private Transform ParentTrans;//親オブジェクトのtransform
     private float ScaleX, ScaleZ;//水面オブジェクトのスケール
+
     // Use this for initialization
     void Awake()
     {
         //取得
         myTrans = this.GetComponent<Transform>();
-        ScaleX = myTrans.lossyScale.x;
-        ScaleZ = myTrans.lossyScale.z;
+        ParentTrans = this.gameObject.GetComponentInParent<Transform>();
+        ScaleX = myTrans.lossyScale.x;// * ParentTrans.lossyScale.x;
+        ScaleZ = myTrans.lossyScale.z;// * ParentTrans.lossyScale.z;
 
+
+        Debug.Log("Scale = " + ScaleX + ScaleZ);
+        
         mat = gameObject.GetComponent<Renderer>().material;
         //myMat = gameObject.GetComponent<Renderer>().material;
 
@@ -73,8 +79,8 @@ public class WavePlane : MonoBehaviour
             //パラメータ初期化
             mat.SetFloat("_TideLitRate", TideLitRate);
 
-            matPaint.SetFloat("_SizeX", Size / ScaleX / 4.0f);
-            matPaint.SetFloat("_SizeY", Size / ScaleZ / 4.0f);
+            matPaint.SetFloat("_SizeX",0.10f/* Size / ScaleX / 4.0f*/);
+            matPaint.SetFloat("_SizeY",0.10f/* Size / ScaleZ / 4.0f*/);
 
             waveMat.SetFloat("_PhaseVelocity", PhaseVelocity / ScaleX);
             waveMat.SetFloat("_Attenuation", Attenuation);
