@@ -18,8 +18,17 @@ public class AudioList : MonoBehaviour
     [Header("オーディオリスト")]
     public Dictionary<string, AudioClip> AudioDict = new Dictionary<string, AudioClip>();
 
-    
 
+    private void Start()
+    {
+        for (int cnt = 0; ArraySize > cnt; cnt++)//オーディオのリストにキー名とファイルを登録
+        {
+            if (KeyList[cnt] != null && Audiolist[cnt])
+            {
+                AudioDict[KeyList[cnt]] = Audiolist[cnt];
+            }
+        }
+    }
     public void AudioListUpdate()
     {
         
@@ -36,7 +45,7 @@ public class AudioList : MonoBehaviour
         //Audiolist = new AudioClip[ArraySize];
         //KeyList = new string[ArraySize];
 
-        AudioDict.Clear();//オーディオのリストを一旦消去
+        //AudioDict.Clear();//オーディオのリストを一旦消去
 
         for (int cnt = 0; ArraySize > cnt; cnt++)//オーディオのリストにキー名とファイルを登録
         {

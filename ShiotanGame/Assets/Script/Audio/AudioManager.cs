@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : SingletonMonoBehaviour<AudioManager>
 {
     [Header("BGM用のメインオーディオソース")]
     public AudioSource BGM_audioSource;
@@ -18,12 +18,13 @@ public class AudioManager : MonoBehaviour
     private uint arraySize;//オーディオリストのサイズ
 
     //private int Channel = 4;
-    void Awake()
+    private void Start()
     {
         arraySize = this.GetComponent<AudioList>().GetArraySize();//要素数を取得
 
         //オーディオリストを取得
         ClipList = new Dictionary<string, AudioClip>(this.GetComponent<AudioList>().AudioDict);
+
     }
 
     void Update()
@@ -36,7 +37,6 @@ public class AudioManager : MonoBehaviour
     {
         BGM_audioSource.loop = isLoop;//ループするかを設定
         BGM_audioSource.clip = ClipList[KeyName];//指定したキー名のオーディオクリップをセット
-        int a = 0;
         BGM_audioSource.Play();//指定したクリップを再生
     }
 
