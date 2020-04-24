@@ -13,10 +13,10 @@ public class RestFood : MonoBehaviour
     private bool isSacrifi;
 
     [Header("1の位の描画オブジェクト")]
-    public RawImage DigOne;
+    public Image DigOne;
 
     [Header("10の位の描画オブジェクト")]
-    public RawImage DigTen;
+    public Image DigTen;
 
     private GameObject PlayerObj=null;//プレイヤー
     // Start is called before the first frame update
