@@ -8,8 +8,9 @@ Shader "Unlit/TextureAdd"
         _MainTex ("Texture", 2D) = "white" {}
 		_AddTex("BlushTexture",2D) = "white"{}
 		_UVPosition("UV Position", VECTOR) = (0.5, 0.5, 0, 0)
-		_SizeX("PaintSizeX",Range(0.001,0.5)) = 0.1
-		_SizeY("PaintSizeY",Range(0.001,0.5)) = 0.1
+		_SizeX("PaintSizeX",Float) = 0.1
+		_SizeY("PaintSizeY",Float) = 0.1
+		_RamdomFlag("RamdomFlag",Float) = 1.0
     }
     SubShader
     {
@@ -48,6 +49,7 @@ Shader "Unlit/TextureAdd"
 			float4 _UVPosition;
 			float _SizeX;
 			float _SizeY;
+			float _RamdomFlag;//波の発生位置を若干ランダムにするか(true = 1,false = 0)
 
             v2f vert (appdata v)
             {
@@ -57,6 +59,16 @@ Shader "Unlit/TextureAdd"
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
+
+			//activeFlagが１ならランダムな値
+			//			  0なら必ず１を返す
+			float rand(float2 co,float activeFlag) {
+				float retValue = frac(sin(dot(co.xy, float2(12.9898, 78.233))) * 43758.5453);//-1.0 ~ 1.0
+				retValue += 1.0;//0.0 ~ 2.0
+				retValue = 1.0 - retValue * activeFlag;//-1.0 ~ 1.0 (ramdomFlag反映)
+				//retValue = (retValue + 1.0) * 0.5;//0.0 ~ 1.0
+				return retValue;
+			}
 
             fixed4 frag (v2f i) : SV_Target
 			{
@@ -72,13 +84,15 @@ Shader "Unlit/TextureAdd"
 
 				float2 size = { _SizeX ,_SizeY };
 				fixed4 col1 = tex2D(_MainTex, i.uv);
-				fixed4 col2 = tex2D(_AddTex, (i.uv - (_UVPosition.xy - size.xy)) * 0.5 / size.xy);
+				fixed4 col2 = tex2D(_AddTex, ((i.uv - (_UVPosition.xy - size.xy))  * 0.5 / size.xy )* rand(_Time * i.uv, _RamdomFlag));
 
 				col2.a = col2.a * com;
+
 				fixed alpha = col2.a + (1 - col2.a) * col1.a;
-				fixed4 col = fixed4((col2.rgb * col2.a + (col1.rgb * col1.a * (1 - col2.a))) / alpha, alpha);
+				fixed4 col = fixed4((col2.rgb * col2.a + (col1.rgb * col1.a * (1 - col2.a))) / alpha , alpha);
 				return col;
 			}
+
             ENDCG
         }
     }
