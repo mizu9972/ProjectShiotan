@@ -29,7 +29,7 @@ public class WaveAct : MonoBehaviour
     private float MoveHorizon = 3.0f;
 
     [SerializeField, Header("波紋の発生位置をランダムにさせる")]
-    private bool RandomFlag = false;
+    private bool RandomFlag = true;
 
     private WavePlane m_WavePlaneScript = null;
     private Rigidbody m_myRigidbody = null;
@@ -43,7 +43,8 @@ public class WaveAct : MonoBehaviour
         if (SeaPlane != null)
         {
             m_WavePlaneScript = SeaPlane.GetComponent<WavePlane>();
-            StartCoroutine("Wave");
+            //StartCoroutine("Wave");
+            AwakeMultiWave();
         }
 
         this.UpdateAsObservable()
@@ -62,10 +63,6 @@ public class WaveAct : MonoBehaviour
                 };
 
             });
-    }
-
-    private void Update()
-    {
     }
 
     IEnumerator Wave()
@@ -88,5 +85,10 @@ public class WaveAct : MonoBehaviour
         StartCoroutine("Wave");
 
         yield break;
+    }
+
+    public void AwakeMultiWave()
+    {
+        m_WavePlaneScript.AwakeWave(this.transform, WaveSize, WaveTex, 1.0f, 10.0f, 0.1f);
     }
 }
