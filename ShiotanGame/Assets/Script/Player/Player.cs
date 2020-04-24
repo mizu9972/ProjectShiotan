@@ -8,6 +8,12 @@ public class Player : MonoBehaviour
 {
     [SerializeField, Header("HPゲージのスクリプト")]
     Gage GageScript;
+
+    private float restFood;
+    
+
+    [Header("エサ管理オブジェクト")]
+    public GameObject FoodManager;
     private void Start()
     {
         //スクリプトを取得
@@ -20,5 +26,11 @@ public class Player : MonoBehaviour
     {
         //現在のHPをゲージに反映
         GageScript.GageUpdate(this.GetComponent<HumanoidBase>().NowHP);
+        restFood = FoodManager.GetComponent<ThrowEsa>().GetCount();//残りエサ数を表示
+    }
+
+    public float GetRestFood()
+    {
+        return restFood;
     }
 }

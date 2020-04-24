@@ -16,17 +16,25 @@ public class AttackField : MonoBehaviour {
         List<int> DeleteArrayNum = new List<int>();
         for (int i = 0; i < NearBattleFlock.Count; i++) {
             if (NearBattleFlock[i] == null) {
-                DeleteArrayNum.Add(i);
+                NearBattleFlock.Remove(NearBattleFlock[i]);
             }
         }
 
-        if (NearBattleFlock.Count == DeleteArrayNum.Count) {
-            NearBattleFlock.Clear();
+        if (AffiliationBattleField == null) {
+            AffiliationBattleField = null;
         }
-        else {
-            for (int i = DeleteArrayNum.Count; i > 0; i--) {
-                NearBattleFlock.RemoveAt(DeleteArrayNum[i]);
-            }
+    }
+
+    /// <summary>
+    /// バトルから抜ける処理
+    /// </summary>
+    public void RemoveBattle() {
+        if (AffiliationBattleField) {
+            gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+            transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = false;
+
+            AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveFlock(gameObject.transform.parent.gameObject);
+            AffiliationBattleField = null;
         }
     }
 

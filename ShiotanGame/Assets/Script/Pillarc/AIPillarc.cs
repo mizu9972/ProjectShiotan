@@ -48,16 +48,7 @@ public class AIPillarc : MonoBehaviour
         List<int> DeleteArrayNum = new List<int>();
         for (int i = 0; i < TargetList.Count; i++) {
             if (TargetList[i] == null) {
-                DeleteArrayNum.Add(i);
-            }
-        }
-
-        if (TargetList.Count == DeleteArrayNum.Count) {
-            TargetList.Clear();
-        }
-        else {
-            for (int i = DeleteArrayNum.Count; i > 0; i--) {
-                TargetList.RemoveAt(DeleteArrayNum[i]);
+                TargetList.Remove(TargetList[i]);
             }
         }
 
@@ -214,9 +205,10 @@ public class AIPillarc : MonoBehaviour
             }
         }
 
-        // ターゲットソートが終わってから最初にプレイヤーを入れる
+        // ターゲットソートが終わってから最後にプレイヤーを入れる
         if (Player) {
-            TargetList.Insert(0, Player);
+            //TargetList.Insert(0, Player);
+            TargetList.Add(Player);
         }
     }
 

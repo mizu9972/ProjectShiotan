@@ -8,7 +8,6 @@ public class DiscoveryFieldPillarc : MonoBehaviour
 
     // ターゲットが群衆探索範囲に触れた時に呼ばれるメソッド
     private void OnTriggerEnter(Collider other) {
-
         // タグの検索
         bool IsFind = false;
         foreach(string Tag in TargetTag) {
