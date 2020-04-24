@@ -28,6 +28,9 @@ public class WaveAct : MonoBehaviour
     [SerializeField, Header("移動を検知する速度")]
     private float MoveHorizon = 3.0f;
 
+    [SerializeField, Header("波紋の発生位置をランダムにさせる")]
+    private bool RandomFlag = false;
+
     private WavePlane m_WavePlaneScript = null;
     private Rigidbody m_myRigidbody = null;
     // Start is called before the first frame update
@@ -67,9 +70,18 @@ public class WaveAct : MonoBehaviour
 
     IEnumerator Wave()
     {
-
+        Debug.Log(this.gameObject.name);
         //一定間隔毎に波を発生させる
-        m_WavePlaneScript.AwakeWave(this.transform, WaveSize, WaveTex);
+        float SetFlag;
+        if (RandomFlag)
+        {
+            SetFlag = 1.0f;
+        }
+        else
+        {
+            SetFlag = 0.0f;
+        }
+        m_WavePlaneScript.AwakeWave(this.transform, WaveSize, WaveTex, SetFlag);
 
         yield return new WaitForSeconds(WaveInterval);
 
