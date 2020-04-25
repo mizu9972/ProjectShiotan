@@ -43,8 +43,8 @@ public class WaveAct : MonoBehaviour
         if (SeaPlane != null)
         {
             m_WavePlaneScript = SeaPlane.GetComponent<WavePlane>();
-            //StartCoroutine("Wave");
-            AwakeMultiWave();
+            StartCoroutine("Wave");
+            //AwakeMultiWave();
         }
 
         this.UpdateAsObservable()
@@ -90,5 +90,11 @@ public class WaveAct : MonoBehaviour
     public void AwakeMultiWave()
     {
         m_WavePlaneScript.AwakeWave(this.transform, WaveSize, WaveTex, 1.0f, 10.0f, 0.1f);
+    }
+
+    //波発生停止
+    public void StopWaveAct()
+    {
+        StopCoroutine("Wave");
     }
 }
