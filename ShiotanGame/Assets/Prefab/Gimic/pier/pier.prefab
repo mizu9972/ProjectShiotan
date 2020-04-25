@@ -9,12 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3598338516489240356}
-  m_Layer: 0
+  - component: {fileID: 7270947289309528504}
+  - component: {fileID: -2087819502657535619}
+  m_Layer: 14
   m_Name: pier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3598338516489240356
 Transform:
@@ -24,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555213824226266423}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.885356, y: 0.012001002, z: 70.62198}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 25, y: 25, z: 25}
   m_Children:
   - {fileID: 1649472805586109182}
@@ -36,6 +38,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7270947289309528504
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555213824226266423}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &-2087819502657535619
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555213824226266423}
+  m_Mesh: {fileID: -5076798556035486163, guid: b7fc03ba762877945bd01be41cf2fb46, type: 3}
 --- !u!1 &2039616624829485508
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,12 +70,12 @@ GameObject:
   - component: {fileID: 5685724700715539984}
   - component: {fileID: 848730116546763724}
   - component: {fileID: 6038581243607110810}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: pCylinder4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5685724700715539984
 Transform:
@@ -125,12 +148,12 @@ GameObject:
   - component: {fileID: 4346103550783672982}
   - component: {fileID: 117700001729711539}
   - component: {fileID: 6655835921377358761}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: pCylinder3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4346103550783672982
 Transform:
@@ -203,12 +226,12 @@ GameObject:
   - component: {fileID: 5312464933884340110}
   - component: {fileID: 7578251794526529480}
   - component: {fileID: 365773809886695720}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: polySurface4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5312464933884340110
 Transform:
@@ -281,12 +304,12 @@ GameObject:
   - component: {fileID: 1855179146880621608}
   - component: {fileID: 4050473131145416460}
   - component: {fileID: 1643711227555437467}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1855179146880621608
 Transform:
@@ -359,12 +382,12 @@ GameObject:
   - component: {fileID: 4208019215607231376}
   - component: {fileID: 5166142136608994206}
   - component: {fileID: 4050349329555318911}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: pCylinder1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4208019215607231376
 Transform:
@@ -437,12 +460,12 @@ GameObject:
   - component: {fileID: 7486168839990956660}
   - component: {fileID: 4839819578555593315}
   - component: {fileID: 4395277135982889378}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: polySurface1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7486168839990956660
 Transform:
@@ -513,12 +536,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2756588347379360378}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: pCube12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2756588347379360378
 Transform:
@@ -545,12 +568,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1649472805586109182}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: pCube9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1649472805586109182
 Transform:
@@ -581,12 +604,12 @@ GameObject:
   - component: {fileID: 4026420432347857904}
   - component: {fileID: 1721567331170466694}
   - component: {fileID: 759283932582384124}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: polySurface5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4026420432347857904
 Transform:
@@ -659,12 +682,12 @@ GameObject:
   - component: {fileID: 420071932083221223}
   - component: {fileID: 8444874960007617803}
   - component: {fileID: 2527563548762185459}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: polySurface2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &420071932083221223
 Transform:
@@ -737,12 +760,12 @@ GameObject:
   - component: {fileID: 3994983954395496429}
   - component: {fileID: 8485499959734035277}
   - component: {fileID: 910386341072050753}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: polySurface6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3994983954395496429
 Transform:
@@ -815,12 +838,12 @@ GameObject:
   - component: {fileID: 8571180233455831280}
   - component: {fileID: 6988611016285545653}
   - component: {fileID: 6193152078122843378}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: polySurface3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8571180233455831280
 Transform:
