@@ -84,7 +84,7 @@ Shader "Unlit/TextureAdd"
 
 				float2 size = { _SizeX ,_SizeY };
 				fixed4 col1 = tex2D(_MainTex, i.uv);
-				fixed4 col2 = tex2D(_AddTex, ((i.uv - (_UVPosition.xy - size.xy))  * 0.5 / size.xy )* rand(_Time * i.uv, _RamdomFlag));
+				fixed4 col2 = tex2D(_AddTex, ((i.uv - (_UVPosition.xy - size.xy)) * rand(_Time * i.uv, _RamdomFlag) * 0.5 / size.xy ));
 
 				col2.a = col2.a * com;
 
