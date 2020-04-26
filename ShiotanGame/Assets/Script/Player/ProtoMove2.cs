@@ -129,9 +129,10 @@ public class ProtoMove2 : MonoBehaviour
             }
         }
         
-        //現在の速度に合わせてアニメーションの再生速度変更
-        _animator.SetFloat("Speed", Max.magnitude);
-        _animator.speed = 1/(Maxspeed/speed)+2/(MaxKasoku/Nowkasoku);
+
+        //アニメーション再生スピードの判定用
+        float savespeed = 1 / (Maxspeed / speed) + 2 / (MaxKasoku / Nowkasoku);
+        _animator.SetFloat("Speed", savespeed);
 
         //減速処理（移動）
         if (speed > 0.5f)

@@ -15,6 +15,8 @@ public class HPScript : MonoBehaviour
 
     private RespawnScript resscript;
 
+    private WaveAct Wave;
+
     [SerializeField, Header("HPゲージのスクリプト")]
     Gage GageScript;
 
@@ -27,6 +29,7 @@ public class HPScript : MonoBehaviour
     {
         // Rigidbodyコンポーネントを取得する
         rb = GetComponent<Rigidbody>();
+        Wave = this.GetComponent<WaveAct>();
 
         resscript = GameObject.Find("Respawn").GetComponent<RespawnScript>();
         MoveStop = GetComponent<ProtoMove2>();
@@ -43,7 +46,8 @@ public class HPScript : MonoBehaviour
             rb.useGravity = false;
             this.GetComponent<CapsuleCollider>().enabled = false;
             this.GetComponentInChildren<BoxCollider>().enabled = false;
-            this.GetComponent<WaveAct>().enabled = false;
+            //this.GetComponent<WaveAct>().enabled = false;
+            Wave.StopWaveAct();
 
             MoveStop.Stop();
 
@@ -55,6 +59,10 @@ public class HPScript : MonoBehaviour
             {
                 pos.y -= 1 * Time.deltaTime;
                 transform.position = pos;
+            }
+            else
+            {
+                GameManager.Instance.SceneReload(true);
             }
         }
     }
