@@ -18,9 +18,9 @@ GameObject:
   - component: {fileID: -2034412314316543122}
   - component: {fileID: 6525308444280935112}
   - component: {fileID: 6641676052028214182}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pillarc
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc383a5fbc9fd9d49a91b61f465d66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitHP: 100
+  m_InitHP: 30
   m_InitAttackPower: 10
   m_NowHP: 0
   m_NowAttackPower: 0
@@ -203,7 +203,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6641676052028213849}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 1
