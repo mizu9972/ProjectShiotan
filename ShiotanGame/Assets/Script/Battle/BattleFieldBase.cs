@@ -59,6 +59,7 @@ public class BattleFieldBase : MonoBehaviour
                             // ToDo::死んだときのエフェクト等を表示
 
                             // ターゲットから削除
+                            Destroy(TotalEnemy[AttackCount % TotalEnemy.Count]);
                             TotalEnemy.RemoveAt(AttackCount % TotalEnemy.Count);
                         }
                         AttackCount++;
