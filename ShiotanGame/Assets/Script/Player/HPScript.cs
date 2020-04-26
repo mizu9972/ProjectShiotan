@@ -46,6 +46,7 @@ public class HPScript : MonoBehaviour
             rb.useGravity = false;
             this.GetComponent<CapsuleCollider>().enabled = false;
             this.GetComponentInChildren<BoxCollider>().enabled = false;
+            this.GetComponent<ProtoMove2>().enabled = false;
             //this.GetComponent<WaveAct>().enabled = false;
             Wave.StopWaveAct();
 
