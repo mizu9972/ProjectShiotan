@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6641676052028214188}
   - component: {fileID: -2034412314316543122}
   - component: {fileID: 6641676052028214182}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Flock
   m_TagString: Flock
   m_Icon: {fileID: 0}
@@ -35,8 +35,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children:
-  - {fileID: 5195185238688175971}
   - {fileID: 6641676053141563793}
+  - {fileID: 5195185238688175971}
   - {fileID: 6641676052815623853}
   - {fileID: 483284114320856285}
   - {fileID: 8042702988973693278}
@@ -192,7 +192,7 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6641676052028213849}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Convex: 1
@@ -336,7 +336,7 @@ Transform:
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 6641676052028214179}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6641676053141563805
 MeshFilter:
@@ -445,7 +445,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6641676052028214179}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3102578445961212605
 MeshFilter:
@@ -511,6 +511,7 @@ MonoBehaviour:
     type: 3}
   NearBattleFlock: []
   AffiliationBattleField: {fileID: 0}
+  FreeBiteTag: []
 --- !u!64 &2758675973806490439
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -532,10 +533,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6641676052028214179}
     m_Modifications:
+    - target: {fileID: 2060269317450073075, guid: 7b2ae2bbdbed3514d9f7d3ed3c6b92ef,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3615012073629103402, guid: 7b2ae2bbdbed3514d9f7d3ed3c6b92ef,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5606189438444276723, guid: 7b2ae2bbdbed3514d9f7d3ed3c6b92ef,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6215240209162042635, guid: 7b2ae2bbdbed3514d9f7d3ed3c6b92ef,
         type: 3}
       propertyPath: m_Name
       value: SplashParent
+      objectReference: {fileID: 0}
+    - target: {fileID: 6215240209162042635, guid: 7b2ae2bbdbed3514d9f7d3ed3c6b92ef,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6289254270633210676, guid: 7b2ae2bbdbed3514d9f7d3ed3c6b92ef,
         type: 3}
@@ -712,6 +733,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6121988105921012810, guid: 21166fffd27e3fa45a74e93fca148a45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7336992116199417181, guid: 21166fffd27e3fa45a74e93fca148a45,
         type: 3}
       propertyPath: parentTransform
@@ -721,6 +747,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyHpCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8124216350040325503, guid: 21166fffd27e3fa45a74e93fca148a45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9159127661242555045, guid: 21166fffd27e3fa45a74e93fca148a45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9159127661800565515, guid: 21166fffd27e3fa45a74e93fca148a45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9159127661952641279, guid: 21166fffd27e3fa45a74e93fca148a45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9159127662488491076, guid: 21166fffd27e3fa45a74e93fca148a45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21166fffd27e3fa45a74e93fca148a45, type: 3}

@@ -166,9 +166,9 @@ public class BattleFieldBase : MonoBehaviour
     /// </summary>
     private void DestroyThisField() {
         // 各ピラニアのHPを設定しなおす
-        foreach (GameObject Flock in TotalFlock) {
-            Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
-        }
+        //foreach (GameObject Flock in TotalFlock) {
+        //    Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
+        //}
 
         // 餌の時のみ処理を行う(敵対するものだけ処理を行うという風になっている)
         if (!IsHostility) {
@@ -265,12 +265,12 @@ public class BattleFieldBase : MonoBehaviour
     /// <param name="Flock">削除オブジェクト</param>
     public void RemoveFlock(GameObject Flock) {
         if (TotalFlock.Contains(Flock)) {
-            // 各パラメータの振り分けと初期の更新
-            Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
+            // 各パラメータの振り分けと初期の更新(振り分けは行わない)
+            //Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
             TotalFlockHumanoidBase.NowHP -= TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
             TotalFlockHumanoidBase.InitHP -= Flock.GetComponent<HumanoidBase>().InitHP;
 
-            Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowAttackPower / TotalFlock.Count;
+            //Flock.GetComponent<HumanoidBase>().NowAttackPower = TotalFlockHumanoidBase.NowAttackPower / TotalFlock.Count;
             TotalFlockHumanoidBase.NowAttackPower -= TotalFlockHumanoidBase.NowAttackPower / TotalFlock.Count;
             TotalFlockHumanoidBase.InitAttackPower -= Flock.GetComponent<HumanoidBase>().InitAttackPower;
 
