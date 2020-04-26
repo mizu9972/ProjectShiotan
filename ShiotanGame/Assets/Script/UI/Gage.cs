@@ -30,6 +30,10 @@ public class Gage : MonoBehaviour
     public void GageUpdate(float Hp)//ダメージ受ける
     {
         NowHP = Hp;//現在のHPを引数から取得
+        if(NowHP<=0)//HPが0以下ならNowHPを0に
+        {
+            NowHP = 0;
+        }
         //現在のHPと最大HPの割合でゲージのアニメーションを行う
         MyRectTrans.DOScale(new Vector3((NowHP/MaxHP),1,1), AnimationTime).SetEase(Ease.Linear);
     }
