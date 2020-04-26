@@ -23,6 +23,7 @@ public class AttackFieldPillarc : MonoBehaviour
 
         if(AffiliationBattleField == null) {
             AffiliationBattleField = null;
+            transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = false;
         }
     }
 
@@ -159,6 +160,7 @@ public class AttackFieldPillarc : MonoBehaviour
 
             AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveEnemy(gameObject.transform.parent.gameObject);
             AffiliationBattleField = null;
+            Debug.Log(gameObject.transform.parent.gameObject.name + "にてバトル離脱");
         }
     }
 }
