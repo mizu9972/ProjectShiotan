@@ -20,9 +20,15 @@ public class EsaDestroy : MonoBehaviour
 
     private HumanoidBase HPcnt;
 
+    // Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
+    private Rigidbody rb;
+
     // Start is called before the first frame update
     void Start()
     {
+        // Rigidbodyコンポーネントを取得する
+        rb = GetComponent<Rigidbody>();
+
         HPcnt = this.GetComponent<HumanoidBase>();
     }
 
@@ -38,6 +44,7 @@ public class EsaDestroy : MonoBehaviour
             time += Time.deltaTime;
         }
 
+        //エサ消滅
         if(Destroytime<=time|| HPcnt.NowHP <= 0)
         {
             Destroy(this.gameObject);
@@ -61,6 +68,7 @@ public class EsaDestroy : MonoBehaviour
             }
         }
 
+        //エサ位置更新
         this.transform.position = pos;
     }
 
@@ -73,6 +81,17 @@ public class EsaDestroy : MonoBehaviour
         else
         {
             timeOnOff = false;
+        }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        string layerName = LayerMask.LayerToName(other.gameObject.layer);
+
+        if (layerName == "Stage_Floor")
+        {
+            rb.velocity = Vector3.zero;
+            rb.useGravity = false;
         }
     }
 }

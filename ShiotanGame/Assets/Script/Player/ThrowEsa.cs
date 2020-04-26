@@ -56,10 +56,7 @@ public class ThrowEsa : MonoBehaviour
                 {
                     var bulletInstance = Instantiate<GameObject>(EsaPrefab, this.transform.position, this.transform.rotation);
                     bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * throwrange, ForceMode.VelocityChange);
-
-                    //エサ消える時間
-                    Destroy(bulletInstance, 5);
-
+                    
                     //エサ一個消費
                     count--;
                 }
@@ -67,10 +64,7 @@ public class ThrowEsa : MonoBehaviour
                 {
                     var bulletInstance = Instantiate<GameObject>(HPDawnEsa, this.transform.position, this.transform.rotation);
                     bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * throwrange, ForceMode.VelocityChange);
-
-                    //エサ消える時間
-                    Destroy(bulletInstance, 5);
-
+                    
                     float SaveHP = HPcnt.NowHP;
                     HPcnt.NowHP-=SacrificeHP;//犠牲にする分だけHPを減らす
 
