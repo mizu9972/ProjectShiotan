@@ -947,7 +947,6 @@ GameObject:
   - component: {fileID: 3570129729668040062}
   - component: {fileID: 3570129729668040063}
   - component: {fileID: 3570129729668040032}
-  - component: {fileID: 3570129729668040033}
   - component: {fileID: 3570129729668040034}
   - component: {fileID: 3570129729668040035}
   - component: {fileID: 3570129729668040036}
@@ -1074,18 +1073,6 @@ MonoBehaviour:
   brake: 0.95
   ang: 0.9
   rb: {fileID: 3570129729668040062}
---- !u!114 &3570129729668040033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3570129729668040040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18a48fc4402b2de4486558b549653602, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3570129729668040034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1100,6 +1087,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageTime: 2
   GageScript: {fileID: 0}
+  Depth: -5
 --- !u!114 &3570129729668040035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,6 +1107,7 @@ MonoBehaviour:
   WaveInterval_Stop: 1
   WaveInterval_Move: 0.25
   MoveHorizon: 3
+  RandomFlag: 0
 --- !u!114 &3570129729668040036
 MonoBehaviour:
   m_ObjectHideFlags: 0

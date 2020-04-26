@@ -16,12 +16,13 @@ public class ProtoMove2 : MonoBehaviour
     [Header("減速の割合（%）"), SerializeField] private float gensoku;
     [Header("プレイヤーのブレーキ時の減速度"), SerializeField] private float brake;
     
-    [Header("回転の度合い"), SerializeField] float ang;
+    [Header("回転の度合い"), SerializeField] private float ang;
+
+    //オール漕ぐアニメーション
+    Animator _animator;
 
     // Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
     public Rigidbody rb;
-
-    private PlayerAnimator Animation = null;
 
     //移動フラグ用変数
     private bool MoveOn;
@@ -31,12 +32,8 @@ public class ProtoMove2 : MonoBehaviour
     {
         // Rigidbodyコンポーネントを取得する
         rb = GetComponent<Rigidbody>();
-
-        Animation = GetComponent<PlayerAnimator>();
-        if (Animation == null)
-        {
-            Animation = GetComponent<PlayerAnimator>();
-        }
+        
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -131,8 +128,11 @@ public class ProtoMove2 : MonoBehaviour
                 Nowkasoku = 0;
             }
         }
+        
 
-        Animation.SetAnimation(MoveOn);
+        //アニメーション再生スピードの判定用
+        float savespeed = 1 / (Maxspeed / speed) + 2 / (MaxKasoku / Nowkasoku);
+        _animator.SetFloat("Speed", savespeed);
 
         //減速処理（移動）
         if (speed > 0.5f)
@@ -179,5 +179,13 @@ public class ProtoMove2 : MonoBehaviour
             Max.z = (speed + Nowkasoku) / 2 * Mathf.Sign(rb.velocity.z);
             rb.velocity = Max;
         }
+    }
+
+    //移動を止める関数
+    public void Stop()
+    {
+        speed = 0;
+        Nowkasoku = 0;
+        rb.velocity = Vector3.zero;
     }
 }

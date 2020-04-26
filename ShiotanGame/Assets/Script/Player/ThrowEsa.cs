@@ -34,7 +34,6 @@ public class ThrowEsa : MonoBehaviour
 
         //最初から投げれる状態
         time = wait;
-
     }
 
 
@@ -53,7 +52,7 @@ public class ThrowEsa : MonoBehaviour
             if (time >= wait)
             {
                 //エサ残っているか
-                if (count > 0)
+                if (count > 0&& HPcnt.NowHP>1)
                 {
                     var bulletInstance = Instantiate<GameObject>(EsaPrefab, this.transform.position, this.transform.rotation);
                     bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * throwrange, ForceMode.VelocityChange);
@@ -72,8 +71,14 @@ public class ThrowEsa : MonoBehaviour
                     //エサ消える時間
                     Destroy(bulletInstance, 5);
 
+                    float SaveHP = HPcnt.NowHP;
                     HPcnt.NowHP-=SacrificeHP;//犠牲にする分だけHPを減らす
-                    
+
+                    //犠牲エサで死なないように設定
+                    if (HPcnt.NowHP<=0&&SaveHP!=1)
+                    {
+                        HPcnt.NowHP = 1;
+                    }
                 }
 
                 //エサ再び投げるまでのクールタイム
