@@ -172,8 +172,8 @@ public class BattleFieldBase : MonoBehaviour
 
         // 餌の時のみ処理を行う(敵対するものだけ処理を行うという風になっている)
         if (!IsHostility) {
-            // ToDo::餌の時に自動削除再開
-
+            // 餌の時に自動削除再開
+            BattleCenter.GetComponent<EsaDestroy>().IsCountDown(true);
 
             // バトルの中心地を削除
             Destroy(BattleCenter);
@@ -210,8 +210,8 @@ public class BattleFieldBase : MonoBehaviour
         }
         else {
             IsHostility = false;
-            // ToDo::餌の自動削除停止
-
+            // 餌の自動削除停止
+            obj.GetComponent<EsaDestroy>().IsCountDown(false);
         }
     }
 
