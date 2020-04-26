@@ -31,6 +31,18 @@ public class WaveAct : MonoBehaviour
     [SerializeField, Header("波紋の発生位置をランダムにさせる")]
     private bool RandomFlag = true;
 
+    [SerializeField, Header("ランダムの範囲")]
+    private float RandomRange = 1.0f;
+
+
+    [SerializeField, Header("沈む時の波の大きさ")]
+    private float WaveSize_Sink = 0.05f;
+    [SerializeField, Header("沈む時の波紋発生の全体時間(秒)")]
+    private float LoopSecond = 10.0f;
+
+    [SerializeField, Header("沈む時の波紋の発生感覚(秒)")]
+    private float LoopInterval = 0.1f;
+
     private WavePlane m_WavePlaneScript = null;
     private Rigidbody m_myRigidbody = null;
     // Start is called before the first frame update
@@ -69,16 +81,7 @@ public class WaveAct : MonoBehaviour
     {
         Debug.Log(this.gameObject.name);
         //一定間隔毎に波を発生させる
-        float SetFlag;
-        if (RandomFlag)
-        {
-            SetFlag = 1.0f;
-        }
-        else
-        {
-            SetFlag = 0.0f;
-        }
-        m_WavePlaneScript.AwakeWave(this.transform, WaveSize, WaveTex, SetFlag);
+        m_WavePlaneScript.AwakeWave(this.transform, WaveSize, WaveTex);
 
         yield return new WaitForSeconds(WaveInterval);
 
@@ -87,9 +90,12 @@ public class WaveAct : MonoBehaviour
         yield break;
     }
 
+
+    //波を複数一気に発生させる
+    //沈む時等に利用
     public void AwakeMultiWave()
     {
-        m_WavePlaneScript.AwakeWave(this.transform, WaveSize, WaveTex, 1.0f, 10.0f, 0.1f);
+        m_WavePlaneScript.AwakeWave(this.transform, WaveSize_Sink, WaveTex, true, RandomRange, LoopSecond, LoopInterval);
     }
 
     //波発生停止
