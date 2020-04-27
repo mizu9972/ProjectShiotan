@@ -6,21 +6,27 @@ using UnityEngine;
 public class ParticleEffectScript : MonoBehaviour
 {
     [SerializeField,Header("パーティクルシステム")]
-    protected GameObject ParticleSystemObject = null;
-    private ParticleSystem m_ParticleSystem = null;
+    protected List<GameObject> ParticleSystemObjects = new List<GameObject>();
+    private List<ParticleSystem> m_ParticleSystem = new List<ParticleSystem>();
 
     private void Start()
     {
-        m_ParticleSystem = ParticleSystemObject.GetComponent<ParticleSystem>();
+        foreach(var IParticle in ParticleSystemObjects)
+        {
+            m_ParticleSystem.Add(IParticle.GetComponent<ParticleSystem>());
+        }
     }
 
     //再生
     [ContextMenu("Start")]
     public void StartEffect()
     {
-        if (m_ParticleSystem)
+        foreach(var IParticle in m_ParticleSystem)
         {
-            m_ParticleSystem.Play();
+            if(IParticle != null)
+            {
+                IParticle.Play();
+            }
         }
     }
 
@@ -28,9 +34,12 @@ public class ParticleEffectScript : MonoBehaviour
     [ContextMenu("Pause")]
     public void PauseEffect()
     {
-        if (m_ParticleSystem.isPlaying)
+        foreach(var IParticle in m_ParticleSystem)
         {
-            m_ParticleSystem.Pause();
+            if (IParticle.isPlaying)
+            {
+                IParticle.Pause();
+            }
         }
     }
 
@@ -38,9 +47,12 @@ public class ParticleEffectScript : MonoBehaviour
     [ContextMenu("Stop")]
     public void StopEffect()
     {
-        if (m_ParticleSystem.isPlaying)
+        foreach (var IParticle in m_ParticleSystem)
         {
-            m_ParticleSystem.Stop();
+            if (IParticle.isPlaying)
+            {
+                IParticle.Stop();
+            }
         }
     }
 }
