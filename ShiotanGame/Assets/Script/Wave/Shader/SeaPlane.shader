@@ -6,6 +6,7 @@
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_Glossiness("Smoothness", Range(0,1)) = 0.5
 		_Metallic("Metallic", Range(0,1)) = 0.0
+		_Alpha("透明度",Range(0.0,1.0)) = 1.0
 		_MergeTex("MergeTex",2D) = "white" {}
 		_FloorTex("FloorTex",2D) = "black" {}
 		_TideTex("TideTex",2D) = "black" {}
@@ -13,7 +14,7 @@
 	}
 		SubShader
 	{
-			Tags { "RenderType" = "Opaque" "Queue" = "Background" }
+			Tags { "RenderType" = "transparent" "Queue" = "Geometry" }
 			Blend SrcAlpha OneMinusSrcAlpha
 			LOD 200
 			Pass
@@ -58,6 +59,7 @@
 			half _Glossiness;
 			half _Metallic;
 			fixed4 _Color;
+			float _Alpha;
 
 			// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
 			// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -90,7 +92,7 @@
 				//col.x = floor(col.x * 10) / 10.0f;//小数点第二以下を切り捨て
 				col.x *= -1.0f;//波を白色で表現
 				col = fixed4(MainCol.x + TideTexCol.x + col.x, MainCol.y + TideTexCol.y + col.x, MainCol.z + TideTexCol.z + col.x, MainCol.w + TideTexCol.w + col.x);
-				col.w = col.w * FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z;
+				col.w = col.w * FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
 
 				
 				return col;

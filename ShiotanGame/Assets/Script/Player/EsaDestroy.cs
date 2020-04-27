@@ -72,16 +72,9 @@ public class EsaDestroy : MonoBehaviour
         this.transform.position = pos;
     }
 
-    public void TimeCountOnOff()
+    public void IsCountDown(bool value) 
     {
-        if (timeOnOff == false)
-        {
-            timeOnOff = true;
-        }
-        else
-        {
-            timeOnOff = false;
-        }
+        timeOnOff = value;
     }
 
     void OnCollisionEnter(Collision other)

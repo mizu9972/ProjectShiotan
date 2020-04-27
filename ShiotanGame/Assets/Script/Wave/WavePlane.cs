@@ -38,7 +38,6 @@ public class WavePlane : MonoBehaviour
     private Transform myTrans;//自身のtransform
     private Transform ParentTrans;//親オブジェクトのtransform
     private float ScaleX, ScaleZ;//水面オブジェクトのスケール
-
     // Use this for initialization
     void Awake()
     {
@@ -201,19 +200,21 @@ public class WavePlane : MonoBehaviour
         public Vector2 UVPos;
         public Texture Tex;
         public RenderTexture buf;
-        public float RandomFlag;
+        public bool RandomFlag;
+        public float RandomRange;
 
-        public AwakeWaveArg(float PaintSize_, Vector2 UVPos_, Texture Tex_, RenderTexture buf_,float RandomFlag_)
+        public AwakeWaveArg(float PaintSize_, Vector2 UVPos_, Texture Tex_, RenderTexture buf_,bool RandomFlag_, float RandomRange_)
         {
             PaintSize = PaintSize_;
             UVPos = UVPos_;
             Tex = Tex_;
             buf = buf_;
             RandomFlag = RandomFlag_;
+            RandomRange = RandomRange_;
         }
     }
     //波を発生させる
-    public void AwakeWave(Transform ObjectTrans,float PaintSize,Texture Tex,float RandomFlag = 0.0f,float LoopSecond = 0.0f,float AwakeIntervalSecond = 1.0f)
+    public void AwakeWave(Transform ObjectTrans, float PaintSize, Texture Tex, bool RandomFlag = false, float RandomRange = 1.0f, float LoopSecond = 0.0f,float AwakeIntervalSecond = 1.0f)
     {
         RenderTexture buf = RenderTexture.GetTemporary(rTex.width, rTex.height, 0, RenderTextureFormat.ARGBFloat);
 
@@ -230,13 +231,13 @@ public class WavePlane : MonoBehaviour
             Vector2 UVPos = UVDetector(hitInfo);
 
             //波発生
-            StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf, RandomFlag));
+            StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf, RandomFlag, RandomRange));
 
             //波を連続して発生させる処理
             var StopWaveLoopSelect = Observable.Timer(System.TimeSpan.FromSeconds(LoopSecond));
             var LoopWaveFunction = Observable.Interval(System.TimeSpan.FromSeconds(AwakeIntervalSecond))
                 .TakeUntil(StopWaveLoopSelect)
-                .Subscribe(_ => StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf, RandomFlag)));
+                .Subscribe(_ => StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf, RandomFlag, RandomRange)));
 
 
         }
@@ -248,13 +249,18 @@ public class WavePlane : MonoBehaviour
     IEnumerator LoopWaveFunction(AwakeWaveArg Arg)
     {
         matPaint.SetTexture("_MainTex", rTex);
-        matPaint.SetVector("_UVPosition", new Vector4(Arg.UVPos.x, Arg.UVPos.y, 0, 0));
-        //matPaint.SetFloat("_Size", PaintSize);
+        if (Arg.RandomFlag == true)
+        {
+            matPaint.SetVector("_UVPosition", new Vector4(Arg.UVPos.x + RandomReturn(Arg.RandomRange), Arg.UVPos.y + RandomReturn(Arg.RandomRange), 0, 0));
+        }
+        else
+        {
+            matPaint.SetVector("_UVPosition", new Vector4(Arg.UVPos.x, Arg.UVPos.y, 0, 0));
+        }
         matPaint.SetFloat("_SizeX", Arg.PaintSize / (ScaleX / 4.0f));
         matPaint.SetFloat("_SizeY", Arg.PaintSize / (ScaleZ / 4.0f));
 
         matPaint.SetTexture("_AddTex", Arg.Tex);
-        matPaint.SetFloat("_RamdomFlag", Arg.RandomFlag);
 
         Graphics.Blit(rTex, Arg.buf, matPaint);
         Graphics.Blit(Arg.buf, rTex);
@@ -262,4 +268,9 @@ public class WavePlane : MonoBehaviour
         yield break;
     }
     
+    //-Ramdom/2 ~ Random/2 の範囲でランダムな値を返す
+    float RandomReturn(float RandomRange)
+    {
+        return (UnityEngine.Random.value * RandomRange) - RandomRange / 2.0f;
+    }
 }

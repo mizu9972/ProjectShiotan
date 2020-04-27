@@ -16,6 +16,10 @@ public class BattleFieldBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(BattleCenter == null) {
+            DestroyThisField();
+        }
+
         BattleOfEnemAndFlock();
         BattleEndCheck();
         UpdatePosition();
@@ -59,6 +63,7 @@ public class BattleFieldBase : MonoBehaviour
                             // ToDo::死んだときのエフェクト等を表示
 
                             // ターゲットから削除
+                            Destroy(TotalEnemy[AttackCount % TotalEnemy.Count]);
                             TotalEnemy.RemoveAt(AttackCount % TotalEnemy.Count);
                         }
                         AttackCount++;
@@ -170,13 +175,15 @@ public class BattleFieldBase : MonoBehaviour
         //    Flock.GetComponent<HumanoidBase>().NowHP = TotalFlockHumanoidBase.NowHP / TotalFlock.Count;
         //}
 
-        // 餌の時のみ処理を行う(敵対するものだけ処理を行うという風になっている)
-        if (!IsHostility) {
-            // ToDo::餌の時に自動削除再開
+        if (BattleCenter != null) {
+            // 餌の時のみ処理を行う(敵対するものだけ処理を行うという風になっている)
+            if (!IsHostility) {
+                // 餌の時に自動削除再開
+                BattleCenter.GetComponent<EsaDestroy>().IsCountDown(true);
 
-
-            // バトルの中心地を削除
-            Destroy(BattleCenter);
+                // バトルの中心地を削除
+                Destroy(BattleCenter);
+            }
         }
 
         // 削除
@@ -210,8 +217,8 @@ public class BattleFieldBase : MonoBehaviour
         }
         else {
             IsHostility = false;
-            // ToDo::餌の自動削除停止
-
+            // 餌の自動削除停止
+            obj.GetComponent<EsaDestroy>().IsCountDown(false);
         }
     }
 

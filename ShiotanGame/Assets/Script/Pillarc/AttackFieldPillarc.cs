@@ -23,6 +23,7 @@ public class AttackFieldPillarc : MonoBehaviour
 
         if(AffiliationBattleField == null) {
             AffiliationBattleField = null;
+            transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = false;
         }
     }
 
@@ -81,7 +82,7 @@ public class AttackFieldPillarc : MonoBehaviour
             if (other.gameObject == transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0]) {
                 // 現在所属のフィールドが存在するなら抜ける処理を行う
                 if (AffiliationBattleField) {
-                    AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveFlock(gameObject.transform.parent.gameObject);
+                    AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveEnemy(gameObject.transform.parent.gameObject);
                     AffiliationBattleField = null;
                 }
 
@@ -159,6 +160,7 @@ public class AttackFieldPillarc : MonoBehaviour
 
             AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveEnemy(gameObject.transform.parent.gameObject);
             AffiliationBattleField = null;
+            Debug.Log(gameObject.transform.parent.gameObject.name + "にてバトル離脱");
         }
     }
 }

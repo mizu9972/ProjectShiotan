@@ -49,10 +49,10 @@ public class ThrowEsa : MonoBehaviour
         if (Input.GetKeyDown("joystick button 0")|| Input.GetKey(KeyCode.Space))
         {
             //クールタイム超えたら投げれる
-            if (time >= wait)
+            if (time >= wait && (count >0|| HPcnt.NowHP > 1))
             {
                 //エサ残っているか
-                if (count > 0&& HPcnt.NowHP>1)
+                if (count > 0)
                 {
                     var bulletInstance = Instantiate<GameObject>(EsaPrefab, this.transform.position, this.transform.rotation);
                     bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * throwrange, ForceMode.VelocityChange);
