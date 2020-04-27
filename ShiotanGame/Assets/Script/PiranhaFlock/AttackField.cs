@@ -24,6 +24,7 @@ public class AttackField : MonoBehaviour {
 
         if (AffiliationBattleField == null) {
             AffiliationBattleField = null;
+            transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = false;
         }
     }
 
