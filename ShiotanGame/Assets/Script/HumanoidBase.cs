@@ -48,6 +48,12 @@ public class HumanoidBase : MonoBehaviour {
         m_NowAttackPower = m_InitAttackPower;
     }
 
+    //被弾
+    public void Damage(float AttackPower)
+    {
+        m_NowHP -= AttackPower;
+    }
+
     /// <summary>
     /// HPが0になっているかをチェック
     /// </summary>
