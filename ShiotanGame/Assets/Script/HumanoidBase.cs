@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UniRx;
+using UniRx.Triggers;
+
 public class HumanoidBase : MonoBehaviour {
     [SerializeField, Header("初期のHP")] private float m_InitHP = 0;
     [SerializeField, Header("初期の攻撃力")] private float m_InitAttackPower = 0;
@@ -11,6 +14,8 @@ public class HumanoidBase : MonoBehaviour {
 
     [SerializeField, Header("現在攻撃しているオブジェクト")] private GameObject m_AttackObject = null;
 
+    [SerializeField, Header("ダメージ時のエフェクト")] private GameObject m_DamageEffect = null;
+    private ParticleEffectScript m_ParEffScr = new ParticleEffectScript();
     #region Getter/Setter
     public float InitHP {
         get { return m_InitHP; }
@@ -46,6 +51,33 @@ public class HumanoidBase : MonoBehaviour {
         m_NowHP = m_InitHP;
 
         m_NowAttackPower = m_InitAttackPower;
+
+    }
+
+    private void Start()
+    {
+        if (m_DamageEffect != null)
+        {
+            var ParticleSystem_ = Instantiate(m_DamageEffect, this.gameObject.transform.position, Quaternion.identity);
+            ParticleSystem_.transform.parent = this.transform;
+            m_ParEffScr = ParticleSystem_.GetComponent<ParticleEffectScript>();
+        }
+    }
+
+    //被弾
+    public void Damage(float AttackPower)
+    {
+        m_NowHP -= AttackPower;
+
+        if (m_ParEffScr != null)
+        {
+            if (m_ParEffScr.isStopped())
+            {
+                m_ParEffScr.StartEffect();
+            }
+
+            Debug.Log(m_ParEffScr.isStopped());
+        }
     }
 
     /// <summary>

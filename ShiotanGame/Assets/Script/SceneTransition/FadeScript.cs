@@ -52,6 +52,7 @@ public class FadeScript : MonoBehaviour
         {                    //c)完全に透明になったら処理を抜ける
             isFadeIn = false;
             fadeImage.enabled = false;    //d)パネルの表示をオフにする
+            GameManager.Instance.PlayerControlStart();//プレイヤーがいれば操作可能に
             return true;
         }
         return false;
@@ -101,7 +102,6 @@ public class FadeScript : MonoBehaviour
 
     private void ResetFlag()//全てのフラグをリセット
     {
-
         isFadeOut = false;
         isFadeIn = false;
         FadeOutSts = false;//trueでフェード終了 

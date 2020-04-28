@@ -33,4 +33,9 @@ public class Player : MonoBehaviour
     {
         return restFood;
     }
+
+    public void SetPlayerMove(bool isActive)//プレイヤーの操作可否を設定
+    {
+        this.GetComponent<ProtoMove2>().enabled = isActive;
+    }
 }

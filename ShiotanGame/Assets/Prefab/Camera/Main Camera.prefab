@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 1365857095899871317}
   - component: {fileID: 1365857095899871314}
   - component: {fileID: 1365857095899871315}
-  - component: {fileID: 1365857095899871316}
   - component: {fileID: -5289107609537419249}
+  - component: {fileID: 8451860890330539585}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -85,24 +85,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1365857095899871312}
   m_Enabled: 1
---- !u!114 &1365857095899871316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1365857095899871312}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e8970de7ff17ef4f96c78cb5674f2c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerCamera: {fileID: 1365857095899871314}
-  Target: {fileID: 0}
-  Range: {x: 25, y: 20, z: 50}
-  Distance: {x: 0, y: 0, z: -30}
-  isChase: 1
-  isRestriction: 1
 --- !u!114 &-5289107609537419249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,3 +99,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionRun: 0
   BeforSceneName: 
+--- !u!114 &8451860890330539585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365857095899871312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad0d4bee7cf80546ae46f16e197bec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerCamera: {fileID: 1365857095899871314}
+  Target: {fileID: 0}
+  MaxRange: {x: 25, y: 20, z: 50}
+  MinRange: {x: -25, y: -20, z: -50}
+  Distance: {x: 0, y: 0, z: -30}
+  isChase: 1
+  isRestriction: 1
