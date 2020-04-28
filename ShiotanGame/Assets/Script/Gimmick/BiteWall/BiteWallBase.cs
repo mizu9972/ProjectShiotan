@@ -10,8 +10,10 @@ public class BiteWallBase : MonoBehaviour
 
     private void Start()
     {
+
+        //エフェクト生成
         m_ParEffScr = ParticleEffect.GetComponent<ParticleEffectScript>();
-        Instantiate(ParticleEffect, this.gameObject.transform.position, Quaternion.identity);
+
     }
     // Update is called once per frame
     void Update()
@@ -26,10 +28,9 @@ public class BiteWallBase : MonoBehaviour
     [ContextMenu("Dead")]
     void Dead()
     {
-        if (m_ParEffScr != null)
-        {
-            m_ParEffScr.StartEffect();
-        }
+
+        //エフェクト再生
+        Instantiate(ParticleEffect, this.gameObject.transform.position, Quaternion.identity);
 
         Destroy(gameObject);
     }
