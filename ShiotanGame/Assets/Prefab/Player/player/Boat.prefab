@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3570129729668040040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edb21777f4db4b64d9ae3b0d49696cfa, type: 3}
   m_Name: 
@@ -1108,6 +1108,10 @@ MonoBehaviour:
   WaveInterval_Move: 0.25
   MoveHorizon: 3
   RandomFlag: 0
+  RandomRange: 1
+  WaveSize_Sink: 0.05
+  LoopSecond: 10
+  LoopInterval: 0.1
 --- !u!114 &3570129729668040036
 MonoBehaviour:
   m_ObjectHideFlags: 0

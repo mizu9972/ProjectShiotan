@@ -39,4 +39,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         MainCamera = Camera.main;
     }
+
+    public void PlayerControlStart()
+    {
+        GameObject Player = GameObject.FindGameObjectWithTag("Player");
+        if(Player!=null)
+        {
+            Player.GetComponent<Player>().SetPlayerMove(true);//プレイヤーの操作可能に
+        }
+    }
 }

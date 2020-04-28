@@ -25,6 +25,7 @@ public class RespawnScript : MonoBehaviour
         {
             Respawn = false;
             var RespawnInstance = Instantiate<GameObject>(RespawnPrefab, this.transform.position, this.transform.rotation);
+            GameManager.Instance.PlayerControlStart();//プレイヤーを操作可能に
         }
     }
 }
