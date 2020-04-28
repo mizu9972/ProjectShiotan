@@ -12,7 +12,7 @@ public class EnemyBase : MonoBehaviour
     public void Attack(HumanoidBase Target) {
         AttackTime += Time.deltaTime;
         if(AttackTime > AttackCoolDown) {
-            Target.NowHP -= gameObject.GetComponent<HumanoidBase>().NowAttackPower;
+            Target.Damage(gameObject.GetComponent<HumanoidBase>().NowAttackPower);
             AttackTime = 0.0f;
         }
     }
