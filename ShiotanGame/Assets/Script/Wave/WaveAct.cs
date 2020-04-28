@@ -79,7 +79,6 @@ public class WaveAct : MonoBehaviour
 
     IEnumerator Wave()
     {
-        Debug.Log(this.gameObject.name);
         //一定間隔毎に波を発生させる
         m_WavePlaneScript.AwakeWave(this.transform, WaveSize, WaveTex);
 

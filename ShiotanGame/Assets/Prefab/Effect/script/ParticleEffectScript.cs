@@ -9,25 +9,28 @@ public class ParticleEffectScript : MonoBehaviour
     protected List<GameObject> ParticleSystemObjects = new List<GameObject>();
     private List<ParticleSystem> m_ParticleSystem = new List<ParticleSystem>();
 
-    private void Start()
+    private void Awake()
     {
-        foreach(var IParticle in ParticleSystemObjects)
+        foreach (var IParticle in ParticleSystemObjects)
         {
             m_ParticleSystem.Add(IParticle.GetComponent<ParticleSystem>());
         }
+
     }
 
     //再生
     [ContextMenu("Start")]
     public void StartEffect()
     {
-        foreach(var IParticle in m_ParticleSystem)
+        foreach (var IParticle in m_ParticleSystem)
         {
-            if(IParticle != null)
+            if (IParticle != null)
             {
+
                 IParticle.Play();
             }
         }
+
     }
 
     //一時停止
@@ -54,5 +57,17 @@ public class ParticleEffectScript : MonoBehaviour
                 IParticle.Stop();
             }
         }
+    }
+
+    public bool isStopped()
+    {
+        foreach(var IParticle in m_ParticleSystem)
+        {
+            if(IParticle.isStopped == false)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
