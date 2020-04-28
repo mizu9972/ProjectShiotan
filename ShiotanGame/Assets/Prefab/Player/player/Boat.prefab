@@ -1073,6 +1073,11 @@ MonoBehaviour:
   brake: 0.95
   ang: 0.9
   rb: {fileID: 3570129729668040062}
+  animetime: 50
+  olltimemove: 1
+  olltimekasoku: 1
+  animespeedmove: 1
+  animespeedkasoku: 0.25
 --- !u!114 &3570129729668040034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,6 +1113,10 @@ MonoBehaviour:
   WaveInterval_Move: 0.25
   MoveHorizon: 3
   RandomFlag: 0
+  RandomRange: 1
+  WaveSize_Sink: 0.05
+  LoopSecond: 10
+  LoopInterval: 0.1
 --- !u!114 &3570129729668040036
 MonoBehaviour:
   m_ObjectHideFlags: 0

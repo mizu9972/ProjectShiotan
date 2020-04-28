@@ -26,6 +26,14 @@ public class ProtoMove2 : MonoBehaviour
 
     //移動フラグ用変数
     private bool MoveOn;
+    
+    [Header("オール漕ぐ時間の間隔"), SerializeField] private float animetime;
+    private float animecount;
+
+    [Header("オール漕ぐ間隔　移動でのカウント"), SerializeField] private float olltimemove;
+    [Header("オール漕ぐ間隔　加速でのカウント"), SerializeField] private float olltimekasoku;
+    [Header("移動で足すアニメーション再生速度"), SerializeField] private float animespeedmove;
+    [Header("加速で足すアニメーション再生速度"), SerializeField] private float animespeedkasoku;
 
     // Start is called before the first frame update
     void Start()
@@ -128,11 +136,35 @@ public class ProtoMove2 : MonoBehaviour
                 Nowkasoku = 0;
             }
         }
-        
 
-        //アニメーション再生スピードの判定用
-        float savespeed = 1 / (Maxspeed / speed) + 2 / (MaxKasoku / Nowkasoku);
-        _animator.SetFloat("Speed", savespeed);
+
+        //アニメーション再生スピード　変更用
+        float animespeed = olltimemove / (Maxspeed / speed) + olltimekasoku / (MaxKasoku / Nowkasoku);
+
+        //アニメーション　再生スピード　変更
+        _animator.speed = animespeed;
+
+
+        //オール漕ぐ間隔　カウント用
+        float ollspeed = olltimemove / (Maxspeed / speed) + olltimekasoku / (MaxKasoku / Nowkasoku);
+
+        //移動しているか
+        if(MoveOn==true)
+        {
+            //スピードの値でオール漕ぐ間隔変化
+            animecount += ollspeed;
+
+            //設定した値超えるとオール漕ぐ
+            if(animecount> animetime)
+            {
+                //オール漕ぐ　カウント初期化
+                animecount = 0;
+
+                //アニメーション最初から再生
+                _animator.Play("Move", 0, 0.0f);
+            }
+        }
+
 
         //減速処理（移動）
         if (speed > 0.5f)
