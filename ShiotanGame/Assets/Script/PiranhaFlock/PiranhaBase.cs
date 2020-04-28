@@ -279,7 +279,7 @@ public class PiranhaBase : MonoBehaviour
         // 攻撃できるかをチェック
         if(LastAttackTime + transform.parent.GetComponent<FlockBase>().AttackCoolTime <= Time.time) {
             // 攻撃
-            transform.parent.GetComponent<AIFlock>().TargetList[0].gameObject.GetComponent<HumanoidBase>().NowHP -= AttackPower;
+            transform.parent.GetComponent<AIFlock>().TargetList[0].gameObject.GetComponent<HumanoidBase>().Damage(AttackPower);
 
             // 攻撃時間を更新
             LastAttackTime = Time.time;
@@ -291,7 +291,7 @@ public class PiranhaBase : MonoBehaviour
         // 攻撃できるかをチェック
         if (LastAttackTime + transform.parent.GetComponent<FlockBase>().AttackCoolTime <= Time.time) {
             // 攻撃
-            Target.GetComponent<HumanoidBase>().NowHP -= AttackPower;
+            Target.GetComponent<HumanoidBase>().Damage(AttackPower);
 
             // 攻撃時間を更新
             LastAttackTime = Time.time;
