@@ -30,6 +30,7 @@ public class Portal : MonoBehaviour
     {
         if(other.tag=="Player")//衝突相手がプレイヤーなら処理の実行
         {
+            other.GetComponent<ProtoMove2>().enabled = false;//プレイヤーの操作無効
             if(NextScene!=null && !isGoal)//次のシーンへ
             {
                 SceneManager.GetComponent<SceneTransition>().SetTransitionRun(NextScene);
