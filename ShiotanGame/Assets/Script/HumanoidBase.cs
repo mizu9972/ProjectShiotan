@@ -75,8 +75,7 @@ public class HumanoidBase : MonoBehaviour {
             {
                 m_ParEffScr.StartEffect();
             }
-
-            Debug.Log(m_ParEffScr.isStopped());
+            
         }
     }
 
