@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6789400774609126602}
   - component: {fileID: 6789400774609126603}
   - component: {fileID: 4806623007336788600}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: BattleField
   m_TagString: FlockPiranhaBattleField
   m_Icon: {fileID: 0}
@@ -106,3 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083c0f06670802e478dd656bbe237278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BattleCenter: {fileID: 0}
+  TotalEnemy: []
+  TotalFlock: []
+  TotalFlockHumanoidBase: {fileID: 0}
