@@ -10,6 +10,7 @@ public class AIAlligator : MonoBehaviour
     public List<GameObject> TargetList;
     public bool IsHit;
     public bool IsAttack;
+    public bool IsRush = false;
 
     [SerializeField, Header("Rayをスルーするレイヤー")]
     private LayerMask Mask;
@@ -54,66 +55,85 @@ public class AIAlligator : MonoBehaviour
             TargetSort();
         }
 
-        // Rayを飛ばす
-        IsHit = false;
-        if (IsAttack) {
-            IsHit = true;
-        }
-        else {
-            if (TargetList.Count > 0) {
-                for (int i = 0; i < TargetList.Count; i++) {
-                    if (TargetList[0] != null) {
-                        if (IsHit = RayShot(TargetList[0])) {
-                            gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
-                            gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                            break;
+        // 一直線に追いかけていない場合
+        if (!IsRush) {
+            // Rayを飛ばす
+            IsHit = false;
+            if (IsAttack) {
+                IsHit = true;
+            }
+            else {
+                if (TargetList.Count > 0) {
+                    for (int i = 0; i < TargetList.Count; i++) {
+                        if (TargetList[0] != null) {
+                            if (IsHit = RayShot(TargetList[0])) {
+                                gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
+                                gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                                break;
+                            }
+                            else {
+                                // レイが当たらなかったターゲットは後ろに持ってくる
+                                TargetList.Add(TargetList[0]);
+                                TargetList.RemoveAt(0);
+                            }
                         }
+                        // ターゲットがいなくなった場合、削除
                         else {
-                            // レイが当たらなかったターゲットは後ろに持ってくる
-                            TargetList.Add(TargetList[0]);
                             TargetList.RemoveAt(0);
                         }
                     }
-                    // ターゲットがいなくなった場合、削除
-                    else {
-                        TargetList.RemoveAt(0);
-                    }
+                }
+                // Targetがいないため初期位置に戻る処理
+                else {
+                    gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+                    gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                    m_NavMeshAgent.destination = InitPos;
+                    gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    TargetPosList.Clear();
                 }
             }
-            // Targetがいないため初期位置に戻る処理
-            else {
-                gameObject.GetComponent<HumanoidBase>().AttackObject = null;
-                gameObject.GetComponent<NavMeshAgent>().enabled = true;
-                m_NavMeshAgent.destination = InitPos;
-                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                TargetPosList.Clear();
+
+            // ターゲットを見つけた場合ターゲットのほうに向かう
+            if (IsHit) {
+                if (TargetList.Count > 0) {
+                    // ToDo::じたばたアニメーション再生
+                    if(TargetPosList.Count == 0) {
+
+                    }
+
+                    // ディレイフレームを超えるとターゲットに一直線で追尾開始
+                    if (TargetPosList.Count > PiranhaChaceDirayFrame) {
+                        ChaseTarget();
+                        IsRush = true;
+                    }
+                    else {
+                        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                        TargetPosList.Add(TargetList[0].transform.position);
+                    }
+
+                    gameObject.transform.LookAt(TargetPosList[0]);  // ターゲットの方向を向く
+                    gameObject.transform.localEulerAngles = new Vector3(0.0f, gameObject.transform.localEulerAngles.y, 0.0f); // y軸のみ向かせる
+                }
+                // ターゲットが見つからない場合初期位置に戻る
+                else {
+                    gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+                    gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                    IsRush = false;
+                    m_NavMeshAgent.destination = InitPos;
+                    gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    TargetPosList.Clear();
+                }
             }
         }
-
-        // ターゲットを見つけた場合ターゲットのほうに向かう
-        if (IsHit) {
-            if (TargetList.Count > 0) {
-                //m_NavMeshAgent.destination = TargetList[0].transform.position;
-                // ディレイフレームを超え始めるとターゲットを追尾し、最初の座標を削除していく
-                if (TargetPosList.Count > PiranhaChaceDirayFrame) {
-                    TargetPosList.RemoveAt(0);
-                    if (Time.frameCount % ChaceAccuracy == 0) {
-                        ChaseTarget();
-                    }
-                }
-                else {
-                    gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                }
-                // ToDo::もし、ついていたら追いかけずに攻撃する
-                TargetPosList.Add(TargetList[0].transform.position);
-            }
-            // ターゲットが見つからない場合初期位置に戻る
-            else {
-                gameObject.GetComponent<HumanoidBase>().AttackObject = null;
-                gameObject.GetComponent<NavMeshAgent>().enabled = true;
-                m_NavMeshAgent.destination = InitPos;
+        // 一直線に追いかける
+        else {
+            if(gameObject.GetComponent<Rigidbody>().velocity.x == 0.0f || gameObject.GetComponent<Rigidbody>().velocity.z == 0.0f) {
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                TargetPosList.Clear();
+                IsHit = false;
+                IsRush = false;
+            }
+            else {
+                ChaseTarget();
             }
         }
     }
@@ -151,8 +171,6 @@ public class AIAlligator : MonoBehaviour
     /// ターゲット追尾
     /// </summary>
     private void ChaseTarget() {
-        gameObject.transform.LookAt(TargetPosList[0]);  // ターゲットの方向を向く
-        gameObject.transform.localEulerAngles = new Vector3(0.0f, gameObject.transform.localEulerAngles.y, 0.0f); // y軸のみ向かせる
         gameObject.GetComponent<Rigidbody>().velocity = transform.forward * MoveSpeed;  // 新追尾
     }
 
