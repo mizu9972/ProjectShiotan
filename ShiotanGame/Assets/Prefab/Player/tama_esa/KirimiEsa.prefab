@@ -96,9 +96,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InitHP: 100
   m_InitAttackPower: 0
-  m_NowHP: 40
+  m_NowHP: 100
   m_NowAttackPower: 0
   m_AttackObject: {fileID: 0}
+  m_DamageEffect: {fileID: 0}
 --- !u!114 &5133147526513270502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce794e9dfae2084795271baf162872c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Destroytime: 20
+  Destroytime: 60
   UpPos: 0
 --- !u!54 &-6190391213195837210
 Rigidbody:
