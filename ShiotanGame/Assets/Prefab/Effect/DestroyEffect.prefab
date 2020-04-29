@@ -284,7 +284,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 15
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -337,7 +337,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 60
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -390,7 +390,7 @@ ParticleSystem:
     startSizeZ:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 300
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -601,7 +601,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    size3D: 0
+    size3D: 1
     rotation3D: 0
     gravityModifier:
       serializedVersion: 2
@@ -4708,7 +4708,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9fa1185931d74a24d8265394f11d9de4, type: 2}
+  - {fileID: 2100000, guid: a099640054f42a448af251a39839219f, type: 2}
   - {fileID: 2100000, guid: ded3a76f6b092f14f86b1f16b420b584, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4748,11 +4748,11 @@ ParticleSystemRenderer:
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_VertexStreams: 00010304
-  m_Mesh: {fileID: -5076798556035486163, guid: b7fc03ba762877945bd01be41cf2fb46, type: 3}
-  m_Mesh1: {fileID: 6099800089077584851, guid: b7fc03ba762877945bd01be41cf2fb46, type: 3}
-  m_Mesh2: {fileID: 6329158148709259305, guid: b7fc03ba762877945bd01be41cf2fb46, type: 3}
-  m_Mesh3: {fileID: -5597002278806442958, guid: b7fc03ba762877945bd01be41cf2fb46,
+  m_Mesh: {fileID: 2741612165177042614, guid: 5fc11b45eee6bd34a84057d9310adbd9, type: 3}
+  m_Mesh1: {fileID: -1750449661540532175, guid: f571be34910137b4da6638cc9bfcef25,
     type: 3}
+  m_Mesh2: {fileID: 5008507838413937805, guid: de27ba3aacf9ccb48a674ad5b085c523, type: 3}
+  m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
 --- !u!1 &2872904247841162818
 GameObject:
