@@ -19,11 +19,12 @@ public class RestFood : MonoBehaviour
     public Image DigTen;
 
     private GameObject PlayerObj=null;//プレイヤー
+    private bool isFast = true;//
     // Start is called before the first frame update
     void Start()
     {
-        this.UpdateAsObservable().
-            Where(_ => restFoods > 0).
+        this.LateUpdateAsObservable().
+            Where(_ => restFoods <= 0).
             Take(1).
             Subscribe(_ => isSacrifi = true);//残りエサ数が0になったらHP犠牲状態へ
 
@@ -33,9 +34,22 @@ public class RestFood : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if(PlayerObj)//Playerのオブジェクトが空でなければ実行
+        if (PlayerObj)//Playerのオブジェクトが空でなければ実行
         {
-            restFoods = PlayerObj.GetComponent<Player>().GetRestFood();
+            if(!isSacrifi)
+            {
+                restFoods = PlayerObj.GetComponent<Player>().GetRestFood();
+            }
+            else
+            {
+                float nowHp = PlayerObj.GetComponent<HumanoidBase>().NowHP;
+                float sacHp = PlayerObj.GetComponent<Player>().GetSacHp();
+                restFoods = nowHp / sacHp + 1.0f;
+                if(nowHp==1.0f)//HPが1の時はエサの数を0に
+                {
+                    restFoods = 0;
+                }
+            }
         }
         SetDigObjNum(); //描画する数値をセット
     }

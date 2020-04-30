@@ -38,4 +38,9 @@ public class Player : MonoBehaviour
     {
         this.GetComponent<ProtoMove2>().enabled = isActive;
     }
+
+    public float GetSacHp()//犠牲にするHPを取得
+    {
+        return this.GetComponentInChildren<ThrowEsa>().GetSacrificeHP();
+    }
 }
