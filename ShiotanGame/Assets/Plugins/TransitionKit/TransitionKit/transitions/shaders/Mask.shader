@@ -7,7 +7,7 @@ Shader "prime[31]/Transitions/Mask"
 	{
 		_MainTex( "Base (RGB)", 2D ) = "white" {}
 		_MaskTex( "Mask Texture", 2D ) = "black" {}
-		_Progress( "Progress", Range( 0.0, 1.0 ) ) = 0.0
+		_Progress( "Progress", Range( 0.0, 3.5 ) ) = 0.0
 		_Color( "Background Color", Color ) = ( 0, 0, 0, 1 )
 	}
 
@@ -59,7 +59,7 @@ CGPROGRAM
 
 		// _ST.xy is scale and _ST.zw is offset
 		float aspectRatio = _ScreenParams.x / _ScreenParams.y;
-		float tiling = mapper( _Progress, 0, 25.0 );
+		float tiling = mapper( _Progress, 0, 30.0 );
 
 		// our offset maps to our tiling in the form of -0.5 * tiling + 0.5. we have to take into account the aspectRatio scaling
 		// on the x axis though so we need to calcuate everything separately for x and y

@@ -261,8 +261,8 @@ namespace Prime31.TransitionKit
 		/// <param name="reverseDirection">if true, _Progress will go from 1 to 0. If false, it goes form 0 to 1</param>
 		public IEnumerator tickProgressPropertyInMaterial( float duration, bool reverseDirection = false )
 		{
-			var start = reverseDirection ? 1f : 0f;
-			var end = reverseDirection ? 0f : 1f;
+			var start = reverseDirection ? 3.5f : 0f;
+			var end = reverseDirection ? 0f : 3.5f;
 
 			var elapsed = 0f;
 			while( elapsed < duration )

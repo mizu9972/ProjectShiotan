@@ -47,14 +47,14 @@ namespace Prime31.TransitionKit
 			transitionKit.material.SetFloat( "_Depth", depth );
 			transitionKit.material.SetInt( "_Direction", runEffectInReverse ? 1 : 0 );
 
-			// we dont transition back to the new scene unless it is loaded
-			if( nextScene >= 0 )
-			{
-				SceneManager.LoadSceneAsync( nextScene );
-				yield return transitionKit.StartCoroutine( transitionKit.waitForLevelToLoad( nextScene ) );
-			}
+            // we dont transition back to the new scene unless it is loaded
+            if (nextScene >= 0)
+            {
+                SceneManager.LoadSceneAsync(nextScene);
+                yield return transitionKit.StartCoroutine(transitionKit.waitForLevelToLoad(nextScene));
+            }
 
-			yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration ) );
+            yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration ) );
 		}
 
 		#endregion
