@@ -18,11 +18,9 @@ public class AIAlligator : MonoBehaviour
     [SerializeField, Header("Rayを飛ばす距離")]
     private float RayDistance;
 
-    [SerializeField, Header("ピラルクがターゲットのフレーム前の方向を向くフレーム")]
-    private int PiranhaChaceDirayFrame = 5;
+    [SerializeField, Header("ワニがターゲットのフレーム前の方向を向くフレーム")]
+    private int AlligatorChaceDirayFrame = 5;
 
-    [SerializeField, Header("ピラルクの追いかける精度 　　　高精度<--->低精度"), Range(1, 60, order = 1)]
-    private int ChaceAccuracy = 1;
     [SerializeField] private List<Vector3> TargetPosList;
     [SerializeField] private float MoveSpeed;
 
@@ -50,9 +48,13 @@ public class AIAlligator : MonoBehaviour
             }
         }
 
-        // ターゲットが2以上の時にソートを行う
-        if (TargetList.Count > 1) {
-            TargetSort();
+        // 攻撃中なら移動を停止スル
+        if (IsAttack) {
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            IsHit = false;
+            IsRush = false;
+            TargetPosList.Clear();
+            return;
         }
 
         // 一直線に追いかけていない場合
@@ -72,8 +74,7 @@ public class AIAlligator : MonoBehaviour
                                 break;
                             }
                             else {
-                                // レイが当たらなかったターゲットは後ろに持ってくる
-                                TargetList.Add(TargetList[0]);
+                                // レイが当たらなかったターゲットは削除
                                 TargetList.RemoveAt(0);
                             }
                         }
@@ -102,7 +103,7 @@ public class AIAlligator : MonoBehaviour
                     }
 
                     // ディレイフレームを超えるとターゲットに一直線で追尾開始
-                    if (TargetPosList.Count > PiranhaChaceDirayFrame) {
+                    if (TargetPosList.Count > AlligatorChaceDirayFrame) {
                         ChaseTarget();
                         IsRush = true;
                     }
@@ -131,6 +132,7 @@ public class AIAlligator : MonoBehaviour
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 IsHit = false;
                 IsRush = false;
+                TargetPosList.Clear();
             }
             else {
                 ChaseTarget();
