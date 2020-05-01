@@ -11,6 +11,7 @@ public class GameInitialize : MonoBehaviour
     static void OnRuntimeMethodLoad()
     {
         Screen.SetResolution(GameWidth, GameHeight, false, FrameRate);//1920×1080のウインドウモードでfps60に設定
+        Application.targetFrameRate = FrameRate;
         Debug.Log("画面サイズ:"+GameWidth+"×"+GameWidth+"FPS:"+FrameRate);
     }
 }
