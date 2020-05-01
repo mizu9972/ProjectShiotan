@@ -36,8 +36,8 @@ public class MasterCubeEditor : Editor
 
     void OnEnable()
     {
-        SceneView.onSceneGUIDelegate -= OnScene;
-        SceneView.onSceneGUIDelegate += OnScene;
+        SceneView.duringSceneGui -= OnScene;
+        SceneView.duringSceneGui += OnScene;
     }
 
     public override void OnInspectorGUI()
