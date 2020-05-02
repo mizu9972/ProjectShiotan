@@ -15,6 +15,8 @@ public class AttackFieldAlligator : MonoBehaviour
     [SerializeField] private List<GameObject> NearBattleFlock = new List<GameObject>();  // 近くで攻撃しているオブジェクトを保存
     [SerializeField] private GameObject AffiliationBattleField;
 
+    [SerializeField, Header("ワニがフリーで攻撃するタグ")] private List<string> FreeBiteTag;
+
     private void Update() {
         // Missingになったオブジェクトがあれば削除する
         List<int> DeleteArrayNum = new List<int>();
@@ -114,6 +116,56 @@ public class AttackFieldAlligator : MonoBehaviour
                         AffiliationBattleField = CreateObj;
                     }
                     transform.parent.gameObject.GetComponent<AIAlligator>().IsAttack = true;
+                }
+            }
+        }
+    }
+
+    // 攻撃(FreeBite)
+    private void OnTriggerStay(Collider other) {
+        foreach (string tag in FreeBiteTag) {
+            if (other.tag == tag) {
+                gameObject.transform.parent.GetComponent<EnemyBase>().Attack(other.gameObject.GetComponent<HumanoidBase>());
+            }
+        }
+
+        if (!AffiliationBattleField) {
+            // ターゲットがいるときのみ処理を行う
+            if (transform.parent.gameObject.GetComponent<AIAlligator>().TargetList.Count > 0) {
+                // 攻撃するタグなら攻撃開始
+                foreach (string tag in TargetTag) {
+                    if (other.tag == tag) {
+                        // 現在所属のフィールドが存在するなら抜ける処理を行う
+                        if (AffiliationBattleField) {
+                            AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveEnemy(gameObject.transform.parent.gameObject);
+                            AffiliationBattleField = null;
+                        }
+
+                        gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = other.gameObject;
+                        GameObject FoundObject = null;
+                        if (NearBattleFlock.Count > 0) {
+                            //BattlePiranhaFlockBase test = NearBattleFlock[0].GetComponent<BattlePiranhaFlockBase>();
+                            foreach (GameObject Battle in NearBattleFlock) {
+                                if (Battle.GetComponent<BattleFieldBase>().GetBattleCenter() == gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject) {
+                                    FoundObject = Battle;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (FoundObject) {
+                            FoundObject.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
+                            FoundObject.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                            AffiliationBattleField = FoundObject;
+                        }
+                        else {
+                            GameObject CreateObj = Instantiate(BattlePrefab, gameObject.transform.position, gameObject.transform.rotation);
+                            CreateObj.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
+                            CreateObj.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                            AffiliationBattleField = CreateObj;
+                        }
+                        transform.parent.gameObject.GetComponent<AIAlligator>().IsAttack = true;
+                    }
                 }
             }
         }

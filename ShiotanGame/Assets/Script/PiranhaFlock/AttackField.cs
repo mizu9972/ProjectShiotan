@@ -111,6 +111,40 @@ public class AttackField : MonoBehaviour {
                 }
             }
         }
+
+        // バトルが行われていないとき
+        if (!AffiliationBattleField) {
+            // ターゲットがいるときのみ処理を行う
+            if (transform.parent.gameObject.GetComponent<AIFlock>().TargetList.Count > 0) {
+                // 追いかけているオブジェクトと同一なら攻撃開始
+                if (other.gameObject == transform.parent.gameObject.GetComponent<AIFlock>().TargetList[0]) {
+                    gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = other.gameObject;
+                    GameObject FoundObject = null;
+                    if (NearBattleFlock.Count > 0) {
+                        //BattlePiranhaFlockBase test = NearBattleFlock[0].GetComponent<BattlePiranhaFlockBase>();
+                        foreach (GameObject Battle in NearBattleFlock) {
+                            if (Battle.GetComponent<BattleFieldBase>().GetBattleCenter() == gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject) {
+                                FoundObject = Battle;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (FoundObject) {
+                        FoundObject.GetComponent<BattleFieldBase>().AddFlock(gameObject.transform.parent.gameObject);
+                        FoundObject.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                        AffiliationBattleField = FoundObject;
+                    }
+                    else {
+                        GameObject CreateObj = Instantiate(BattlePrefab, gameObject.transform.position, gameObject.transform.rotation);
+                        CreateObj.GetComponent<BattleFieldBase>().AddFlock(gameObject.transform.parent.gameObject);
+                        CreateObj.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                        AffiliationBattleField = CreateObj;
+                    }
+                    transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = true;
+                }
+            }
+        }
     }
 
     // 攻撃中断
