@@ -163,7 +163,7 @@ MonoBehaviour:
   IsAttack: 0
   Mask:
     serializedVersion: 2
-    m_Bits: 1196032
+    m_Bits: 1200128
   RayDistance: 50
   PiranhaChaceDirayFrame: 15
   ChaceAccuracy: 1
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_NowHP: 10
   m_NowAttackPower: 10
   m_AttackObject: {fileID: 0}
+  m_DamageEffect: {fileID: 0}
 --- !u!64 &6641676052028214182
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -220,6 +221,10 @@ MonoBehaviour:
   WaveInterval_Move: 0.3
   MoveHorizon: 3
   RandomFlag: 0
+  RandomRange: 1
+  WaveSize_Sink: 0.05
+  LoopSecond: 10
+  LoopInterval: 0.1
 --- !u!1 &6641676052815623852
 GameObject:
   m_ObjectHideFlags: 0
