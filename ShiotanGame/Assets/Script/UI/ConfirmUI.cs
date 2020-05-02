@@ -11,6 +11,10 @@ public class ConfirmUI : MonoBehaviour
         STAGESELECT,
         BACKTITLE
     };
+
+    InputStick inputStick;
+
+
     [Header("アンダーバーのオブジェクト")]
     public Image UnderLine;
 
@@ -45,6 +49,7 @@ public class ConfirmUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        inputStick = new InputStick();
         MyImage = this.GetComponent<Image>();
         UnderLine.sprite = NotSelected;//テクスチャを非選択状態に設定
         InitLinePos();//選択状態のラインのポジション初期化
@@ -65,15 +70,16 @@ public class ConfirmUI : MonoBehaviour
     {
         if (!isDraw)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))//上
+            inputStick.StickUpdate();
+            if (Input.GetKeyDown(KeyCode.UpArrow) || inputStick.GetUpStick())//上
             {
                 NowSelect -= 1;
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))//下
+            else if (Input.GetKeyDown(KeyCode.DownArrow) || inputStick.GetDownStick())//下
             {
                 NowSelect += 1;
             }
-            else if (Input.GetKeyDown(KeyCode.Return))//決定
+            else if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("MenuSelect"))//決定
             {
                 UnderLine.sprite = Selected;//テクスチャを選択状態に設定
                 isDraw = true;

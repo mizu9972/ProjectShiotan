@@ -39,6 +39,11 @@ public class Player : MonoBehaviour
         this.GetComponent<ProtoMove2>().enabled = isActive;
     }
 
+    public void SetThrowFoodEnable(bool isActive)//プレイヤーのエサ投げ可否を設定
+    {
+        this.GetComponentInChildren<ThrowEsa>().enabled = isActive;
+    }
+
     public float GetSacHp()//犠牲にするHPを取得
     {
         return this.GetComponentInChildren<ThrowEsa>().GetSacrificeHP();
