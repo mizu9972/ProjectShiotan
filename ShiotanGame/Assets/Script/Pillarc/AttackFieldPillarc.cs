@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackFieldPillarc : MonoBehaviour
+public class AttackFieldPillarc : MonoBehaviour 
 {
     [SerializeField, Header("取得するアイテムTag")]
     private List<string> ItemTag;
@@ -11,6 +11,8 @@ public class AttackFieldPillarc : MonoBehaviour
     private string BattleFlockTag = "FlockPiranhaBattleField";
     [SerializeField] private List<GameObject> NearBattleFlock = new List<GameObject>();  // 近くで攻撃しているオブジェクトを保存
     [SerializeField] private GameObject AffiliationBattleField;
+
+    [SerializeField, Header("ピラルクがフリーで攻撃するタグ")] private List<string> FreeBiteTag;
 
     private void Update() {
         // Missingになったオブジェクトがあれば削除する
@@ -21,7 +23,7 @@ public class AttackFieldPillarc : MonoBehaviour
             }
         }
 
-        if(AffiliationBattleField == null) {
+        if (AffiliationBattleField == null) {
             AffiliationBattleField = null;
             transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = false;
         }
@@ -114,24 +116,53 @@ public class AttackFieldPillarc : MonoBehaviour
         }
     }
 
-    // 攻撃
-    //private void OnTriggerStay(Collider other) {
-    //    // ターゲットがいるときのみ処理を行う
-    //    if (transform.parent.gameObject.GetComponent<AIPillarc>().TargetList.Count > 0) {
-    //        if (other.gameObject == transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0]) {
-    //            // 攻撃
-    //            transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0].gameObject.GetComponent<HumanoidBase>().NowHP -= transform.parent.gameObject.GetComponent<HumanoidBase>().NowAttackPower;
+    // 攻撃(FreeBite)
+    private void OnTriggerStay(Collider other) {
+        foreach (string tag in FreeBiteTag) {
+            if (other.tag == tag) {
+                gameObject.transform.parent.GetComponent<EnemyBase>().Attack(other.gameObject.GetComponent<HumanoidBase>());
+            }
+        }
 
-    //            // 死んだかチェック
-    //            if (transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0].gameObject.GetComponent<HumanoidBase>().DeadCheck()) {
-    //                // 死んでいる場合、ターゲットを削除し、攻撃を終了する
-    //                transform.parent.gameObject.GetComponent<AIPillarc>().TargetList.RemoveAt(0);
-    //                transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = false;
-    //                return;
-    //            }
-    //        }
-    //    }
-    //}
+        if (!AffiliationBattleField) {
+            // ターゲットがいるときのみ処理を行う
+            if (transform.parent.gameObject.GetComponent<AIPillarc>().TargetList.Count > 0) {
+                // 追いかけているオブジェクトと同一なら攻撃開始
+                if (other.gameObject == transform.parent.gameObject.GetComponent<AIPillarc>().TargetList[0]) {
+                    // 現在所属のフィールドが存在するなら抜ける処理を行う
+                    if (AffiliationBattleField) {
+                        AffiliationBattleField.GetComponent<BattleFieldBase>().RemoveEnemy(gameObject.transform.parent.gameObject);
+                        AffiliationBattleField = null;
+                    }
+
+                    gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = other.gameObject;
+                    GameObject FoundObject = null;
+                    if (NearBattleFlock.Count > 0) {
+                        //BattlePiranhaFlockBase test = NearBattleFlock[0].GetComponent<BattlePiranhaFlockBase>();
+                        foreach (GameObject Battle in NearBattleFlock) {
+                            if (Battle.GetComponent<BattleFieldBase>().GetBattleCenter() == gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject) {
+                                FoundObject = Battle;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (FoundObject) {
+                        FoundObject.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
+                        FoundObject.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                        AffiliationBattleField = FoundObject;
+                    }
+                    else {
+                        GameObject CreateObj = Instantiate(BattlePrefab, gameObject.transform.position, gameObject.transform.rotation);
+                        CreateObj.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
+                        CreateObj.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                        AffiliationBattleField = CreateObj;
+                    }
+                    transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = true;
+                }
+            }
+        }
+    }
 
     // 攻撃中断
     private void OnTriggerExit(Collider other) {

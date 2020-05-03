@@ -52,7 +52,9 @@ public class FadeScript : MonoBehaviour
         {                    //c)完全に透明になったら処理を抜ける
             isFadeIn = false;
             fadeImage.enabled = false;    //d)パネルの表示をオフにする
+            GameManager.Instance.SetPauseEnable(true);//ポーズ画面の仕様を可能に
             GameManager.Instance.PlayerControlStart();//プレイヤーがいれば操作可能に
+
             return true;
         }
         return false;
@@ -82,12 +84,14 @@ public class FadeScript : MonoBehaviour
         alfa = 0.0f;
         isFadeOut = true;
         FadeOutSts = false;
+        GameManager.Instance.SetPauseEnable(false);//ポーズ画面の仕様を不可能に
     }
     public void SetIsFeadIn()//フェードアウトスタートをセット
     {
         alfa = 1.0f;
         isFadeIn = true;
         FadeInSts = false;
+        GameManager.Instance.SetPauseEnable(false);//ポーズ画面の仕様を不可能に
     }
 
     public bool GetFeadOutStatus()

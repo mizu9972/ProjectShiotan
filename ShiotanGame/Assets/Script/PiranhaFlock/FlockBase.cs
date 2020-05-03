@@ -65,7 +65,6 @@ public class FlockBase : MonoBehaviour {
         for (int i = 0; i < PiranhaCount; i++) {
             Vector3 CreatePos = new Vector3(Random.Range(-InstantPositionCorrct.x, InstantPositionCorrct.x), Random.Range(-InstantPositionCorrct.y, InstantPositionCorrct.y), Random.Range(-InstantPositionCorrct.z, InstantPositionCorrct.z));
             GameObject newObj = Instantiate(Piranha, gameObject.transform.position + CreatePos, Quaternion.identity, gameObject.transform);
-            newObj.transform.localScale = new Vector3(1 / gameObject.transform.localScale.x, 1 / gameObject.transform.localScale.y, 1 / gameObject.transform.localScale.z); // サイズ指定
 
             // ピラニアをリストに追加
             ChildPiranha.Add(newObj);
