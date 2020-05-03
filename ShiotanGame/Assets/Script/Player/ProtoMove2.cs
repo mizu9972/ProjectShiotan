@@ -29,7 +29,11 @@ public class ProtoMove2 : MonoBehaviour
 
     //エサ投げている状態か？
     public bool EsaTrow;
-    
+
+    [Header("エサ投げるときにスピードが与える影響力"), SerializeField] private float s_powerPercent;
+    //エサ投げるときにスピードが与える力
+    public float speedpower;
+
     [Header("オール漕ぐ時間の間隔"), SerializeField] private float animetime;
     private float animecount;
 
@@ -150,7 +154,7 @@ public class ProtoMove2 : MonoBehaviour
 
 
         //アニメーション再生スピード　変更用
-        float animespeed = olltimemove / (Maxspeed / speed) + olltimekasoku / (MaxKasoku / Nowkasoku);
+        float animespeed = animespeedmove / (Maxspeed / speed) + animespeedkasoku / (MaxKasoku / Nowkasoku);
 
         //アニメーションがエサ投げている状態か
         if (EsaTrow == false)
@@ -170,6 +174,8 @@ public class ProtoMove2 : MonoBehaviour
 
         //オール漕ぐ間隔　カウント用
         float ollspeed = olltimemove / (Maxspeed / speed) + olltimekasoku / (MaxKasoku / Nowkasoku);
+
+        speedpower = (speed + Nowkasoku)* s_powerPercent;
 
         //移動しているか
         if (MoveOn == true && EsaTrow == false)

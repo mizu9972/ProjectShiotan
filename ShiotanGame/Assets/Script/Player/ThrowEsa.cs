@@ -58,6 +58,9 @@ public class ThrowEsa : MonoBehaviour
 
     void Update()
     {
+        //スピードによってエサ投げる距離変化
+        float TrowPower = throwrange + MoveScript.speedpower;
+
         //エサ投げるまでのクールタイム
         if (time<=wait)
         {
@@ -87,7 +90,7 @@ public class ThrowEsa : MonoBehaviour
                 if (count > 0)
                 {
                     var bulletInstance = Instantiate<GameObject>(EsaPrefab, this.transform.position, this.transform.rotation);
-                    bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * throwrange, ForceMode.VelocityChange);
+                    bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * TrowPower, ForceMode.VelocityChange);
 
                     //エサ一個消費
                     count--;
@@ -95,7 +98,7 @@ public class ThrowEsa : MonoBehaviour
                 else
                 {
                     var bulletInstance = Instantiate<GameObject>(HPDawnEsa, this.transform.position, this.transform.rotation);
-                    bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * throwrange, ForceMode.VelocityChange);
+                    bulletInstance.GetComponent<Rigidbody>().AddForce(this.transform.forward * TrowPower, ForceMode.VelocityChange);
 
                     float SaveHP = HPcnt.NowHP;
                     HPcnt.NowHP -= SacrificeHP;//犠牲にする分だけHPを減らす
