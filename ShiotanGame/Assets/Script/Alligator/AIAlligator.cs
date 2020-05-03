@@ -26,6 +26,10 @@ public class AIAlligator : MonoBehaviour
 
     private NavMeshAgent m_NavMeshAgent;
 
+    [SerializeField, Header("移動時エフェクト(子オブジェクト)")]
+    private GameObject AlligatorSplash = null;
+    private ParticleEffectScript m_ParEffScp = null;
+
     // Start is called before the first frame update
     void Start() {
         InitPos = gameObject.transform.position;
@@ -37,6 +41,8 @@ public class AIAlligator : MonoBehaviour
 
         // ここだけNavMeshAgentを使う
         m_NavMeshAgent.destination = InitPos;
+
+        m_ParEffScp = AlligatorSplash.GetComponent<ParticleEffectScript>();
     }
 
     public void AIUpdate() {
@@ -53,6 +59,7 @@ public class AIAlligator : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             IsHit = false;
             IsRush = false;
+            m_ParEffScp.StopEffect();
             TargetPosList.Clear();
             return;
         }
@@ -106,6 +113,7 @@ public class AIAlligator : MonoBehaviour
                     if (TargetPosList.Count > AlligatorChaceDirayFrame) {
                         ChaseTarget();
                         IsRush = true;
+                        m_ParEffScp.StartEffect();
                     }
                     else {
                         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -120,6 +128,7 @@ public class AIAlligator : MonoBehaviour
                     gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                     gameObject.GetComponent<NavMeshAgent>().enabled = true;
                     IsRush = false;
+                    m_ParEffScp.StopEffect();
                     m_NavMeshAgent.destination = InitPos;
                     gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                     TargetPosList.Clear();
@@ -132,6 +141,7 @@ public class AIAlligator : MonoBehaviour
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 IsHit = false;
                 IsRush = false;
+                m_ParEffScp.StopEffect();
                 TargetPosList.Clear();
             }
             else {
