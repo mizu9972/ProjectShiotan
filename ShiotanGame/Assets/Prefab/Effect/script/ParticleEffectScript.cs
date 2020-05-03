@@ -16,6 +16,7 @@ public class ParticleEffectScript : MonoBehaviour
             m_ParticleSystem.Add(IParticle.GetComponent<ParticleSystem>());
         }
 
+       // StopEffect();
     }
 
     //再生
@@ -27,7 +28,7 @@ public class ParticleEffectScript : MonoBehaviour
             if (IParticle != null)
             {
 
-                IParticle.Play();
+                IParticle.Play(true);
             }
         }
 
@@ -54,7 +55,8 @@ public class ParticleEffectScript : MonoBehaviour
         {
             if (IParticle.isPlaying)
             {
-                IParticle.Stop();
+                //IParticle.Stop();
+                IParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
             }
         }
     }
