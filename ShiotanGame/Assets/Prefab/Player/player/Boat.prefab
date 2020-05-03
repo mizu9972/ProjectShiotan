@@ -1060,25 +1060,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3570129729668040040}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edb21777f4db4b64d9ae3b0d49696cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   waruspeed: 0.98
-  speed: 13
-  Maxspeed: 16
-  kasoku: 3
-  MaxKasoku: 18
+  speed: 0
+  Maxspeed: 13
+  kasoku: 2.5
+  MaxKasoku: 16
   gensoku: 0.985
   brake: 0.95
   ang: 0.9
   rb: {fileID: 3570129729668040062}
-  animetime: 50
+  animetime: 65
   olltimemove: 1
   olltimekasoku: 1
-  animespeedmove: 1
-  animespeedkasoku: 0.25
+  animespeedmove: 0.9
+  animespeedkasoku: 0.1
 --- !u!114 &3570129729668040034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc383a5fbc9fd9d49a91b61f465d66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitHP: 200
+  m_InitHP: 100
   m_InitAttackPower: 0
   m_NowHP: 0
   m_NowAttackPower: 0
