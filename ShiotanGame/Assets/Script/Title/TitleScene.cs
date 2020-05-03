@@ -16,7 +16,7 @@ public class TitleScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
+        if(Input.anyKeyDown)
         {
             TransitionScript.SetTransitionRun(NextSceneName);
         }
