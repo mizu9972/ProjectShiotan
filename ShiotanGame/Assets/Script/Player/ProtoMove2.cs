@@ -26,7 +26,14 @@ public class ProtoMove2 : MonoBehaviour
 
     //移動フラグ用変数
     private bool MoveOn;
-    
+
+    //エサ投げている状態か？
+    public bool EsaTrow;
+
+    [Header("エサ投げるときにスピードが与える影響力"), SerializeField] private float s_powerPercent;
+    //エサ投げるときにスピードが与える力
+    public float speedpower;
+
     [Header("オール漕ぐ時間の間隔"), SerializeField] private float animetime;
     private float animecount;
 
@@ -40,8 +47,11 @@ public class ProtoMove2 : MonoBehaviour
     {
         // Rigidbodyコンポーネントを取得する
         rb = GetComponent<Rigidbody>();
+
+        EsaTrow = false;
         
         _animator = GetComponent<Animator>();
+        animecount = animetime;
     }
 
     // Update is called once per frame
@@ -49,6 +59,11 @@ public class ProtoMove2 : MonoBehaviour
     {
         //回転の度合い
         float step = ang * Time.deltaTime;
+
+        if (EsaTrow == true)
+        {
+            step = 0;
+        }
 
         //現在の速度取得
         Vector3 Max = rb.velocity;
@@ -139,23 +154,37 @@ public class ProtoMove2 : MonoBehaviour
 
 
         //アニメーション再生スピード　変更用
-        float animespeed = olltimemove / (Maxspeed / speed) + olltimekasoku / (MaxKasoku / Nowkasoku);
+        float animespeed = animespeedmove / (Maxspeed / speed) + animespeedkasoku / (MaxKasoku / Nowkasoku);
 
-        //アニメーション　再生スピード　変更
-        _animator.speed = animespeed;
+        //アニメーションがエサ投げている状態か
+        if (EsaTrow == false)
+        {
+            //アニメーション　再生スピード　変更
+            _animator.speed = animespeed;
+        }
+        else
+        {
+            //アニメーション　再生スピード　変更
+            _animator.speed = 1;
+
+            //エサ投げ終了時　すぐにオール漕ぐ
+            animecount = animetime;
+        }
 
 
         //オール漕ぐ間隔　カウント用
         float ollspeed = olltimemove / (Maxspeed / speed) + olltimekasoku / (MaxKasoku / Nowkasoku);
 
+        speedpower = (speed + Nowkasoku)* s_powerPercent;
+
         //移動しているか
-        if(MoveOn==true)
+        if (MoveOn == true && EsaTrow == false)
         {
             //スピードの値でオール漕ぐ間隔変化
             animecount += ollspeed;
 
             //設定した値超えるとオール漕ぐ
-            if(animecount> animetime)
+            if (animecount > animetime)
             {
                 //オール漕ぐ　カウント初期化
                 animecount = 0;
@@ -177,7 +206,7 @@ public class ProtoMove2 : MonoBehaviour
         }
 
         //初速度速くするための変数
-        float xspeed=1;
+        float xspeed = 1;
         float speedx = Mathf.Abs(Max.x);
         float speedz = Mathf.Abs(Max.z);
 
@@ -199,6 +228,7 @@ public class ProtoMove2 : MonoBehaviour
 
         //慣性での移動用
         rb.AddForce(this.gameObject.transform.forward * (speed + Nowkasoku) * xspeed, ForceMode.Acceleration);
+
 
         //速度制限 (十字キーのスピード＋現在の加速度　を超えない)
         if ((speed + Nowkasoku) / 2 < Mathf.Abs(rb.velocity.x))

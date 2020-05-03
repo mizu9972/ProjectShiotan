@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Piranha: {fileID: 2142144662580453465, guid: dae955293bc9544478b60db52565eb91, type: 3}
-  PiranhaCount: 5
+  PiranhaCount: 10
   ChildPiranha: []
   InstantPositionCorrct: {x: 2.5, y: 0, z: 2.5}
   AttackCoolTime: 1
@@ -166,10 +166,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1200128
   RayDistance: 50
-  PiranhaChaceDirayFrame: 15
+  PiranhaChaceDirayFrame: 7
   ChaceAccuracy: 1
   TargetPosList: []
-  MoveSpeed: 13
+  MoveSpeed: 10
 --- !u!114 &-2034412314316543122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,10 +182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc383a5fbc9fd9d49a91b61f465d66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitHP: 10
-  m_InitAttackPower: 10
+  m_InitHP: 40
+  m_InitAttackPower: 5
   m_NowHP: 10
-  m_NowAttackPower: 10
+  m_NowAttackPower: 5
   m_AttackObject: {fileID: 0}
   m_DamageEffect: {fileID: 0}
 --- !u!64 &6641676052028214182
@@ -268,7 +268,7 @@ Transform:
   m_GameObject: {fileID: 6641676052815623852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 7, y: 1, z: 7}
   m_Children: []
   m_Father: {fileID: 6641676052028214179}
   m_RootOrder: 2

@@ -262,14 +262,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10c5285b8a7fda94b82c684fdaa5a89c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wait: 2
+  wait: 1
+  TrowEnd: 2
+  TrowTime: 0.5
   EsaPrefab: {fileID: 8876132674791155656, guid: 9886882af062ab143888b5f9039b0aa3,
     type: 3}
   HPDawnEsa: {fileID: 8876132674791155656, guid: 9886882af062ab143888b5f9039b0aa3,
     type: 3}
   throwrange: 10
-  count: 7
-  SacrificeHP: 25
+  count: 5
+  SacrificeHP: 30
 --- !u!1 &3570129728533298164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,25 +1062,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3570129729668040040}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edb21777f4db4b64d9ae3b0d49696cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   waruspeed: 0.98
-  speed: 13
-  Maxspeed: 16
-  kasoku: 3
-  MaxKasoku: 18
+  speed: 0
+  Maxspeed: 13
+  kasoku: 2.5
+  MaxKasoku: 16
   gensoku: 0.985
   brake: 0.95
   ang: 0.9
   rb: {fileID: 3570129729668040062}
-  animetime: 50
+  EsaTrow: 0
+  s_powerPercent: 0.1
+  speedpower: 0
+  animetime: 65
   olltimemove: 1
   olltimekasoku: 1
-  animespeedmove: 1
-  animespeedkasoku: 0.25
+  animespeedmove: 0.9
+  animespeedkasoku: 0.1
 --- !u!114 &3570129729668040034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,7 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc383a5fbc9fd9d49a91b61f465d66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitHP: 200
+  m_InitHP: 100
   m_InitAttackPower: 0
   m_NowHP: 0
   m_NowAttackPower: 0

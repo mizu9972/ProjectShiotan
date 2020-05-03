@@ -258,7 +258,7 @@ MonoBehaviour:
   PiranhaChaceDirayFrame: 5
   ChaceAccuracy: 1
   TargetPosList: []
-  MoveSpeed: 14
+  MoveSpeed: 11
 --- !u!114 &-2034412314316543122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc383a5fbc9fd9d49a91b61f465d66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitHP: 100
-  m_InitAttackPower: 10
+  m_InitHP: 50
+  m_InitAttackPower: 8
   m_NowHP: 0
   m_NowAttackPower: 0
   m_AttackObject: {fileID: 0}
@@ -358,7 +358,7 @@ Transform:
   m_GameObject: {fileID: 6641676052815623852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 7.5, y: 1, z: 7.5}
   m_Children: []
   m_Father: {fileID: 6641676052028214179}
   m_RootOrder: 2
@@ -464,7 +464,7 @@ Transform:
   m_GameObject: {fileID: 6641676053141563792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 3}
+  m_LocalScale: {x: 4, y: 1, z: 4}
   m_Children: []
   m_Father: {fileID: 6641676052028214179}
   m_RootOrder: 0
@@ -641,6 +641,7 @@ MonoBehaviour:
     type: 3}
   NearBattleFlock: []
   AffiliationBattleField: {fileID: 0}
+  FreeBiteTag: []
 --- !u!64 &2758675973806490439
 MeshCollider:
   m_ObjectHideFlags: 0
