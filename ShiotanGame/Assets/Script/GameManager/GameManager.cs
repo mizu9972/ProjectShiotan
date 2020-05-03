@@ -14,6 +14,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public GameObject PauseMenu;
 
     private GameObject isStageObj;//ゲームメインかを確認するオブジェクト
+
+    private bool PauseEnable = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +27,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Pause"))
+        if(PauseEnable)
         {
-            SetActivePause(true);
+            if (Input.GetButtonDown("Pause"))
+            {
+                SetActivePause(true);
+            }
         }
+        
         if(isDebugKey)
         {
             DownKeyCheck();
@@ -63,6 +69,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         if(Player!=null)
         {
             Player.GetComponent<Player>().SetPlayerMove(true);//プレイヤーの操作可能に
+            Player.GetComponent<Player>().SetThrowFoodEnable(true);//プレイヤーのエサ投げ不可能に
+        }
+    }
+    public void PlayerControlStop()
+    {
+        GameObject Player = GameObject.FindGameObjectWithTag("Player");
+        if (Player != null)
+        {
+            Player.GetComponent<Player>().SetPlayerMove(false);//プレイヤーの操作不可能に
+            Player.GetComponent<Player>().SetThrowFoodEnable(false);//プレイヤーのエサ投げ不可能に
         }
     }
 
@@ -72,6 +88,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         {
             PauseMenu.SetActive(isActive);
         }
+    }
+
+
+    public void SetPauseEnable(bool enable)//ポーズ画面の受付をするか
+    {
+        PauseEnable = enable;
     }
 
 

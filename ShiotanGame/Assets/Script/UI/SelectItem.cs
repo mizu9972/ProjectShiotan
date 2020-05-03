@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class SelectItem : MonoBehaviour
+
+public class SelectItem : MonoBehaviour 
 {
-    enum MenuState//メニューの状態
+    public enum MenuState//メニューの状態
     {
         RESTART=0,
         STAGESELECT,
         BACKTITLE,
         GAMEBACK
     };
-
+    InputStick inputStick;
 
     [Header("非セレクト状態時のテクスチャ")]
     public Sprite NotSelected;
@@ -24,7 +25,6 @@ public class SelectItem : MonoBehaviour
 
     [Header("アンダーバーのオブジェクト")]
     public Image UnderLine;
-
 
     private int[] Items = new int[4];
 
@@ -42,32 +42,33 @@ public class SelectItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        inputStick = new InputStick();
         MyImage = this.GetComponent<Image>();
         UnderLine.sprite = NotSelected;//テクスチャを非選択状態に設定
         InitLinePos();//選択状態のラインのポジション初期化
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        
         KeyInput();//キー入力処理
-
     }
 
     void KeyInput()//キー入力関数
     {
         if (!isDraw)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))//上
+            inputStick.StickUpdate();
+            if (Input.GetKeyDown(KeyCode.UpArrow)||inputStick.GetUpStick())//上
             {
                 NowSelect -= 1;
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))//下
+            else if (Input.GetKeyDown(KeyCode.DownArrow)||inputStick.GetDownStick())//下
             {
                 NowSelect += 1;
             }
-            else if (Input.GetKeyDown(KeyCode.Return))//決定
+            else if (Input.GetKeyDown(KeyCode.Return)||Input.GetButtonDown("MenuSelect"))//決定
             {
                 UnderLine.sprite = Selected;//テクスチャを選択状態に設定
                 isDraw = true;
@@ -96,7 +97,6 @@ public class SelectItem : MonoBehaviour
         {
             //ゲームに戻る以外は確認画面へ移行
             case (int)MenuState.GAMEBACK:
-                //TODO ゲームマネージャにスクリプト全てを有効化する関数を実装
                 GameManager.Instance.SetActivePause(false);//ポーズ画面の終了
                 break;
             default:
