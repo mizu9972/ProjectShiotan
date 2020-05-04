@@ -279,6 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b294fa3c174bf8a469ea4bdea3f9a660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ParticleEffect: {fileID: 0}
 --- !u!114 &6141223834105771278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,11 +292,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc383a5fbc9fd9d49a91b61f465d66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitHP: 30
+  m_InitHP: 40
   m_InitAttackPower: 0
   m_NowHP: 0
   m_NowAttackPower: 0
   m_AttackObject: {fileID: 0}
+  m_DamageEffect: {fileID: 0}
 --- !u!1 &6141223834507576055
 GameObject:
   m_ObjectHideFlags: 0
