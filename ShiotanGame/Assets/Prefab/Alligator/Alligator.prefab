@@ -100,6 +100,7 @@ MonoBehaviour:
     type: 3}
   NearBattleFlock: []
   AffiliationBattleField: {fileID: 0}
+  FreeBiteTag: []
 --- !u!64 &8467108192698032386
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -271,11 +272,12 @@ MonoBehaviour:
   IsRush: 0
   Mask:
     serializedVersion: 2
-    m_Bits: 1191936
+    m_Bits: 0
   RayDistance: 1000
   AlligatorChaceDirayFrame: 30
   TargetPosList: []
   MoveSpeed: 20
+  AlligatorSplash: {fileID: 3181368419354962078}
 --- !u!64 &8888299143635274621
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -498,8 +500,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: AligatorSplash
       objectReference: {fileID: 0}
+    - target: {fileID: 7654433079907512283, guid: 3980f5999f83c27428aa2b84f5283a80,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3980f5999f83c27428aa2b84f5283a80, type: 3}
+--- !u!1 &3181368419354962078 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7654433079907512283, guid: 3980f5999f83c27428aa2b84f5283a80,
+    type: 3}
+  m_PrefabInstance: {fileID: 5052053533787850565}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5779906087028766787 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1597130913313537798, guid: 3980f5999f83c27428aa2b84f5283a80,

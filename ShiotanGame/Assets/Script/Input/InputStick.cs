@@ -8,14 +8,14 @@ using UnityEngine;
 public class InputStick
 {
     public float Operationlimit = 0.5f;
-    Vector2 Stick = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+    Vector2 Stick = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     bool Right = false;
     bool Left = false;
     bool Up = false;
     bool Down = false;
 
     public  void StickUpdate() {
-        Stick = new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+        Stick = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         // トリガー状態の更新
         {
             if (Right) {
