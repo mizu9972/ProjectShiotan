@@ -229,6 +229,12 @@ PrefabInstance:
       objectReference: {fileID: 1694427273}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e77e211b5d7f7c94c91201083dde031b, type: 3}
+--- !u!1 &76828835 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2836403965903871745, guid: df5ec7c7f5e94e94792eca46a18504ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 1322101260}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &98191861 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6641676052028214179, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
@@ -565,7 +571,7 @@ PrefabInstance:
     - target: {fileID: 7942356661620056114, guid: 2d4f63c0dc13657439c7a9765639eb21,
         type: 3}
       propertyPath: AddFood
-      value: 100
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7942356661620056115, guid: 2d4f63c0dc13657439c7a9765639eb21,
         type: 3}
@@ -1407,6 +1413,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &588667614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7942356661620056108, guid: 2d4f63c0dc13657439c7a9765639eb21,
+    type: 3}
+  m_PrefabInstance: {fileID: 293889995}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &613189708
 GameObject:
   m_ObjectHideFlags: 0
@@ -2662,6 +2674,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3570129729668040040, guid: 6b46308e82d2e434787c05fc5a3ee6d2,
         type: 3}
+    - target: {fileID: 2836403965903871744, guid: df5ec7c7f5e94e94792eca46a18504ec,
+        type: 3}
+      propertyPath: Respawn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2836403965903871745, guid: df5ec7c7f5e94e94792eca46a18504ec,
         type: 3}
       propertyPath: m_Name
@@ -3198,6 +3215,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8075087487862620283, guid: 2c1f05939a1bc8a4b8e2705e77b5a9ce,
+        type: 3}
+      propertyPath: CheckPointList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8075087487862620283, guid: 2c1f05939a1bc8a4b8e2705e77b5a9ce,
+        type: 3}
+      propertyPath: CheckPointList.Array.data[0]
+      value: 
+      objectReference: {fileID: 588667614}
+    - target: {fileID: 8075087487862620283, guid: 2c1f05939a1bc8a4b8e2705e77b5a9ce,
+        type: 3}
+      propertyPath: RespawnObj
+      value: 
+      objectReference: {fileID: 76828835}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c1f05939a1bc8a4b8e2705e77b5a9ce, type: 3}
 --- !u!4 &1534515934 stripped
