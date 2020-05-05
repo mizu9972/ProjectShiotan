@@ -111,7 +111,7 @@ public class ConfirmUI : MonoBehaviour
             switch (State)//選択番号で描画処理を変更する
             {
                 case (int)MenuState.RESTART://リスタート
-                    GameManager.Instance.SceneReload();
+                    GameManager.Instance.SceneReload(true);
                     this.gameObject.SetActive(false);
                     GameManager.Instance.SetActivePause(false);//ポーズ画面の描画を終了
                     break;

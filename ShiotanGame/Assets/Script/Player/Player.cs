@@ -34,6 +34,20 @@ public class Player : MonoBehaviour
         return restFood;
     }
 
+    public void AddHp(float addvalue)//HP回復
+    {
+        this.GetComponent<HumanoidBase>().NowHP += addvalue;
+        if(this.GetComponent<HumanoidBase>().NowHP>= this.GetComponent<HumanoidBase>().InitHP)
+        {
+            this.GetComponent<HumanoidBase>().NowHP = this.GetComponent<HumanoidBase>().InitHP;
+        }
+    }
+
+    public void AddFoods(float addvalue)//エサの回復
+    {
+        this.GetComponentInChildren<ThrowEsa>().count += addvalue;
+    }
+
     public void SetPlayerMove(bool isActive)//プレイヤーの操作可否を設定
     {
         this.GetComponent<ProtoMove2>().enabled = isActive;

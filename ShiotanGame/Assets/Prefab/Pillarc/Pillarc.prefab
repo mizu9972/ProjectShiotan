@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 6525308444280935112}
   - component: {fileID: 6641676052028214182}
   - component: {fileID: 4627920919322639952}
+  - component: {fileID: 8748012789578502895}
   m_Layer: 0
   m_Name: Pillarc
   m_TagString: Untagged
@@ -329,6 +330,19 @@ MonoBehaviour:
   WaveSize_Sink: 0.05
   LoopSecond: 10
   LoopInterval: 0.1
+--- !u!114 &8748012789578502895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6641676052028213849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aeeab910e4703c4ead8d0356419e59a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GageScript: {fileID: 5438857692355382450}
 --- !u!1 &6641676052815623852
 GameObject:
   m_ObjectHideFlags: 0
@@ -960,6 +974,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21166fffd27e3fa45a74e93fca148a45, type: 3}
+--- !u!114 &5438857692355382450 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9159127661952641249, guid: 21166fffd27e3fa45a74e93fca148a45,
+    type: 3}
+  m_PrefabInstance: {fileID: 3774428072700961875}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bcf80e3b8ac1bc4c983d006c72702e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3842292666476841561 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 86666286216162826, guid: 21166fffd27e3fa45a74e93fca148a45,

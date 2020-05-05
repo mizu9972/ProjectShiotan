@@ -7,6 +7,12 @@ public class CheckPointChild : MonoBehaviour
     [SerializeField, Header("チェックポイントが起動したか")]
     private bool isChecked = false;
 
+    [Header("回復するHP")]
+    public float AddHP;
+
+    [Header("回復するエサの数")]
+    public float AddFood;
+
     private GameObject respawnObj = null;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +30,9 @@ public class CheckPointChild : MonoBehaviour
     {
         if(other.tag=="Player")
         {
+            //エサとHPを回復
+            other.GetComponent<Player>().AddFoods(AddFood);
+            other.GetComponent<Player>().AddHp(AddHP);
             isChecked = true;
         }
     }
