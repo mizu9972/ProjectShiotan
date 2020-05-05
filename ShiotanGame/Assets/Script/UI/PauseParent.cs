@@ -8,7 +8,7 @@ public class PauseParent : MonoBehaviour
     public GameObject OnActiveObj;
 
     [Header("ポーズ中の音量")]
-    public float PauseVol = 0.6f;
+    [Range(0f,1.0f)]public float PauseVol;
 
     private float NowVol;//現在のBGM音量
     // Start is called before the first frame update
