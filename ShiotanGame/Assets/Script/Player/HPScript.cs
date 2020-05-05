@@ -45,9 +45,10 @@ public class HPScript : MonoBehaviour
         {
             rb.useGravity = false;
             this.GetComponent<CapsuleCollider>().enabled = false;
-            this.GetComponentInChildren<BoxCollider>().enabled = false;
+           // this.GetComponentInChildren<BoxCollider>().enabled = false; //波紋発生に必要なコライダーまでfalseにされてたのでコメントアウトしました 沈むうえでのバグは発生してないです
             this.GetComponent<ProtoMove2>().enabled = false;
-            //this.GetComponent<WaveAct>().enabled = false;
+
+            Wave.AwakeMultiWave();
             Wave.StopWaveAct();
 
             MoveStop.Stop();
@@ -83,4 +84,14 @@ public class HPScript : MonoBehaviour
     {
         return HPcnt.NowHP;
     }
+
+    #region デバッグ用
+    
+    //死亡させる
+    [ContextMenu("死")]
+    private void Death_Debug()
+    {
+        HPcnt.NowHP = 0;
+    }
+    #endregion 
 }
