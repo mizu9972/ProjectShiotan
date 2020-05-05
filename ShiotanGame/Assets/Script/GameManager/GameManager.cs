@@ -23,6 +23,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         SceneManager.sceneLoaded += OnSceneLoaded;
         MainCamera = Camera.main;
         isStageObj = GameObject.Find("isStage");
+        PauseMenu.SetActive(false);//ポーズ画面のDontDestroyが最初から有効化されてないと呼ばれないので
     }
 
     // Update is called once per frame
