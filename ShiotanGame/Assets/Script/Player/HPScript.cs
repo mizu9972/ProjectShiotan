@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UniRx;
+using UniRx.Triggers;
 public class HPScript : MonoBehaviour
 {
     [SerializeField,Header("何秒でダメージはいるか")]
@@ -35,6 +37,13 @@ public class HPScript : MonoBehaviour
         MoveStop = GetComponent<ProtoMove2>();
         HPcnt = GetComponent<HumanoidBase>();
         time = 0;
+
+        //体力０を感知して一回だけ行う処理設定
+        this.UpdateAsObservable()
+            .First(x => HPcnt.DeadCheck())
+            .Subscribe(_ => {
+                DeathFunctionOnce();//死亡時処理
+            }).AddTo(this);
     }
 
     void Update()
@@ -47,9 +56,6 @@ public class HPScript : MonoBehaviour
             this.GetComponent<CapsuleCollider>().enabled = false;
            // this.GetComponentInChildren<BoxCollider>().enabled = false; //波紋発生に必要なコライダーまでfalseにされてたのでコメントアウトしました 沈むうえでのバグは発生してないです
             this.GetComponent<ProtoMove2>().enabled = false;
-
-            Wave.AwakeMultiWave();
-            Wave.StopWaveAct();
 
             MoveStop.Stop();
 
@@ -84,6 +90,14 @@ public class HPScript : MonoBehaviour
     {
         return HPcnt.NowHP;
     }
+
+    //体力が0になったときに一回だけ行う処理
+    void DeathFunctionOnce()
+    {
+        Wave.AwakeMultiWave();
+        Wave.StopWaveAct();
+    }
+
 
     #region デバッグ用
     
