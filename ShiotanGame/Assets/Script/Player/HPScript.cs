@@ -27,6 +27,11 @@ public class HPScript : MonoBehaviour
 
     [Header("沈む深さ"), SerializeField] private float Depth;
 
+
+    [SerializeField, Header("死亡時エフェクト")]
+    private GameObject DeathEffect = null;
+    private ParticleEffectScript m_ParEffScp = null;
+
     void Start()
     {
         // Rigidbodyコンポーネントを取得する
@@ -37,6 +42,8 @@ public class HPScript : MonoBehaviour
         MoveStop = GetComponent<ProtoMove2>();
         HPcnt = GetComponent<HumanoidBase>();
         time = 0;
+
+        m_ParEffScp = DeathEffect.GetComponent<ParticleEffectScript>();
 
         //体力０を感知して一回だけ行う処理設定
         this.UpdateAsObservable()
@@ -94,6 +101,12 @@ public class HPScript : MonoBehaviour
     //体力が0になったときに一回だけ行う処理
     void DeathFunctionOnce()
     {
+        if (m_ParEffScp != null)
+        {
+            Vector3 pos = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
+            Instantiate(m_ParEffScp, pos, Quaternion.identity);
+            
+        }
         Wave.AwakeMultiWave();
         Wave.StopWaveAct();
     }
