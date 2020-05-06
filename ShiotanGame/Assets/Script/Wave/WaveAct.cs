@@ -40,7 +40,7 @@ public class WaveAct : MonoBehaviour
     [SerializeField, Header("沈む時の波紋発生の全体時間(秒)")]
     private float LoopSecond = 10.0f;
 
-    [SerializeField, Header("沈む時の波紋の発生感覚(秒)")]
+    [SerializeField, Header("沈む時の波紋の発生間隔(秒)")]
     private float LoopInterval = 0.1f;
 
     private WavePlane m_WavePlaneScript = null;
@@ -95,6 +95,7 @@ public class WaveAct : MonoBehaviour
     public void AwakeMultiWave()
     {
         m_WavePlaneScript.AwakeWave(this.transform, WaveSize_Sink, WaveTex, true, RandomRange, LoopSecond, LoopInterval);
+        
     }
 
     //波発生停止

@@ -237,7 +237,7 @@ public class WavePlane : MonoBehaviour
             var StopWaveLoopSelect = Observable.Timer(System.TimeSpan.FromSeconds(LoopSecond));
             var LoopWaveFunction = Observable.Interval(System.TimeSpan.FromSeconds(AwakeIntervalSecond))
                 .TakeUntil(StopWaveLoopSelect)
-                .Subscribe(_ => StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf, RandomFlag, RandomRange)));
+                .Subscribe(_ => StartCoroutine("LoopWaveFunction", new AwakeWaveArg(PaintSize, UVPos, Tex, buf, RandomFlag, RandomRange))).AddTo(this);
 
 
         }
@@ -252,11 +252,13 @@ public class WavePlane : MonoBehaviour
         if (Arg.RandomFlag == true)
         {
             matPaint.SetVector("_UVPosition", new Vector4(Arg.UVPos.x + RandomReturn(Arg.RandomRange), Arg.UVPos.y + RandomReturn(Arg.RandomRange), 0, 0));
+
         }
         else
         {
             matPaint.SetVector("_UVPosition", new Vector4(Arg.UVPos.x, Arg.UVPos.y, 0, 0));
         }
+        
         matPaint.SetFloat("_SizeX", Arg.PaintSize / (ScaleX / 4.0f));
         matPaint.SetFloat("_SizeY", Arg.PaintSize / (ScaleZ / 4.0f));
 
