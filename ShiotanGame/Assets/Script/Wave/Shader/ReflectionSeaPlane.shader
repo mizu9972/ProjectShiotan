@@ -52,13 +52,17 @@
 				float2 Scrolluv :TEXCOORD3;
 
 				half4 grabPos : TEXCOORD4;
+				half4 scrPos :TEXCOORD5;
             };
 
-			sampler2D _MainTex;
-			sampler2D _GrabTex;
-			sampler2D _MergeTex;
-			sampler2D _FloorTex;
-			sampler2D _TideTex;
+			//テクスチャ
+			sampler2D _MainTex;//波情報
+			sampler2D _GrabTex;//描画済みの背景
+			sampler2D _MergeTex;//合成テクスチャ
+			sampler2D _FloorTex;//ステージ範囲情報
+			sampler2D _TideTex;//潮
+			sampler2D _DistortionTex;//屈折マスク
+			sampler2D _CameraDepthTexture;//Zバッファ
 
 			float4 _MainTex_ST;
 			float4 _MergeTex_ST;
@@ -72,7 +76,6 @@
 			float _Alpha;
 			float _LightingRate;
 
-			sampler2D _DistortionTex;
 			half4 _DistortionTex_ST;
 			half _DistortionPower;
 
@@ -85,6 +88,7 @@
 				o.uv3 = TRANSFORM_TEX(v.uv3, _FloorTex);
                 UNITY_TRANSFER_FOG(o,o.vertex);
 				o.grabPos = ComputeGrabScreenPos(o.vertex);//grabテクスチャ取得
+				o.scrPos = ComputeScreenPos(o.vertex);//Zバッファ取得
                 return o;
             }
 
@@ -113,6 +117,11 @@
 			GrabUv = GrabUv + Distortion;
 			fixed4 outCol = tex2D(_GrabTex, GrabUv);
 			//------------------
+/*			float3 bump = UnpackNormal(tex2D(_DistortionTex, i.uv));
+			float4 grabUV = i.grabPos;
+			grabUV.xy = (i.grabPos.xy * _DistortionPower + (bump.xy * _Time)) / i.grabPos.w;
+
+			fixed4 outCol = tex2D(_GrabTex, grabUV)*/;
 
 			outCol.w = FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
                 // apply fog
