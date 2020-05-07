@@ -10,14 +10,12 @@ public class EnemyKillOpenGateBase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(Enemy.Count <= 0) {
-            OpenGate();
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        DeleteNullObject();
         if (Enemy.Count <= 0) {
             OpenGate();
         }
@@ -25,5 +23,13 @@ public class EnemyKillOpenGateBase : MonoBehaviour
 
     private void OpenGate() {
         Destroy(gameObject);
+    }
+
+    private void DeleteNullObject() {
+        for(int i = 0; i < Enemy.Count; i++) {
+            if(Enemy[i] == null) {
+                Enemy.Remove(Enemy[i]);
+            }
+        }
     }
 }
