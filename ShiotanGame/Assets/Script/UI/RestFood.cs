@@ -18,6 +18,15 @@ public class RestFood : MonoBehaviour
     [Header("10の位の描画オブジェクト")]
     public Image DigTen;
 
+    [Header("エサ画像オブジェクト")]
+    public Image FoodImg;
+
+    [Header("エサ画像")]
+    public Sprite Food;
+
+    [Header("船パーツ画像")]
+    public Sprite Boat;
+
     private GameObject PlayerObj=null;//プレイヤー
     private bool isFast = true;//
     // Start is called before the first frame update
@@ -38,6 +47,7 @@ public class RestFood : MonoBehaviour
             if(!isSacrifi)
             {
                 restFoods = PlayerObj.GetComponent<Player>().GetRestFood();
+                FoodImg.sprite = Food;//エサがあるならエサの画像に
             }
             else
             {
@@ -48,6 +58,7 @@ public class RestFood : MonoBehaviour
                 {
                     restFoods = 0;
                 }
+                FoodImg.sprite = Boat;//エサが無ければ船のパーツ画像に
             }
         }
         SetDigObjNum(); //描画する数値をセット
