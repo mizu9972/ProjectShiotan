@@ -80,7 +80,7 @@ public class StageSelect : MonoBehaviour
                 //選択オブジェクトの変更
                 NowSelectObj = NowSelectObj.GetComponent<StageImage>().GoPerv();
                 NowSelectObj.GetComponent<StageImage>().SetisSelect(true);
-                NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
+                //NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
                 //オブジェクトの移動
                 MoveTimer = 0f;
                 NowXPos += MoveDistance;
@@ -101,7 +101,7 @@ public class StageSelect : MonoBehaviour
                 //選択オブジェクトの変更
                 NowSelectObj = NowSelectObj.GetComponent<StageImage>().GoNext();
                 NowSelectObj.GetComponent<StageImage>().SetisSelect(true);
-                NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
+                //NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
                 //オブジェクトの移動
                 MoveTimer = 0f;
                 NowXPos -= MoveDistance;
@@ -132,7 +132,7 @@ public class StageSelect : MonoBehaviour
                     //選択オブジェクトの変更
                     NowSelectObj = NowSelectObj.GetComponent<StageImage>().GoPerv();
                     NowSelectObj.GetComponent<StageImage>().SetisSelect(true);
-                    NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
+                    //NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
                     //オブジェクトの移動
                     MoveTimer = 0f;
                     NowXPos += MoveDistance;
@@ -155,7 +155,7 @@ public class StageSelect : MonoBehaviour
                     //選択オブジェクトの変更
                     NowSelectObj = NowSelectObj.GetComponent<StageImage>().GoNext();
                     NowSelectObj.GetComponent<StageImage>().SetisSelect(true);
-                    NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
+                    //NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
                     //オブジェクトの移動
                     MoveTimer = 0f;
                     NowXPos -= MoveDistance;
@@ -204,6 +204,9 @@ public class StageSelect : MonoBehaviour
     private void MoveLeft()//左へ移動
     {
         Vector3 moveposition= new Vector3(NowXPos, -75.0f, 0f);
+        Vector2 SetSize = SelectedSize;
+        SetSize = Vector2.Lerp(NotSelectedSize, SelectedSize, MoveTimer);
+        NowSelectObj.GetComponent<StageImage>().SetSize(SetSize);
         MyRectTrans.localPosition = Vector3.Lerp(MyRectTrans.localPosition, moveposition, MoveTimer);
         MoveTimer += Spead;
         if (MoveTimer>=1.0f)
@@ -216,6 +219,9 @@ public class StageSelect : MonoBehaviour
     private void MoveRight()//右へ移動
     {
         Vector3 moveposition = new Vector3(NowXPos, -75.0f, 0f);
+        Vector2 SetSize = SelectedSize;
+        SetSize = Vector2.Lerp(NotSelectedSize, SelectedSize, MoveTimer);
+        NowSelectObj.GetComponent<StageImage>().SetSize(SetSize);
         MyRectTrans.localPosition = Vector3.Lerp(MyRectTrans.localPosition, moveposition, MoveTimer);
         MoveTimer += Spead;
         if (MoveTimer >= 1.0f)
