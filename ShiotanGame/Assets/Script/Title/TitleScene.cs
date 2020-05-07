@@ -7,6 +7,7 @@ public class TitleScene : MonoBehaviour
     SceneTransition TransitionScript;
     [Header("遷移先シーン名")]
     public string NextSceneName = null;
+    private bool TransitionFlg = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +17,12 @@ public class TitleScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.anyKeyDown)
+
+        if (Input.anyKeyDown && !TransitionFlg)
         {
+            AudioManager.Instance.PlaySE("SE_ENTER");//決定音
             TransitionScript.SetTransitionRun(NextSceneName);
+            TransitionFlg = true;
         }
     }
 }

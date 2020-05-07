@@ -13,6 +13,12 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     [Header("SE用のオーディオソース")]
     public AudioSource SE_audioSource;
 
+    [SerializeField, Header("BGMの音量")]
+    [Range(0, 1)] private float BgmVol = 1.0f;
+
+    [SerializeField, Header("SEの音量")]
+    [Range(0, 1)] private float SeVol = 1.0f;
+
     private Dictionary<string, AudioClip> ClipList ;
 
     private uint arraySize;//オーディオリストのサイズ
@@ -29,7 +35,10 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
     void Update()
     {
+        BGM_audioSource.volume = BgmVol;//BGMの音量設定
+        BGM_subaudioSource.volume = BgmVol;//サブBGMの音量設定(BGMと同じ)
 
+        SE_audioSource.volume = SeVol;//SEの音量設定
     }
 
     //メインBGM再生関数
@@ -54,6 +63,25 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         SE_audioSource.PlayOneShot(ClipList[KeyName]);
     }
 
+    public void SetSeVolume(float vol)
+    {
+        SeVol = Mathf.Clamp(vol, 0f, 1.0f);//0~1の範囲で音量をセット
+    }
+
+    public void SetBgmVolume(float vol)
+    {
+        BgmVol= Mathf.Clamp(vol, 0f, 1.0f);//0~1の範囲で音量をセット
+    }
+
+    public float GetSeVolume()
+    {
+        return SeVol;
+    }
+
+    public float GetBgmVolume()
+    {
+        return BgmVol;
+    }
     //private void ClipListInit()
     //{
     //    for (int cnt = 0; arraySize > cnt; cnt++)//オーディオのリストにキー名とファイルを登録

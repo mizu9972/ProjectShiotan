@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UniRx;
+using UniRx.Triggers;
 public class HPScript : MonoBehaviour
 {
     [SerializeField,Header("何秒でダメージはいるか")]
@@ -25,6 +27,11 @@ public class HPScript : MonoBehaviour
 
     [Header("沈む深さ"), SerializeField] private float Depth;
 
+
+    [SerializeField, Header("死亡時エフェクト")]
+    private GameObject DeathEffect = null;
+    private ParticleEffectScript m_ParEffScp = null;
+
     void Start()
     {
         // Rigidbodyコンポーネントを取得する
@@ -35,6 +42,15 @@ public class HPScript : MonoBehaviour
         MoveStop = GetComponent<ProtoMove2>();
         HPcnt = GetComponent<HumanoidBase>();
         time = 0;
+
+        m_ParEffScp = DeathEffect.GetComponent<ParticleEffectScript>();
+
+        //体力０を感知して一回だけ行う処理設定
+        this.UpdateAsObservable()
+            .First(x => HPcnt.DeadCheck())
+            .Subscribe(_ => {
+                DeathFunctionOnce();//死亡時処理
+            }).AddTo(this);
     }
 
     void Update()
@@ -45,10 +61,8 @@ public class HPScript : MonoBehaviour
         {
             rb.useGravity = false;
             this.GetComponent<CapsuleCollider>().enabled = false;
-            this.GetComponentInChildren<BoxCollider>().enabled = false;
+           // this.GetComponentInChildren<BoxCollider>().enabled = false; //波紋発生に必要なコライダーまでfalseにされてたのでコメントアウトしました 沈むうえでのバグは発生してないです
             this.GetComponent<ProtoMove2>().enabled = false;
-            //this.GetComponent<WaveAct>().enabled = false;
-            Wave.StopWaveAct();
 
             MoveStop.Stop();
 
@@ -83,4 +97,28 @@ public class HPScript : MonoBehaviour
     {
         return HPcnt.NowHP;
     }
+
+    //体力が0になったときに一回だけ行う処理
+    void DeathFunctionOnce()
+    {
+        if (m_ParEffScp != null)
+        {
+            Vector3 pos = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
+            Instantiate(m_ParEffScp, pos, Quaternion.identity);
+            
+        }
+        Wave.AwakeMultiWave();
+        Wave.StopWaveAct();
+    }
+
+
+    #region デバッグ用
+    
+    //死亡させる
+    [ContextMenu("死")]
+    private void Death_Debug()
+    {
+        HPcnt.NowHP = 0;
+    }
+    #endregion 
 }

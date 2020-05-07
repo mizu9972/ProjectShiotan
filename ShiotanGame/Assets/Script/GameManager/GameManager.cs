@@ -16,12 +16,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private GameObject isStageObj;//ゲームメインかを確認するオブジェクト
 
     private bool PauseEnable = false;
+    private bool isTakeover = false;
     // Start is called before the first frame update
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         MainCamera = Camera.main;
         isStageObj = GameObject.Find("isStage");
+        PauseMenu.SetActive(false);//ポーズ画面のDontDestroyが最初から有効化されてないと呼ばれないので
     }
 
     // Update is called once per frame
@@ -41,11 +43,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
     }
 
-    public void SceneReload(bool isTakeover)//シーンを再読み込み(リスポーン地点を引き継ぐか)
+    public void SceneReload(bool istakeover)//シーンを再読み込み(リスポーン地点を引き継ぐか)
     {
-        //TODO リスポーン地点の座標を取得
+        work_Position = GameObject.Find("Respawn").transform.position;
         SceneReload();
-        //TODO work_Positionの座標をリスポーンオブジェクトに代入
+        isTakeover = istakeover;
     }
     public void SceneReload()//シーン再読み込み
     {
@@ -61,6 +63,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         MainCamera = Camera.main;
         isStageObj = GameObject.Find("isStage");
+        if(isTakeover)
+        {
+            isTakeover = false;
+            GameObject.Find("Respawn").transform.position = work_Position;
+        }
     }
 
     public void PlayerControlStart()
