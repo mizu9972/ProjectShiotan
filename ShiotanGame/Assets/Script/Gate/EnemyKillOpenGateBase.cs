@@ -11,6 +11,7 @@ public class EnemyKillOpenGateBase : MonoBehaviour
     private GameObject RightDoor;
     [SerializeField, Header("左扉")]
     private GameObject LeftDoor;
+    private float time = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +50,11 @@ public class EnemyKillOpenGateBase : MonoBehaviour
     }
 
     private void OpenGate() {
-        Destroy(gameObject);
+        time += Time.deltaTime;
+        float rightangle = Mathf.LerpAngle(0.0f, 90.0f, time);
+        RightDoor.transform.eulerAngles = new Vector3(0, rightangle, 0);
+        float leftangle = Mathf.LerpAngle(0.0f, -90.0f, time);
+        LeftDoor.transform.eulerAngles = new Vector3(0, leftangle, 0);
     }
 
     private void DeleteNullObject() {
