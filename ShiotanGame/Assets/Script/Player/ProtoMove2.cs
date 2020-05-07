@@ -41,7 +41,7 @@ public class ProtoMove2 : MonoBehaviour
     [Header("オール漕ぐ間隔　加速でのカウント"), SerializeField] private float olltimekasoku;
     [Header("移動で足すアニメーション再生速度"), SerializeField] private float animespeedmove;
     [Header("加速で足すアニメーション再生速度"), SerializeField] private float animespeedkasoku;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -126,11 +126,10 @@ public class ProtoMove2 : MonoBehaviour
             }
         }
 
-        //加速
-        if (Input.GetKeyDown("joystick button 1")
-            || Input.GetKeyDown(KeyCode.B))
+        //加速(移動キー押していない場合　加速しない)
+        if ((Input.GetKeyDown("joystick button 1")|| Input.GetKeyDown(KeyCode.B))
+            &&MoveOn==true)
         {
-            MoveOn = true;
             Nowkasoku += kasoku;
 
             //限界加速度制限
@@ -175,6 +174,7 @@ public class ProtoMove2 : MonoBehaviour
         //オール漕ぐ間隔　カウント用
         float ollspeed = olltimemove / (Maxspeed / speed) + olltimekasoku / (MaxKasoku / Nowkasoku);
 
+        //スピードによるエサ投げる距離の変化
         speedpower = (speed + Nowkasoku)* s_powerPercent;
 
         //移動しているか
@@ -193,8 +193,7 @@ public class ProtoMove2 : MonoBehaviour
                 _animator.Play("Move", 0, 0.0f);
             }
         }
-
-
+        
         //減速処理（移動）
         if (speed > 0.5f)
         {
@@ -228,8 +227,7 @@ public class ProtoMove2 : MonoBehaviour
 
         //慣性での移動用
         rb.AddForce(this.gameObject.transform.forward * (speed + Nowkasoku) * xspeed, ForceMode.Acceleration);
-
-
+        
         //速度制限 (十字キーのスピード＋現在の加速度　を超えない)
         if ((speed + Nowkasoku) / 2 < Mathf.Abs(rb.velocity.x))
         {
@@ -250,4 +248,5 @@ public class ProtoMove2 : MonoBehaviour
         Nowkasoku = 0;
         rb.velocity = Vector3.zero;
     }
+    
 }
