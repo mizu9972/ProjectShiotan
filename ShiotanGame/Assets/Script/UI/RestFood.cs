@@ -47,7 +47,10 @@ public class RestFood : MonoBehaviour
             if(!isSacrifi)
             {
                 restFoods = PlayerObj.GetComponent<Player>().GetRestFood();
-                FoodImg.sprite = Food;//エサがあるならエサの画像に
+                if (FoodImg != null)
+                {
+                    FoodImg.sprite = Food;//エサがあるならエサの画像に
+                }
             }
             else
             {
