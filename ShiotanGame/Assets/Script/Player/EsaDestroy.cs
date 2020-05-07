@@ -8,7 +8,10 @@ public class EsaDestroy : MonoBehaviour
     private float Destroytime=0;
 
     [SerializeField, Header("エサ浮上位置")]
-    private float UpPos = 0;
+    private float UpPos;
+
+    [SerializeField, Header("エサ最大沈む位置")]
+    private float DawnPos;
 
     private float time;
     
@@ -51,10 +54,10 @@ public class EsaDestroy : MonoBehaviour
         }
 
         //エサ　浮き沈み
-        if(updawn)
+        if (updawn)
         {
             pos.y += 1.0f* Time.deltaTime;
-            if (UpPos+0.3f <= this.transform.position.y)
+            if (UpPos <= this.transform.position.y)
             {
                 updawn = false;
             }
@@ -62,7 +65,7 @@ public class EsaDestroy : MonoBehaviour
         else
         {
             pos.y -= 1.0f * Time.deltaTime;
-            if (UpPos - 0.3f >= this.transform.position.y)
+            if (DawnPos >= this.transform.position.y)
             {
                 updawn = true;
             }
@@ -81,10 +84,13 @@ public class EsaDestroy : MonoBehaviour
     {
         string layerName = LayerMask.LayerToName(other.gameObject.layer);
 
-        if (layerName == "Stage_Floor")
+        if (layerName == "SeaPlane")
         {
             rb.velocity = Vector3.zero;
             rb.useGravity = false;
+
+            //エサをステージとの当たり判定消して浮き沈みするようにする
+            this.GetComponent<BoxCollider>().isTrigger = true;
         }
     }
 }
