@@ -28,6 +28,7 @@ public class StageSelect : MonoBehaviour
 
     private float NowXPos;
 
+    InputStick inputStick;
 
     private Image NowSelectObj;//現在選択中のオブジェクト
 
@@ -40,12 +41,17 @@ public class StageSelect : MonoBehaviour
     private bool isMoveLeft = false;//左右移動判定フラグ
     private bool isMoveRight = false;
 
+    //スティック入力用
+    private float InputHori = 0f;
+
     private float LongPushTime = 0f;//長押しタイマー
     private bool isLeftPushing = false;
     private bool isRightPushing = false;
     // Start is called before the first frame update
     void Start()
     {
+        inputStick = new InputStick();
+
         work_LongPushMax = LongPushMax;
         MyRectTrans = this.GetComponent<RectTransform>();
         NowXPos = MyRectTrans.localPosition.x;
@@ -69,46 +75,28 @@ public class StageSelect : MonoBehaviour
 
     private void KeyInput()
     {
-        if(Input.GetKeyDown(KeyCode.LeftArrow)&&!isMoveRight)//ひとつ前のオブジェクトを選択
+        inputStick.StickUpdate();
+        InputHori = Input.GetAxisRaw("Horizontal");
+        Debug.Log("horizontal"+InputHori);
+        if(Input.GetKeyDown(KeyCode.LeftArrow)||inputStick.GetLeftStick()&&!isMoveRight)//ひとつ前のオブジェクトを選択
         {
             isLeftPushing = true;
             if(NowSelectObj.GetComponent<StageImage>().GetPrevExist())//一つ前にオブジェクトがあれば
             {
-                //非選択状態へ
-                NowSelectObj.GetComponent<StageImage>().SetisSelect(false);
-                NowSelectObj.GetComponent<StageImage>().SetSize(NotSelectedSize);
-                //選択オブジェクトの変更
-                NowSelectObj = NowSelectObj.GetComponent<StageImage>().GoPerv();
-                NowSelectObj.GetComponent<StageImage>().SetisSelect(true);
-                //NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
-                //オブジェクトの移動
-                MoveTimer = 0f;
-                NowXPos += MoveDistance;
-                isMoveLeft = true;
+                MoveLeftAction();
             }
         }
-        
 
-
-        if(Input.GetKeyDown(KeyCode.RightArrow)&&!isMoveLeft)//一つ後にオブジェクトがあれば
+        if(Input.GetKeyDown(KeyCode.RightArrow)||inputStick.GetRightStick()&&!isMoveLeft)//一つ後にオブジェクトがあれば
         {
             isRightPushing = true;
             if(NowSelectObj.GetComponent<StageImage>().GetNextExist())
             {
-                //非選択状態へ
-                NowSelectObj.GetComponent<StageImage>().SetisSelect(false);
-                NowSelectObj.GetComponent<StageImage>().SetSize(NotSelectedSize);
-                //選択オブジェクトの変更
-                NowSelectObj = NowSelectObj.GetComponent<StageImage>().GoNext();
-                NowSelectObj.GetComponent<StageImage>().SetisSelect(true);
-                //NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
-                //オブジェクトの移動
-                MoveTimer = 0f;
-                NowXPos -= MoveDistance;
-                isMoveRight = true;
+                MoveRightAction();
             }   
         }
 
+        //移動フラグが立っている時のみ拡大と移動のアニメーション
         if (isMoveLeft)
         {
             MoveLeft();
@@ -126,18 +114,8 @@ public class StageSelect : MonoBehaviour
             {
                 if (NowSelectObj.GetComponent<StageImage>().GetPrevExist())//一つ前にオブジェクトがあれば
                 {
-                    //非選択状態へ
-                    NowSelectObj.GetComponent<StageImage>().SetisSelect(false);
-                    NowSelectObj.GetComponent<StageImage>().SetSize(NotSelectedSize);
-                    //選択オブジェクトの変更
-                    NowSelectObj = NowSelectObj.GetComponent<StageImage>().GoPerv();
-                    NowSelectObj.GetComponent<StageImage>().SetisSelect(true);
-                    //NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
-                    //オブジェクトの移動
-                    MoveTimer = 0f;
-                    NowXPos += MoveDistance;
-                    isMoveLeft = true;
-                    LongPushMax /= 2.0f;
+                    MoveLeftAction();
+                    LongPushMax /= 2.0f;//だんだん加速していくように
                     CountReset();
                 }
             }
@@ -149,37 +127,29 @@ public class StageSelect : MonoBehaviour
             {
                 if (NowSelectObj.GetComponent<StageImage>().GetNextExist())
                 {
-                    //非選択状態へ
-                    NowSelectObj.GetComponent<StageImage>().SetisSelect(false);
-                    NowSelectObj.GetComponent<StageImage>().SetSize(NotSelectedSize);
-                    //選択オブジェクトの変更
-                    NowSelectObj = NowSelectObj.GetComponent<StageImage>().GoNext();
-                    NowSelectObj.GetComponent<StageImage>().SetisSelect(true);
-                    //NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
-                    //オブジェクトの移動
-                    MoveTimer = 0f;
-                    NowXPos -= MoveDistance;
-                    isMoveRight = true;
-                    LongPushMax /= 2.0f;
+                    MoveRightAction();
+                    LongPushMax /= 2.0f;//だんだん加速していくように
                     CountReset();
                 }
             }
         }
 
-        if(Input.GetKeyUp(KeyCode.LeftArrow))
+        //長押しキャンセル
+        if(Input.GetKeyUp(KeyCode.LeftArrow)||InputHori==0f)
         {
             isLeftPushing = false;
             CountReset();
             LongPushMax = work_LongPushMax;
         }
-        if(Input.GetKeyUp(KeyCode.RightArrow))
+
+        if(Input.GetKeyUp(KeyCode.RightArrow)||InputHori==0f)
         {
             isRightPushing = false;
             CountReset();
             LongPushMax = work_LongPushMax;
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))//ステージを決定
+        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButtonDown("MenuSelect"))//ステージを決定
         {
             NowSelectObj.GetComponent<StageImage>().SelectStage();
         }
@@ -206,12 +176,16 @@ public class StageSelect : MonoBehaviour
         Vector3 moveposition= new Vector3(NowXPos, -75.0f, 0f);
         Vector2 SetSize = SelectedSize;
         SetSize = Vector2.Lerp(NotSelectedSize, SelectedSize, MoveTimer);
+
         NowSelectObj.GetComponent<StageImage>().SetSize(SetSize);
         MyRectTrans.localPosition = Vector3.Lerp(MyRectTrans.localPosition, moveposition, MoveTimer);
         MoveTimer += Spead;
         if (MoveTimer>=1.0f)
         {
             isMoveLeft = false;
+            //Lerp関数の誤差を修正
+            MyRectTrans.localPosition = new Vector3(NowXPos, -75.0f, 0f);
+            NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
         }
         //MyRectTrans.localPosition = new Vector3(NowXPos, -75.0f, 0f);
     }
@@ -221,16 +195,48 @@ public class StageSelect : MonoBehaviour
         Vector3 moveposition = new Vector3(NowXPos, -75.0f, 0f);
         Vector2 SetSize = SelectedSize;
         SetSize = Vector2.Lerp(NotSelectedSize, SelectedSize, MoveTimer);
+
         NowSelectObj.GetComponent<StageImage>().SetSize(SetSize);
         MyRectTrans.localPosition = Vector3.Lerp(MyRectTrans.localPosition, moveposition, MoveTimer);
         MoveTimer += Spead;
         if (MoveTimer >= 1.0f)
         {
             isMoveRight = false;
+            //Lerp関数の誤差を修正
+            MyRectTrans.localPosition = new Vector3(NowXPos, -75.0f, 0f);
+            NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
         }
     }
-
     
+    private void MoveRightAction()
+    {
+        //非選択状態へ
+        NowSelectObj.GetComponent<StageImage>().SetisSelect(false);
+        NowSelectObj.GetComponent<StageImage>().SetSize(NotSelectedSize);
+        //選択オブジェクトの変更
+        NowSelectObj = NowSelectObj.GetComponent<StageImage>().GoNext();
+        NowSelectObj.GetComponent<StageImage>().SetisSelect(true);
+        //NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
+        //オブジェクトの移動
+        MoveTimer = 0f;
+        NowXPos -= MoveDistance;
+        isMoveRight = true;
+    }
+    
+    private void MoveLeftAction()
+    {
+        //非選択状態へ
+        NowSelectObj.GetComponent<StageImage>().SetisSelect(false);
+        NowSelectObj.GetComponent<StageImage>().SetSize(NotSelectedSize);
+        //選択オブジェクトの変更
+        NowSelectObj = NowSelectObj.GetComponent<StageImage>().GoPerv();
+        NowSelectObj.GetComponent<StageImage>().SetisSelect(true);
+        //NowSelectObj.GetComponent<StageImage>().SetSize(SelectedSize);
+        //オブジェクトの移動
+        MoveTimer = 0f;
+        NowXPos += MoveDistance;
+        isMoveLeft = true;
+    }
 
     private void CountReset()
     {
