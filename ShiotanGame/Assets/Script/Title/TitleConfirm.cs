@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class TitleScene : MonoBehaviour
+
+public class TitleConfirm : MonoBehaviour
 {
     public enum MenuState//メニューの状態
     {
@@ -10,7 +11,12 @@ public class TitleScene : MonoBehaviour
         STAGESELECT,
         END,
     };
+
     InputStick inputStick;
+
+
+    [Header("アンダーバーのオブジェクト")]
+    public Image UnderLine;
 
     [Header("非セレクト状態時のテクスチャ")]
     public Sprite NotSelected;
@@ -18,21 +24,21 @@ public class TitleScene : MonoBehaviour
     [Header("セレクト状態時のテクスチャ")]
     public Sprite Selected;
 
-    [Header("確認オブジェクト")]
-    public GameObject ConfirmObj;
-
-    [Header("アンダーバーのオブジェクト")]
-    public Image UnderLine;
-
-    private int[] Items = new int[3];
+    [Header("メインメニューオブジェクト")]
+    public GameObject MainMenuObj;
 
     [SerializeField]
     private int NowSelect = 0;//現在選択中のアイテム
 
+    private int[] Items = new int[2];//選択項目
+
+    private Vector3[] LinePos = new Vector3[2];//ポジションの固定値
+
+    [SerializeField]
+    private int State = -1;//選択されている状態
+
     [Header("選択描画フレーム")]
     public int DrawFlame = 5;
-
-    private Vector3[] LinePos = new Vector3[3];//ポジションの固定値
 
     private Image MyImage;
     private int AnimCnt = 0;
@@ -46,14 +52,18 @@ public class TitleScene : MonoBehaviour
         InitLinePos();//選択状態のラインのポジション初期化
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        KeyInput();//キー入力処理
+        KeyInput();
     }
 
-    private void KeyInput()//キー入力関数
+    private void OnEnable()
+    {
+        NowSelect = 0;
+    }
+
+    private void KeyInput()
     {
         if (!isDraw)
         {
@@ -84,63 +94,47 @@ public class TitleScene : MonoBehaviour
                 isDraw = false;
                 UnderLine.sprite = NotSelected;//テクスチャを非選択状態に設定
                 AnimCnt = 0;
+
                 Select(NowSelect);//選択番号によって処理を変更
             }
         }
     }
 
+
     private void Select(int num)
     {
-        switch (num)//選択番号で描画処理を変更する
+        if (num == 0)//はいが選択されれば
         {
-            case (int)MenuState.START:
-                Camera.main.GetComponent<SceneTransition>().SetTransitionRun("stage1");
-                break;
+            switch (State)//選択番号で描画処理を変更する
+            {
+                case (int)MenuState.END:
+                    GameManager.Instance.Quit();//終了
+                    break;
 
-            case (int)MenuState.STAGESELECT:
-                Camera.main.GetComponent<SceneTransition>().SetTransitionRun("MenuScene");
-                break;
+                default:
+                    break;
+            }
+        }
 
-            //ゲーム終了は確認画面へ移行
-            case (int)MenuState.END:
-                ConfirmObj.SetActive(true);
-                ConfirmObj.GetComponent<TitleConfirm>().SetState(num);
-                this.gameObject.SetActive(false);
-                break;
-
+        else//いいえが選択されれば
+        {
+            MainMenuObj.GetComponent<TitleScene>().SetState(State);//最後に選択した状態からスタート
+            this.gameObject.SetActive(false);
+            MainMenuObj.SetActive(true);
         }
     }
 
     private void InitLinePos()
     {
-        LinePos[0] = new Vector3(0, 20, 0);
-        LinePos[1] = new Vector3(0, -30, 0);
-        LinePos[2] = new Vector3(0, -80, 0);
+        LinePos[0] = new Vector3(0, -30, 0);
+        LinePos[1] = new Vector3(0, -80, 0);
     }
 
-    public void SetState(int sts)
+    public void SetState(int sts)//状態をセット
     {
-        NowSelect = sts;
+        State = sts;
     }
-    //SceneTransition TransitionScript;
-    //[Header("遷移先シーン名")]
-    //public string NextSceneName = null;
-    //private bool TransitionFlg = false;
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-    //    TransitionScript = this.GetComponent<SceneTransition>();
-    //}
 
-    //// Update is called once per frame
-    //void Update()
-    //{
 
-    //    if (Input.anyKeyDown && !TransitionFlg)
-    //    {
-    //        AudioManager.Instance.PlaySE("SE_ENTER");//決定音
-    //        TransitionScript.SetTransitionRun(NextSceneName);
-    //        TransitionFlg = true;
-    //    }
-    //}
+    
 }
