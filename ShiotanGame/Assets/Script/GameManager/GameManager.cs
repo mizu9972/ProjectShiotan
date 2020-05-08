@@ -119,4 +119,13 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
             }
         }
     }
+
+    public void Quit()//終了処理
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_STANDALONE
+      UnityEngine.Application.Quit();
+#endif
+    }
 }
