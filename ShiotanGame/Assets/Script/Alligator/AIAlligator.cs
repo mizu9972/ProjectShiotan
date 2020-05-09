@@ -113,6 +113,7 @@ public class AIAlligator : MonoBehaviour
                     if (TargetPosList.Count > AlligatorChaceDirayFrame) {
                         ChaseTarget();
                         IsRush = true;
+                        gameObject.GetComponent<AlligatorAnimation>().SetIsAttack(true);
                         m_ParEffScp.StartEffect();
                     }
                     else {
@@ -128,6 +129,7 @@ public class AIAlligator : MonoBehaviour
                     gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                     gameObject.GetComponent<NavMeshAgent>().enabled = true;
                     IsRush = false;
+                    gameObject.GetComponent<AlligatorAnimation>().SetIsAttack(false);
                     m_ParEffScp.StopEffect();
                     m_NavMeshAgent.destination = InitPos;
                     gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
