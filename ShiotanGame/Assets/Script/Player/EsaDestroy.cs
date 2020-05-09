@@ -84,6 +84,11 @@ public class EsaDestroy : MonoBehaviour
     {
         string layerName = LayerMask.LayerToName(other.gameObject.layer);
 
+        if (layerName == "Stage_Wall")
+        {
+            rb.velocity = Vector3.zero;
+        }
+
         if (layerName == "SeaPlane")
         {
             rb.velocity = Vector3.zero;
