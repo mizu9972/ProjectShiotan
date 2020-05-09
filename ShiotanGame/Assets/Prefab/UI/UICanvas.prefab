@@ -610,12 +610,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1869828, g: 1, b: 0.054901958, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -3606001300676847475, guid: 71616aade32bd094ba3430f8fcc1116d,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -640,6 +641,10 @@ MonoBehaviour:
   AnimationTime: 0.1
   MaxHP: 0
   NowHP: 0
+  DangerZone: 0.2
+  GreenBar: {fileID: -3606001300676847475, guid: 71616aade32bd094ba3430f8fcc1116d,
+    type: 3}
+  RedBar: {fileID: 4794662641240980128, guid: 69a5748c1c094684bae7d9baccada084, type: 3}
 --- !u!1 &3752352186092324795
 GameObject:
   m_ObjectHideFlags: 0
