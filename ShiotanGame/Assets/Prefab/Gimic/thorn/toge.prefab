@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8069633245035620426}
   - component: {fileID: 1343794598937940604}
   - component: {fileID: 4727257309724749445}
+  - component: {fileID: 3897408105009091622}
+  - component: {fileID: 850774583181261190}
   m_Layer: 0
   m_Name: toge
   m_TagString: Untagged
@@ -78,3 +80,30 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &3897408105009091622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6459922693013707353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c53dd59295527d4e85b3f887bb015de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 5
+  DamageTime: 3
+--- !u!65 &850774583181261190
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6459922693013707353}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0069531146, y: 0.006793398, z: 0.01}
+  m_Center: {x: -0.00007172022, y: 0.000119157135, z: 0}

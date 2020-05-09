@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         //スクリプトを取得
-        GageScript = GameObject.Find("Gage").GetComponentInChildren<Gage>();
+        GageScript = GameObject.Find("PlayerGage").GetComponentInChildren<Gage>();
         
         GageScript.InitGage(this.GetComponent<HumanoidBase>().InitHP);//ゲージの初期化
     }
