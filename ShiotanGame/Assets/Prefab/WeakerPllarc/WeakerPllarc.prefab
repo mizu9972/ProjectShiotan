@@ -181,7 +181,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6555499531643686425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc3fbb20f9570f4fbaa8cc361ed9e99, type: 3}
+  m_Script: {fileID: 11500000, guid: de0f39583f2cb4e4c860f8e943638334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ItemTag: []
@@ -189,7 +189,8 @@ MonoBehaviour:
     type: 3}
   NearBattleFlock: []
   AffiliationBattleField: {fileID: 0}
-  FreeBiteTag: []
+  FreeBiteTag:
+  - BiteWall
 --- !u!64 &1160015292752621560
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -293,7 +294,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7672449053629962771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ecc587cd3e2d3f49b3214cc6a61edd6, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bf4d156a2d4e5344b9f364ba1a0265e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!64 &7672449053629962772
@@ -399,7 +400,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7672449054371398959}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395cb3dca994dfa4a85e63d37daf2f6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2545c29f80a36e548a59848a2f649751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetTag:
@@ -560,7 +561,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7672449055493072614}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca7cc7c0546c697409c838a742108fa6, type: 3}
+  m_Script: {fileID: 11500000, guid: 23e886cf315b4b94b97ec8b7428bd458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4785144601651863484
@@ -572,7 +573,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7672449055493072614}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41e50be6995abcc48a733d42b75d4e12, type: 3}
+  m_Script: {fileID: 11500000, guid: ca7155b30127b2f42a18c05fffbfbf30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetList: []
@@ -581,11 +582,13 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 1200128
-  RayDistance: 50
-  PiranhaChaceDirayFrame: 5
+  RayDistance: 0
+  PiranhaChaceDirayFrame: 50
+  IntimidationTag:
+  - Player
   ChaceAccuracy: 1
   TargetPosList: []
-  MoveSpeed: 11
+  MoveSpeed: 14
 --- !u!114 &6167022365236856785
 MonoBehaviour:
   m_ObjectHideFlags: 0
