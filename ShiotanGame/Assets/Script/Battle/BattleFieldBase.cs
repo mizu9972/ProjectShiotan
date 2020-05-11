@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BattleFieldBase : MonoBehaviour
 {
+    [SerializeField,Header("全ピラニアのHPバー")]
+    private GameObject AllFlockHP;
     [SerializeField] private GameObject BattleCenter;
     private bool IsHostility = false;
     private string PlayerTag = "Player";
@@ -239,6 +241,9 @@ public class BattleFieldBase : MonoBehaviour
         if (TotalFlock.Count <= 0) {
             gameObject.AddComponent<HumanoidBase>();
             TotalFlockHumanoidBase = gameObject.GetComponent<HumanoidBase>();
+            // 全ピラニアのHPを作成
+            Instantiate(AllFlockHP, gameObject.transform);
+            gameObject.transform.GetChild(0).GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
         }
 
         TotalFlock.Add(Flock);
