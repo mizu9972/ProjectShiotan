@@ -27,6 +27,7 @@ public class RestFood : MonoBehaviour
     [Header("船パーツ画像")]
     public Sprite Boat;
 
+    
     private GameObject PlayerObj=null;//プレイヤー
     private bool isFast = true;//
     // Start is called before the first frame update
