@@ -13,6 +13,14 @@ public class Portal : MonoBehaviour
     [Header("ゴールにする")]
     public bool isGoal;
 
+    [Header("HPとエサを引き継ぐか")]
+    public bool isCarryOver = true;
+
+    [Header("ステージ移動後にもらえるエサ")]
+    public float BonusFood = 0f;
+
+    [Header("ステージ移動後にもらえるHP")]
+    public float BonusHp = 0f;
     // Start is called before the first frame update
     void Awake()
     {
@@ -33,6 +41,15 @@ public class Portal : MonoBehaviour
             other.GetComponent<ProtoMove2>().enabled = false;//プレイヤーの操作無効
             if(NextScene!=null && !isGoal)//次のシーンへ
             {
+                if(isCarryOver)
+                {
+                    //ポータル通過時のみHPとエサの個数の引き継ぎ
+                    GameManager.Instance.SetCarryOver(true);
+                    float workHP = other.GetComponent<HumanoidBase>().NowHP + BonusHp;
+                    float workFoods = other.GetComponent<Player>().GetRestFood() + BonusFood;
+                    GameManager.Instance.SetWorkStatus(workHP, workFoods);
+                }
+                
                 SceneManager.GetComponent<SceneTransition>().SetTransitionRun(NextScene);
             }
             else if(isGoal)//ゴール

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UniRx;
+using UniRx.Triggers;
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     [Header("入力検知機能を使う")]
@@ -14,7 +16,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public GameObject PauseMenu;
 
     private GameObject isStageObj;//ゲームメインかを確認するオブジェクト
-
+    //HPとエサ引き継ぎ用
+    private bool isCarryover = false;
+    private float WorkFoods = 0f;
+    private float WorkHp = 0f;
     private bool PauseEnable = false;
     private bool isTakeover = false;
     // Start is called before the first frame update
@@ -29,7 +34,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Update is called once per frame
     void Update()
     {
-        if(PauseEnable)
+        
+
+        if (PauseEnable)
         {
             if (Input.GetButtonDown("Pause"))
             {
@@ -59,14 +66,20 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         work_Position = pos;
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)//シーンが読み込まれた時にカメラを取得
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)//シーンが読み込まれた時
     {
+        //シーンが読み込まれた時にカメラを取得
         MainCamera = Camera.main;
         isStageObj = GameObject.Find("isStage");
         if(isTakeover)
         {
             isTakeover = false;
             GameObject.Find("Respawn").transform.position = work_Position;
+        }
+        if (isCarryover)//HPとエサを引き継ぐ場合
+        {
+            this.UpdateAsObservable().Take(1).Subscribe(_ => InitPlayerStatus());
+            isCarryover = false;
         }
     }
 
@@ -118,6 +131,23 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
                 }
             }
         }
+    }
+
+    public void SetCarryOver(bool iscarry)
+    {
+        isCarryover = iscarry;
+    }
+
+    public void SetWorkStatus(float workho,float workfoods)
+    {
+        WorkHp = workho;
+        WorkFoods = workfoods;
+    }
+
+    private void InitPlayerStatus()
+    {
+        GameObject Player = GameObject.FindGameObjectWithTag("Player");
+        Player.GetComponent<Player>().SetPlayerStatus(WorkHp, WorkFoods);
     }
 
     public void Quit()//終了処理

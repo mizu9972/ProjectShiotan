@@ -62,4 +62,10 @@ public class Player : MonoBehaviour
     {
         return this.GetComponentInChildren<ThrowEsa>().GetSacrificeHP();
     }
+
+    public void SetPlayerStatus(float hp,float foods)//エサとHPの数値セット
+    {
+        this.GetComponent<HumanoidBase>().NowHP = hp;
+        this.GetComponentInChildren<ThrowEsa>().count = foods;
+    }
 }
