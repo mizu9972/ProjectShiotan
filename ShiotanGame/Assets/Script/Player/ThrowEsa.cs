@@ -68,7 +68,7 @@ public class ThrowEsa : MonoBehaviour
         }
 
         //エサ投げた状態の場合
-        if (MoveScript.EsaTrow == true)
+        if (MoveScript.EsaTrow == true&& HPcnt.NowHP > 0)
         {
             TrowEndCount += Time.deltaTime;
 
