@@ -1,9 +1,10 @@
 ﻿Shader "Unlit/ReflectionSeaPlane"
 {
-    Properties
-    {
+	Properties
+	{
 		_DistortionTex("DistortionTex",2D) = "grey"{}
-		_DistortionPower("DistortionPower",Range(0,1)) = 1
+		_DistortionPower("DistortionPower",Float) = 1
+		_DistortionRate("DistortionRate",Float) = 22.0
 
 		_Color("Color", Color) = (1,1,1,1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
@@ -15,120 +16,148 @@
 		_TideTex("TideTex",2D) = "black" {}
 		_ScrollTime("ScrollTime", Float) = 1.0
 		_LightingRate("輝度",Float) = 1.0
-    }
-    SubShader
-    {
-        Tags { "RenderType"="transparent" "Queue" = "Geometry-1" }
-        LOD 100
+	}
+		SubShader
+		{
+			Tags { "RenderType" = "fade" "Queue" = "Geometry-1" }
+			LOD 100
 
-		GrabPass{ "_GrabTex" }
-        Pass
-        {
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            // make fog work
-            #pragma multi_compile_fog
+			GrabPass{ "_GrabTex" }
 
-            #include "UnityCG.cginc"
+			Pass
+			{
+				CGPROGRAM
+				#pragma vertex vert
+				#pragma fragment frag
+				// make fog work
+				#pragma multi_compile_fog
 
-            struct appdata
-            {
-				float4 vertex : POSITION;
-				float2 uv : TEXCOORD0;
-				float2 uv2 : TEXCOORD1;
-				float2 uv3 :TEXCOORD2;
-				float2 Scrolluv :TEXCOORD3;
-            };
+				#include "UnityCG.cginc"
 
-            struct v2f
-            {
-                float2 uv : TEXCOORD0;
-                UNITY_FOG_COORDS(1)
-                float4 vertex : SV_POSITION;
+				struct appdata
+				{
+					float4 vertex : POSITION;
+					float2 uv : TEXCOORD0;
+					float2 uv2 : TEXCOORD1;
+					float2 uv3 :TEXCOORD2;
+					float2 Scrolluv :TEXCOORD3;
+				};
 
-				float2 uv2 : TEXCOORD1;
-				float2 uv3 :TEXCOORD2;
-				float2 Scrolluv :TEXCOORD3;
+				struct v2f
+				{
+					float2 uv : TEXCOORD0;
+					UNITY_FOG_COORDS(1)
+					float4 vertex : SV_POSITION;
 
-				half4 grabPos : TEXCOORD4;
-				half4 scrPos :TEXCOORD5;
-            };
+					float2 uv2 : TEXCOORD1;
+					float2 uv3 :TEXCOORD2;
+					float2 Scrolluv :TEXCOORD3;
 
-			//テクスチャ
-			sampler2D _MainTex;//波情報
-			sampler2D _GrabTex;//描画済みの背景
-			sampler2D _MergeTex;//合成テクスチャ
-			sampler2D _FloorTex;//ステージ範囲情報
-			sampler2D _TideTex;//潮
-			sampler2D _DistortionTex;//屈折マスク
-			sampler2D _CameraDepthTexture;//Zバッファ
+					half4 grabPos : TEXCOORD4;
+					half4 scrPos :TEXCOORD5;
+				};
 
-			float4 _MainTex_ST;
-			float4 _MergeTex_ST;
-			float4 _FloorTex_ST;
-			float4 _TideTex_ST;
-			float _TideLitRate;
-			float _ScrollTime;
-			half _Glossiness;
-			half _Metallic;
-			fixed4 _Color;
-			float _Alpha;
-			float _LightingRate;
+				//テクスチャ
+				sampler2D _MainTex;//波情報
+				sampler2D _GrabTex;//描画済みの背景
+				sampler2D _MergeTex;//合成テクスチャ
+				sampler2D _FloorTex;//ステージ範囲情報
+				sampler2D _TideTex;//潮
+				sampler2D _DistortionTex;//屈折マスク
+				sampler2D _CameraDepthTexture;//デプステクスチャ
 
-			half4 _DistortionTex_ST;
-			half _DistortionPower;
+				float4 _MainTex_ST;
+				float4 _MergeTex_ST;
+				float4 _FloorTex_ST;
+				float4 _TideTex_ST;
+				half4 _DistortionTex_ST;
+				float4 _GrabTex_ST;
+				float4 _CameraDepthTexture_ST;
 
-            v2f vert (appdata v)
-            {
-				v2f o;
-				o.vertex = UnityObjectToClipPos(v.vertex);
-				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-				o.uv2 = TRANSFORM_TEX(v.uv2, _MergeTex);
-				o.uv3 = TRANSFORM_TEX(v.uv3, _FloorTex);
-                UNITY_TRANSFER_FOG(o,o.vertex);
-				o.grabPos = ComputeGrabScreenPos(o.vertex);//grabテクスチャ取得
-				o.scrPos = ComputeScreenPos(o.vertex);//Zバッファ取得
-                return o;
-            }
+				float _TideLitRate;
+				float _ScrollTime;
+				half _Glossiness;
+				half _Metallic;
+				fixed4 _Color;
+				float _Alpha;
+				float _LightingRate;
 
-            fixed4 frag (v2f i) : SV_Target
-            {
-                // sample the texture
-            fixed4 col = tex2D(_MainTex, i.uv);//波の色
-			col.x -= 0.5f;
+				float4 _CameraDepthTexture_TexelSize;
+				float2 _GrabTex_Texel;
 
-			fixed4 MainCol = tex2D(_MergeTex, i.uv2);//テクスチャ
-			fixed4 FloorMaskCol = 1.0f - tex2D(_FloorTex, i.uv3);
+				half _DistortionPower;//歪みの強さ
+				float _DistortionRate;
 
-			fixed4 TideTexCol = tex2D(_TideTex, i.uv2 + _Time * _ScrollTime) * _TideLitRate;//潮テクスチャ uvスクロールさせる
+				float2 AlignWithGrabTexel(float2 uv) {
+					return (floor(uv * _CameraDepthTexture_TexelSize.zw) + 0.5) * abs(_CameraDepthTexture_TexelSize.xy);
+				}
 
-			col.x *= -1.0f;//波を白色で表現
+				v2f vert(appdata v)
+				{
+					v2f o;
+					o.vertex = UnityObjectToClipPos(v.vertex);
+					o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+					o.uv2 = TRANSFORM_TEX(v.uv2, _MergeTex);
+					o.uv3 = TRANSFORM_TEX(v.uv3, _FloorTex);
+					UNITY_TRANSFER_FOG(o,o.vertex);
+					o.grabPos = ComputeGrabScreenPos(o.vertex);//grabテクスチャ取得
+					o.scrPos = ComputeScreenPos(o.vertex);//デプスマップ取得
+					return o;
+				}
 
-			//col = fixed4(MainCol.x + TideTexCol.x + col.x, MainCol.y + TideTexCol.y + col.x, MainCol.z + TideTexCol.z + col.x, MainCol.w + TideTexCol.w + col.x);
-			col.w = col.w * FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
+				fixed4 frag(v2f i) : SV_Target
+				{
+					// sample the texture
+				fixed4 col = tex2D(_MainTex, i.uv);//波の色
+				col.x -= 0.5f;
 
-			//屈折処理-----------
-			half2 GrabUv = half2(i.grabPos.x / i.grabPos.w, i.grabPos.y / i.grabPos.w);
+				fixed4 MainCol = tex2D(_MergeTex, i.uv2);//テクスチャ
+				fixed4 FloorMaskCol = 1.0f - tex2D(_FloorTex, i.uv3);
 
-			half2 Distortion = tex2D(_DistortionTex, i.uv + _Time.x * 0.1f + col.x).rg - 0.5;
-			Distortion *= _DistortionPower;
+				fixed4 TideTexCol = tex2D(_TideTex, i.uv2 + _Time * _ScrollTime) * _TideLitRate;//潮テクスチャ uvスクロールさせる
 
-			GrabUv = GrabUv + Distortion;
-			fixed4 outCol = tex2D(_GrabTex, GrabUv);
-			//------------------
-/*			float3 bump = UnpackNormal(tex2D(_DistortionTex, i.uv));
-			float4 grabUV = i.grabPos;
-			grabUV.xy = (i.grabPos.xy * _DistortionPower + (bump.xy * _Time)) / i.grabPos.w;
+				col.x *= -1.0f;//波を白色で表現
 
-			fixed4 outCol = tex2D(_GrabTex, grabUV)*/;
+				//col = fixed4(MainCol.x + TideTexCol.x + col.x, MainCol.y + TideTexCol.y + col.x, MainCol.z + TideTexCol.z + col.x, MainCol.w + TideTexCol.w + col.x);
+				col.w = col.w * FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
 
-			outCol.w = FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
-                // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
-				return outCol;
-            }
-            ENDCG
-        }
-    }
+				//屈折処理-----------
+
+
+				half2 Distortion = tex2D(_DistortionTex, i.uv + _Time.x * 0.1f + col.x).rg - 0.5;
+				//Distortion *= _DistortionPower;
+				Distortion = col.x * _DistortionPower;
+				//------------------
+				float4 DepthUV = i.grabPos;
+				DepthUV.xy = (i.grabPos.xy) + Distortion;// *_DistortionRate;
+				//float Depth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(DepthUV)));
+				float surfDepth = UNITY_Z_0_FAR_FROM_CLIPSPACE(i.scrPos.z);
+
+				float refFix = LinearEyeDepth(UNITY_SAMPLE_DEPTH(tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(DepthUV))));
+				float depthDiff = saturate(refFix - surfDepth);
+
+				//Distortion = Distortion * _DistortionPower *depthDiff;
+				Distortion = Distortion * depthDiff;
+
+
+				float2 GrabUv = i.grabPos.xy;
+				//half2 GrabUv = half2(i.grabPos.x / i.grabPos.w, i.grabPos.y / i.grabPos.w);
+				float GrabDistortion = col.x * _DistortionPower;// *_DistortionRate;
+				//GrabUv = (GrabUv + GrabDistortion * depthDiff) / i.grabPos.w;
+				GrabUv = AlignWithGrabTexel((GrabUv + GrabDistortion * depthDiff) / i.grabPos.w);
+				
+				//float2 endGrabUv = (i.grabPos.xy * (Distortion * _DistortionPower) * depthDiff) / i.grabPos.w;
+				fixed4 outCol = tex2D(_GrabTex, GrabUv);
+
+				outCol.w = FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
+				// apply fog
+				UNITY_APPLY_FOG(i.fogCoord, outCol);
+				return outCol;// *depthDiff + (tex2D(_GrabTex, i.uv) * (1 - depthDiff));
+				//return float4(depthDiff, 1 - depthDiff, 0, 1);
+				//return (1, 1, 1, 1);
+				}
+
+			ENDCG
+		}
+	}
 }
