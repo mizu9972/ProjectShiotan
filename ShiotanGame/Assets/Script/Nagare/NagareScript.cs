@@ -29,14 +29,8 @@ public class NagareScript : MonoBehaviour
         //乗ったオブジェクトごとに勢いの値変わる
         if (other.tag == "Player")
         {
-            //pos.x += XDir * P_Flow;    // x座標へ加算
-            //pos.z += ZDir * P_Flow;    // z座標へ加算
             SaveX += XDir * P_Flow;    // x座標へ加算
             SaveZ += ZDir * P_Flow;    // z座標へ加算
-
-            NagareMove NMove = other.GetComponentInParent<NagareMove>();
-            //NMove.SetJudge(true);
-            //NMove.SetMove(SaveX, SaveZ);
         }
         if (other.tag == "Esa")
         {
