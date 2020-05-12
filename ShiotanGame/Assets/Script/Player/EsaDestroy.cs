@@ -93,6 +93,8 @@ public class EsaDestroy : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
             rb.useGravity = false;
+            rb.drag = 1;
+            rb.angularDrag = 1;
 
             //エサをステージとの当たり判定消して浮き沈みするようにする
             this.GetComponent<BoxCollider>().isTrigger = true;

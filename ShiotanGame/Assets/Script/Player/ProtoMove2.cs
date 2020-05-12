@@ -13,7 +13,8 @@ public class ProtoMove2 : MonoBehaviour
     [Header("最大加速スピード"),SerializeField] private float MaxKasoku;
     private float Nowkasoku = 0;    //現在の加速度
 
-    [Header("減速の割合（%）"), SerializeField] private float gensoku;
+    [Header("慣性の減速の割合　通常移動時（%）"), SerializeField] private float InertialDawn;
+    [Header("慣性の減速の割合　加速移動時（%）"), SerializeField] private float InertialAcceleDawn;
     [Header("プレイヤーのブレーキ時の減速度"), SerializeField] private float brake;
     
     [Header("回転の度合い"), SerializeField] private float ang;
@@ -94,7 +95,6 @@ public class ProtoMove2 : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 MoveOn = true;
-                speed = Maxspeed;
                 //指定した方向にゆっくり回転する場合
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, -90f, 0), step);
             }
@@ -103,7 +103,6 @@ public class ProtoMove2 : MonoBehaviour
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 MoveOn = true;
-                speed = Maxspeed;
                 //指定した方向にゆっくり回転する場合
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 90f, 0), step);
             }
@@ -112,7 +111,6 @@ public class ProtoMove2 : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 MoveOn = true;
-                speed = Maxspeed;
                 //指定した方向にゆっくり回転する場合
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), step);
             }
@@ -121,7 +119,6 @@ public class ProtoMove2 : MonoBehaviour
             if (Input.GetKey(KeyCode.DownArrow))
             {
                 MoveOn = true;
-                speed = Maxspeed;
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 180.0f, 0), step);
             }
         }
@@ -143,7 +140,7 @@ public class ProtoMove2 : MonoBehaviour
             //減速処理（加速）
             if (Nowkasoku > 0.5f)
             {
-                Nowkasoku *= gensoku;
+                Nowkasoku *= InertialDawn;
             }
             else
             {
@@ -151,6 +148,67 @@ public class ProtoMove2 : MonoBehaviour
             }
         }
 
+        //初速度速くするための変数
+        float xspeed = 1;
+        float speedx = Mathf.Abs(Max.x);
+        float speedz = Mathf.Abs(Max.z);
+
+        //現在のスピードの大きいほう(X・Z方向)と最大スピードの差分を取得(初速度を速くする用)
+        if (speedx < speedz)
+        {
+            if (speedz < 0.5f)
+            {
+                xspeed = Maxspeed - speedz;
+            }
+        }
+        else
+        {
+            if (speedx < 0.5f)
+            {
+                xspeed = Maxspeed - speedx;
+            }
+        }
+
+        //十字キー押したときの移動
+        if (MoveOn)
+        {
+            speed = Maxspeed;
+            rb.AddForce(this.gameObject.transform.forward * (speed + Nowkasoku) * xspeed, ForceMode.Acceleration);
+        }
+        else
+        {
+            //慣性での移動用
+            rb.AddForce(Max * xspeed * 2);
+
+            //減速
+            rb.velocity *= InertialDawn;
+
+            //加速時　減速
+            if (Nowkasoku > 0)
+            {
+                rb.velocity *= 1 - (Nowkasoku / MaxKasoku) * (1 - InertialAcceleDawn);
+            }
+        }
+
+        //速度制限
+        if ((speed + Nowkasoku) < Mathf.Abs(rb.velocity.x))
+        {
+            rb.velocity *= 0.9f;
+        }
+        if ((speed + Nowkasoku) < Mathf.Abs(rb.velocity.z))
+        {
+            rb.velocity *= 0.9f;
+        }
+
+        //アニメーション再生スピード変更用
+        if (speed > 0.5f)
+        {
+            speed *= InertialDawn;
+        }
+        else
+        {
+            speed = 0;
+        }
 
         //アニメーション再生スピード　変更用
         float animespeed = animespeedmove / (Maxspeed / speed) + animespeedkasoku / (MaxKasoku / Nowkasoku);
@@ -177,7 +235,7 @@ public class ProtoMove2 : MonoBehaviour
         //スピードによるエサ投げる距離の変化
         speedpower = (speed + Nowkasoku)* s_powerPercent;
 
-        //移動しているか
+        //オール漕ぐ関連（漕ぐ速度・再生）
         if (MoveOn == true && EsaTrow == false)
         {
             //スピードの値でオール漕ぐ間隔変化
@@ -194,51 +252,6 @@ public class ProtoMove2 : MonoBehaviour
             }
         }
         
-        //減速処理（移動）
-        if (speed > 0.5f)
-        {
-            speed *= gensoku;
-        }
-        else
-        {
-            speed = 0;
-        }
-
-        //初速度速くするための変数
-        float xspeed = 1;
-        float speedx = Mathf.Abs(Max.x);
-        float speedz = Mathf.Abs(Max.z);
-
-        //現在のスピードの大きいほう(X・Z方向)と最大スピードの差分を取得(初速度を速くする用)
-        if (speedx < speedz)
-        {
-            if (speedz < 0.5f)
-            {
-                xspeed = Maxspeed - speedz;
-            }
-        }
-        else
-        {
-            if (speedx < 0.5f)
-            {
-                xspeed = Maxspeed - speedx;
-            }
-        }
-
-        //慣性での移動用
-        rb.AddForce(this.gameObject.transform.forward * (speed + Nowkasoku) * xspeed, ForceMode.Acceleration);
-        
-        //速度制限 (十字キーのスピード＋現在の加速度　を超えない)
-        if ((speed + Nowkasoku) / 2 < Mathf.Abs(rb.velocity.x))
-        {
-            Max.x = (speed + Nowkasoku) / 2 * Mathf.Sign(rb.velocity.x);
-            rb.velocity = Max;
-        }
-        if ((speed + Nowkasoku) / 2 < Mathf.Abs(rb.velocity.z))
-        {
-            Max.z = (speed + Nowkasoku) / 2 * Mathf.Sign(rb.velocity.z);
-            rb.velocity = Max;
-        }
     }
 
     //移動を止める関数
