@@ -5,12 +5,12 @@
 		//インスペクターに表示する数値
 		_DistortionTex("DistortionTex",2D) = "grey"{}
 		_DistortionPower("DistortionPower",Float) = 1
-		_DistortionRate("DistortionRate",Float) = 22.0
+		_DistortionRate("DistortionColorRate",Range(0,5)) = 1.0
 
-		_Color("Color", Color) = (1,1,1,1)
+		_Color("Color", Color) = (0,0,0,1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_Alpha("透明度",Range(0.0,1.0)) = 1.0
-		_MergeTex("MergeTex",2D) = "white" {}
+		_MergeTex("MergeTex",2D) = "black" {}
 		_FloorTex("FloorTex",2D) = "black" {}
 	}
 		SubShader
@@ -135,6 +135,9 @@
 				GrabUv = AlignWithGrabTexel((GrabUv + GrabDistortion * depthDiff) / i.grabPos.w);
 				fixed4 outCol = tex2D(_GrabTex, GrabUv);
 
+				float ColorRate = ((max(col.x,0) * 2.0f) * _DistortionRate);
+				outCol += _Color * ColorRate;//色加算
+				outCol += tex2D(_MergeTex, i.uv) * ColorRate;//画像加算
 				outCol.w = FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, outCol);
