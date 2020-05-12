@@ -2,27 +2,25 @@
 {
 	Properties
 	{
+		//インスペクターに表示する数値
 		_DistortionTex("DistortionTex",2D) = "grey"{}
 		_DistortionPower("DistortionPower",Float) = 1
 		_DistortionRate("DistortionRate",Float) = 22.0
 
 		_Color("Color", Color) = (1,1,1,1)
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
-		_Glossiness("Smoothness", Range(0,1)) = 0.5
-		_Metallic("Metallic", Range(0,1)) = 0.0
 		_Alpha("透明度",Range(0.0,1.0)) = 1.0
 		_MergeTex("MergeTex",2D) = "white" {}
 		_FloorTex("FloorTex",2D) = "black" {}
-		_TideTex("TideTex",2D) = "black" {}
-		_ScrollTime("ScrollTime", Float) = 1.0
-		_LightingRate("輝度",Float) = 1.0
 	}
 		SubShader
 		{
+			//RenderTypeは現状自由
+			//Queueは BackGroundより後 Geometryより前
 			Tags { "RenderType" = "fade" "Queue" = "Geometry-1" }
 			LOD 100
 
-			GrabPass{ "_GrabTex" }
+			GrabPass{ "_GrabTex" }//背景テクスチャ使用宣言
 
 			Pass
 			{
@@ -64,8 +62,9 @@
 				sampler2D _FloorTex;//ステージ範囲情報
 				sampler2D _TideTex;//潮
 				sampler2D _DistortionTex;//屈折マスク
-				sampler2D _CameraDepthTexture;//デプステクスチャ
+				sampler2D _CameraDepthTexture;//デプスマップ
 
+				//テクスチャそれぞれのTiling/offset情報
 				float4 _MainTex_ST;
 				float4 _MergeTex_ST;
 				float4 _FloorTex_ST;
@@ -74,26 +73,26 @@
 				float4 _GrabTex_ST;
 				float4 _CameraDepthTexture_ST;
 
-				float _TideLitRate;
-				float _ScrollTime;
-				half _Glossiness;
-				half _Metallic;
+				//色
 				fixed4 _Color;
 				float _Alpha;
-				float _LightingRate;
 
-				float4 _CameraDepthTexture_TexelSize;
-				float2 _GrabTex_Texel;
+				float4 _CameraDepthTexture_TexelSize;//デプスマップのテクセルのサイズ
+				float2 _GrabTex_Texel;//背景テクスチャのテクセル情報
 
 				half _DistortionPower;//歪みの強さ
-				float _DistortionRate;
+				float _DistortionRate;//歪みの比率
 
+				//ドットの情報落ちを補正する関数
+				//2020/05/12 あまり意味なかった
 				float2 AlignWithGrabTexel(float2 uv) {
 					return (floor(uv * _CameraDepthTexture_TexelSize.zw) + 0.5) * abs(_CameraDepthTexture_TexelSize.xy);
 				}
 
+				//頂点シェーダー
 				v2f vert(appdata v)
 				{
+					//各情報取り出し＆フラグメントシェーダーへ流す
 					v2f o;
 					o.vertex = UnityObjectToClipPos(v.vertex);
 					o.uv = TRANSFORM_TEX(v.uv, _MainTex);
@@ -107,54 +106,39 @@
 
 				fixed4 frag(v2f i) : SV_Target
 				{
-					// sample the texture
+				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);//波の色
-				col.x -= 0.5f;
+				col.x -= 0.5f;//-0.5~0.5に補正
 
 				fixed4 MainCol = tex2D(_MergeTex, i.uv2);//テクスチャ
-				fixed4 FloorMaskCol = 1.0f - tex2D(_FloorTex, i.uv3);
-
-				fixed4 TideTexCol = tex2D(_TideTex, i.uv2 + _Time * _ScrollTime) * _TideLitRate;//潮テクスチャ uvスクロールさせる
+				fixed4 FloorMaskCol = 1.0f - tex2D(_FloorTex, i.uv3);//ステージ地面マスク
 
 				col.x *= -1.0f;//波を白色で表現
 
-				//col = fixed4(MainCol.x + TideTexCol.x + col.x, MainCol.y + TideTexCol.y + col.x, MainCol.z + TideTexCol.z + col.x, MainCol.w + TideTexCol.w + col.x);
-				col.w = col.w * FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
+				//屈折処理===========
+				half2 Distortion = col.x * _DistortionPower;
 
-				//屈折処理-----------
-
-
-				half2 Distortion = tex2D(_DistortionTex, i.uv + _Time.x * 0.1f + col.x).rg - 0.5;
-				//Distortion *= _DistortionPower;
-				Distortion = col.x * _DistortionPower;
-				//------------------
+				//屈折後の描画色を取得
 				float4 DepthUV = i.grabPos;
-				DepthUV.xy = (i.grabPos.xy) + Distortion;// *_DistortionRate;
-				//float Depth = LinearEyeDepth(SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(DepthUV)));
-				float surfDepth = UNITY_Z_0_FAR_FROM_CLIPSPACE(i.scrPos.z);
+				DepthUV.xy = (i.grabPos.xy) + Distortion;
 
-				float refFix = LinearEyeDepth(UNITY_SAMPLE_DEPTH(tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(DepthUV))));
-				float depthDiff = saturate(refFix - surfDepth);
+				float surfDepth = UNITY_Z_0_FAR_FROM_CLIPSPACE(i.scrPos.z);//自身の深度値を取得
+				float refFix = LinearEyeDepth(UNITY_SAMPLE_DEPTH(tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(DepthUV))));//描画するピクセルの深度値を取得
+				float depthDiff = saturate(refFix - surfDepth);//深度差を0~1の範囲で計算(マイナスの値は0になる)
 
-				//Distortion = Distortion * _DistortionPower *depthDiff;
-				Distortion = Distortion * depthDiff;
+				Distortion = Distortion * depthDiff;//深度差に応じて屈折を戻す
+				//==================
 
-
+				//描画
 				float2 GrabUv = i.grabPos.xy;
-				//half2 GrabUv = half2(i.grabPos.x / i.grabPos.w, i.grabPos.y / i.grabPos.w);
-				float GrabDistortion = col.x * _DistortionPower;// *_DistortionRate;
-				//GrabUv = (GrabUv + GrabDistortion * depthDiff) / i.grabPos.w;
+				float GrabDistortion = col.x * _DistortionPower;
 				GrabUv = AlignWithGrabTexel((GrabUv + GrabDistortion * depthDiff) / i.grabPos.w);
-				
-				//float2 endGrabUv = (i.grabPos.xy * (Distortion * _DistortionPower) * depthDiff) / i.grabPos.w;
 				fixed4 outCol = tex2D(_GrabTex, GrabUv);
 
 				outCol.w = FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, outCol);
-				return outCol;// *depthDiff + (tex2D(_GrabTex, i.uv) * (1 - depthDiff));
-				//return float4(depthDiff, 1 - depthDiff, 0, 1);
-				//return (1, 1, 1, 1);
+				return outCol;
 				}
 
 			ENDCG
