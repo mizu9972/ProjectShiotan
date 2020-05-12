@@ -22,6 +22,7 @@ public class BattleFieldBase : MonoBehaviour
             DestroyThisField();
         }
 
+        DeleteZeroHumanoidBase();
         BattleOfEnemAndFlock();
         BattleEndCheck();
         UpdatePosition();
@@ -201,6 +202,19 @@ public class BattleFieldBase : MonoBehaviour
             gameObject.transform.position = BattleCenter.transform.position;
         }
     }
+
+    /// <summary>
+    /// InitHP等が0のcomponentは削除する
+    /// </summary>
+    private void DeleteZeroHumanoidBase() {
+        HumanoidBase[] AllHumanoidBase = gameObject.GetComponents<HumanoidBase>();
+        for (int i = 0; i < AllHumanoidBase.Length; i++) {
+            if(AllHumanoidBase[i].InitHP == 0) {
+                Destroy(AllHumanoidBase[i]);
+                //i--;
+            }
+        }
+    }
     #endregion
     #endregion
 
@@ -241,11 +255,13 @@ public class BattleFieldBase : MonoBehaviour
         if (TotalFlock.Count <= 0) {
             gameObject.AddComponent<HumanoidBase>();
             TotalFlockHumanoidBase = gameObject.GetComponent<HumanoidBase>();
-            // 全ピラニアのHPを作成
-            Instantiate(AllFlockHP, gameObject.transform);
-            gameObject.transform.GetChild(0).GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
-        }
 
+            // 全ピラニアのHPを作成
+            if (gameObject.transform.childCount == 0) {
+                Instantiate(AllFlockHP, gameObject.transform);
+                gameObject.transform.GetChild(0).GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
+            }
+        }
         TotalFlock.Add(Flock);
 
         TotalFlockHumanoidBase.InitHP += Flock.GetComponent<HumanoidBase>().InitHP;
@@ -255,7 +271,7 @@ public class BattleFieldBase : MonoBehaviour
         TotalFlockHumanoidBase.NowAttackPower += Flock.GetComponent<HumanoidBase>().NowAttackPower;
 
         // ピラニア群のバトル初動
-        foreach(GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
+        foreach (GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
             // 攻撃タイミングの調整
             Piranha.GetComponent<PiranhaBase>().FirstAttackTiming();
         }
