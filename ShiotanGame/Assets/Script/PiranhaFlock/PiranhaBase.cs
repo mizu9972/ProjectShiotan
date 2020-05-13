@@ -274,6 +274,18 @@ public class PiranhaBase : MonoBehaviour
         }
     }
 
+    public void SetPiranhaDirection(Transform Target) {
+        gameObject.transform.LookAt(Target);
+    }
+
+    public void SetPiranhaDirection(Vector3 Target) {
+        gameObject.transform.LookAt(Target);
+    }
+
+    public void ResetPiranhaDirection() {
+        gameObject.transform.eulerAngles = Vector3.zero;
+    }
+
     public void Attack() 
     {
         // 攻撃できるかをチェック

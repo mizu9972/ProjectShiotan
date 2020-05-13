@@ -69,6 +69,9 @@ public class AIFlock : MonoBehaviour
                         if (IsHit = RayShot(TargetList[0])) {
                             gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
                             gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                            foreach(GameObject Piranha in gameObject.GetComponent<FlockBase>().ChildPiranha) {
+                                Piranha.GetComponent<PiranhaBase>().SetPiranhaDirection(TargetList[0].transform);
+                            }
                             break;
                         }
                         else {
@@ -89,6 +92,9 @@ public class AIFlock : MonoBehaviour
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                foreach (GameObject Piranha in gameObject.GetComponent<FlockBase>().ChildPiranha) {
+                    Piranha.GetComponent<PiranhaBase>().SetPiranhaDirection(InitPos);
+                }
                 TargetPosList.Clear();
             }
         }
