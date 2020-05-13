@@ -12,6 +12,8 @@ public class AttackFieldSparkEel : MonoBehaviour
     [SerializeField] private List<GameObject> NearBattleFlock = new List<GameObject>();  // 近くで攻撃しているオブジェクトを保存
     [SerializeField] private GameObject AffiliationBattleField;
 
+    [SerializeField, Header("ピラルクがフリーで攻撃するタグ")] private List<string> FreeBiteTag;
+
     private void Update() {
         // Missingになったオブジェクトがあれば削除する
         List<int> DeleteArrayNum = new List<int>();
@@ -89,6 +91,12 @@ public class AttackFieldSparkEel : MonoBehaviour
 
     // 攻撃
     private void OnTriggerStay(Collider other) {
+        foreach (string tag in FreeBiteTag) {
+            if (other.tag == tag) {
+                gameObject.transform.parent.GetComponent<EnemyBase>().Attack(other.gameObject.GetComponent<HumanoidBase>());
+            }
+        }
+
         if (!AffiliationBattleField) {
             // ターゲットがいるときのみ処理を行う
             if (transform.parent.gameObject.GetComponent<AISparkEel>().TargetList.Count > 0) {

@@ -28,6 +28,9 @@ public class AIWeakerPillarc : MonoBehaviour
     [SerializeField] private List<Vector3> TargetPosList;
     [SerializeField] private float MoveSpeed;
 
+    [SerializeField, Header("ピラニアがターゲットを見つけた時に表示画像")]
+    private GameObject SurprisedMark;
+
     private NavMeshAgent m_NavMeshAgent;
 
     // Start is called before the first frame update
@@ -67,6 +70,11 @@ public class AIWeakerPillarc : MonoBehaviour
                 for (int i = 0; i < TargetList.Count; i++) {
                     if (TargetList[0] != null) {
                         if (IsHit = RayShot(TargetList[0])) {
+                            if (TargetPosList.Count == 0) {
+                                SurprisedMark.transform.GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
+                                Instantiate(SurprisedMark, gameObject.transform);
+                            }
+
                             gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
                             gameObject.GetComponent<NavMeshAgent>().enabled = false;
                             break;
