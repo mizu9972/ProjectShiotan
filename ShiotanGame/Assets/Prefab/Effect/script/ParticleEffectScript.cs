@@ -15,8 +15,7 @@ public class ParticleEffectScript : MonoBehaviour
         {
             m_ParticleSystem.Add(IParticle.GetComponent<ParticleSystem>());
         }
-
-       // StopEffect();
+        
     }
 
     //再生
@@ -29,6 +28,8 @@ public class ParticleEffectScript : MonoBehaviour
             {
 
                 IParticle.Play(true);
+                var Emi = IParticle.emission;
+                Emi.enabled = true;
             }
         }
 
@@ -55,8 +56,9 @@ public class ParticleEffectScript : MonoBehaviour
         {
             if (IParticle.isPlaying)
             {
-                //IParticle.Stop();
-                IParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                var Emi = IParticle.emission;
+                Emi.enabled = false;
+
             }
         }
     }
