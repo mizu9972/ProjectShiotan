@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 6641676052028214182}
   - component: {fileID: 1335483765967658631}
   - component: {fileID: 5330425799323843416}
+  - component: {fileID: 6364276590678266994}
   m_Layer: 12
   m_Name: Flock
   m_TagString: Flock
@@ -356,6 +357,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GageScript: {fileID: 1276013284233928629}
+--- !u!114 &6364276590678266994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6641676052028213849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ed8850fc82766458cdd9ec04d7f06d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Effect: {fileID: 555045782639581922}
+  ActiveMoveSpeed: 1
 --- !u!1 &6641676052815623852
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,6 +861,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b2ae2bbdbed3514d9f7d3ed3c6b92ef, type: 3}
+--- !u!1 &555045782639581922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6215240209162042635, guid: 7b2ae2bbdbed3514d9f7d3ed3c6b92ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 5905084669943900137}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &483284114320856285 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6289254270633210676, guid: 7b2ae2bbdbed3514d9f7d3ed3c6b92ef,
