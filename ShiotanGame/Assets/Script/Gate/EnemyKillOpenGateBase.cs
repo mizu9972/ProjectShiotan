@@ -16,28 +16,28 @@ public class EnemyKillOpenGateBase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector3 OldScale = gameObject.transform.localScale;
-        gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        if (RightDoor) {
-            Vector3 newScale = OldScale;
-            RightDoor.transform.localScale = newScale;
-            Vector3 newPos = gameObject.transform.localPosition;
-            newPos.x += -OldScale.x;
-            RightDoor.transform.position = newPos;
-        }
-        else {
-            Debug.LogWarning("右扉が設定されていません");
-        }
-        if (LeftDoor) {
-            Vector3 newScale = OldScale;
-            LeftDoor.transform.localScale = newScale;
-            Vector3 newPos = gameObject.transform.localPosition;
-            newPos.x += OldScale.x;
-            LeftDoor.transform.position = newPos;
-        }
-        else {
-            Debug.LogWarning("左扉が設定されていません");
-        }
+        //Vector3 OldScale = gameObject.transform.localScale;
+        //gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        //if (RightDoor) {
+        //    Vector3 newScale = OldScale;
+        //    RightDoor.transform.localScale = newScale;
+        //    Vector3 newPos = gameObject.transform.localPosition;
+        //    newPos.x += -OldScale.x;
+        //    RightDoor.transform.position = newPos;
+        //}
+        //else {
+        //    Debug.LogWarning("右扉が設定されていません");
+        //}
+        //if (LeftDoor) {
+        //    Vector3 newScale = OldScale;
+        //    LeftDoor.transform.localScale = newScale;
+        //    Vector3 newPos = gameObject.transform.localPosition;
+        //    newPos.x += OldScale.x;
+        //    LeftDoor.transform.position = newPos;
+        //}
+        //else {
+        //    Debug.LogWarning("左扉が設定されていません");
+        //}
     }
 
     // Update is called once per frame
@@ -51,9 +51,9 @@ public class EnemyKillOpenGateBase : MonoBehaviour
 
     private void OpenGate() {
         time += Time.deltaTime;
-        float rightangle = Mathf.LerpAngle(0.0f, 90.0f, time);
+        float rightangle = Mathf.LerpAngle(gameObject.transform.localEulerAngles.y, gameObject.transform.localEulerAngles.y + 90.0f, time);
         RightDoor.transform.eulerAngles = new Vector3(0, rightangle, 0);
-        float leftangle = Mathf.LerpAngle(0.0f, -90.0f, time);
+        float leftangle = Mathf.LerpAngle(gameObject.transform.localEulerAngles.y, gameObject.transform.localEulerAngles.y - 90.0f, time);
         LeftDoor.transform.eulerAngles = new Vector3(0, leftangle, 0);
     }
 
