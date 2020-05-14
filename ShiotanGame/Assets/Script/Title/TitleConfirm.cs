@@ -108,6 +108,7 @@ public class TitleConfirm : MonoBehaviour
             switch (State)//選択番号で描画処理を変更する
             {
                 case (int)MenuState.END:
+                    AudioManager.Instance.PlaySE("SE_ENTER");
                     GameManager.Instance.Quit();//終了
                     break;
 
@@ -119,6 +120,7 @@ public class TitleConfirm : MonoBehaviour
         else//いいえが選択されれば
         {
             MainMenuObj.GetComponent<TitleScene>().SetState(State);//最後に選択した状態からスタート
+            AudioManager.Instance.PlaySE("SE_CANCEL");
             this.gameObject.SetActive(false);
             MainMenuObj.SetActive(true);
         }

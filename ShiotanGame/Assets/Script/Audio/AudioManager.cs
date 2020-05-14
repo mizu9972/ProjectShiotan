@@ -90,4 +90,10 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
             
     //    }
     //}
+
+    public void StopBGM()
+    {
+        BGM_audioSource.clip = null;
+        BGM_subaudioSource.clip = null;
+    }
 }

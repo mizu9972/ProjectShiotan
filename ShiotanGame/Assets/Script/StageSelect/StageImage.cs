@@ -20,6 +20,7 @@ public class StageImage : MonoBehaviour
     private bool isNextExist = false;
     private bool isPrevExist = false;
     private RectTransform MyRectTrans;
+    private bool Selected = false;
     // Start is called before the first frame update
     void Awake()
     {
@@ -54,7 +55,12 @@ public class StageImage : MonoBehaviour
 
     public void SelectStage()//ステージを選択
     {
-        Camera.main.GetComponent<SceneTransition>().SetTransitionRun(NextScene);
+        if(!Selected)
+        {
+            AudioManager.Instance.PlaySE("SE_ENTER");
+            Camera.main.GetComponent<SceneTransition>().SetTransitionRun(NextScene);
+            Selected = true;
+        }
     }
 
     public Image GoNext()//次のオブジェクトを選択

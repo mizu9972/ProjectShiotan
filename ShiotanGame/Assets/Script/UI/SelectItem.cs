@@ -72,6 +72,7 @@ public class SelectItem : MonoBehaviour
             {
                 UnderLine.sprite = Selected;//テクスチャを選択状態に設定
                 isDraw = true;
+                AudioManager.Instance.PlaySE("SE_ENTER");
             }
             NowSelect = Mathf.Clamp(NowSelect, 0, (Items.Length - 1));//選択範囲制限(配列の要素数-1まで)
             UnderLine.transform.localPosition = LinePos[NowSelect];//ポジションセット

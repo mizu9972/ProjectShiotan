@@ -31,5 +31,9 @@ public class BgmSelect : MonoBehaviour
         {
             AudioManager.Instance.PlayMainBGM(keyName, true);
         }
+        else//BGMの割り当てがなければBGM停止
+        {
+            AudioManager.Instance.StopBGM();
+        }
     }
 }

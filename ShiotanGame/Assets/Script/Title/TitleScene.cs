@@ -69,6 +69,7 @@ public class TitleScene : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("MenuSelect"))//決定
             {
                 UnderLine.sprite = Selected;//テクスチャを選択状態に設定
+                AudioManager.Instance.PlaySE("SE_ENTER");
                 isDraw = true;
             }
             NowSelect = Mathf.Clamp(NowSelect, 0, (Items.Length - 1));//選択範囲制限(配列の要素数-1まで)

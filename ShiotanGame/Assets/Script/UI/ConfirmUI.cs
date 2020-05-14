@@ -99,6 +99,7 @@ public class ConfirmUI : MonoBehaviour
                 AnimCnt = 0;
                 
                 Select(NowSelect);//選択番号によって処理を変更
+
             }
         }
     }
@@ -113,18 +114,21 @@ public class ConfirmUI : MonoBehaviour
                 case (int)MenuState.RESTART://リスタート
                     GameManager.Instance.SceneReload(true);
                     this.gameObject.SetActive(false);
+                    AudioManager.Instance.PlaySE("SE_ENTER");
                     GameManager.Instance.SetActivePause(false);//ポーズ画面の描画を終了
                     break;
 
                 case (int)MenuState.STAGESELECT://ステージセレクトへ
                     this.gameObject.SetActive(false);
                     Camera.main.GetComponent<SceneTransition>().SetTransitionRun("MenuScene");
+                    AudioManager.Instance.PlaySE("SE_ENTER");
                     GameManager.Instance.SetActivePause(false);//ポーズ画面の描画を終了
                     break;
 
                 case (int)MenuState.BACKTITLE://タイトルへ
                     Camera.main.GetComponent<SceneTransition>().SetTransitionRun("TitleScene");
                     this.gameObject.SetActive(false);
+                    AudioManager.Instance.PlaySE("SE_ENTER");
                     GameManager.Instance.SetActivePause(false);//ポーズ画面の描画を終了
                     break;
             }
@@ -135,6 +139,7 @@ public class ConfirmUI : MonoBehaviour
             MainMenuObj.GetComponent<SelectItem>().SetState(State);//最後に選択した状態からスタート
             this.gameObject.SetActive(false);
             MainMenuObj.SetActive(true);
+            AudioManager.Instance.PlaySE("SE_CANCEL");
         }
     }
 
