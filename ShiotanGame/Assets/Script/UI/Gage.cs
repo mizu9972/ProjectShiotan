@@ -89,4 +89,10 @@ public class Gage : MonoBehaviour
             PiranhaImg.GetComponent<PiranhaImage>().SetisAnim(true);
         }
     }
+
+    public float GetProportion()
+    {
+        float proportion = NowHP / MaxHP;
+        return proportion;
+    }
 }

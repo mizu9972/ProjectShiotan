@@ -8,6 +8,8 @@
 		_DistortionRate("DistortionColorRate",Range(0,5)) = 1.0
 
 		_Color("Color", Color) = (0,0,0,1)
+		_ColorbyWaterDepth("水深による暗くなる度合い",Float) = 0.003
+			_MinColorbyWaterDepth("暗くなる度合いの最低値",Float) = 0.1
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_Alpha("透明度",Range(0.0,1.0)) = 1.0
 		_MergeTex("MergeTex",2D) = "black" {}
@@ -77,6 +79,10 @@
 				fixed4 _Color;
 				float _Alpha;
 
+				//深度による色の変化の度合い
+				float _ColorbyWaterDepth;
+				float _MinColorbyWaterDepth;
+
 				float4 _CameraDepthTexture_TexelSize;//デプスマップのテクセルのサイズ
 				float2 _GrabTex_Texel;//背景テクスチャのテクセル情報
 
@@ -135,9 +141,10 @@
 				GrabUv = AlignWithGrabTexel((GrabUv + GrabDistortion * depthDiff) / i.grabPos.w);
 				fixed4 outCol = tex2D(_GrabTex, GrabUv);
 
-				float ColorRate = ((max(col.x,0) * 2.0f) * _DistortionRate);
+				float ColorRate = ((max(col.x,0) * 2.0f) * _DistortionRate);//波の高さの値
 				outCol += _Color * ColorRate;//色加算
 				outCol += tex2D(_MergeTex, i.uv) * ColorRate;//画像加算
+				outCol -= max(0, (refFix - _MinColorbyWaterDepth) * _ColorbyWaterDepth);
 				outCol.w = FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, outCol);
