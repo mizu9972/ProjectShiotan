@@ -19,6 +19,7 @@ public class EsaDestroy : MonoBehaviour
     private bool timeOnOff = true;
 
     //エサ浮き沈み　スイッチ
+    private bool OnMove = false;
     private bool updawn=true;
 
     private HumanoidBase HPcnt;
@@ -54,7 +55,7 @@ public class EsaDestroy : MonoBehaviour
         }
 
         //エサ　浮き沈み
-        if (updawn)
+        if (updawn&& OnMove)
         {
             pos.y += 1.0f* Time.deltaTime;
             if (UpPos <= this.transform.position.y)
@@ -95,6 +96,7 @@ public class EsaDestroy : MonoBehaviour
             rb.useGravity = false;
             rb.drag = 1;
             rb.angularDrag = 1;
+            OnMove = true;
 
             //エサをステージとの当たり判定消して浮き沈みするようにする
             this.GetComponent<BoxCollider>().isTrigger = true;
