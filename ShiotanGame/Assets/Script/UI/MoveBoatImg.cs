@@ -27,6 +27,7 @@ public class MoveBoatImg : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        YPos = StartObj.position.y;//途中でアスペクト比を変えられた時の対策
         Proportion = Gage.GetComponent<Gage>().GetProportion();
         Proportion = 1f - Proportion;
         MoveObj.position = Vector3.Slerp(StartObj.position, EndObj.position, Proportion);
