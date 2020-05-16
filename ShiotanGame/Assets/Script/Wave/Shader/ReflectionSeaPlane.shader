@@ -9,7 +9,8 @@
 
 		_Color("Color", Color) = (0,0,0,1)
 		_ColorbyWaterDepth("水深による暗くなる度合い",Float) = 0.003
-			_MinColorbyWaterDepth("暗くなる度合いの最低値",Float) = 0.1
+		_MinColorbyWaterDepth("暗くなる度合いの最低値",Float) = 180
+		_MinDepthColor("減色の最低値",Float) = 0.0
 		_MainTex("Albedo (RGB)", 2D) = "white" {}
 		_Alpha("透明度",Range(0.0,1.0)) = 1.0
 		_MergeTex("MergeTex",2D) = "black" {}
@@ -82,6 +83,7 @@
 				//深度による色の変化の度合い
 				float _ColorbyWaterDepth;
 				float _MinColorbyWaterDepth;
+				float _MinDepthColor;
 
 				float4 _CameraDepthTexture_TexelSize;//デプスマップのテクセルのサイズ
 				float2 _GrabTex_Texel;//背景テクスチャのテクセル情報
@@ -110,10 +112,11 @@
 					return o;
 				}
 
+				//フラグメントシェーダー
 				fixed4 frag(v2f i) : SV_Target
 				{
 				// sample the texture
-				fixed4 col = tex2D(_MainTex, i.uv);//波の色
+				fixed4 col = tex2D(_MainTex, i.uv);//波の高さ
 				col.x -= 0.5f;//-0.5~0.5に補正
 
 				fixed4 MainCol = tex2D(_MergeTex, i.uv2);//テクスチャ
@@ -121,8 +124,8 @@
 
 				col.x *= -1.0f;//波を白色で表現
 
-				//屈折処理===========
-				half2 Distortion = col.x * _DistortionPower;
+				//屈折処理==========================================================
+				half2 Distortion = col.x * _DistortionPower;//波の高さを設定
 
 				//屈折後の描画色を取得
 				float4 DepthUV = i.grabPos;
@@ -130,10 +133,12 @@
 
 				float surfDepth = UNITY_Z_0_FAR_FROM_CLIPSPACE(i.scrPos.z);//自身の深度値を取得
 				float refFix = LinearEyeDepth(UNITY_SAMPLE_DEPTH(tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(DepthUV))));//描画するピクセルの深度値を取得
-				float depthDiff = saturate(refFix - surfDepth);//深度差を0~1の範囲で計算(マイナスの値は0になる)
+				float subDepth = refFix - surfDepth;//深度差計算
+				float depthDiff = saturate(subDepth);//深度差を0~1の範囲で設定(マイナスの値は0になる)
 
+				//Distortion = Distortion * max(0, subDepth);
 				Distortion = Distortion * depthDiff;//深度差に応じて屈折を戻す
-				//==================
+				//=================================================================
 
 				//描画
 				float2 GrabUv = i.grabPos.xy;
@@ -141,10 +146,11 @@
 				GrabUv = AlignWithGrabTexel((GrabUv + GrabDistortion * depthDiff) / i.grabPos.w);
 				fixed4 outCol = tex2D(_GrabTex, GrabUv);
 
-				float ColorRate = ((max(col.x,0) * 2.0f) * _DistortionRate);//波の高さの値
+				float ColorRate = ((max(col.x, 0) * 2.0f) * _DistortionRate);//波の高さの値
 				outCol += _Color * ColorRate;//色加算
 				outCol += tex2D(_MergeTex, i.uv) * ColorRate;//画像加算
-				outCol -= max(0, (refFix - _MinColorbyWaterDepth) * _ColorbyWaterDepth);
+				//outCol -= max(_MinDepthColor, (subDepth - _MinColorbyWaterDepth) * _ColorbyWaterDepth);//深度差に応じて暗くする
+				outCol -= abs(subDepth / i.scrPos.w - 1.0f) * _ColorbyWaterDepth / 10.0f + _MinColorbyWaterDepth;
 				outCol.w = FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, outCol);
