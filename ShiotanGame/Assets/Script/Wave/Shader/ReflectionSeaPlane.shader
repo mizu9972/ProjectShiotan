@@ -149,9 +149,8 @@
 				float ColorRate = ((max(col.x, 0) * 2.0f) * _DistortionRate);//波の高さの値
 				outCol += _Color * ColorRate;//色加算
 				outCol += tex2D(_MergeTex, i.uv) * ColorRate;//画像加算
-				//outCol -= max(_MinDepthColor, (subDepth - _MinColorbyWaterDepth) * _ColorbyWaterDepth);//深度差に応じて暗くする
-				outCol -= abs(subDepth / i.scrPos.w - 1.0f) * _ColorbyWaterDepth / 10.0f + _MinColorbyWaterDepth;
-				outCol.w = FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;
+				outCol -= abs(subDepth / i.scrPos.w - 1.0f) * _ColorbyWaterDepth / 10.0f + _MinColorbyWaterDepth;//深度差に応じて暗くする
+				outCol.w = FloorMaskCol.x * FloorMaskCol.y * FloorMaskCol.z * _Alpha;//エリア外描画しないように
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, outCol);
 				return outCol;
