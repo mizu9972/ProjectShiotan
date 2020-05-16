@@ -260,6 +260,7 @@ public class BattleFieldBase : MonoBehaviour
             if (gameObject.transform.childCount == 0) {
                 Instantiate(AllFlockHP, gameObject.transform);
                 gameObject.transform.GetChild(0).GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
+                gameObject.GetComponent<EnemyHpBase>().SetGage(gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetComponent<Gage>());
             }
         }
         TotalFlock.Add(Flock);
@@ -269,6 +270,8 @@ public class BattleFieldBase : MonoBehaviour
 
         TotalFlockHumanoidBase.NowHP += Flock.GetComponent<HumanoidBase>().NowHP;
         TotalFlockHumanoidBase.NowAttackPower += Flock.GetComponent<HumanoidBase>().NowAttackPower;
+
+        gameObject.GetComponent<EnemyHpBase>().ResetInitGage();
 
         // ピラニア群のバトル初動
         foreach (GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
