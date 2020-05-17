@@ -52,6 +52,8 @@ MonoBehaviour:
   SE_audioSource: {fileID: 2978268524444731720}
   BgmVol: 1
   SeVol: 1
+  isPlaySubBGM: 0
+  isSynchroTime: 0
 --- !u!114 &738249586571183973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,15 +66,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96fabfc9faa91fc4abe90063b53409d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ArraySize: 3
+  ArraySize: 4
   Audiolist:
   - {fileID: 8300000, guid: 540f468d55a706440bc30eff02641922, type: 3}
   - {fileID: 8300000, guid: cc34cb7b02c467648a7a7cf0be357e9d, type: 3}
   - {fileID: 8300000, guid: 73187177895dbfc41bbce5a46b2f080e, type: 3}
+  - {fileID: 0}
   KeyList:
   - BGM_GAMEMAIN
   - SE_ENTER
   - SE_CANCEL
+  - BGM_SUBBGM
 --- !u!82 &738249586571183975
 AudioSource:
   m_ObjectHideFlags: 0
