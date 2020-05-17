@@ -25,6 +25,7 @@ public class FlockBase : MonoBehaviour {
     private void Awake()
     {
         CreatePiranha();    // 子を作成し、初期化する
+        gameObject.GetComponent<PiranhaAnimation>().InitPiranhaAnimation(ChildPiranha); // アニメーションモデルをセット
     }
 
     void Start() 
