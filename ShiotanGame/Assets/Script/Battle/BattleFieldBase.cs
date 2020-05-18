@@ -211,8 +211,24 @@ public class BattleFieldBase : MonoBehaviour
         for (int i = 0; i < AllHumanoidBase.Length; i++) {
             if(AllHumanoidBase[i].InitHP == 0) {
                 Destroy(AllHumanoidBase[i]);
-                //i--;
             }
+        }
+    }
+
+    /// <summary>
+    /// ピラニア群のHPを表示の設定
+    /// </summary>
+    /// <param name="value"></param>
+    private void SetActiveHPGage(bool value) {
+        // バトルの中心がプレイヤーなら強制OFFにする
+        if(BattleCenter.tag != "Esa") {
+            value = false;
+        }
+
+        // 設定
+        gameObject.GetComponent<EnemyHpBase>().enabled = value;
+        if (gameObject.transform.childCount > 0) {
+            gameObject.transform.GetChild(0).gameObject.SetActive(value);
         }
     }
     #endregion
@@ -261,6 +277,14 @@ public class BattleFieldBase : MonoBehaviour
                 Instantiate(AllFlockHP, gameObject.transform);
                 gameObject.transform.GetChild(0).GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
                 gameObject.GetComponent<EnemyHpBase>().SetGage(gameObject.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(2).GetComponent<Gage>());
+
+                // 敵がいるときにHPを表示、いないときに非表示
+                if(TotalEnemy.Count > 0) {
+                    SetActiveHPGage(true);
+                }
+                else {
+                    SetActiveHPGage(false);
+                }
             }
         }
         TotalFlock.Add(Flock);
@@ -288,6 +312,14 @@ public class BattleFieldBase : MonoBehaviour
     {
         TotalEnemy.Add(Enemy);
         MaxEnemyCount++;
+
+        // ピラニアがいるときにピラニアのHPを表示、いないときに非表示
+        if (TotalFlock.Count > 0) {
+            SetActiveHPGage(true);
+        }
+        else {
+            SetActiveHPGage(false);
+        }
     }
 
     /// <summary>
