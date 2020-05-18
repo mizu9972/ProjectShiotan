@@ -71,6 +71,13 @@ public class ConfirmUI : MonoBehaviour
         if (!isDraw)
         {
             inputStick.StickUpdate();
+            if (Input.GetButtonDown("Pause"))
+            {
+                this.gameObject.SetActive(false);
+                MainMenuObj.SetActive(true);
+                AudioManager.Instance.PlaySE("SE_CANCEL");
+                GameManager.Instance.SetActivePause(false);//ポーズ画面の終了
+            }
             if (Input.GetKeyDown(KeyCode.UpArrow) || inputStick.GetUpStick())//上
             {
                 NowSelect -= 1;

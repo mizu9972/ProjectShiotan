@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UniRx;
+using UniRx.Triggers;
 public class AudioManager : SingletonMonoBehaviour<AudioManager>
 {
     [Header("BGM用のメインオーディオソース")]
@@ -23,6 +24,10 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
     private uint arraySize;//オーディオリストのサイズ
 
+    [Header("サブBGM再生するか")]
+    public bool isPlaySubBGM = false;
+    [Header("サブBGMをBGMの再生時間に合わせるか")]
+    public bool isSynchroTime;
     //private int Channel = 4;
     private void Start()
     {
@@ -31,6 +36,10 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         //オーディオリストを取得
         ClipList = new Dictionary<string, AudioClip>(this.GetComponent<AudioList>().AudioDict);
 
+        ////サブBGM再生処理確認用
+        //this.UpdateAsObservable().
+        //    Where(_ => isPlaySubBGM).Take(1).
+        //    Subscribe(_=>PlaySubBGM("BGM_SUBBGM", true));
     }
 
     void Update()
@@ -39,6 +48,10 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         BGM_subaudioSource.volume = BgmVol;//サブBGMの音量設定(BGMと同じ)
 
         SE_audioSource.volume = SeVol;//SEの音量設定
+
+
+        PlaySubBGM("BGM_SUBBGM", true);
+
     }
 
     //メインBGM再生関数
@@ -52,9 +65,20 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     //サブBGM再生関数
     public void PlaySubBGM(string KeyName, bool isLoop)
     {
-        BGM_subaudioSource.loop = isLoop;//ループするかを設定
-        BGM_subaudioSource.clip = ClipList[KeyName];//指定したキー名のオーディオクリップをセット
-        BGM_subaudioSource.Play();//指定したクリップを再生
+        if(isPlaySubBGM&&!BGM_subaudioSource.isPlaying)
+        {
+            if(isSynchroTime)
+            {
+                BGM_subaudioSource.time = BGM_audioSource.time;
+            }
+            BGM_subaudioSource.loop = isLoop;//ループするかを設定
+            BGM_subaudioSource.clip = ClipList[KeyName];//指定したキー名のオーディオクリップをセット
+            BGM_subaudioSource.Play();//指定したクリップを再生
+        }
+        else if(!isPlaySubBGM)
+        {
+            BGM_subaudioSource.Stop();
+        }
     }
 
     //SE再生

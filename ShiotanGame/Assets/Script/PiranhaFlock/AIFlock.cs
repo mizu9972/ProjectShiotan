@@ -77,6 +77,7 @@ public class AIFlock : MonoBehaviour
                             }
 
                             gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
+                            gameObject.GetComponent<PiranhaAnimation>().SetIsAttack(true);
                             gameObject.GetComponent<NavMeshAgent>().enabled = false;
                             foreach(GameObject Piranha in gameObject.GetComponent<FlockBase>().ChildPiranha) {
                                 Piranha.GetComponent<PiranhaBase>().SetPiranhaDirection(TargetList[0].transform);
@@ -98,6 +99,7 @@ public class AIFlock : MonoBehaviour
             // Targetがいないため初期位置に戻る処理
             else {
                 gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+                gameObject.GetComponent<PiranhaAnimation>().SetIsAttack(false);
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;

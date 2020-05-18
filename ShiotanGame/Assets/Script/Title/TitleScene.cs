@@ -96,10 +96,12 @@ public class TitleScene : MonoBehaviour
         {
             case (int)MenuState.START:
                 Camera.main.GetComponent<SceneTransition>().SetTransitionRun("stage1");
+                this.GetComponent<TitleScene>().enabled = false;
                 break;
 
             case (int)MenuState.STAGESELECT:
                 Camera.main.GetComponent<SceneTransition>().SetTransitionRun("MenuScene");
+                this.GetComponent<TitleScene>().enabled = false;
                 break;
 
             //ゲーム終了は確認画面へ移行

@@ -64,7 +64,7 @@ public class PiranhaBase : MonoBehaviour
         NowType = PiranhaType.Normal;       // 大まかな性格をノーマルにセット
         ChangeDetailType();     // 細かい性格の設定
         CheckAllType();             // 性格をログで確認
-        rb = gameObject.transform.GetChild(0).gameObject.GetComponent<Rigidbody>();
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
     // Update
@@ -278,8 +278,10 @@ public class PiranhaBase : MonoBehaviour
         gameObject.transform.LookAt(Target);
     }
 
+    // ピラニアがY軸のみターゲットを向かせる
     public void SetPiranhaDirection(Vector3 Target) {
         gameObject.transform.LookAt(Target);
+        gameObject.transform.localEulerAngles = new Vector3(0.0f, gameObject.transform.localEulerAngles.y, 0.0f);
     }
 
     public void ResetPiranhaDirection() {
