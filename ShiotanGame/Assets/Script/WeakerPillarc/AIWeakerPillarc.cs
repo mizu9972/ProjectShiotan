@@ -76,6 +76,7 @@ public class AIWeakerPillarc : MonoBehaviour
                             }
 
                             gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
+                            gameObject.GetComponent<WeakerPillarcAnimation>().SetIsAttack(true);
                             gameObject.GetComponent<NavMeshAgent>().enabled = false;
                             break;
                         }
@@ -94,6 +95,7 @@ public class AIWeakerPillarc : MonoBehaviour
             // Targetがいないため初期位置に戻る処理
             else {
                 gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+                gameObject.GetComponent<WeakerPillarcAnimation>().SetIsAttack(false);
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;

@@ -105,14 +105,14 @@ public class AttackFieldAlligator : MonoBehaviour
                     }
 
                     if (FoundObject) {
-                        FoundObject.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                         FoundObject.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                        FoundObject.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                         AffiliationBattleField = FoundObject;
                     }
                     else {
                         GameObject CreateObj = Instantiate(BattlePrefab, gameObject.transform.position, gameObject.transform.rotation);
-                        CreateObj.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                         CreateObj.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                        CreateObj.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                         AffiliationBattleField = CreateObj;
                     }
                     transform.parent.gameObject.GetComponent<AIAlligator>().IsAttack = true;
@@ -154,14 +154,14 @@ public class AttackFieldAlligator : MonoBehaviour
                         }
 
                         if (FoundObject) {
-                            FoundObject.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                             FoundObject.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                            FoundObject.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                             AffiliationBattleField = FoundObject;
                         }
                         else {
                             GameObject CreateObj = Instantiate(BattlePrefab, gameObject.transform.position, gameObject.transform.rotation);
-                            CreateObj.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                             CreateObj.GetComponent<BattleFieldBase>().SetBattleCenter(gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject);
+                            CreateObj.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                             AffiliationBattleField = CreateObj;
                         }
                         transform.parent.gameObject.GetComponent<AIAlligator>().IsAttack = true;

@@ -83,6 +83,7 @@ public class AISparkEel : MonoBehaviour
                             }
 
                             gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
+                            gameObject.GetComponent<SparkEelAnimation>().SetIsAttack(true);
                             gameObject.GetComponent<NavMeshAgent>().enabled = false;
                             break;
                         }
@@ -101,6 +102,7 @@ public class AISparkEel : MonoBehaviour
             // Targetがいないため初期位置に戻る処理
             else {
                 gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+                gameObject.GetComponent<SparkEelAnimation>().SetIsAttack(false);
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
