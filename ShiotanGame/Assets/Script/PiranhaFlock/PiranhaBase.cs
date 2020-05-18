@@ -278,8 +278,10 @@ public class PiranhaBase : MonoBehaviour
         gameObject.transform.LookAt(Target);
     }
 
+    // ピラニアがY軸のみターゲットを向かせる
     public void SetPiranhaDirection(Vector3 Target) {
         gameObject.transform.LookAt(Target);
+        gameObject.transform.localEulerAngles = new Vector3(0.0f, gameObject.transform.localEulerAngles.y, 0.0f);
     }
 
     public void ResetPiranhaDirection() {
