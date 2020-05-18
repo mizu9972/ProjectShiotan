@@ -136,7 +136,7 @@
 				float subDepth = refFix - surfDepth;//深度差計算
 				float depthDiff = saturate(subDepth);//深度差を0~1の範囲で設定(マイナスの値は0になる)
 
-				Distortion = Distortion * abs(subDepth / i.scrPos.w);
+				Distortion = Distortion - abs(subDepth / i.scrPos.w);
 				Distortion = Distortion * depthDiff;//深度差に応じて屈折を戻す
 				//=================================================================
 
