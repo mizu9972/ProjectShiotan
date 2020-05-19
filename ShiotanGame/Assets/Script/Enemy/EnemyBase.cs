@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-    [SerializeField] private int DropFood = 0;
+    [SerializeField] private int m_DropFood = 0;
+    [SerializeField] private int m_DropKey = 0;
     [SerializeField] private float AttackCoolDown = 1.0f;
     private float AttackTime = 0.0f;
     
@@ -18,7 +19,12 @@ public class EnemyBase : MonoBehaviour
     }
 
     // アイテムﾄﾞﾛｯﾌﾟ
-    public int Drop() {
-        return DropFood;
+    public int DropFood() {
+        return m_DropFood;
+    }
+
+    // 鍵ﾄﾞﾛｯﾌﾟ
+    public int DropKey() {
+        return m_DropKey;
     }
 }
