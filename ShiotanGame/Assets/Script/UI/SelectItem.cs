@@ -60,6 +60,11 @@ public class SelectItem : MonoBehaviour
         if (!isDraw)
         {
             inputStick.StickUpdate();
+            if(Input.GetButtonDown("Pause"))
+            {
+                GameManager.Instance.SetActivePause(false);//ポーズ画面の終了
+                AudioManager.Instance.PlaySE("SE_CANCEL");
+            }
             if (Input.GetKeyDown(KeyCode.UpArrow)||inputStick.GetUpStick())//上
             {
                 NowSelect -= 1;

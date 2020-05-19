@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class ProtoMove2 : MonoBehaviour
 {
-    [Header("スピード調整用"), SerializeField]private float waruspeed;
-
+    [Header("初速度の割合（%）"), SerializeField] private float StartDashPower;
     [Header("十字キーでの移動スピード"), SerializeField] private float speed;
     [Header("最大移動スピード"), SerializeField] private float Maxspeed;
 
@@ -15,7 +14,6 @@ public class ProtoMove2 : MonoBehaviour
 
     [Header("慣性の減速の割合　通常移動時（%）"), SerializeField] private float InertialDawn;
     [Header("慣性の減速の割合　加速移動時（%）"), SerializeField] private float InertialAcceleDawn;
-    [Header("プレイヤーのブレーキ時の減速度"), SerializeField] private float brake;
     
     [Header("回転の度合い"), SerializeField] private float ang;
 
@@ -27,6 +25,9 @@ public class ProtoMove2 : MonoBehaviour
 
     //移動フラグ用変数
     private bool MoveOn;
+
+    //スタートダッシュフラグ用変数
+    private bool OnStartDash=false;
 
     //エサ投げている状態か？
     public bool EsaTrow;
@@ -61,6 +62,7 @@ public class ProtoMove2 : MonoBehaviour
         //回転の度合い
         float step = ang * Time.deltaTime;
 
+        //エサ投げてるとき　回転しない
         if (EsaTrow == true)
         {
             step = 0;
@@ -138,72 +140,67 @@ public class ProtoMove2 : MonoBehaviour
         else
         {
             //減速処理（加速）
-            if (Nowkasoku > 0.5f)
+            if (Nowkasoku > 0.1f)
             {
-                Nowkasoku *= InertialDawn;
+                Nowkasoku *= InertialDawn/100;
             }
             else
             {
                 Nowkasoku = 0;
             }
         }
-
-        //初速度速くするための変数
-        float xspeed = 1;
-        float speedx = Mathf.Abs(Max.x);
-        float speedz = Mathf.Abs(Max.z);
-
-        //現在のスピードの大きいほう(X・Z方向)と最大スピードの差分を取得(初速度を速くする用)
-        if (speedx < speedz)
-        {
-            if (speedz < 0.5f)
-            {
-                xspeed = Maxspeed - speedz;
-            }
-        }
-        else
-        {
-            if (speedx < 0.5f)
-            {
-                xspeed = Maxspeed - speedx;
-            }
-        }
-
+        
         //十字キー押したときの移動
         if (MoveOn)
         {
             speed = Maxspeed;
-            rb.AddForce(this.gameObject.transform.forward * (speed + Nowkasoku) * xspeed, ForceMode.Acceleration);
+
+            //初速度　補正　　キー押した最初だけスタートダッシュ
+            if (5 > rb.velocity.magnitude&& OnStartDash==false)
+            {
+                rb.AddForce(this.gameObject.transform.forward * speed* StartDashPower/100, ForceMode.VelocityChange);
+            }
+
+            rb.AddForce(this.gameObject.transform.forward * (speed + Nowkasoku), ForceMode.Acceleration);
+
+            //十字キー押した最初だけ　スタートダッシュ
+            OnStartDash = true;
         }
         else
         {
+            //スタートダッシュ初期化
+            OnStartDash = false;
+
             //慣性での移動用
-            rb.AddForce(Max * xspeed * 2);
+            rb.AddForce(Max*1.5f);
 
             //減速
-            rb.velocity *= InertialDawn;
+            rb.velocity *= InertialDawn / 100;
+        }
 
-            //加速時　減速
-            if (Nowkasoku > 0)
-            {
-                rb.velocity *= 1 - (Nowkasoku / MaxKasoku) * (1 - InertialAcceleDawn);
-            }
+        //加速時　減速
+        if (Nowkasoku > 0)
+        {
+            rb.velocity *= 1 - (Nowkasoku / MaxKasoku) * (1 - InertialAcceleDawn / 100);
         }
 
         //速度制限
-        if ((speed + Nowkasoku) < Mathf.Abs(rb.velocity.x))
+        if ((speed + Nowkasoku) < rb.velocity.magnitude)
         {
+            //rb.velocity *= 1.0f - (speed) / 100 - Nowkasoku / 50;
+            rb.velocity *=0.9f;
+        }
+        if ((speed + Nowkasoku) < rb.velocity.magnitude)
+        {
+            //rb.velocity *= 1.0f - (speed) / 100- Nowkasoku/50;
             rb.velocity *= 0.9f;
         }
-        if ((speed + Nowkasoku) < Mathf.Abs(rb.velocity.z))
-        {
-            rb.velocity *= 0.9f;
-        }
+
 
         //アニメーション再生スピード変更用
         if (speed > 0.5f)
         {
-            speed *= InertialDawn;
+            speed *= InertialDawn/100;
         }
         else
         {
@@ -235,12 +232,12 @@ public class ProtoMove2 : MonoBehaviour
         //スピードによるエサ投げる距離の変化
         speedpower = (speed + Nowkasoku)* s_powerPercent;
 
+        //スピードの値でオール漕ぐ間隔変化
+        animecount += ollspeed;
+
         //オール漕ぐ関連（漕ぐ速度・再生）
         if (MoveOn == true && EsaTrow == false)
         {
-            //スピードの値でオール漕ぐ間隔変化
-            animecount += ollspeed;
-
             //設定した値超えるとオール漕ぐ
             if (animecount > animetime)
             {
