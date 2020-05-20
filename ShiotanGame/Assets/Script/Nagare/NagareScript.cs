@@ -20,8 +20,6 @@ public class NagareScript : MonoBehaviour
     // ターゲットが流れの上に乗った時に呼ばれるメソッド
     private void OnTriggerStay(Collider other)
     {
-        Vector3 pos = other.transform.position;
-
         //流れの勢い　計算したものを入れる変数
         float SaveX = 0;
         float SaveZ = 0;
