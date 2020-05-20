@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
 
     [Header("エサ管理オブジェクト")]
     public GameObject FoodManager;
+
+    [Header("所持鍵")]
+    public int KeyCount;
+
     private void Start()
     {
         //スクリプトを取得
