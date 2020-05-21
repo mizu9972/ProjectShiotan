@@ -88,6 +88,8 @@ public class AIFlock : MonoBehaviour
                             // レイが当たらなかったターゲットは後ろに持ってくる
                             TargetList.Add(TargetList[0]);
                             TargetList.RemoveAt(0);
+                            //TargetPosList.Clear();  //　追加分
+                            //IsAttack = false; // 追加分
                         }
                     }
                     // ターゲットがいなくなった場合、削除
@@ -155,7 +157,7 @@ public class AIFlock : MonoBehaviour
         if (Physics.Raycast(ray,  out hit,                           RayDistance, IntLayerMask)) {
             //Rayが当たったオブジェクトのtagがPlayerだったら
             if (hit.collider.gameObject == TargetObj) {
-                // Debug.Log("RayがTargetに当たった");
+                Debug.Log("Rayが"+ TargetList[0] +"に当たった");
                 return true;
             }
         }
@@ -207,6 +209,11 @@ public class AIFlock : MonoBehaviour
         if (TargetList[TargetList.Count - 1].tag != "Player") {
             foreach (GameObject Target in TargetList) {
                 if (Target.tag == "Player") {
+                    //if(Target == TargetList[0]) {
+                    //    TargetPosList.Clear();  //　追加分
+                    //    IsAttack = false; // 追加分
+                    //}
+
                     Player = Target;
                     TargetList.Remove(Player);
                     break;

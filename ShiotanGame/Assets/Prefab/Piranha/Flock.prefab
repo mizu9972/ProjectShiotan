@@ -151,7 +151,7 @@ Transform:
   m_GameObject: {fileID: 6641676052028213849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 5, y: 2, z: 5}
   m_Children:
   - {fileID: 5195185238688175971}
   - {fileID: 6641676053141563793}
@@ -282,7 +282,7 @@ MonoBehaviour:
   IsAttack: 0
   Mask:
     serializedVersion: 2
-    m_Bits: 5656576
+    m_Bits: 5722368
   RayDistance: 50
   PiranhaChaceDirayFrame: 7
   ChaceAccuracy: 1
@@ -898,6 +898,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MiniMapSphere
+      objectReference: {fileID: 0}
+    - target: {fileID: 3170141287073376826, guid: a517d704852828d40b75769d2b5ef023,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3983940217821596167, guid: a517d704852828d40b75769d2b5ef023,
         type: 3}

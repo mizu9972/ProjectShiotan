@@ -12,7 +12,7 @@ public class SurprisedMarkBase : MonoBehaviour
     void Update()
     {
         if(DeleteTime <= Count) {
-            Destroy(gameObject);
+            Destroy(gameObject.transform.parent.gameObject);
         }
         Count += Time.deltaTime;
     }

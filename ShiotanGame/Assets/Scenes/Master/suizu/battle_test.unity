@@ -106,9 +106,9 @@ NavMeshSettings:
     serializedVersion: 2
     agentTypeID: 0
     agentRadius: 0.5
-    agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentHeight: 0.5
+    agentSlope: 0
+    agentClimb: 0
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -119,7 +119,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: aded0836062de034b8564eade3a4dd16, type: 2}
+  m_NavMeshData: {fileID: 0}
 --- !u!1001 &28571062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -513,7 +513,7 @@ PrefabInstance:
     - target: {fileID: 6641676052028213849, guid: 148e47cff4de2dd49a5720222cd90fbc,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6641676052028213849, guid: 148e47cff4de2dd49a5720222cd90fbc,
         type: 3}
@@ -1626,7 +1626,7 @@ PrefabInstance:
     - target: {fileID: 6641676052028214179, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6641676052028214179, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
@@ -1673,6 +1673,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6641676052028214179, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6641676052028214180, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
       propertyPath: PiranhaCount
@@ -1693,6 +1698,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6641676052028214182, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6641676052028214183, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
       propertyPath: m_UseGravity
@@ -1706,7 +1716,7 @@ PrefabInstance:
     - target: {fileID: 6641676052028214188, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
       propertyPath: Mask.m_Bits
-      value: 1196032
+      value: 1523968
       objectReference: {fileID: 0}
     - target: {fileID: 6641676052028214188, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
@@ -1733,6 +1743,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Speed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6641676052028214190, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
+        type: 3}
+      propertyPath: m_Height
+      value: 0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 6641676052815623852, guid: 4b83caa1bff0d23418e9c19d7f78cd26,
         type: 3}
