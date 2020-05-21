@@ -74,6 +74,7 @@ public class AIFlock : MonoBehaviour
                             if(TargetPosList.Count == 0) {
                                 SurprisedMark.transform.GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
                                 Instantiate(SurprisedMark, gameObject.transform);
+                                AudioManager.Instance.PlaySE("SE_FIND");
                             }
 
                             gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
@@ -157,7 +158,7 @@ public class AIFlock : MonoBehaviour
         if (Physics.Raycast(ray,  out hit,                           RayDistance, IntLayerMask)) {
             //Rayが当たったオブジェクトのtagがPlayerだったら
             if (hit.collider.gameObject == TargetObj) {
-                Debug.Log("Rayが"+ TargetList[0] +"に当たった");
+                //Debug.Log("Rayが"+ TargetList[0] +"に当たった");
                 return true;
             }
         }

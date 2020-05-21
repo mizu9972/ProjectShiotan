@@ -74,6 +74,7 @@ public class AIPillarc : MonoBehaviour
                             if (TargetPosList.Count == 0) {
                                 SurprisedMark.transform.GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
                                 Instantiate(SurprisedMark, gameObject.transform);
+                                AudioManager.Instance.PlaySE("SE_FIND");
                             }
 
                             gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
