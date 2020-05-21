@@ -79,9 +79,11 @@ public class AIAlligator : MonoBehaviour
                     for (int i = 0; i < TargetList.Count; i++) {
                         if (TargetList[0] != null) {
                             if (IsHit = RayShot(TargetList[0])) {
+                                // ビックリマーク表示
                                 if (TargetPosList.Count == 0) {
                                     SurprisedMark.transform.GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
                                     Instantiate(SurprisedMark, gameObject.transform);
+                                    AudioManager.Instance.PlaySE("SE_FIND");
                                 }
 
                                 gameObject.GetComponent<HumanoidBase>().AttackObject = TargetList[0];
