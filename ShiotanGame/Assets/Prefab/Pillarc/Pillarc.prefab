@@ -294,7 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98482d99bf6f92e41b19e2354930a08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropFood: 0
+  m_DropFood: 0
+  m_DropKey: 0
   AttackCoolDown: 1
 --- !u!64 &6641676052028214182
 MeshCollider:
@@ -940,7 +941,7 @@ PrefabInstance:
     - target: {fileID: 823670221938227544, guid: 6115eb7743a879242a4c5401d02913cd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.59
       objectReference: {fileID: 0}
     - target: {fileID: 823670221938227544, guid: 6115eb7743a879242a4c5401d02913cd,
         type: 3}
@@ -986,6 +987,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 823670221938227544, guid: 6115eb7743a879242a4c5401d02913cd,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 823670221938227544, guid: 6115eb7743a879242a4c5401d02913cd,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 823670221938227544, guid: 6115eb7743a879242a4c5401d02913cd,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4410460456962427723, guid: 6115eb7743a879242a4c5401d02913cd,
         type: 3}
