@@ -14,6 +14,11 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     [Header("SE用のオーディオソース")]
     public AudioSource SE_audioSource;
 
+    [Header("ループSE用のオーディオソース")]
+    public AudioSource SE_LoopSource;
+
+    private float SE_LoopVol = 1.0f;//ループSE用のボリューム
+
     [SerializeField, Header("BGMの音量")]
     [Range(0, 1)] private float BgmVol = 1.0f;
 
@@ -114,6 +119,36 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
             
     //    }
     //}
+
+    public void PlayLoopSe(string KeyName,bool isloop)
+    {
+        if(!SE_LoopSource.isPlaying)//再生中であれば再生関数を飛ばす
+        {
+            SE_LoopSource.loop = isloop;
+            SE_LoopSource.clip = ClipList[KeyName];//指定したキー名のオーディオクリップをセット
+            SE_LoopSource.Play();//指定したクリップを再生
+        }
+    }
+
+    public void StopLoopSe()//ループしているSEを停止
+    {
+        if(SE_LoopSource.isPlaying)
+        {
+            SE_LoopSource.Stop();
+        }
+        SE_LoopSource.clip = null;
+    }
+
+    public bool GetisPlaying()//ループSEが再生中かを取得
+    {
+        return SE_LoopSource.isPlaying;
+    }
+
+    public void SetLoopSeVolume(float vol)//ループするSEの音量設定(0~1で設定されます)
+    {
+        SE_LoopSource.volume = vol;
+        SE_LoopSource.volume=Mathf.Clamp(SE_LoopSource.volume, 0f, 1.0f);
+    }
 
     public void StopBGM()
     {
