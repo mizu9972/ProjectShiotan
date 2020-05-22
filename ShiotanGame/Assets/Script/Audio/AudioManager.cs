@@ -146,8 +146,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
     public void SetLoopSeVolume(float vol)//ループするSEの音量設定(0~1で設定されます)
     {
-        SE_LoopSource.volume = vol;
-        SE_LoopSource.volume=Mathf.Clamp(SE_LoopSource.volume, 0f, 1.0f);
+        SE_LoopSource.volume=Mathf.Clamp(vol, 0f, 1.0f);
     }
 
     public void StopBGM()
