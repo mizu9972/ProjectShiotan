@@ -128,8 +128,8 @@ public class TitleConfirm : MonoBehaviour
 
     private void InitLinePos()
     {
-        LinePos[0] = new Vector3(0, -30, 0);
-        LinePos[1] = new Vector3(0, -80, 0);
+        LinePos[0] = new Vector3(10, -20, 0);
+        LinePos[1] = new Vector3(10, -70, 0);
     }
 
     public void SetState(int sts)//状態をセット
