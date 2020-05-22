@@ -34,12 +34,6 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Update is called once per frame
     void Update()
     {
-        //TODO テスト終了したら消去
-        //ループするSEの再生テスト用
-        if(Input.GetKeyDown(KeyCode.X))
-        {
-            AudioManager.Instance.PlayLoopSe("SE_CHASE",true);
-        }
 
         if (PauseEnable)
         {

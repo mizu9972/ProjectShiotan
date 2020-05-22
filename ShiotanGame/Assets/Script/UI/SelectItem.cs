@@ -115,10 +115,10 @@ public class SelectItem : MonoBehaviour
 
     private void InitLinePos()
     {
-        LinePos[0] = new Vector3(0, 45, 0);
-        LinePos[1] = new Vector3(0, -30, 0);
-        LinePos[2] = new Vector3(0, -105, 0);
-        LinePos[3] = new Vector3(0, -180, 0);
+        LinePos[0] = new Vector3(18, 50, 0);
+        LinePos[1] = new Vector3(18, -25, 0);
+        LinePos[2] = new Vector3(18, -100, 0);
+        LinePos[3] = new Vector3(18, -175, 0);
     }
 
     public void SetState(int sts)

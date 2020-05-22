@@ -152,8 +152,8 @@ public class ConfirmUI : MonoBehaviour
 
     private void InitLinePos()
     {
-        LinePos[0] = new Vector3(0, -60, 0);
-        LinePos[1] = new Vector3(0, -135, 0);
+        LinePos[0] = new Vector3(15, -50, 0);
+        LinePos[1] = new Vector3(15, -125, 0);
     }
 
     public void SetState(int sts)//状態をセット
