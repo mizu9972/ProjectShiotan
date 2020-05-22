@@ -306,6 +306,7 @@ public class PiranhaBase : MonoBehaviour
         if (LastAttackTime + transform.parent.GetComponent<FlockBase>().AttackCoolTime <= Time.time) {
             // 攻撃
             Target.GetComponent<HumanoidBase>().Damage(AttackPower);
+            AudioManager.Instance.PlaySE("SE_BITE");    // SE再生
 
             // 攻撃時間を更新
             LastAttackTime = Time.time;

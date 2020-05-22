@@ -66,6 +66,8 @@ public class BattleFieldBase : MonoBehaviour
                             // ToDo::死んだときのエフェクト等を表示
 
                             // ターゲットから削除
+                            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetFoodManager().GetComponent<ThrowEsa>().count += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood();
+                            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().KeyCount += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey();
                             Destroy(TotalEnemy[AttackCount % TotalEnemy.Count]);
                             TotalEnemy.RemoveAt(AttackCount % TotalEnemy.Count);
                         }
