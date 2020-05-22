@@ -14,6 +14,7 @@ public class EnemyBase : MonoBehaviour
         AttackTime += Time.deltaTime;
         if(AttackTime > AttackCoolDown) {
             Target.Damage(gameObject.GetComponent<HumanoidBase>().NowAttackPower);
+            AudioManager.Instance.PlaySE("SE_BITE");    // SE再生
             AttackTime = 0.0f;
         }
     }

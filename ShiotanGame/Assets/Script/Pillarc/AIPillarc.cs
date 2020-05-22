@@ -149,7 +149,7 @@ public class AIPillarc : MonoBehaviour
         if (Physics.Raycast(ray, out hit, RayDistance, IntLayerMask)) {
             //Rayが当たったオブジェクトのtagがPlayerだったら
             if (hit.collider.gameObject == TargetObj) {
-                // Debug.Log("RayがTargetに当たった");
+                // Debug.Log("Rayが"+ TargetList[0] +"に当たった");
                 return true;
             }
         }

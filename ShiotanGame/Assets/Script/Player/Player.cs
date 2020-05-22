@@ -38,6 +38,10 @@ public class Player : MonoBehaviour
         return restFood;
     }
 
+    public GameObject GetFoodManager() {
+        return FoodManager;
+    }
+
     public void AddHp(float addvalue)//HP回復
     {
         this.GetComponent<HumanoidBase>().NowHP += addvalue;
