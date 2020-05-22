@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 8748012789578502895}
   - component: {fileID: 6311808485213103360}
   - component: {fileID: 601601651676664146}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pillarc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6641676052028213849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.11, z: -6.65}
+  m_LocalPosition: {x: 0, y: 4.11, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children:
   - {fileID: 6641676053141563793}
@@ -510,7 +510,7 @@ Transform:
   m_GameObject: {fileID: 6641676053141563792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 1, z: 4}
+  m_LocalScale: {x: 5, y: 1, z: 5}
   m_Children: []
   m_Father: {fileID: 6641676052028214179}
   m_RootOrder: 0
@@ -824,6 +824,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyHpCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8441501318748770774, guid: 21166fffd27e3fa45a74e93fca148a45,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9159127662488491077, guid: 21166fffd27e3fa45a74e93fca148a45,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -53.37
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21166fffd27e3fa45a74e93fca148a45, type: 3}
