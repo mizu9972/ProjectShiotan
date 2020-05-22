@@ -30,7 +30,7 @@ public class ProtoMove2 : MonoBehaviour
     private bool OnStartDash=false;
 
     //エサ投げている状態か？
-    public bool EsaTrow;
+    public bool EsaThrow;
 
     [Header("エサ投げるときにスピードが与える影響力"), SerializeField] private float s_powerPercent;
     //エサ投げるときにスピードが与える力
@@ -44,16 +44,17 @@ public class ProtoMove2 : MonoBehaviour
     [Header("移動で足すアニメーション再生速度"), SerializeField] private float animespeedmove;
     [Header("加速で足すアニメーション再生速度"), SerializeField] private float animespeedkasoku;
     
+
     // Start is called before the first frame update
     void Start()
     {
-        // Rigidbodyコンポーネントを取得する
+        // コンポーネントを取得する
         rb = GetComponent<Rigidbody>();
-
-        EsaTrow = false;
-        
         _animator = GetComponent<Animator>();
-        animecount = animetime;
+
+        EsaThrow = false;
+        
+        animecount = animetime;     //最初動く時からオール漕ぐ
     }
 
     // Update is called once per frame
@@ -63,7 +64,7 @@ public class ProtoMove2 : MonoBehaviour
         float step = ang * Time.deltaTime;
 
         //エサ投げてるとき　回転しない
-        if (EsaTrow == true)
+        if (EsaThrow == true)
         {
             step = 0;
         }
@@ -211,7 +212,7 @@ public class ProtoMove2 : MonoBehaviour
         float animespeed = animespeedmove / (Maxspeed / speed) + animespeedkasoku / (MaxKasoku / Nowkasoku);
 
         //アニメーションがエサ投げている状態か
-        if (EsaTrow == false)
+        if (EsaThrow == false)
         {
             //アニメーション　再生スピード　変更
             _animator.speed = animespeed;
@@ -236,7 +237,7 @@ public class ProtoMove2 : MonoBehaviour
         animecount += ollspeed;
 
         //オール漕ぐ関連（漕ぐ速度・再生）
-        if (MoveOn == true && EsaTrow == false)
+        if (MoveOn == true && EsaThrow == false)
         {
             //設定した値超えるとオール漕ぐ
             if (animecount > animetime)
@@ -246,6 +247,8 @@ public class ProtoMove2 : MonoBehaviour
 
                 //アニメーション最初から再生
                 _animator.Play("Move", 0, 0.0f);
+                //TODO_SOUND
+                //AudioManager.Instance.PlaySE("SE_EOW");
             }
         }
         

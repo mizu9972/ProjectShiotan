@@ -100,6 +100,8 @@ public class EsaDestroy : MonoBehaviour
 
             //エサをステージとの当たり判定消して浮き沈みするようにする
             this.GetComponent<BoxCollider>().isTrigger = true;
+
+            AudioManager.Instance.PlaySE("SE_PLOP");
         }
     }
 }
