@@ -596,31 +596,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &82622206 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1365857095899871312, guid: 03c9f096fc4c19f41835e91589ff3882,
-    type: 3}
-  m_PrefabInstance: {fileID: 1365857096828441889}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &82622207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82622206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bd9633a689e39848b2cbbc029df897d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitMat: {fileID: 2100000, guid: 619e311b7617a7b46ad6c16d06adca7e, type: 2}
-  FadeInMat: {fileID: 2100000, guid: be66b21c6fd45a64b96c5564f3205503, type: 2}
-  FadeOutMat: {fileID: 2100000, guid: b78852ba77497b94a81eaefccbbb987f, type: 2}
-  TransitionTex: {fileID: 2800000, guid: e745ad47a304619478101506c4c86399, type: 3}
-  FadeSpeed: 5
-  isFadeOut: 1
-  isActive: 0
 --- !u!1001 &86253233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6339,6 +6314,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7893641087983479459, guid: 03c9f096fc4c19f41835e91589ff3882,
+        type: 3}
+      propertyPath: TransitionTex
+      value: 
+      objectReference: {fileID: 2800000, guid: c736cec1855070b4e83f186e19190986, type: 3}
     - target: {fileID: 8451860890330539585, guid: 03c9f096fc4c19f41835e91589ff3882,
         type: 3}
       propertyPath: Distance.z

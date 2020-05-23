@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+//トランシジョンルールテクスチャの情報をもとにフェードイン・アウト合成を行うカメラ用スクリプト
 public class FadebyTex : MonoBehaviour
 {
-    [SerializeField, Header("時間取得マテリアル")]
-    private Material InitMat = null;
 
     [SerializeField, Header("フェードインマテリアル")]
     private Material FadeInMat = null;
@@ -14,39 +13,44 @@ public class FadebyTex : MonoBehaviour
     [SerializeField, Header("フェードアウトマテリアル")]
     private Material FadeOutMat = null;
 
+    private Material ActiveMaterial = null;
+
     [SerializeField, Header("トランジションルール画像")]
     private Texture TransitionTex = null;
 
     [SerializeField, Header("フェード速度")]
-    private float FadeSpeed = 5.0f;
+    private float FadeSpeed = 1.0f;
 
-    [Header("フェードアウトかどうか")]
-    public bool isFadeOut = true;
-
-    [SerializeField, Header("有効無効")]
+    [SerializeField, Header("シーン開始時にいきなり処理するか")]
     private bool isActive = false;
+    [SerializeField, Header("いきなり処理する場合、フェードインかどうか")]
+    private bool isFadeIn = false;
 
-    Action<RenderTexture, RenderTexture> m_FadeFunction;
+    private float m_FunctionTimeCount = 0;//処理時間カウント用
 
-    private RenderTexture m_SetState = null;
-    private Texture2D m_SetInitState = null;
+    Action<RenderTexture, RenderTexture> m_FadeFunction;//処理切り替え用
+    
     // Start is called before the first frame update
     void Start()
     {
-
-        m_SetState = new RenderTexture(256, 256, 0, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Default);
-        m_SetInitState = new Texture2D(1, 1);
-        m_SetInitState.SetPixel(0, 0, new Color(0.0f, 0.0f, 0.0f, 1.0f));
-        m_SetInitState.Apply();
-
+        //シーン開始時にいきなり処理するか
         if (isActive)
         {
-            m_FadeFunction = Fade_InOut_Function;
+            //フェードインアウト判定
+            if (isFadeIn)
+            {
+                StartFadeIn();
+            }
+            else
+            {
+                StartFadeOut();
+            }
         }
         else
         {
             m_FadeFunction = NoFunction;
         }
+
         //シェーダー初期化
         FadeInMat.SetTexture("_TransitionTex", TransitionTex);
         FadeInMat.SetFloat("_FadeSpeed", FadeSpeed);
@@ -55,6 +59,7 @@ public class FadebyTex : MonoBehaviour
         FadeOutMat.SetFloat("_FadeSpeed", FadeSpeed);
     }
 
+    //描画時処理
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
         m_FadeFunction.Invoke(source, destination);
@@ -63,32 +68,36 @@ public class FadebyTex : MonoBehaviour
     //フェードさせる
     private void Fade_InOut_Function(RenderTexture source, RenderTexture destination)
     {
-        Graphics.Blit(source, destination, isFadeOut ? FadeOutMat : FadeInMat);
+        ActiveMaterial.SetFloat("_TimeCount", m_FunctionTimeCount);
+        Graphics.Blit(source, destination, ActiveMaterial);
+        m_FunctionTimeCount += FadeSpeed;
     }
 
-    //何も処理しない
+    //描画するだけ(フェードインアウト処理を行わない)
     private void NoFunction(RenderTexture source, RenderTexture destination)
     {
         Graphics.Blit(source, destination);
     }
 
+    //フェードイン
     [ContextMenu("FeedInStart")]
     public void StartFadeIn()
     {
-        Graphics.Blit(m_SetInitState, m_SetState, InitMat);
-        FadeInMat.SetTexture("_InitStateTex", m_SetState);
         FadeInMat.SetFloat("_isActive", 1);
+        m_FunctionTimeCount = 0;
 
+        ActiveMaterial = FadeInMat;
         m_FadeFunction = Fade_InOut_Function;
     }
 
+    //フェードアウト
     [ContextMenu("FeedOutStart")]
     public void StartFadeOut()
     {
-        Graphics.Blit(m_SetInitState, m_SetState, InitMat);
-        FadeOutMat.SetTexture("_InitStateTex", m_SetState);
         FadeOutMat.SetFloat("_isActive", 1);
+        m_FunctionTimeCount = 0;
 
+        ActiveMaterial = FadeOutMat;
         m_FadeFunction = Fade_InOut_Function;
     }
 }
