@@ -139,11 +139,13 @@ public class AISparkEel : MonoBehaviour
         }
 
         // 電撃攻撃を行うかを指定
-        if(gameObject.GetComponent<NavMeshAgent>().remainingDistance <= 1.0f) {
-            gameObject.GetComponent<SparkEelBase>().IsSpark = true;
-        }
-        else {
-            gameObject.GetComponent<SparkEelBase>().IsSpark = false;
+        if (gameObject.GetComponent<NavMeshAgent>().enabled) {
+            if (gameObject.GetComponent<NavMeshAgent>().remainingDistance <= 1.0f) {
+                gameObject.GetComponent<SparkEelBase>().IsSpark = true;
+            }
+            else {
+                gameObject.GetComponent<SparkEelBase>().IsSpark = false;
+            }
         }
     }
 
