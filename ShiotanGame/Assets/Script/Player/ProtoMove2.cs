@@ -43,7 +43,9 @@ public class ProtoMove2 : MonoBehaviour
     [Header("オール漕ぐ間隔　加速でのカウント"), SerializeField] private float olltimekasoku;
     [Header("移動で足すアニメーション再生速度"), SerializeField] private float animespeedmove;
     [Header("加速で足すアニメーション再生速度"), SerializeField] private float animespeedkasoku;
-    
+
+
+    public float Movespd;
 
     // Start is called before the first frame update
     void Start()
@@ -172,31 +174,23 @@ public class ProtoMove2 : MonoBehaviour
             //スタートダッシュ初期化
             OnStartDash = false;
 
-            //慣性での移動用
-            rb.AddForce(Max*1.5f);
+            //慣性での移動
+            rb.AddForce(this.gameObject.transform.forward * rb.velocity.magnitude);
 
             //減速
             rb.velocity *= InertialDawn / 100;
         }
 
-        //加速時　減速
-        if (Nowkasoku > 0)
-        {
-            rb.velocity *= 1 - (Nowkasoku / MaxKasoku) * (1 - InertialAcceleDawn / 100);
-        }
 
         //速度制限
         if ((speed + Nowkasoku) < rb.velocity.magnitude)
         {
-            //rb.velocity *= 1.0f - (speed) / 100 - Nowkasoku / 50;
             rb.velocity *=0.9f;
-        }
-        if ((speed + Nowkasoku) < rb.velocity.magnitude)
-        {
-            //rb.velocity *= 1.0f - (speed) / 100- Nowkasoku/50;
-            rb.velocity *= 0.9f;
+            //加速時　減速大きく
+            rb.velocity *= 1 - (Nowkasoku / MaxKasoku) * (1 - InertialAcceleDawn / 100);
         }
 
+        Movespd = rb.velocity.magnitude;
 
         //アニメーション再生スピード変更用
         if (speed > 0.5f)
@@ -247,8 +241,8 @@ public class ProtoMove2 : MonoBehaviour
 
                 //アニメーション最初から再生
                 _animator.Play("Move", 0, 0.0f);
-                //TODO_SOUND
-                //AudioManager.Instance.PlaySE("SE_EOW");
+
+                AudioManager.Instance.PlaySE("SE_EOW");
             }
         }
         
