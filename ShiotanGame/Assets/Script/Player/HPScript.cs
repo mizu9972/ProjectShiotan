@@ -105,7 +105,8 @@ public class HPScript : MonoBehaviour
         {
             Vector3 pos = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
             Instantiate(m_ParEffScp, pos, Quaternion.identity);
-            
+
+            AudioManager.Instance.PlaySE("SE_GAMEOVER");
         }
         Wave.AwakeMultiWave();
         Wave.StopWaveAct();

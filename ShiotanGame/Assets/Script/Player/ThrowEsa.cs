@@ -47,7 +47,6 @@ public class ThrowEsa : MonoBehaviour
     {
         HPcnt = this.GetComponentInParent<HumanoidBase>();
         MoveScript= this.GetComponentInParent<ProtoMove2>();
-
         _animator = GetComponentInParent<Animator>();
 
         //最初から投げれる状態
@@ -68,7 +67,7 @@ public class ThrowEsa : MonoBehaviour
         }
 
         //エサ投げた状態の場合
-        if (MoveScript.EsaTrow == true&& HPcnt.NowHP > 0)
+        if (MoveScript.EsaThrow == true&& HPcnt.NowHP > 0)
         {
             TrowEndCount += Time.deltaTime;
 
@@ -76,7 +75,7 @@ public class ThrowEsa : MonoBehaviour
             if(TrowEndCount >= TrowEnd)
             {
                 TrowEndCount = 0;
-                MoveScript.EsaTrow = false;
+                MoveScript.EsaThrow = false;
                 Trowbool = false;
             }
 
@@ -120,7 +119,9 @@ public class ThrowEsa : MonoBehaviour
             {
                 //アニメーション最初から再生
                 _animator.Play("Trow", 0, 0.0f);
-                MoveScript.EsaTrow = true;
+
+                AudioManager.Instance.PlaySE("SE_THROW");
+                MoveScript.EsaThrow = true;
 
 
                 //エサ再び投げるまでのクールタイム

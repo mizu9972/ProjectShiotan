@@ -40,6 +40,8 @@ public class Checkpoint : MonoBehaviour
             other.GetComponentInParent<ProtoMove2>().Stop();
             other.GetComponentInParent<ProtoMove2>().enabled = false;
             rb = other.GetComponentInParent<Rigidbody>();
+
+            AudioManager.Instance.PlaySE("SE_CHECKPOINT");
         }
     }
 
