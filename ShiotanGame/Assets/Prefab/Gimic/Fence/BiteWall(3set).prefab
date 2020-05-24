@@ -301,7 +301,9 @@ MonoBehaviour:
   m_NowHP: 0
   m_NowAttackPower: 0
   m_AttackObject: {fileID: 0}
-  m_DamageEffect: {fileID: 0}
+  m_DamageEffect: {fileID: 7738926954065692550, guid: 862c5a9c7e4a8f74a8269ef412ffdb04,
+    type: 3}
+  DamageEffInterval: 1
 --- !u!1 &6141223834507576055
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +579,10 @@ MonoBehaviour:
   AnimationTime: 0.1
   MaxHP: 0
   NowHP: 0
+  DangerZone: 0.2
+  GreenBar: {fileID: 0}
+  RedBar: {fileID: 0}
+  PiranhaImg: {fileID: 0}
 --- !u!1001 &158469446600807292
 PrefabInstance:
   m_ObjectHideFlags: 0
