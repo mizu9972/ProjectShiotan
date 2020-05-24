@@ -320,7 +320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98482d99bf6f92e41b19e2354930a08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropFood: 0
+  m_DropFood: 0
+  m_DropKey: 0
   AttackCoolDown: 1
 --- !u!114 &1603477703594947030
 MonoBehaviour:
@@ -450,6 +451,7 @@ MonoBehaviour:
   AttackTime: 1.5
   IsAttack: 0
   SparkEffect: {fileID: 3888276408201324754}
+  SEDistance: 10
 --- !u!1 &7789163812639202414
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,7 +673,7 @@ PrefabInstance:
     - target: {fileID: 1187008449470893663, guid: 5e0134f8ddbce6f4aabc9b47b3a4cc5b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.13
       objectReference: {fileID: 0}
     - target: {fileID: 1187008449470893663, guid: 5e0134f8ddbce6f4aabc9b47b3a4cc5b,
         type: 3}

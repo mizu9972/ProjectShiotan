@@ -16,6 +16,9 @@ public class SparkEelSparkAttackField : MonoBehaviour
     [SerializeField] private bool IsAttack = false;
     [SerializeField] private GameObject SparkEffect;
 
+    private GameObject Player;
+    [SerializeField] private float SEDistance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,10 @@ public class SparkEelSparkAttackField : MonoBehaviour
     /// </summary>
     public void SparkFieldUpdate()
     {
+        if (!Player) {
+            Player = GameObject.FindGameObjectWithTag("Player");
+        }
+
         // Missingになったオブジェクトがあれば削除する
         for (int i = 0; i < Target.Count; i++) {
             if (Target[i] == null) {
@@ -57,6 +64,7 @@ public class SparkEelSparkAttackField : MonoBehaviour
             IsAttack = !IsAttack;
             ResetTime();
             SparkEffect.GetComponent<ParticleSystem>().Stop();
+            AudioManager.Instance.StopLoopSe();
         }
     }
 
@@ -87,6 +95,9 @@ public class SparkEelSparkAttackField : MonoBehaviour
             IsAttack = !IsAttack;
             ResetTime();
             SparkEffect.GetComponent<ParticleSystem>().Play();
+            if (Vector3.Distance(Player.transform.position, gameObject.transform.parent.gameObject.transform.position) <= SEDistance) {
+                AudioManager.Instance.PlayLoopSe("SE_SPARK", true);
+            }
         }
     }
 
