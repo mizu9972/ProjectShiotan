@@ -71,11 +71,9 @@ public class HumanoidBase : MonoBehaviour {
 
         if (m_ParEffScr != null)
         {
-            if (m_ParEffScr.isStopped())
-            {
-                m_ParEffScr.StartEffect();
-            }
-            
+            m_ParEffScr.StartEffect();
+
+
         }
     }
 
