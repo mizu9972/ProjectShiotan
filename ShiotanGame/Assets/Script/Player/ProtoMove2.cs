@@ -43,9 +43,10 @@ public class ProtoMove2 : MonoBehaviour
     [Header("オール漕ぐ間隔　加速でのカウント"), SerializeField] private float olltimekasoku;
     [Header("移動で足すアニメーション再生速度"), SerializeField] private float animespeedmove;
     [Header("加速で足すアニメーション再生速度"), SerializeField] private float animespeedkasoku;
-
-    public float NagareSpeed;
-    public float Movespd;
+    
+    //どれだけ流されるかの値
+    private float NagareSpeed;
+    [Header("流されるスピード　減速の割合(%)"), SerializeField] private float NagareDawn;
 
     // Start is called before the first frame update
     void Start()
@@ -190,16 +191,15 @@ public class ProtoMove2 : MonoBehaviour
             rb.velocity *= 1 - (Nowkasoku / MaxKasoku) * (1 - InertialAcceleDawn / 100);
         }
 
+        //どれだけ流されるかの値
         if(NagareSpeed>1)
         {
-            NagareSpeed *= 0.98f;
+            NagareSpeed *= NagareDawn;
         }
         else
         {
             NagareSpeed = 0;
         }
-
-        Movespd = rb.velocity.magnitude;
 
         //アニメーション再生スピード変更用
         if (speed > 0.5f)
