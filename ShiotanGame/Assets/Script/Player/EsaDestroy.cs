@@ -102,6 +102,9 @@ public class EsaDestroy : MonoBehaviour
             this.GetComponent<BoxCollider>().isTrigger = true;
 
             AudioManager.Instance.PlaySE("SE_PLOP");
+
+            //回転　させない
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
         }
     }
 }

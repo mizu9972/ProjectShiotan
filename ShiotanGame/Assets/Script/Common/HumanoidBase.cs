@@ -16,6 +16,10 @@ public class HumanoidBase : MonoBehaviour {
 
     [SerializeField, Header("ダメージ時のエフェクト")] private GameObject m_DamageEffect = null;
     private ParticleEffectScript m_ParEffScr = new ParticleEffectScript();
+
+    [SerializeField, Header("ダメージエフェクトの発生最低間隔")]
+    private float DamageEffInterval = 1.0f;
+    private float m_LastDamageTime = 0.0f;//最後にダメージエフェクトを発生させた時間
     #region Getter/Setter
     public float InitHP {
         get { return m_InitHP; }
@@ -52,6 +56,7 @@ public class HumanoidBase : MonoBehaviour {
 
         m_NowAttackPower = m_InitAttackPower;
 
+        m_LastDamageTime = -1.0f * DamageEffInterval;
     }
 
     private void Start()
@@ -71,11 +76,14 @@ public class HumanoidBase : MonoBehaviour {
 
         if (m_ParEffScr != null)
         {
-            if (m_ParEffScr.isStopped())
+            if (Time.time - m_LastDamageTime > DamageEffInterval)
             {
                 m_ParEffScr.StartEffect();
+
+                m_LastDamageTime = Time.time;
             }
-            
+            Debug.Log("m_LastDamageTime = " + m_LastDamageTime);
+
         }
     }
 

@@ -282,6 +282,7 @@ MonoBehaviour:
   SurprisedMark: {fileID: 2020073361738355278, guid: 697785fb6528f7e44b7ac63c25a45669,
     type: 3}
   AlligatorSplash: {fileID: 3181368419354962078}
+  SEFarDistance: 1.5
 --- !u!64 &8888299143635274621
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -326,7 +327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98482d99bf6f92e41b19e2354930a08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropFood: 0
+  m_DropFood: 0
+  m_DropKey: 0
   AttackCoolDown: 1
 --- !u!114 &4136481675412770818
 MonoBehaviour:

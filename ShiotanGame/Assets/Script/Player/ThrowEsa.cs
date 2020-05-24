@@ -112,7 +112,7 @@ public class ThrowEsa : MonoBehaviour
         }
 
         //えさ投げる
-        if (Input.GetKeyDown("joystick button 0")|| Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown("joystick button 0")|| Input.GetKeyDown(KeyCode.Space))
         {
             //クールタイム超えたら投げれる
             if (time >= wait && (count >0|| HPcnt.NowHP > 1))
