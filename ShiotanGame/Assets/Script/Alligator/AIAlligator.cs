@@ -33,6 +33,8 @@ public class AIAlligator : MonoBehaviour
     private GameObject AlligatorSplash = null;
     private ParticleEffectScript m_ParEffScp = null;
 
+    [SerializeField] private float SEFarDistance;
+
     // Start is called before the first frame update
     void Start() {
         InitPos = gameObject.transform.position;
@@ -143,6 +145,7 @@ public class AIAlligator : MonoBehaviour
                     m_ParEffScp.StopEffect();
                     m_NavMeshAgent.destination = InitPos;
                     gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    AudioManager.Instance.StopLoopSe();
                     TargetPosList.Clear();
                 }
             }
@@ -196,6 +199,21 @@ public class AIAlligator : MonoBehaviour
     /// </summary>
     private void ChaseTarget() {
         gameObject.GetComponent<Rigidbody>().velocity = transform.forward * MoveSpeed;  // 新追尾
+
+        // SE再生
+        if (TargetList[0].tag == "Player") {
+            if (Vector3.Distance(TargetList[0].transform.position, gameObject.transform.position) > SEFarDistance) {
+                // Far
+                AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
+            }
+            else {
+                // Near
+                AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
+            }
+        }
+        else {
+            AudioManager.Instance.StopLoopSe();
+        }
     }
 
 
