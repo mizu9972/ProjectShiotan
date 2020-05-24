@@ -44,7 +44,7 @@ public class ProtoMove2 : MonoBehaviour
     [Header("移動で足すアニメーション再生速度"), SerializeField] private float animespeedmove;
     [Header("加速で足すアニメーション再生速度"), SerializeField] private float animespeedkasoku;
 
-
+    public float NagareSpeed;
     public float Movespd;
 
     // Start is called before the first frame update
@@ -175,19 +175,28 @@ public class ProtoMove2 : MonoBehaviour
             OnStartDash = false;
 
             //慣性での移動
-            rb.AddForce(this.gameObject.transform.forward * rb.velocity.magnitude);
+            rb.AddForce(Max*1.5f);
 
             //減速
             rb.velocity *= InertialDawn / 100;
         }
 
-
         //速度制限
-        if ((speed + Nowkasoku) < rb.velocity.magnitude)
+        if ((speed + Nowkasoku+ NagareSpeed) < rb.velocity.magnitude)
         {
-            rb.velocity *=0.9f;
+            rb.velocity *= 0.9f;
+
             //加速時　減速大きく
             rb.velocity *= 1 - (Nowkasoku / MaxKasoku) * (1 - InertialAcceleDawn / 100);
+        }
+
+        if(NagareSpeed>1)
+        {
+            NagareSpeed *= 0.98f;
+        }
+        else
+        {
+            NagareSpeed = 0;
         }
 
         Movespd = rb.velocity.magnitude;
@@ -256,4 +265,9 @@ public class ProtoMove2 : MonoBehaviour
         rb.velocity = Vector3.zero;
     }
     
+    public void SetNagare(float spd)
+    {
+        NagareSpeed = spd;
+        speed = Maxspeed;
+    }
 }

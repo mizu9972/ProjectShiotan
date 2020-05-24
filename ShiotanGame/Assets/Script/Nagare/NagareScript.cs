@@ -17,7 +17,14 @@ public class NagareScript : MonoBehaviour
 
     private Rigidbody rb;
 
-    // ターゲットが流れの上に乗った時に呼ばれるメソッド
+    private ProtoMove2 spd;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        spd =other.GetComponentInParent<ProtoMove2>();
+    }
+
+    // ターゲットが流れの上に乗っている時に呼ばれるメソッド
     private void OnTriggerStay(Collider other)
     {
         //流れの勢い　計算したものを入れる変数
@@ -29,6 +36,7 @@ public class NagareScript : MonoBehaviour
         {
             SaveX += XDir * P_Flow;    // x座標へ加算
             SaveZ += ZDir * P_Flow;    // z座標へ加算
+            spd.SetNagare((SaveX + SaveZ)* (SaveX + SaveZ)/10);
         }
         if (other.tag == "Esa")
         {
@@ -47,8 +55,9 @@ public class NagareScript : MonoBehaviour
         }
 
         rb = other.GetComponentInParent<Rigidbody>();
+
         //Rigidbodyに力を加える
-        rb.AddForce(SaveX, 0, SaveZ);
+        rb.AddForce(SaveX, 0, SaveZ, ForceMode.Acceleration);
     }
 
     private void OnTriggerExit(Collider other)
