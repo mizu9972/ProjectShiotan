@@ -309,6 +309,7 @@ MonoBehaviour:
   m_NowAttackPower: 5
   m_AttackObject: {fileID: 0}
   m_DamageEffect: {fileID: 0}
+  DamageEffInterval: 1
 --- !u!64 &6641676052028214182
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -903,7 +904,7 @@ PrefabInstance:
     - target: {fileID: 3170141287073376826, guid: a517d704852828d40b75769d2b5ef023,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3983940217821596167, guid: a517d704852828d40b75769d2b5ef023,
         type: 3}
