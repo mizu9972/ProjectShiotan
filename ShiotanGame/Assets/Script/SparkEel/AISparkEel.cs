@@ -30,6 +30,8 @@ public class AISparkEel : MonoBehaviour
 
     private NavMeshAgent m_NavMeshAgent;
 
+    [SerializeField] private float SEFarDistance;
+
     // Start is called before the first frame update
     void Start() {
         InitPos = gameObject.transform.position;
@@ -134,6 +136,7 @@ public class AISparkEel : MonoBehaviour
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                AudioManager.Instance.StopLoopSe();
                 TargetPosList.Clear();
             }
         }
@@ -185,6 +188,21 @@ public class AISparkEel : MonoBehaviour
         gameObject.transform.LookAt(TargetPosList[0]);  // ターゲットの方向を向く
         gameObject.transform.localEulerAngles = new Vector3(0.0f, gameObject.transform.localEulerAngles.y, 0.0f); // y軸のみ向かせる
         gameObject.GetComponent<Rigidbody>().velocity = transform.forward * MoveSpeed;  // 新追尾
+
+        // SE再生
+        if (TargetList[0].tag == "Player") {
+            if (Vector3.Distance(TargetList[0].transform.position, gameObject.transform.position) > SEFarDistance) {
+                // Far
+                AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
+            }
+            else {
+                // Near
+                AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
+            }
+        }
+        else {
+            AudioManager.Instance.StopLoopSe();
+        }
     }
 
 
