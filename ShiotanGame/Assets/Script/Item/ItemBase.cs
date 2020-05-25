@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 enum e_ItemType {
     HPRecover,
@@ -13,6 +14,9 @@ public class ItemBase : MonoBehaviour
 {
     [SerializeField,Header("アイテムの種類")]
     private e_ItemType ItemType;
+    [SerializeField, Header("アイテムホップアップ")]
+    private List<GameObject> ItemHopup;
+    private int UseHopUpNum;
 
     private delegate void Item();
     private Item ItemScript;    // Itemの効果を入れる
@@ -33,14 +37,17 @@ public class ItemBase : MonoBehaviour
         switch (ItemType) {
             case e_ItemType.HPRecover:
                 ItemScript = HPRecover;
+                UseHopUpNum = (int)e_ItemType.HPRecover;
                 break;
 
             case e_ItemType.EsaRecover:
                 ItemScript = EsaRecover;
+                UseHopUpNum = (int)e_ItemType.EsaRecover;
                 break;
 
             case e_ItemType.KeyDrops:
                 ItemScript = KeyDrop;
+                UseHopUpNum = (int)e_ItemType.KeyDrops;
                 break;
 
             case e_ItemType.End:
@@ -57,7 +64,9 @@ public class ItemBase : MonoBehaviour
             Player = GameObject.FindGameObjectWithTag("Player");
         }
         ItemScript.Invoke();
-        // ToDo::ホップアップ作成
+        // ホップアップ作成
+        GameObject CreateHopUp = Instantiate(ItemHopup[UseHopUpNum], transform.position, Quaternion.identity);
+        //CreateHopUp.GetComponent<LookCamera>().parentTransform = CreateHopUp.transform;
         Destroy(gameObject);
     }
 
