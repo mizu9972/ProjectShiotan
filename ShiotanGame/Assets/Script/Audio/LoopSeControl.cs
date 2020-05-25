@@ -23,7 +23,7 @@ public class LoopSeControl : MonoBehaviour
     private void LoopSEInit()
     {
         SEChannel = new AudioSource[Channel];//配列の確保
-        for(int cnt=0;cnt<=Channel;cnt++)
+        for(int cnt=0;cnt<Channel;cnt++)
         {
             if(SEChannel[cnt]==null)
             {
