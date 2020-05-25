@@ -5,6 +5,7 @@ using UnityEngine;
 enum e_ItemType {
     HPRecover,
     EsaRecover,
+    KeyDrops,
     End
 }
 
@@ -20,6 +21,8 @@ public class ItemBase : MonoBehaviour
     private float HealHP;
     [SerializeField, Header("プレイヤーが回復するエサ")]
     private float HealFood;
+    [SerializeField, Header("プレイヤーが取得する鍵")]
+    private int DropKey;
 
     public GameObject Player;
 
@@ -36,6 +39,10 @@ public class ItemBase : MonoBehaviour
                 ItemScript = EsaRecover;
                 break;
 
+            case e_ItemType.KeyDrops:
+                ItemScript = KeyDrop;
+                break;
+
             case e_ItemType.End:
             default:
                 ItemScript = null;
@@ -50,6 +57,7 @@ public class ItemBase : MonoBehaviour
             Player = GameObject.FindGameObjectWithTag("Player");
         }
         ItemScript.Invoke();
+        // ToDo::ホップアップ作成
         Destroy(gameObject);
     }
 
@@ -67,6 +75,11 @@ public class ItemBase : MonoBehaviour
     private void EsaRecover() 
     {
         Player.GetComponent<Player>().AddFoods(HealFood);
+    }
+
+    // 鍵ドロップ
+    private void KeyDrop() {
+        Player.GetComponent<Player>().KeyCount += DropKey;
     }
     #endregion
 }
