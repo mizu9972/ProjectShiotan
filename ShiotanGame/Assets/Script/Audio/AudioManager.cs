@@ -15,7 +15,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     public AudioSource SE_audioSource;
 
     [Header("ループSE用のオーディオソース")]
-    public AudioSource SE_LoopSource;
+    public GameObject SE_LoopSource;
 
     private float SE_LoopVol = 1.0f;//ループSE用のボリューム
 
@@ -120,38 +120,34 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     //    }
     //}
 
-    public void PlayLoopSe(string KeyName,bool isloop)
+    public void PlayLoopSe(string KeyName,int channel,bool isloop)
     {
-        if(!SE_LoopSource.isPlaying)//再生中であれば再生関数を飛ばす
-        {
-            SE_LoopSource.loop = isloop;
-            SE_LoopSource.clip = ClipList[KeyName];//指定したキー名のオーディオクリップをセット
-            SE_LoopSource.Play();//指定したクリップを再生
-        }
+        SE_LoopSource.GetComponent<LoopSeControl>().PlayLoopSe(KeyName, channel, isloop);
     }
 
-    public void StopLoopSe()//ループしているSEを停止
+    public void StopLoopSe(int channel)//ループしているSEを停止
     {
-        if(SE_LoopSource.isPlaying)
-        {
-            SE_LoopSource.Stop();
-        }
-        SE_LoopSource.clip = null;
+        SE_LoopSource.GetComponent<LoopSeControl>().StopLoopSe(channel);
     }
 
-    public bool GetisPlaying()//ループSEが再生中かを取得
+    public bool GetisPlaying(int channel)//ループSEが再生中かを取得
     {
-        return SE_LoopSource.isPlaying;
+        return SE_LoopSource.GetComponent<LoopSeControl>().GetisPlaying(channel);
     }
 
-    public void SetLoopSeVolume(float vol)//ループするSEの音量設定(0~1で設定されます)
+    public void SetLoopSeVolume(float vol,int channel)//ループするSEの音量設定(0~1で設定されます)
     {
-        SE_LoopSource.volume=Mathf.Clamp(vol, 0f, 1.0f);
+        SE_LoopSource.GetComponent<LoopSeControl>().SetLoopSeVolume(vol,channel);
     }
 
     public void StopBGM()
     {
         BGM_audioSource.clip = null;
         BGM_subaudioSource.clip = null;
+    }
+
+    public AudioClip GetDictionalyClip(string keyname)//オーディオリストの取得
+    {
+        return ClipList[keyname];
     }
 }

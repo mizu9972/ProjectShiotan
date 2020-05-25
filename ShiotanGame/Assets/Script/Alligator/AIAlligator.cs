@@ -145,17 +145,19 @@ public class AIAlligator : MonoBehaviour
                     m_ParEffScp.StopEffect();
                     m_NavMeshAgent.destination = InitPos;
                     gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    AudioManager.Instance.StopLoopSe();
+                    AudioManager.Instance.StopLoopSe(1);
                     TargetPosList.Clear();
                 }
             }
         }
         // 一直線に追いかける
         else {
+            // 壁に衝突
             if(gameObject.GetComponent<Rigidbody>().velocity.x == 0.0f || gameObject.GetComponent<Rigidbody>().velocity.z == 0.0f) {
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 IsHit = false;
                 IsRush = false;
+                AudioManager.Instance.PlaySE("SE_DAMAGE");
                 m_ParEffScp.StopEffect();
                 TargetPosList.Clear();
             }
@@ -204,15 +206,15 @@ public class AIAlligator : MonoBehaviour
         if (TargetList[0].tag == "Player") {
             if (Vector3.Distance(TargetList[0].transform.position, gameObject.transform.position) > SEFarDistance) {
                 // Far
-                AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
+                AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR",1, true);
             }
             else {
                 // Near
-                AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
+                AudioManager.Instance.PlayLoopSe("SE_CHASE",1, true);
             }
         }
         else {
-            AudioManager.Instance.StopLoopSe();
+            AudioManager.Instance.StopLoopSe(1);
         }
     }
 
