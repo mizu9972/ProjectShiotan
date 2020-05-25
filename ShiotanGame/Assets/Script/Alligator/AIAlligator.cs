@@ -152,10 +152,13 @@ public class AIAlligator : MonoBehaviour
         }
         // 一直線に追いかける
         else {
+            // 壁に衝突
             if(gameObject.GetComponent<Rigidbody>().velocity.x == 0.0f || gameObject.GetComponent<Rigidbody>().velocity.z == 0.0f) {
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 IsHit = false;
                 IsRush = false;
+                //TODO_SOUND::SEが入ってからコメントアウトしてください
+                //AudioManager.Instance.PlaySE("SE_DAMAGE");
                 m_ParEffScp.StopEffect();
                 TargetPosList.Clear();
             }
