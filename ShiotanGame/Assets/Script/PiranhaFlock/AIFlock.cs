@@ -153,7 +153,7 @@ public class AIFlock : MonoBehaviour
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = PatrolPoint[PatrolNum];
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                AudioManager.Instance.StopLoopSe();
+                AudioManager.Instance.StopLoopSe(1);
                 TargetPosList.Clear();
             }
         }
@@ -206,15 +206,15 @@ public class AIFlock : MonoBehaviour
         if(TargetList[0].tag == "Player") {
             if(Vector3.Distance(TargetList[0].transform.position,gameObject.transform.position) > SEFarDistance) {
                 // Far
-                AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
+                AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR",1, true);
             }
             else {
                 // Near
-                AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
+                AudioManager.Instance.PlayLoopSe("SE_CHASE",1, true);
             }
         }
         else {
-            AudioManager.Instance.StopLoopSe();
+            AudioManager.Instance.StopLoopSe(1);
         }
     }
 
