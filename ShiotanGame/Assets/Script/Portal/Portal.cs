@@ -54,7 +54,7 @@ public class Portal : MonoBehaviour
             }
             else if(isGoal)//ゴール
             {
-                Debug.Log("ゴール!!!!!!!!!!!!");
+                SceneManager.GetComponent<SceneTransition>().SetTransitionRun("ClearScene");
             }
         }
     }
