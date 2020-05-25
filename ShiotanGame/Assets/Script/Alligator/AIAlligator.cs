@@ -157,8 +157,7 @@ public class AIAlligator : MonoBehaviour
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 IsHit = false;
                 IsRush = false;
-                //TODO_SOUND::SEが入ってからコメントアウトしてください
-                //AudioManager.Instance.PlaySE("SE_DAMAGE");
+                AudioManager.Instance.PlaySE("SE_DAMAGE");
                 m_ParEffScp.StopEffect();
                 TargetPosList.Clear();
             }
