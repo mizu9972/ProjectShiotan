@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 2122783824100154819}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 5, y: 2, z: 5}
   m_Children:
   - {fileID: 2610960799693006645}
   - {fileID: 2752331868565785124}
@@ -279,6 +279,7 @@ MonoBehaviour:
   SurprisedMark: {fileID: 2020073361738355278, guid: 697785fb6528f7e44b7ac63c25a45669,
     type: 3}
   SEFarDistance: 1.5
+  RashSEChannel: -1
 --- !u!64 &423765099480748365
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -312,6 +313,7 @@ MonoBehaviour:
   m_AttackObject: {fileID: 0}
   m_DamageEffect: {fileID: 0}
   DamageEffInterval: 1
+  DamageAddColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &6877907482223673744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,6 +485,7 @@ MonoBehaviour:
   IsAttack: 0
   SparkEffect: {fileID: 3888276408201324754}
   SEDistance: 10
+  SparkSEChannel: -1
 --- !u!198 &7359624839806508689
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -10297,7 +10300,7 @@ PrefabInstance:
     - target: {fileID: 1187008449470893663, guid: 5e0134f8ddbce6f4aabc9b47b3a4cc5b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.13
+      value: -1.22
       objectReference: {fileID: 0}
     - target: {fileID: 1187008449470893663, guid: 5e0134f8ddbce6f4aabc9b47b3a4cc5b,
         type: 3}
@@ -10352,7 +10355,7 @@ PrefabInstance:
     - target: {fileID: 1187008449470893663, guid: 5e0134f8ddbce6f4aabc9b47b3a4cc5b,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1187008449470893663, guid: 5e0134f8ddbce6f4aabc9b47b3a4cc5b,
         type: 3}

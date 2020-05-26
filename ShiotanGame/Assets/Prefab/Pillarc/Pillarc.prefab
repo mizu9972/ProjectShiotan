@@ -130,7 +130,7 @@ Transform:
   m_GameObject: {fileID: 6641676052028213849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4.11, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 5, y: 2, z: 5}
   m_Children:
   - {fileID: 6641676053141563793}
   - {fileID: 5195185238688175971}
@@ -265,6 +265,7 @@ MonoBehaviour:
   SurprisedMark: {fileID: 2020073361738355278, guid: 697785fb6528f7e44b7ac63c25a45669,
     type: 3}
   SEFarDistance: 1.5
+  RashSEChannel: -1
 --- !u!114 &-2034412314316543122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,6 +285,7 @@ MonoBehaviour:
   m_AttackObject: {fileID: 0}
   m_DamageEffect: {fileID: 0}
   DamageEffInterval: 1
+  DamageAddColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &6525308444280935112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -953,7 +955,7 @@ PrefabInstance:
     - target: {fileID: 823670221938227544, guid: 6115eb7743a879242a4c5401d02913cd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.59
+      value: -1.13
       objectReference: {fileID: 0}
     - target: {fileID: 823670221938227544, guid: 6115eb7743a879242a4c5401d02913cd,
         type: 3}
@@ -1008,7 +1010,7 @@ PrefabInstance:
     - target: {fileID: 823670221938227544, guid: 6115eb7743a879242a4c5401d02913cd,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 60
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 823670221938227544, guid: 6115eb7743a879242a4c5401d02913cd,
         type: 3}

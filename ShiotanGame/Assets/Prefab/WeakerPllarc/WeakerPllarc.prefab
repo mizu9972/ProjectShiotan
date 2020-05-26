@@ -402,7 +402,7 @@ Transform:
   m_GameObject: {fileID: 2897260341429129502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 1, z: 5}
+  m_LocalScale: {x: 5, y: 2, z: 5}
   m_Children:
   - {fileID: 2228231968414400322}
   - {fileID: 8919720501924852076}
@@ -555,6 +555,8 @@ MonoBehaviour:
   m_NowAttackPower: 0
   m_AttackObject: {fileID: 0}
   m_DamageEffect: {fileID: 0}
+  DamageEffInterval: 1
+  DamageAddColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1501916044938510855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,7 +569,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98482d99bf6f92e41b19e2354930a08c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropFood: 0
+  m_DropFood: 0
+  m_DropKey: 0
   AttackCoolDown: 1
 --- !u!64 &5422403069902821173
 MeshCollider:
@@ -5916,7 +5919,7 @@ PrefabInstance:
     - target: {fileID: 8536172303177998524, guid: 7bbd2ca795c859a4a84ba56810d21db7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.13
       objectReference: {fileID: 0}
     - target: {fileID: 8536172303177998524, guid: 7bbd2ca795c859a4a84ba56810d21db7,
         type: 3}
@@ -5962,6 +5965,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536172303177998524, guid: 7bbd2ca795c859a4a84ba56810d21db7,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bbd2ca795c859a4a84ba56810d21db7, type: 3}
