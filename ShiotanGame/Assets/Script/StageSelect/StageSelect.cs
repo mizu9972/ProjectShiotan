@@ -221,6 +221,7 @@ public class StageSelect : MonoBehaviour
         MoveTimer = 0f;
         NowXPos -= MoveDistance;
         isMoveRight = true;
+        AudioManager.Instance.PlaySE("SE_SHIFT");
     }
     
     private void MoveLeftAction()
@@ -236,6 +237,7 @@ public class StageSelect : MonoBehaviour
         MoveTimer = 0f;
         NowXPos += MoveDistance;
         isMoveLeft = true;
+        AudioManager.Instance.PlaySE("SE_SHIFT");
     }
 
     private void CountReset()

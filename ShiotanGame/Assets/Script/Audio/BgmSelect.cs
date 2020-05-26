@@ -9,7 +9,8 @@ public class BgmSelect : MonoBehaviour
     public enum AudioType
     {
         NONE,
-        BGM_GAMEMAIN
+        BGM_GAMEMAIN,
+        BGM_TITLE
     };
     [Header("BGMタイプ")]
     public AudioType audioType;
