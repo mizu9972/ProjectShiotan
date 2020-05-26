@@ -22,6 +22,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private float WorkHp = 0f;
     private bool PauseEnable = false;
     private bool isTakeover = false;
+    private int WorkKey = 0;//引き継ぐ鍵
+
+    private GameObject PlayerObj = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +37,14 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Update is called once per frame
     void Update()
     {
-
+        //ステージ中ならプレイヤーの取得
+        if (isStageObj.GetComponent<isGameMain>().GetisGameMain())
+        {
+            if(!PlayerObj)
+            {
+                PlayerObj = GameObject.FindGameObjectWithTag("Player");
+            }
+        }
         if (PauseEnable)
         {
             if (Input.GetButtonDown("Pause"))
@@ -84,20 +94,18 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public void PlayerControlStart()
     {
-        GameObject Player = GameObject.FindGameObjectWithTag("Player");
-        if(Player!=null)
+        if(PlayerObj != null)
         {
-            Player.GetComponent<Player>().SetPlayerMove(true);//プレイヤーの操作可能に
-            Player.GetComponent<Player>().SetThrowFoodEnable(true);//プレイヤーのエサ投げ不可能に
+            PlayerObj.GetComponent<Player>().SetPlayerMove(true);//プレイヤーの操作可能に
+            PlayerObj.GetComponent<Player>().SetThrowFoodEnable(true);//プレイヤーのエサ投げ不可能に
         }
     }
     public void PlayerControlStop()
     {
-        GameObject Player = GameObject.FindGameObjectWithTag("Player");
-        if (Player != null)
+        if (PlayerObj != null)
         {
-            Player.GetComponent<Player>().SetPlayerMove(false);//プレイヤーの操作不可能に
-            Player.GetComponent<Player>().SetThrowFoodEnable(false);//プレイヤーのエサ投げ不可能に
+            PlayerObj.GetComponent<Player>().SetPlayerMove(false);//プレイヤーの操作不可能に
+            PlayerObj.GetComponent<Player>().SetThrowFoodEnable(false);//プレイヤーのエサ投げ不可能に
         }
     }
 
@@ -137,18 +145,26 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         isCarryover = iscarry;
     }
 
-    public void SetWorkStatus(float workho,float workfoods)
+    public void SetWorkStatus(float workho,float workfoods,int workkey)
     {
         WorkHp = workho;
         WorkFoods = workfoods;
+        WorkKey = workkey;
     }
 
-    private void InitPlayerStatus()
+    private void InitPlayerStatus()//引き継ぎステータスのセット
     {
-        GameObject Player = GameObject.FindGameObjectWithTag("Player");
-        Player.GetComponent<Player>().SetPlayerStatus(WorkHp, WorkFoods);
+        PlayerObj.GetComponent<Player>().SetPlayerStatus(WorkHp, WorkFoods,WorkKey);
     }
 
+    public GameObject GetPlayer()
+    {
+        if(!PlayerObj)//プレイヤーオブジェクトを取得
+        {
+            return null;
+        }
+        return PlayerObj;
+    }
     public void Quit()//終了処理
     {
 #if UNITY_EDITOR

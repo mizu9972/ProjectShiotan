@@ -79,6 +79,6 @@ public class RestFood : MonoBehaviour
 
     private void Init()
     {
-        PlayerObj = GameObject.FindGameObjectWithTag("Player");//Playerを取得
+        PlayerObj = GameManager.Instance.GetPlayer();//Playerを取得
     }
 }

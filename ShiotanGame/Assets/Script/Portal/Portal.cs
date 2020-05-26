@@ -44,10 +44,12 @@ public class Portal : MonoBehaviour
                 if(isCarryOver)
                 {
                     //ポータル通過時のみHPとエサの個数の引き継ぎ
+                    //キーの引き継ぎも追加
                     GameManager.Instance.SetCarryOver(true);
                     float workHP = other.GetComponent<HumanoidBase>().NowHP + BonusHp;
                     float workFoods = other.GetComponent<Player>().GetRestFood() + BonusFood;
-                    GameManager.Instance.SetWorkStatus(workHP, workFoods);
+                    int workkey = GameManager.Instance.GetPlayer().GetComponent<Player>().KeyCount;
+                    GameManager.Instance.SetWorkStatus(workHP, workFoods,workkey);
                 }
                 
                 SceneManager.GetComponent<SceneTransition>().SetTransitionRun(NextScene);
