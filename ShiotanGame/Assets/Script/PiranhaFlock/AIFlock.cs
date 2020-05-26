@@ -207,13 +207,17 @@ public class AIFlock : MonoBehaviour
 
         // SE再生
         if(TargetList[0].tag == "Player") {
-            if(Vector3.Distance(TargetList[0].transform.position,gameObject.transform.position) > SEFarDistance) {
-                // Far
-                RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
+            if (Vector3.Distance(TargetList[0].transform.position, gameObject.transform.position) > SEFarDistance) {
+                if (RashSEChannel == -1) {
+                    // Far
+                    RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
+                }
             }
             else {
                 // Near
-                RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
+                if (RashSEChannel == -1) {
+                    RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
+                }
             }
         }
         else {

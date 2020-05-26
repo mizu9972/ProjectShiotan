@@ -99,7 +99,9 @@ public class SparkEelSparkAttackField : MonoBehaviour
             ResetTime();
             //SparkEffect.GetComponent<ParticleSystem>().Play();
             if (Vector3.Distance(Player.transform.position, gameObject.transform.parent.gameObject.transform.position) <= SEDistance) {
-                SparkSEChannel = AudioManager.Instance.PlayLoopSe("SE_SPARK", true);
+                if (SparkSEChannel == -1) {
+                    SparkSEChannel = AudioManager.Instance.PlayLoopSe("SE_SPARK", true);
+                }
             }
         }
     }
