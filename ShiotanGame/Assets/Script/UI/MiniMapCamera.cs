@@ -13,11 +13,11 @@ public class MiniMapCamera : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if(!Target)
         {
-            Target = GameObject.FindGameObjectWithTag("Player").transform;
+            Target = GameManager.Instance.GetPlayer().transform;
         }
         MyTrans.position = new Vector3(Target.position.x,MyTrans.position.y,Target.position.z);
     }

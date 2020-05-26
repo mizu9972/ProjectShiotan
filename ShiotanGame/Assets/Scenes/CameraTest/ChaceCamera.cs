@@ -33,7 +33,7 @@ public class ChaceCamera : MonoBehaviour
         MyTrans = PlayerCamera.transform;
         this.UpdateAsObservable().
             Where(_ => Target == null).
-            Subscribe(_ => Target = GameObject.FindGameObjectWithTag("Player"));
+            Subscribe(_ => Target = GameManager.Instance.GetPlayer());
     }
 
     void Update()
