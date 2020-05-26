@@ -63,7 +63,7 @@ public class SparkEelSparkAttackField : MonoBehaviour
         else {
             IsAttack = !IsAttack;
             ResetTime();
-            SparkEffect.GetComponent<ParticleSystem>().Stop();
+            //SparkEffect.GetComponent<ParticleSystem>().Stop();
             AudioManager.Instance.StopLoopSe(1);
         }
     }
@@ -94,9 +94,9 @@ public class SparkEelSparkAttackField : MonoBehaviour
         else {
             IsAttack = !IsAttack;
             ResetTime();
-            SparkEffect.GetComponent<ParticleSystem>().Play();
+            //SparkEffect.GetComponent<ParticleSystem>().Play();
             if (Vector3.Distance(Player.transform.position, gameObject.transform.parent.gameObject.transform.position) <= SEDistance) {
-                AudioManager.Instance.PlayLoopSe("SE_SPARK", 1,true);
+                AudioManager.Instance.PlayLoopSe("SE_SPARK",1, true);
             }
         }
     }
