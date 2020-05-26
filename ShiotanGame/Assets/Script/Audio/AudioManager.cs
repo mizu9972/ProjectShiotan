@@ -122,7 +122,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
     public void PlayLoopSe(string KeyName,int channel,bool isloop)
     {
-        SE_LoopSource.GetComponent<LoopSeControl>().PlayLoopSe(KeyName, channel, isloop);
+        //return SE_LoopSource.GetComponent<LoopSeControl>().PlayLoopSe(KeyName, isloop);
     }
 
     public void StopLoopSe(int channel)//ループしているSEを停止
