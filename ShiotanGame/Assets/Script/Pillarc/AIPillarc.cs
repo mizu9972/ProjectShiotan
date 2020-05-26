@@ -32,6 +32,7 @@ public class AIPillarc : MonoBehaviour
     private NavMeshAgent m_NavMeshAgent;
 
     [SerializeField] private float SEFarDistance;
+    public int RashSEChannel = -1;
 
     // Start is called before the first frame update
     void Start() 
@@ -130,7 +131,9 @@ public class AIPillarc : MonoBehaviour
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                AudioManager.Instance.StopLoopSe(1);
+                if (RashSEChannel != -1) {
+                    AudioManager.Instance.StopLoopSe(RashSEChannel);
+                }
                 TargetPosList.Clear();
             }
         }
@@ -177,15 +180,17 @@ public class AIPillarc : MonoBehaviour
         if (TargetList[0].tag == "Player") {
             if (Vector3.Distance(TargetList[0].transform.position, gameObject.transform.position) > SEFarDistance) {
                 // Far
-                AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR",1, true);
+                RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
             }
             else {
                 // Near
-                AudioManager.Instance.PlayLoopSe("SE_CHASE",1, true);
+                RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
             }
         }
         else {
-            AudioManager.Instance.StopLoopSe(1);
+            if (RashSEChannel != -1) {
+                AudioManager.Instance.StopLoopSe(RashSEChannel);
+            }
         }
     }
 
