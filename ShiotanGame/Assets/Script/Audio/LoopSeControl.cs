@@ -7,7 +7,7 @@ public class LoopSeControl : MonoBehaviour
     [Header("SEチャンネル数")]
     public const int Channel = 5;
     [Header("SEチャンネル")]
-    public AudioSource[] SEChannel;
+    public List<AudioSource> SEChannel;
     // Start is called before the first frame update
     void Awake()
     {
@@ -22,24 +22,24 @@ public class LoopSeControl : MonoBehaviour
 
     private void LoopSEInit()
     {
-        SEChannel = new AudioSource[Channel];//配列の確保
-        for(int cnt=0;cnt<Channel;cnt++)
-        {
-            if(SEChannel[cnt]==null)
-            {
-                SEChannel[cnt]=this.gameObject.AddComponent<AudioSource>();
+        SEChannel = new List<AudioSource>(3);//配列の確保  とりあえず３こ
+        for (int cnt = 0; cnt < SEChannel.Count; cnt++) {
+            if (SEChannel[cnt] == null) {
+                SEChannel[cnt] = this.gameObject.AddComponent<AudioSource>();
             }
         }
     }
 
-    public void PlayLoopSe(string keyname,int cnannel,bool isloop)
+    public int PlayLoopSe(string keyname,bool isloop)
     {
-        if (!SEChannel[cnannel].isPlaying)//再生中であれば再生関数を飛ばす
+        int UseNumber = UseLoopNumber();
+        if (!SEChannel[UseNumber].isPlaying)//再生中であれば再生関数を飛ばす
         {
-            SEChannel[cnannel].loop = isloop;
-            SEChannel[cnannel].clip = AudioManager.Instance.GetDictionalyClip(keyname);//指定したキー名のオーディオクリップをセット
-            SEChannel[cnannel].Play();//指定したクリップを再生
+            SEChannel[UseNumber].loop = isloop;
+            SEChannel[UseNumber].clip = AudioManager.Instance.GetDictionalyClip(keyname);//指定したキー名のオーディオクリップをセット
+            SEChannel[UseNumber].Play();//指定したクリップを再生
         }
+        return UseNumber;
     }
 
     public void StopLoopSe(int cnannel)//ループしているSEを停止
@@ -59,5 +59,20 @@ public class LoopSeControl : MonoBehaviour
     public void SetLoopSeVolume(float vol, int cnannel)//ループするSEの音量設定(0~1で設定されます)
     {
         SEChannel[cnannel].volume = Mathf.Clamp(vol, 0f, 1.0f);
+    }
+
+    private int UseLoopNumber() {
+        int returnNum = -1;
+        for(int i = 0; i < SEChannel.Count; i++) {
+            if(SEChannel[i].clip == null) {
+                returnNum = i;
+                return returnNum;
+            }
+        }
+
+        // 空いているリストが見つからなかった時
+        SEChannel.Add(gameObject.AddComponent<AudioSource>());
+        returnNum = SEChannel.Count - 1;
+        return returnNum;
     }
 }

@@ -13,7 +13,9 @@ public class LostFieldPillarc : MonoBehaviour
         foreach (GameObject Target in transform.parent.gameObject.GetComponent<AIPillarc>().TargetList) {
             if (Target == other.gameObject) {
                 if (Target.tag == "Player") {
-                    AudioManager.Instance.StopLoopSe(1);
+                    if (gameObject.transform.parent.gameObject.GetComponent<AIPillarc>().RashSEChannel != -1) {
+                        AudioManager.Instance.StopLoopSe(gameObject.transform.parent.gameObject.GetComponent<AIPillarc>().RashSEChannel);
+                    }
                 }
                 gameObject.transform.parent.GetComponent<AIPillarc>().TargetList.Remove(other.gameObject);
                 break;

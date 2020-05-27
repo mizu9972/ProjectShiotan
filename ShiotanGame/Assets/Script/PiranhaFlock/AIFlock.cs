@@ -3,10 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+enum RushSE {
+    None,
+    Far,
+    Near,
+}
+
 [RequireComponent(typeof(NavMeshAgent))]
 public class AIFlock : MonoBehaviour
 {
     private Vector3 InitPos;
+
+    //+
+    [SerializeField, Header("巡回ポイント")]
+    private List<Vector3> PatrolPoint = new List<Vector3>();
+    private int PatrolNum = 0;
+    //-
 
     public List<GameObject> TargetList;
     public bool IsHit;
@@ -32,11 +44,23 @@ public class AIFlock : MonoBehaviour
     private NavMeshAgent m_NavMeshAgent;
 
     [SerializeField] private float SEFarDistance;
+    public int RashSEChannel = -1;
+    private RushSE NowSEType = RushSE.None;
 
     // Start is called before the first frame update
     void Start()
     {
         InitPos = gameObject.transform.position;
+
+        //+
+        PatrolPoint.Add(InitPos);
+
+        for (int i = 0; i < gameObject.transform.childCount; i++) {
+            if (gameObject.transform.GetChild(i).tag == "PatrolPoint") {
+                PatrolPoint.Add(gameObject.transform.GetChild(i).gameObject.transform.position);
+            }
+        }
+        //-
 
         m_NavMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         //m_NavMeshAgent.destination = InitPos;
@@ -44,7 +68,7 @@ public class AIFlock : MonoBehaviour
         IntLayerMask = ~Mask.value;
 
         // ここだけNavMeshAgentを使う
-        m_NavMeshAgent.destination = InitPos;
+        m_NavMeshAgent.destination = PatrolPoint[PatrolNum];
     }
 
     public void AIUpdate() 
@@ -106,10 +130,10 @@ public class AIFlock : MonoBehaviour
                 gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                 gameObject.GetComponent<PiranhaAnimation>().SetIsAttack(false);
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
-                m_NavMeshAgent.destination = InitPos;
+                m_NavMeshAgent.destination = PatrolPoint[PatrolNum];
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 foreach (GameObject Piranha in gameObject.GetComponent<FlockBase>().ChildPiranha) {
-                    Piranha.GetComponent<PiranhaBase>().SetPiranhaDirection(InitPos);
+                    Piranha.GetComponent<PiranhaBase>().SetPiranhaDirection(PatrolPoint[PatrolNum]);
                 }
                 TargetPosList.Clear();
             }
@@ -135,12 +159,20 @@ public class AIFlock : MonoBehaviour
             else {
                 gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
-                m_NavMeshAgent.destination = InitPos;
+                m_NavMeshAgent.destination = PatrolPoint[PatrolNum];
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                AudioManager.Instance.StopLoopSe(1);
+                if (RashSEChannel != -1) {
+                    AudioManager.Instance.StopLoopSe(RashSEChannel);
+                    NowSEType = RushSE.None;
+                }
                 TargetPosList.Clear();
             }
         }
+        //+
+        if (gameObject.GetComponent<NavMeshAgent>().enabled) {
+            Patrol();
+        }
+        //-
     }
 
     // Rayをターゲットに飛ばして当たったかを返す
@@ -183,19 +215,47 @@ public class AIFlock : MonoBehaviour
 
         // SE再生
         if(TargetList[0].tag == "Player") {
-            if(Vector3.Distance(TargetList[0].transform.position,gameObject.transform.position) > SEFarDistance) {
-                // Far
-                AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR",1, true);
+            if (Vector3.Distance(TargetList[0].transform.position, gameObject.transform.position) > SEFarDistance) {
+                if (RashSEChannel == -1) {
+                    // Far
+                    if (NowSEType != RushSE.Far) {
+                        RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
+                        NowSEType = RushSE.Far;
+                    }
+                }
             }
             else {
                 // Near
-                AudioManager.Instance.PlayLoopSe("SE_CHASE",1, true);
+                if (RashSEChannel == -1) {
+                    if (NowSEType != RushSE.Near) {
+                        RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
+                        NowSEType = RushSE.Near;
+                    }
+                }
             }
         }
         else {
-            AudioManager.Instance.StopLoopSe(1);
+            if (RashSEChannel != -1) {
+                AudioManager.Instance.StopLoopSe(RashSEChannel);
+                NowSEType = RushSE.None;
+            }
         }
     }
+
+    //+
+    /// <summary>
+    /// パトロール
+    /// </summary>
+    private void Patrol() {
+        if (!m_NavMeshAgent.pathPending && m_NavMeshAgent.remainingDistance <= 0.1f) {
+            PatrolNum++;
+            if (PatrolNum >= PatrolPoint.Count) {
+                PatrolNum = 0;
+            }
+            m_NavMeshAgent.destination = PatrolPoint[PatrolNum];
+        }
+    }
+    //-
 
     // 強制散会
     public void CompulsionReturnPosition() {

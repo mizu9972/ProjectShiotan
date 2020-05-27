@@ -18,6 +18,7 @@ public class SparkEelSparkAttackField : MonoBehaviour
 
     private GameObject Player;
     [SerializeField] private float SEDistance;
+    public int SparkSEChannel = -1;
 
     // Start is called before the first frame update
     void Start()
@@ -63,8 +64,10 @@ public class SparkEelSparkAttackField : MonoBehaviour
         else {
             IsAttack = !IsAttack;
             ResetTime();
-            SparkEffect.GetComponent<ParticleSystem>().Stop();
-            AudioManager.Instance.StopLoopSe(1);
+            //SparkEffect.GetComponent<ParticleSystem>().Stop();
+            if (SparkSEChannel != -1) {
+                AudioManager.Instance.StopLoopSe(SparkSEChannel);
+            }
         }
     }
 
@@ -94,9 +97,11 @@ public class SparkEelSparkAttackField : MonoBehaviour
         else {
             IsAttack = !IsAttack;
             ResetTime();
-            SparkEffect.GetComponent<ParticleSystem>().Play();
+            //SparkEffect.GetComponent<ParticleSystem>().Play();
             if (Vector3.Distance(Player.transform.position, gameObject.transform.parent.gameObject.transform.position) <= SEDistance) {
-                AudioManager.Instance.PlayLoopSe("SE_SPARK", 1,true);
+                if (SparkSEChannel == -1) {
+                    SparkSEChannel = AudioManager.Instance.PlayLoopSe("SE_SPARK", true);
+                }
             }
         }
     }

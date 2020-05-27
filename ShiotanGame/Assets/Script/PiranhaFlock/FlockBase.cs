@@ -64,7 +64,7 @@ public class FlockBase : MonoBehaviour {
     {
         // ピラニアカウント数分ピラニアを生成する
         for (int i = 0; i < PiranhaCount; i++) {
-            Vector3 CreatePos = new Vector3(Random.Range(-InstantPositionCorrct.x, InstantPositionCorrct.x), Random.Range(-InstantPositionCorrct.y, InstantPositionCorrct.y), Random.Range(-InstantPositionCorrct.z, InstantPositionCorrct.z));
+            Vector3 CreatePos = new Vector3(Random.Range(-InstantPositionCorrct.x, InstantPositionCorrct.x), Random.Range(-InstantPositionCorrct.y, InstantPositionCorrct.y) - 0.001f, Random.Range(-InstantPositionCorrct.z, InstantPositionCorrct.z));
             GameObject newObj = Instantiate(Piranha, gameObject.transform.position + CreatePos, Quaternion.identity, gameObject.transform);
 
             // ピラニアをリストに追加

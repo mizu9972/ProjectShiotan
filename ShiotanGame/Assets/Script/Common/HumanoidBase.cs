@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 using UniRx;
 using UniRx.Triggers;
@@ -20,6 +21,12 @@ public class HumanoidBase : MonoBehaviour {
     [SerializeField, Header("ダメージエフェクトの発生最低間隔")]
     private float DamageEffInterval = 1.0f;
     private float m_LastDamageTime = 0.0f;//最後にダメージエフェクトを発生させた時間
+
+    [SerializeField, Header("ダメージを受けた時の加算色")]
+    private Color DamageAddColor = new Color(1, 1, 1, 1);
+
+    private Material m_myMat;
+
     #region Getter/Setter
     public float InitHP {
         get { return m_InitHP; }
@@ -61,6 +68,8 @@ public class HumanoidBase : MonoBehaviour {
 
     private void Start()
     {
+        m_myMat = gameObject.GetComponent<Renderer>().material;
+
         if (m_DamageEffect != null)
         {
             var ParticleSystem_ = Instantiate(m_DamageEffect, this.gameObject.transform.position, Quaternion.identity);
@@ -81,10 +90,15 @@ public class HumanoidBase : MonoBehaviour {
                 m_ParEffScr.StartEffect();
 
                 m_LastDamageTime = Time.time;
-            }
-            Debug.Log("m_LastDamageTime = " + m_LastDamageTime);
 
-        }
+                //ダメージ時に色を変える処理
+                m_myMat.SetColor("_Color", DamageAddColor);
+                //元に戻す
+                Observable.Timer(System.TimeSpan.FromSeconds(DamageEffInterval / 4.0f)).Subscribe(
+                    _ => m_myMat.SetColor("_Color", new Color(1, 1, 1, 1))
+                    );
+            }
+        }        
     }
 
     /// <summary>

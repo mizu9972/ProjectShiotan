@@ -222,9 +222,9 @@ public class WavePlane : MonoBehaviour
         Ray ray = new Ray(new Vector3(ObjectTrans.position.x, ObjectTrans.position.y + Vector3.up.y * 1, ObjectTrans.position.z), Vector3.down);
 
         Debug.DrawRay(ray.origin, ray.direction * 10, Color.red, 5);//デバッグ用　レイを可視化
-
+        int RayerMask = 1 << 26;//レイヤー指定(WaveCollider)
         RaycastHit hitInfo = new RaycastHit();
-        if (Physics.Raycast(ray, out hitInfo, 2))
+        if (Physics.Raycast(ray, out hitInfo, 2, RayerMask))
         {
 
             //水面上ならシェーダーにUV座標を計算して渡す

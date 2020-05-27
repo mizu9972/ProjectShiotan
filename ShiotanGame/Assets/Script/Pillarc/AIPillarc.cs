@@ -32,6 +32,8 @@ public class AIPillarc : MonoBehaviour
     private NavMeshAgent m_NavMeshAgent;
 
     [SerializeField] private float SEFarDistance;
+    public int RashSEChannel = -1;
+    private RushSE NowSEType = RushSE.None;
 
     // Start is called before the first frame update
     void Start() 
@@ -130,7 +132,10 @@ public class AIPillarc : MonoBehaviour
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
                 m_NavMeshAgent.destination = InitPos;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                AudioManager.Instance.StopLoopSe(1);
+                if (RashSEChannel != -1) {
+                    AudioManager.Instance.StopLoopSe(RashSEChannel);
+                    NowSEType = RushSE.None;
+                }
                 TargetPosList.Clear();
             }
         }
@@ -176,16 +181,29 @@ public class AIPillarc : MonoBehaviour
         // SE再生
         if (TargetList[0].tag == "Player") {
             if (Vector3.Distance(TargetList[0].transform.position, gameObject.transform.position) > SEFarDistance) {
-                // Far
-                AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR",1, true);
+                if (RashSEChannel == -1) {
+                    // Far
+                    if (NowSEType != RushSE.Far) {
+                        RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
+                        NowSEType = RushSE.Far;
+                    }
+                }
             }
             else {
                 // Near
-                AudioManager.Instance.PlayLoopSe("SE_CHASE",1, true);
+                if (RashSEChannel == -1) {
+                    if (NowSEType != RushSE.Near) {
+                        RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
+                        NowSEType = RushSE.Near;
+                    }
+                }
             }
         }
         else {
-            AudioManager.Instance.StopLoopSe(1);
+            if (RashSEChannel != -1) {
+                AudioManager.Instance.StopLoopSe(RashSEChannel);
+                NowSEType = RushSE.None;
+            }
         }
     }
 
