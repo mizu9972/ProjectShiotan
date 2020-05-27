@@ -33,7 +33,7 @@ public class AIPillarc : MonoBehaviour
 
     [SerializeField] private float SEFarDistance;
     public int RashSEChannel = -1;
-    private RushSE NowSEType = RushSE.None;
+    public RushSE NowSEType = RushSE.None;
 
     // Start is called before the first frame update
     void Start() 
@@ -134,6 +134,7 @@ public class AIPillarc : MonoBehaviour
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 if (RashSEChannel != -1) {
                     AudioManager.Instance.StopLoopSe(RashSEChannel);
+                    RashSEChannel = -1;
                     NowSEType = RushSE.None;
                 }
                 TargetPosList.Clear();
@@ -202,6 +203,7 @@ public class AIPillarc : MonoBehaviour
         else {
             if (RashSEChannel != -1) {
                 AudioManager.Instance.StopLoopSe(RashSEChannel);
+                RashSEChannel = -1;
                 NowSEType = RushSE.None;
             }
         }

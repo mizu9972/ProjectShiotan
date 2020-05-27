@@ -15,6 +15,8 @@ public class LostFieldSparkEel : MonoBehaviour
                 if (Target.tag == "Player") {
                     if (gameObject.transform.parent.gameObject.GetComponent<AISparkEel>().RashSEChannel != -1) {
                         AudioManager.Instance.StopLoopSe(gameObject.transform.parent.gameObject.GetComponent<AISparkEel>().RashSEChannel);
+                        gameObject.transform.parent.gameObject.GetComponent<AISparkEel>().RashSEChannel = -1;
+                        gameObject.transform.parent.gameObject.GetComponent<AISparkEel>().NowSEType = RushSE.None;
                     }
                 }
                 gameObject.transform.parent.GetComponent<AISparkEel>().TargetList.Remove(other.gameObject);

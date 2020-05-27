@@ -357,6 +357,7 @@ MonoBehaviour:
   PiranhaCount: 10
   ChildPiranha: []
   InstantPositionCorrct: {x: 2.5, y: 0, z: 2.5}
+  PiranhaYCorrection: -0.85
   AttackCoolTime: 1
 --- !u!114 &6641676052028214188
 MonoBehaviour:
@@ -385,6 +386,7 @@ MonoBehaviour:
   SurprisedMark: {fileID: 2020073361738355278, guid: 697785fb6528f7e44b7ac63c25a45669,
     type: 3}
   SEFarDistance: 1.5
+  RashSEChannel: -1
 --- !u!114 &-2034412314316543122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,6 +406,7 @@ MonoBehaviour:
   m_AttackObject: {fileID: 0}
   m_DamageEffect: {fileID: 0}
   DamageEffInterval: 1
+  DamageAddColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!64 &6641676052028214182
 MeshCollider:
   m_ObjectHideFlags: 0

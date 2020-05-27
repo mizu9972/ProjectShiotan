@@ -21,7 +21,10 @@ public class NagareScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        spd =other.GetComponentInParent<ProtoMove2>();
+        if (other.tag == "Player")
+        {
+            spd = other.GetComponentInParent<ProtoMove2>();
+        }
     }
 
     // ターゲットが流れの上に乗っている時に呼ばれるメソッド
