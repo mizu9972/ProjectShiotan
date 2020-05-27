@@ -35,6 +35,7 @@ public class AIAlligator : MonoBehaviour
 
     [SerializeField] private float SEFarDistance;
     public int RashSEChannel = -1;
+    private RushSE NowSEType = RushSE.None;
 
     // Start is called before the first frame update
     void Start() {
@@ -148,6 +149,7 @@ public class AIAlligator : MonoBehaviour
                     gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                     if (RashSEChannel != -1) {
                         AudioManager.Instance.StopLoopSe(RashSEChannel);
+                        NowSEType = RushSE.None;
                     }
                     TargetPosList.Clear();
                 }
@@ -210,19 +212,26 @@ public class AIAlligator : MonoBehaviour
             if (Vector3.Distance(TargetList[0].transform.position, gameObject.transform.position) > SEFarDistance) {
                 if (RashSEChannel == -1) {
                     // Far
-                    RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
+                    if (NowSEType != RushSE.Far) {
+                        RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE_FAR", true);
+                        NowSEType = RushSE.Far;
+                    }
                 }
             }
             else {
                 // Near
                 if (RashSEChannel == -1) {
-                    RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
+                    if (NowSEType != RushSE.Near) {
+                        RashSEChannel = AudioManager.Instance.PlayLoopSe("SE_CHASE", true);
+                        NowSEType = RushSE.Near;
+                    }
                 }
             }
         }
         else {
             if (RashSEChannel != -1) {
                 AudioManager.Instance.StopLoopSe(RashSEChannel);
+                NowSEType = RushSE.None;
             }
         }
     }
