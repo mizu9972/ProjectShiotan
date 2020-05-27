@@ -26,6 +26,7 @@ public class HumanoidBase : MonoBehaviour {
     private Color DamageAddColor = new Color(1, 1, 1, 1);
 
     private Material m_myMat;
+    DamageCameraEffect m_DamCamEff;
 
     #region Getter/Setter
     public float InitHP {
@@ -69,6 +70,7 @@ public class HumanoidBase : MonoBehaviour {
     private void Start()
     {
         m_myMat = gameObject.GetComponent<Renderer>().material;
+        m_DamCamEff = Camera.main.gameObject.GetComponent<DamageCameraEffect>();
 
         if (m_DamageEffect != null)
         {
@@ -99,6 +101,15 @@ public class HumanoidBase : MonoBehaviour {
                     );
             }
         }        
+    }
+
+
+    public void DamagePostEffect()
+    {
+        m_DamCamEff.Active();
+        Observable.Timer(System.TimeSpan.FromSeconds(DamageEffInterval / 16.0f)).Subscribe(
+            _ => m_DamCamEff.InActive()
+            );
     }
 
     /// <summary>
