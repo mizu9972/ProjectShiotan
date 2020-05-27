@@ -115,8 +115,6 @@ public class AIFlock : MonoBehaviour
                             // レイが当たらなかったターゲットは後ろに持ってくる
                             TargetList.Add(TargetList[0]);
                             TargetList.RemoveAt(0);
-                            //TargetPosList.Clear();  //　追加分
-                            //IsAttack = false; // 追加分
                         }
                     }
                     // ターゲットがいなくなった場合、削除
