@@ -14,6 +14,8 @@ public class FlockBase : MonoBehaviour {
 
     [SerializeField, Header("ピラニア生成の生み出す誤差")]
     private Vector3 InstantPositionCorrct;     // ピラニア生成の座標の誤差をどこまで設定しますか?
+    [SerializeField, Header("ピラニアのY軸の位置調整")]
+    private float PiranhaYCorrection;
 
     [SerializeField, Header("再攻撃までのクールタイム")]
     public float AttackCoolTime = 0.0f;
@@ -64,7 +66,7 @@ public class FlockBase : MonoBehaviour {
     {
         // ピラニアカウント数分ピラニアを生成する
         for (int i = 0; i < PiranhaCount; i++) {
-            Vector3 CreatePos = new Vector3(Random.Range(-InstantPositionCorrct.x, InstantPositionCorrct.x), Random.Range(-InstantPositionCorrct.y, InstantPositionCorrct.y) - 0.001f, Random.Range(-InstantPositionCorrct.z, InstantPositionCorrct.z));
+            Vector3 CreatePos = new Vector3(Random.Range(-InstantPositionCorrct.x, InstantPositionCorrct.x), Random.Range(-InstantPositionCorrct.y, InstantPositionCorrct.y) + PiranhaYCorrection * 2.0f, Random.Range(-InstantPositionCorrct.z, InstantPositionCorrct.z));
             GameObject newObj = Instantiate(Piranha, gameObject.transform.position + CreatePos, Quaternion.identity, gameObject.transform);
 
             // ピラニアをリストに追加
