@@ -40,11 +40,16 @@ public class DamageWall : MonoBehaviour
         {
             if (layerName == "Player")
             {
-                other.gameObject.GetComponentInParent<HumanoidBase>().Damage(Damage);
+                HumanoidBase humanoidbase = other.gameObject.GetComponentInParent<HumanoidBase>();
+                humanoidbase.Damage(Damage);
+                humanoidbase.DamagePostEffect();
+
                 DamageCount = 0;
 
                 Vector3 StanVec = GetAngleVec(this.gameObject, other.gameObject);
                 other.gameObject.GetComponent<Rigidbody>().AddForce(StanVec * DamageImpact, ForceMode.Impulse);
+
+
             }
         }
     }
