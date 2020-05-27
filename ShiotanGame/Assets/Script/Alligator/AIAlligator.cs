@@ -149,6 +149,7 @@ public class AIAlligator : MonoBehaviour
                     gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                     if (RashSEChannel != -1) {
                         AudioManager.Instance.StopLoopSe(RashSEChannel);
+                        RashSEChannel = -1;
                         NowSEType = RushSE.None;
                     }
                     TargetPosList.Clear();
@@ -231,6 +232,7 @@ public class AIAlligator : MonoBehaviour
         else {
             if (RashSEChannel != -1) {
                 AudioManager.Instance.StopLoopSe(RashSEChannel);
+                RashSEChannel = -1;
                 NowSEType = RushSE.None;
             }
         }

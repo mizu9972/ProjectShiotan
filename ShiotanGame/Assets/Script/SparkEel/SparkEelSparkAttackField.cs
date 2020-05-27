@@ -67,6 +67,7 @@ public class SparkEelSparkAttackField : MonoBehaviour
             //SparkEffect.GetComponent<ParticleSystem>().Stop();
             if (SparkSEChannel != -1) {
                 AudioManager.Instance.StopLoopSe(SparkSEChannel);
+                SparkSEChannel = -1;
             }
         }
     }
