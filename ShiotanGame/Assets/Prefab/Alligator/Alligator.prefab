@@ -242,8 +242,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.5
+  m_Height: 2
+  m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
 --- !u!114 &1793978954797306877
@@ -285,6 +285,7 @@ MonoBehaviour:
     type: 3}
   AlligatorSplash: {fileID: 3181368419354962078}
   SEFarDistance: 1.5
+  RashSEChannel: -1
 --- !u!64 &8888299143635274621
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -318,6 +319,7 @@ MonoBehaviour:
   m_AttackObject: {fileID: 0}
   m_DamageEffect: {fileID: 0}
   DamageEffInterval: 1
+  DamageAddColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &2734127757362027652
 MonoBehaviour:
   m_ObjectHideFlags: 0
