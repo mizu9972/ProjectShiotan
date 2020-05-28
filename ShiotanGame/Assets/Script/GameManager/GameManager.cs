@@ -165,6 +165,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
         return PlayerObj;
     }
+
+    public bool GetisStage()//現在がゲームメイン中であるかを返す
+    {
+        return isStageObj.GetComponent<isGameMain>().GetisGameMain();
+    }
     public void Quit()//終了処理
     {
 #if UNITY_EDITOR
