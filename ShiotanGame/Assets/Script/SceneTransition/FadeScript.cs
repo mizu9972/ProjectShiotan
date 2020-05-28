@@ -118,10 +118,21 @@ public class FadeScript : MonoBehaviour
     // イベントハンドラー（イベント発生時に動かしたい処理）
     void SceneLoaded(Scene nextScene, LoadSceneMode mode)//シーンが切り替わった時の処理
     {
-        SetIsFeadIn();//シーンスタート時にフェードインを実行
-        //フェードイン終了後に全てのフラグをリセット
-        this.UpdateAsObservable().
-            Where(_ => !fadeImage.enabled).Take(1).
-            Subscribe(_ => ResetFlag());
+        
+        if (!GameManager.Instance.GetisStage())
+        {
+            SetIsFeadIn();//シーンスタート時にフェードインを実行
+                          //フェードイン終了後に全てのフラグをリセット
+            this.UpdateAsObservable().
+                Where(_ => !fadeImage.enabled).Take(1).
+                Subscribe(_ => ResetFlag());
+        }
+        else
+        {
+            ResetFlag();
+            alfa = 0f;
+            SetAlpha();
+        }
+
     }
 }

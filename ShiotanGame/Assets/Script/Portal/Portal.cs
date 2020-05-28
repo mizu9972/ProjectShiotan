@@ -21,6 +21,8 @@ public class Portal : MonoBehaviour
 
     [Header("ステージ移動後にもらえるHP")]
     public float BonusHp = 0f;
+
+    private FadebyTex m_FadebyTex;
     // Start is called before the first frame update
     void Awake()
     {
@@ -31,6 +33,7 @@ public class Portal : MonoBehaviour
     private void Start()
     {
         SceneManager = Camera.main;//シーンマネージャをアタッチしてるカメラを取得
+        m_FadebyTex = SceneManager.GetComponent<FadebyTex>();
     }
 
 
@@ -39,6 +42,7 @@ public class Portal : MonoBehaviour
         if(other.tag=="Player")//衝突相手がプレイヤーなら処理の実行
         {
             other.GetComponent<ProtoMove2>().enabled = false;//プレイヤーの操作無効
+            m_FadebyTex.StartFadeOut();
             if(NextScene!=null && !isGoal)//次のシーンへ
             {
                 if(isCarryOver)
