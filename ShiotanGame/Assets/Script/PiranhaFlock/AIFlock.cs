@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-enum RushSE {
+public enum RushSE {
     None,
     Far,
     Near,
@@ -45,7 +45,7 @@ public class AIFlock : MonoBehaviour
 
     [SerializeField] private float SEFarDistance;
     public int RashSEChannel = -1;
-    private RushSE NowSEType = RushSE.None;
+    public RushSE NowSEType = RushSE.None;
 
     // Start is called before the first frame update
     void Start()
@@ -115,8 +115,6 @@ public class AIFlock : MonoBehaviour
                             // レイが当たらなかったターゲットは後ろに持ってくる
                             TargetList.Add(TargetList[0]);
                             TargetList.RemoveAt(0);
-                            //TargetPosList.Clear();  //　追加分
-                            //IsAttack = false; // 追加分
                         }
                     }
                     // ターゲットがいなくなった場合、削除
@@ -163,6 +161,7 @@ public class AIFlock : MonoBehaviour
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 if (RashSEChannel != -1) {
                     AudioManager.Instance.StopLoopSe(RashSEChannel);
+                    RashSEChannel = -1;
                     NowSEType = RushSE.None;
                 }
                 TargetPosList.Clear();
@@ -237,6 +236,7 @@ public class AIFlock : MonoBehaviour
         else {
             if (RashSEChannel != -1) {
                 AudioManager.Instance.StopLoopSe(RashSEChannel);
+                RashSEChannel = -1;
                 NowSEType = RushSE.None;
             }
         }

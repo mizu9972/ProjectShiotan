@@ -8,6 +8,8 @@ public class DamageWall : MonoBehaviour
 
     [Header("ダメージを与える間隔"), SerializeField] private float DamageTime;
 
+    [Header("ダメージの衝撃の強さ"), SerializeField] private float DamageImpact;
+
     //壁に触れている時間を計算する用
     private float DamageCount;
 
@@ -38,8 +40,16 @@ public class DamageWall : MonoBehaviour
         {
             if (layerName == "Player")
             {
-                other.gameObject.GetComponentInParent<HumanoidBase>().Damage(Damage);
+                HumanoidBase humanoidbase = other.gameObject.GetComponentInParent<HumanoidBase>();
+                humanoidbase.Damage(Damage);
+                humanoidbase.DamagePostEffect();
+
                 DamageCount = 0;
+
+                Vector3 StanVec = GetAngleVec(this.gameObject, other.gameObject);
+                other.gameObject.GetComponent<Rigidbody>().AddForce(StanVec * DamageImpact, ForceMode.Impulse);
+
+
             }
         }
     }
@@ -48,6 +58,15 @@ public class DamageWall : MonoBehaviour
     {
         //離れたらまたダメージをすぐに与えるようにしておく
         DamageCount = DamageTime;
+    }
+
+    Vector3 GetAngleVec(GameObject _from, GameObject _to)
+    {
+        //高さの概念を入れないベクトルを作る
+        Vector3 fromVec = new Vector3(_from.transform.position.x, 0, _from.transform.position.z);
+        Vector3 toVec = new Vector3(_to.transform.position.x, 0, _to.transform.position.z);
+
+        return Vector3.Normalize(toVec - fromVec);
     }
 
 }

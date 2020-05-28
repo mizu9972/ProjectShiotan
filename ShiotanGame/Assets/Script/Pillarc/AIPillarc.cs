@@ -8,6 +8,12 @@ public class AIPillarc : MonoBehaviour
 {
     private Vector3 InitPos;
 
+    //+
+    [SerializeField, Header("巡回ポイント")]
+    private List<Vector3> PatrolPoint = new List<Vector3>();
+    private int PatrolNum = 0;
+    //-
+
     public List<GameObject> TargetList;
     public bool IsHit;
     public bool IsAttack;
@@ -33,12 +39,22 @@ public class AIPillarc : MonoBehaviour
 
     [SerializeField] private float SEFarDistance;
     public int RashSEChannel = -1;
-    private RushSE NowSEType = RushSE.None;
+    public RushSE NowSEType = RushSE.None;
 
     // Start is called before the first frame update
     void Start() 
     {
         InitPos = gameObject.transform.position;
+
+        //+
+        PatrolPoint.Add(InitPos);
+
+        for (int i = 0; i < gameObject.transform.childCount; i++) {
+            if (gameObject.transform.GetChild(i).tag == "PatrolPoint") {
+                PatrolPoint.Add(gameObject.transform.GetChild(i).gameObject.transform.position);
+            }
+        }
+        //-
 
         m_NavMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         //m_NavMeshAgent.destination = InitPos;
@@ -103,7 +119,7 @@ public class AIPillarc : MonoBehaviour
                 gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                 gameObject.GetComponent<PillarcAnimation>().SetIsAttack(false);
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
-                m_NavMeshAgent.destination = InitPos;
+                m_NavMeshAgent.destination = PatrolPoint[PatrolNum];
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 TargetPosList.Clear();
             }
@@ -130,15 +146,21 @@ public class AIPillarc : MonoBehaviour
             else {
                 gameObject.GetComponent<HumanoidBase>().AttackObject = null;
                 gameObject.GetComponent<NavMeshAgent>().enabled = true;
-                m_NavMeshAgent.destination = InitPos;
+                m_NavMeshAgent.destination = PatrolPoint[PatrolNum];
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 if (RashSEChannel != -1) {
                     AudioManager.Instance.StopLoopSe(RashSEChannel);
+                    RashSEChannel = -1;
                     NowSEType = RushSE.None;
                 }
                 TargetPosList.Clear();
             }
         }
+        //+
+        if (gameObject.GetComponent<NavMeshAgent>().enabled) {
+            Patrol();
+        }
+        //-
     }
 
     // Rayをターゲットに飛ばして当たったかを返す
@@ -202,11 +224,26 @@ public class AIPillarc : MonoBehaviour
         else {
             if (RashSEChannel != -1) {
                 AudioManager.Instance.StopLoopSe(RashSEChannel);
+                RashSEChannel = -1;
                 NowSEType = RushSE.None;
             }
         }
     }
 
+    //+
+    /// <summary>
+    /// パトロール
+    /// </summary>
+    private void Patrol() {
+        if (!m_NavMeshAgent.pathPending && m_NavMeshAgent.remainingDistance <= 0.1f) {
+            PatrolNum++;
+            if (PatrolNum >= PatrolPoint.Count) {
+                PatrolNum = 0;
+            }
+            m_NavMeshAgent.destination = PatrolPoint[PatrolNum];
+        }
+    }
+    //-
 
     /// <summary>
     /// ターゲットのソート
