@@ -59,10 +59,7 @@ public class HPScript : MonoBehaviour
         Vector3 pos = transform.position;
         if (HPcnt.DeadCheck())
         {
-            rb.useGravity = false;
-            this.GetComponent<CapsuleCollider>().enabled = false;
            // this.GetComponentInChildren<BoxCollider>().enabled = false; //波紋発生に必要なコライダーまでfalseにされてたのでコメントアウトしました 沈むうえでのバグは発生してないです
-            this.GetComponent<ProtoMove2>().enabled = false;
 
             MoveStop.Stop();
 
@@ -105,6 +102,9 @@ public class HPScript : MonoBehaviour
         {
             Vector3 pos = new Vector3(this.gameObject.transform.position.x, 0.1f, this.gameObject.transform.position.z);
             Instantiate(m_ParEffScp, pos, Quaternion.identity);
+            rb.useGravity = false;
+            this.GetComponent<CapsuleCollider>().enabled = false;
+            this.GetComponent<ProtoMove2>().enabled = false;
 
             AudioManager.Instance.PlaySE("SE_GAMEOVER");
         }

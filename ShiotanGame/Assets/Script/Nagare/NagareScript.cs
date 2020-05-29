@@ -19,6 +19,20 @@ public class NagareScript : MonoBehaviour
 
     private ProtoMove2 spd;
 
+    [Header("加速時 川の流れからの影響")]
+    public float NagareDawn;
+    [Header("川の流れからの影響　最大値")]
+    public float MaxNagareDawn;
+    [Header("川の流れからの影響　最小値")]
+    public float MinNagareDawn;
+    [Header("川の流れからの影響　減らす量")]
+    public float NagareDawnPower;
+
+    private void Start()
+    {
+        NagareDawn = MaxNagareDawn;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -34,11 +48,33 @@ public class NagareScript : MonoBehaviour
         float SaveX = 0;
         float SaveZ = 0;
 
+        //加速してるとき　川の流れからの影響下げる
+        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.B))&& NagareDawn > MinNagareDawn)
+        {
+            NagareDawn -= NagareDawnPower;
+            if(NagareDawn < MinNagareDawn)
+            {
+                NagareDawn = MinNagareDawn;
+            }
+        }
+        else
+        {
+            //川の流れの影響　回復
+            if(NagareDawn<MaxNagareDawn)
+            {
+                NagareDawn += NagareDawnPower / 10;
+                if (NagareDawn >= MaxNagareDawn)
+                {
+                    NagareDawn = MaxNagareDawn;
+                }
+            }
+        }
+
         //乗ったオブジェクトごとに勢いの値変わる
         if (other.tag == "Player")
         {
-            SaveX += XDir * P_Flow;    // x座標へ加算
-            SaveZ += ZDir * P_Flow;    // z座標へ加算
+            SaveX += XDir * P_Flow* NagareDawn/ MaxNagareDawn;    // x座標へ加算
+            SaveZ += ZDir * P_Flow * NagareDawn/ MaxNagareDawn;    // z座標へ加算
             spd.SetNagare((SaveX + SaveZ)* (SaveX + SaveZ)/10);
         }
         if (other.tag == "Esa")

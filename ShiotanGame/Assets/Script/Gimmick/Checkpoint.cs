@@ -21,7 +21,9 @@ public class Checkpoint : MonoBehaviour
 
     public BoxCollider Box;
     private Rigidbody rb;
-    
+
+    [Header("出す扉")]
+    public GameObject[] CheckDoor;
 
     // Update is called once per frame
     void Update()
@@ -61,8 +63,8 @@ public class Checkpoint : MonoBehaviour
         {
             Vector3 Save = rb.velocity;
             Save.x = 5;
-            
-            rb.velocity =Save;
+
+            rb.velocity = Save;
         }
         if (MaxSpeed < rb.velocity.z)
         {
@@ -87,6 +89,16 @@ public class Checkpoint : MonoBehaviour
 
             //チェックポイント　一度だけ
             GetComponent<Checkpoint>().enabled = false;
+
+            //扉出現
+            for (int cnt = 0; cnt < 2; cnt++)
+            {
+                CheckDoor[cnt].SetActive(true);
+            }
+
+            AudioManager.Instance.PlaySE("SE_OPEN");
+
+            this.gameObject.SetActive(false);
         }
     }
 }
