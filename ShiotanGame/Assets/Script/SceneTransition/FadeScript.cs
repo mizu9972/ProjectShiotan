@@ -132,6 +132,7 @@ public class FadeScript : MonoBehaviour
             ResetFlag();
             alfa = 0f;
             SetAlpha();
+            GameManager.Instance.SetPauseEnable(true);//ポーズ画面の使用を不可能に
         }
 
     }

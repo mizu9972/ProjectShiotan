@@ -140,6 +140,11 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         SE_LoopSource.GetComponent<LoopSeControl>().SetLoopSeVolume(vol,channel);
     }
 
+    public void SetLoopSeVolumeAll(float vol)
+    {
+        SE_LoopSource.GetComponent<LoopSeControl>().SetLoopSeVolumeAll(vol);
+    }
+
     public void StopBGM()
     {
         BGM_audioSource.clip = null;
