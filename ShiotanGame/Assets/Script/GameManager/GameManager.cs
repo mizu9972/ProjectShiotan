@@ -25,6 +25,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private int WorkKey = 0;//引き継ぐ鍵
 
     private GameObject PlayerObj = null;
+
+    private bool isFade;//フェード中か
     // Start is called before the first frame update
     void Start()
     {
@@ -97,7 +99,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         if(PlayerObj != null)
         {
             PlayerObj.GetComponent<Player>().SetPlayerMove(true);//プレイヤーの操作可能に
-            PlayerObj.GetComponent<Player>().SetThrowFoodEnable(true);//プレイヤーのエサ投げ不可能に
+            PlayerObj.GetComponent<Player>().SetThrowFoodEnable(true);//プレイヤーのエサ投げ可能に
         }
     }
     public void PlayerControlStop()
@@ -170,6 +172,21 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     {
         return isStageObj.GetComponent<isGameMain>().GetisGameMain();
     }
+
+    public void SceneTransition(string SceneName)
+    {
+        SceneManager.LoadScene(SceneName);
+    }
+
+    public void SetisFade(bool isfade)
+    {
+        isFade = isfade;
+    }
+    public bool GetisFade()
+    {
+        return isFade;
+    }
+
     public void Quit()//終了処理
     {
 #if UNITY_EDITOR
