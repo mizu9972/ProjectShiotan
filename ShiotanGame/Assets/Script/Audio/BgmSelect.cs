@@ -30,7 +30,9 @@ public class BgmSelect : MonoBehaviour
 
         if (audioType != AudioType.NONE)//そのシーンにBGMの割り当てがあれば再生
         {
-            AudioManager.Instance.PlayMainBGM(keyName, true);
+            this.UpdateAsObservable().
+                Where(_ => !GameManager.Instance.GetisFade()).Take(1).
+                Subscribe(_ => AudioManager.Instance.PlayMainBGM(keyName, true));
         }
         else//BGMの割り当てがなければBGM停止
         {

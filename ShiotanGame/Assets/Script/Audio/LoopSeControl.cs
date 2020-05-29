@@ -61,6 +61,14 @@ public class LoopSeControl : MonoBehaviour
         SEChannel[cnannel].volume = Mathf.Clamp(vol, 0f, 1.0f);
     }
 
+    public void SetLoopSeVolumeAll(float vol)//全てのループSEのボリュームをセット
+    {
+        foreach(AudioSource mysource in SEChannel)
+        {
+            mysource.volume= Mathf.Clamp(vol, 0f, 1.0f);
+        }
+    }
+
     private int UseLoopNumber() {
         int returnNum = -1;
         for(int i = 0; i < SEChannel.Count; i++) {

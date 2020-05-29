@@ -31,6 +31,7 @@ public class FadebyTex : MonoBehaviour
     [SerializeField, Header("いきなり処理する場合、フェードインかどうか")]
     private bool isFadeIn = false;
 
+    private bool isFade = false;//フェード中かを管理する
     //private float m_FunctionTimeCount = 0;//処理時間カウント用
     ReactiveProperty<float> m_FunctionTimeCount = new ReactiveProperty<float>();
     Action<RenderTexture, RenderTexture> m_FadeFunction;//処理切り替え用
@@ -66,6 +67,7 @@ public class FadebyTex : MonoBehaviour
         {
             OnEndFadeInOut();
         });
+
     }
 
     //描画時処理
@@ -104,6 +106,9 @@ public class FadebyTex : MonoBehaviour
 
         ActiveMaterial = FadeInMat;
         m_FadeFunction = FadeIn_Function;
+
+        isFade = true;
+        GameManager.Instance.SetisFade(true);
     }
 
     //フェードアウト
@@ -115,11 +120,28 @@ public class FadebyTex : MonoBehaviour
 
         ActiveMaterial = FadeOutMat;
         m_FadeFunction = FadeOut_Function;
+
+        isFade = true;
+        GameManager.Instance.SetisFade(true);
     }
 
     //フェード終了時処理
     public void OnEndFadeInOut()
     {
         //Debug.Log("フェード終わり");
+        if(isFadeIn)
+        {
+            GameManager.Instance.SetPauseEnable(true);//ポーズ画面の仕様を可能に
+            GameManager.Instance.PlayerControlStart();//プレイヤーがいれば操作可能に
+        }
+
+        isFade = false;//フェード終了
+        GameManager.Instance.SetisFade(false);
+    }
+
+    //現在フェード中かを返す
+    public bool GetisFade()
+    {
+        return isFade;
     }
 }

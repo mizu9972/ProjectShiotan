@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UniRx;
+using UniRx.Triggers;
 public class Portal : MonoBehaviour
 {
     private MeshRenderer MyMesh;//メッシュレンダラー
@@ -55,8 +57,9 @@ public class Portal : MonoBehaviour
                     int workkey = GameManager.Instance.GetPlayer().GetComponent<Player>().KeyCount;
                     GameManager.Instance.SetWorkStatus(workHP, workFoods,workkey);
                 }
-                
-                SceneManager.GetComponent<SceneTransition>().SetTransitionRun(NextScene);
+                this.UpdateAsObservable().
+                    Where(_ => !m_FadebyTex.GetisFade()).Take(1).
+                    Subscribe(_ => GameManager.Instance.SceneTransition(NextScene));//フェード終了でシーン遷移
             }
             else if(isGoal)//ゴール
             {
