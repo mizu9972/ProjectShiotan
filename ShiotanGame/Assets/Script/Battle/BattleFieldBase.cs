@@ -66,6 +66,7 @@ public class BattleFieldBase : MonoBehaviour
                             // ToDo::死んだときのエフェクト等を表示
 
                             // ターゲットから削除
+                            StopLoopSE(TotalEnemy[AttackCount % TotalEnemy.Count]);
                             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetFoodManager().GetComponent<ThrowEsa>().count += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood();
                             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().KeyCount += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey();
                             Destroy(TotalEnemy[AttackCount % TotalEnemy.Count]);
@@ -231,6 +232,20 @@ public class BattleFieldBase : MonoBehaviour
         gameObject.GetComponent<EnemyHpBase>().enabled = value;
         if (gameObject.transform.childCount > 0) {
             gameObject.transform.GetChild(0).gameObject.SetActive(value);
+        }
+    }
+
+    private void StopLoopSE(GameObject Obj) {
+        if (Obj.name.IndexOf("WeakerPillarc") > 0) {
+        }
+        else if (Obj.name.IndexOf("Pillarc") > 0) {
+            AudioManager.Instance.StopLoopSe(Obj.GetComponent<AIPillarc>().RashSEChannel);
+        }
+        else if (Obj.name.IndexOf("SparkEel") > 0) {
+            AudioManager.Instance.StopLoopSe(Obj.GetComponent<AISparkEel>().RashSEChannel);
+        }
+        else if (Obj.name.IndexOf("Alligator") > 0) {
+            AudioManager.Instance.StopLoopSe(Obj.GetComponent<AIAlligator>().RashSEChannel);
         }
     }
     #endregion

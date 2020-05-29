@@ -52,9 +52,7 @@ public class FadeScript : MonoBehaviour
         {                    //c)完全に透明になったら処理を抜ける
             isFadeIn = false;
             fadeImage.enabled = false;    //d)パネルの表示をオフにする
-            GameManager.Instance.SetPauseEnable(true);//ポーズ画面の仕様を可能に
-            GameManager.Instance.PlayerControlStart();//プレイヤーがいれば操作可能に
-
+            GameManager.Instance.SetisFade(false);
             return true;
         }
         return false;
@@ -68,6 +66,7 @@ public class FadeScript : MonoBehaviour
         if (alfa >= 1)
         {             // d)完全に不透明になったら処理を抜ける
             isFadeOut = false;
+            GameManager.Instance.SetisFade(false);
             return true;
         }
         return false;
@@ -81,6 +80,7 @@ public class FadeScript : MonoBehaviour
 
     public void SetIsFeadOut()//フェードアウトスタートをセット
     {
+        GameManager.Instance.SetisFade(true);
         alfa = 0.0f;
         isFadeOut = true;
         FadeOutSts = false;
@@ -90,6 +90,7 @@ public class FadeScript : MonoBehaviour
     }
     public void SetIsFeadIn()//フェードアウトスタートをセット
     {
+        GameManager.Instance.SetisFade(true);
         alfa = 1.0f;
         isFadeIn = true;
         FadeInSts = false;
@@ -132,6 +133,7 @@ public class FadeScript : MonoBehaviour
             ResetFlag();
             alfa = 0f;
             SetAlpha();
+            GameManager.Instance.SetPauseEnable(true);//ポーズ画面の使用を不可能に
         }
 
     }

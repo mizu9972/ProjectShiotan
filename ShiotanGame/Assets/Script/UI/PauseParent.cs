@@ -16,6 +16,7 @@ public class PauseParent : MonoBehaviour
     {
         NowVol = AudioManager.Instance.GetBgmVolume();//現在の音量取得しておく
         AudioManager.Instance.SetBgmVolume(PauseVol);//ポーズ中はBGMの音量を下げる
+        AudioManager.Instance.SetLoopSeVolumeAll(PauseVol);//ポーズ中はループするSEの音量を下げる
         OnActiveObj.SetActive(true);
         GameManager.Instance.PlayerControlStop();
         Time.timeScale = 0f;//更新処理の停止
@@ -27,6 +28,7 @@ public class PauseParent : MonoBehaviour
         Time.timeScale = 1f;//更新処理の再開
         GameManager.Instance.PlayerControlStart();//プレイヤーの操作可能に
         AudioManager.Instance.SetBgmVolume(NowVol);
+        AudioManager.Instance.SetLoopSeVolumeAll(NowVol);
     }
 
     // Update is called once per frame

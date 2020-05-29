@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+using UniRx;
+using UniRx.Triggers;
+
 //トランシジョンルールテクスチャの情報をもとにフェードイン・アウト合成を行うカメラ用スクリプト
 public class FadebyTex : MonoBehaviour
 {
@@ -18,16 +21,19 @@ public class FadebyTex : MonoBehaviour
     [SerializeField, Header("トランジションルール画像")]
     private Texture TransitionTex = null;
 
-    [SerializeField, Header("フェード速度")]
-    private float FadeSpeed = 1.0f;
+    [SerializeField, Header("フェードイン速度")]
+    private float FadeInSpeed = 1.0f;
 
+    [SerializeField, Header("フェードアウト速度")]
+    private float FadeOutSpeed = 1.0f;
     [SerializeField, Header("シーン開始時にいきなり処理するか")]
     private bool isActive = false;
     [SerializeField, Header("いきなり処理する場合、フェードインかどうか")]
     private bool isFadeIn = false;
 
-    private float m_FunctionTimeCount = 0;//処理時間カウント用
-
+    private bool isFade = false;//フェード中かを管理する
+    //private float m_FunctionTimeCount = 0;//処理時間カウント用
+    ReactiveProperty<float> m_FunctionTimeCount = new ReactiveProperty<float>();
     Action<RenderTexture, RenderTexture> m_FadeFunction;//処理切り替え用
     
     // Start is called before the first frame update
@@ -53,10 +59,15 @@ public class FadebyTex : MonoBehaviour
 
         //シェーダー初期化
         FadeInMat.SetTexture("_TransitionTex", TransitionTex);
-        FadeInMat.SetFloat("_FadeSpeed", FadeSpeed);
 
         FadeOutMat.SetTexture("_TransitionTex", TransitionTex);
-        FadeOutMat.SetFloat("_FadeSpeed", FadeSpeed);
+
+        //フェード終了通知
+        m_FunctionTimeCount.Select(x => x * 0.01f >= 1.0).DistinctUntilChanged().Where(x => x).Subscribe(x =>
+        {
+            OnEndFadeInOut();
+        });
+
     }
 
     //描画時処理
@@ -66,11 +77,18 @@ public class FadebyTex : MonoBehaviour
     }
 
     //フェードさせる
-    private void Fade_InOut_Function(RenderTexture source, RenderTexture destination)
+    private void FadeIn_Function(RenderTexture source, RenderTexture destination)
     {
-        ActiveMaterial.SetFloat("_TimeCount", m_FunctionTimeCount);
-        Graphics.Blit(source, destination, ActiveMaterial);
-        m_FunctionTimeCount += FadeSpeed;
+        FadeInMat.SetFloat("_TimeCount", m_FunctionTimeCount.Value);
+        Graphics.Blit(source, destination, FadeInMat);
+        m_FunctionTimeCount.Value += FadeInSpeed;
+    }
+
+    private void FadeOut_Function(RenderTexture source, RenderTexture destination)
+    {
+        FadeOutMat.SetFloat("_TimeCount", m_FunctionTimeCount.Value);
+        Graphics.Blit(source, destination, FadeOutMat);
+        m_FunctionTimeCount.Value += FadeOutSpeed;
     }
 
     //描画するだけ(フェードインアウト処理を行わない)
@@ -84,10 +102,13 @@ public class FadebyTex : MonoBehaviour
     public void StartFadeIn()
     {
         FadeInMat.SetFloat("_isActive", 1);
-        m_FunctionTimeCount = 0;
+        m_FunctionTimeCount.Value = 0;
 
         ActiveMaterial = FadeInMat;
-        m_FadeFunction = Fade_InOut_Function;
+        m_FadeFunction = FadeIn_Function;
+
+        isFade = true;
+        GameManager.Instance.SetisFade(true);
     }
 
     //フェードアウト
@@ -95,9 +116,32 @@ public class FadebyTex : MonoBehaviour
     public void StartFadeOut()
     {
         FadeOutMat.SetFloat("_isActive", 1);
-        m_FunctionTimeCount = 0;
+        m_FunctionTimeCount.Value = 0;
 
         ActiveMaterial = FadeOutMat;
-        m_FadeFunction = Fade_InOut_Function;
+        m_FadeFunction = FadeOut_Function;
+
+        isFade = true;
+        GameManager.Instance.SetisFade(true);
+    }
+
+    //フェード終了時処理
+    public void OnEndFadeInOut()
+    {
+        //Debug.Log("フェード終わり");
+        if(isFadeIn)
+        {
+            GameManager.Instance.SetPauseEnable(true);//ポーズ画面の仕様を可能に
+            GameManager.Instance.PlayerControlStart();//プレイヤーがいれば操作可能に
+        }
+
+        isFade = false;//フェード終了
+        GameManager.Instance.SetisFade(false);
+    }
+
+    //現在フェード中かを返す
+    public bool GetisFade()
+    {
+        return isFade;
     }
 }

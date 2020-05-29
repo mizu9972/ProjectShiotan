@@ -74,9 +74,11 @@ public class ItemBase : MonoBehaviour
     // HP回復
     private void HPRecover() 
     {
-        Player.GetComponent<HumanoidBase>().NowHP += HealHP;
-        if(Player.GetComponent<HumanoidBase>().InitHP < Player.GetComponent<HumanoidBase>().NowHP) {
-            Player.GetComponent<HumanoidBase>().NowHP = Player.GetComponent<HumanoidBase>().InitHP;
+        if (Player.GetComponent<HumanoidBase>().NowHP > 0) {
+            Player.GetComponent<HumanoidBase>().NowHP += HealHP;
+            if (Player.GetComponent<HumanoidBase>().InitHP < Player.GetComponent<HumanoidBase>().NowHP) {
+                Player.GetComponent<HumanoidBase>().NowHP = Player.GetComponent<HumanoidBase>().InitHP;
+            }
         }
     }
 
