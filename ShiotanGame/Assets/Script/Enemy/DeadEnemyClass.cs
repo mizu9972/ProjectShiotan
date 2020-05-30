@@ -18,6 +18,9 @@ public class DeadEnemyClass : MonoBehaviour
         // アニメーションの変更
         Model.GetComponent<Animator>().runtimeAnimatorController = DeadAnimation;
 
+        //SE_GAMEOVERを鳴らす
+        AudioManager.Instance.PlaySE("SE_EATEN");
+
         Destroy(gameObject);
     }
 }
