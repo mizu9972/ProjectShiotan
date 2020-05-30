@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 6877907482223673744}
   - component: {fileID: 1603477703594947030}
   - component: {fileID: 8431339172092061566}
+  - component: {fileID: 3054736717253766492}
   m_Layer: 12
   m_Name: SparkEel
   m_TagString: Untagged
@@ -367,6 +368,20 @@ MonoBehaviour:
   WaveSize_Sink: 0.05
   LoopSecond: 10
   LoopInterval: 0.1
+--- !u!114 &3054736717253766492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122783824100154819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630033d770c1b8a42aad495303a93059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeadAnimation: {fileID: 9100000, guid: 9ae4e8cd101ea4d449436eaae29c5c69, type: 2}
+  Model: {fileID: 6007911467612991595}
 --- !u!1 &3559836240193240043
 GameObject:
   m_ObjectHideFlags: 0

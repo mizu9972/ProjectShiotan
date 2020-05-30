@@ -69,7 +69,8 @@ public class BattleFieldBase : MonoBehaviour
                             StopLoopSE(TotalEnemy[AttackCount % TotalEnemy.Count]);
                             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetFoodManager().GetComponent<ThrowEsa>().count += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood();
                             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().KeyCount += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey();
-                            Destroy(TotalEnemy[AttackCount % TotalEnemy.Count]);
+                            //Destroy(TotalEnemy[AttackCount % TotalEnemy.Count]);
+                            TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<DeadEnemyClass>().StartDeadAnimation();
                             TotalEnemy.RemoveAt(AttackCount % TotalEnemy.Count);
                         }
                         AttackCount++;
