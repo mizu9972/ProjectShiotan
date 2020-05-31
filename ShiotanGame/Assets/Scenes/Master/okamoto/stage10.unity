@@ -2086,6 +2086,12 @@ Transform:
   m_Father: {fileID: 1839852307}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &252690372 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3109810805174308758, guid: 9543fda324c58c04cacf3aa13a0dccda,
+    type: 3}
+  m_PrefabInstance: {fileID: 1049427531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &253285447
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7639,25 +7645,6 @@ Transform:
   m_Father: {fileID: 1839852307}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1 &1217452520 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6376139643861868264, guid: 2c72cd09e2ea319409193b39181bd933,
-    type: 3}
-  m_PrefabInstance: {fileID: 1933753988}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1217452525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1217452520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 960c0aad4d554db46a7184919f6251f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentTransform: {fileID: 6641676052670810637}
 --- !u!43 &1227771436
 Mesh:
   m_ObjectHideFlags: 0
@@ -12535,6 +12522,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 9153086924424752999, guid: 2c72cd09e2ea319409193b39181bd933,
+        type: 3}
+      propertyPath: parentTransform
+      value: 
+      objectReference: {fileID: 6641676052670810637}
+    - target: {fileID: 9153086924424752999, guid: 2c72cd09e2ea319409193b39181bd933,
+        type: 3}
+      propertyPath: TargetCamera
+      value: 
+      objectReference: {fileID: 252690372}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c72cd09e2ea319409193b39181bd933, type: 3}
 --- !u!1001 &1941401339

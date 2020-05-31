@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1704359156728446081}
   - component: {fileID: 3567374486156778637}
   - component: {fileID: 6121694914471604960}
+  - component: {fileID: 9153086924424752999}
   m_Layer: 25
   m_Name: TargetMiniMapSphere
   m_TagString: Untagged
@@ -92,3 +93,17 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0.0000009536743}
+--- !u!114 &9153086924424752999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6376139643861868264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff3ecb8db4611eb4f984416668ab5766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentTransform: {fileID: 0}
+  TargetCamera: {fileID: 0}
