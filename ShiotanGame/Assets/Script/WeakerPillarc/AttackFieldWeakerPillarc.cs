@@ -120,7 +120,7 @@ public class AttackFieldWeakerPillarc : MonoBehaviour
     private void OnTriggerStay(Collider other) {
         foreach (string tag in FreeBiteTag) {
             if (other.tag == tag) {
-                gameObject.transform.parent.GetComponent<EnemyBase>().Attack(other.gameObject.GetComponent<HumanoidBase>());
+                gameObject.transform.parent.GetComponent<EnemyBase>().Attack(other.gameObject.GetComponent<HumanoidBase>(), "SE_BITE");
             }
         }
 
