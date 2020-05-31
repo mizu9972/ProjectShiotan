@@ -14,6 +14,7 @@ public class KeyOpenGateField : MonoBehaviour
         if(other.tag == "Player" && !Parent.GetComponent<KeyOpenGate>().IsOpen) {
             if(other.gameObject.GetComponent<Player>().KeyCount >= Parent.GetComponent<KeyOpenGate>().NeedKeys) {
                 other.gameObject.GetComponent<Player>().KeyCount -= Parent.GetComponent<KeyOpenGate>().NeedKeys;
+                AudioManager.Instance.PlaySE("SE_OPEN");
                 Parent.GetComponent<KeyOpenGate>().IsOpen = true;
             }
         }

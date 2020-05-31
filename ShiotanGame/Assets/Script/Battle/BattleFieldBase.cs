@@ -14,6 +14,7 @@ public class BattleFieldBase : MonoBehaviour
     private int MaxEnemyCount = 0;
     [SerializeField] private List<GameObject> TotalFlock = new List<GameObject>();
     [SerializeField] private HumanoidBase TotalFlockHumanoidBase;
+    private bool BattleStart = false;
 
     // Update is called once per frame
     void Update()
@@ -37,6 +38,10 @@ public class BattleFieldBase : MonoBehaviour
     {
         // ピラニア群と敵が存在し、敵対している場合に処理を行う
         if ((TotalFlock.Count > 0 && TotalEnemy.Count > 0) && !IsHostility) {
+            if (!BattleStart) {
+                AudioManager.Instance.PlaySE("SE_BATTELE_ENEMY");
+                BattleStart = true;
+            }
             // ピラニア群からの攻撃
             AttackFlock();
             AttackEnemy();
@@ -69,7 +74,8 @@ public class BattleFieldBase : MonoBehaviour
                             StopLoopSE(TotalEnemy[AttackCount % TotalEnemy.Count]);
                             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetFoodManager().GetComponent<ThrowEsa>().count += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood();
                             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().KeyCount += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey();
-                            Destroy(TotalEnemy[AttackCount % TotalEnemy.Count]);
+                            //Destroy(TotalEnemy[AttackCount % TotalEnemy.Count]);
+                            TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<DeadEnemyClass>().StartDeadAnimation();
                             TotalEnemy.RemoveAt(AttackCount % TotalEnemy.Count);
                         }
                         AttackCount++;
@@ -147,6 +153,7 @@ public class BattleFieldBase : MonoBehaviour
     private bool TotalFlockDeadCheck() {
         if (TotalFlock.Count > 0) {
             if (TotalFlockHumanoidBase.NowHP <= 0) {
+                AudioManager.Instance.PlaySE("SE_ESCAPE");
                 return true;
             }
         }
