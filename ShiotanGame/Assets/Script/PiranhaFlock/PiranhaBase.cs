@@ -300,13 +300,13 @@ public class PiranhaBase : MonoBehaviour
         }
     }
 
-    public void Attack(GameObject Target) 
+    public void Attack(GameObject Target,string SE_KEY) 
     {
         // 攻撃できるかをチェック
         if (LastAttackTime + transform.parent.GetComponent<FlockBase>().AttackCoolTime <= Time.time) {
             // 攻撃
             Target.GetComponent<HumanoidBase>().Damage(AttackPower);
-            AudioManager.Instance.PlaySE("SE_BITE");    // SE再生
+            AudioManager.Instance.PlaySE(SE_KEY);    // SE再生
 
             // 攻撃時間を更新
             LastAttackTime = Time.time;

@@ -49,7 +49,7 @@ public class BattlePiranhaFlockBase : MonoBehaviour
             foreach (GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
                 if (TargetList.Count > 0) {
                     // ターゲットに順番に攻撃するようにしてます
-                    Piranha.GetComponent<PiranhaBase>().Attack(TargetList[AttackCount % TargetList.Count]);
+                    Piranha.GetComponent<PiranhaBase>().Attack(TargetList[AttackCount % TargetList.Count], "SE_BITE");
 
                     // 死んだかの確認
                     if (TargetList[AttackCount % TargetList.Count].GetComponent<HumanoidBase>().DeadCheck()) {

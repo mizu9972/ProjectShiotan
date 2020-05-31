@@ -63,6 +63,7 @@ public class ItemBase : MonoBehaviour
         if (!Player) {
             Player = GameObject.FindGameObjectWithTag("Player");
         }
+        AudioManager.Instance.PlaySE("SE_GET");
         ItemScript.Invoke();
         // ホップアップ作成
         GameObject CreateHopUp = Instantiate(ItemHopup[UseHopUpNum], transform.position, Quaternion.identity);
