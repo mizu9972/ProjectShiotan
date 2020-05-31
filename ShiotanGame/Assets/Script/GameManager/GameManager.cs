@@ -39,14 +39,20 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Update is called once per frame
     void Update()
     {
+        if (isStageObj == null)
+        {
+            isStageObj = GameObject.Find("isStage");
+        }
+
         //ステージ中ならプレイヤーの取得
         if (isStageObj.GetComponent<isGameMain>().GetisGameMain())
         {
-            if(!PlayerObj)
+            if(PlayerObj==null)
             {
                 PlayerObj = GameObject.FindGameObjectWithTag("Player");
             }
         }
+
         if (PauseEnable)
         {
             if (Input.GetButtonDown("Pause"))
@@ -80,9 +86,12 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)//シーンが読み込まれた時
     {
+        PlayerObj = null;
+
+        isStageObj = null;
         //シーンが読み込まれた時にカメラを取得
         MainCamera = Camera.main;
-        isStageObj = GameObject.Find("isStage");
+
         if(isTakeover)
         {
             isTakeover = false;

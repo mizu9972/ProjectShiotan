@@ -119,7 +119,11 @@ public class FadeScript : MonoBehaviour
     // イベントハンドラー（イベント発生時に動かしたい処理）
     void SceneLoaded(Scene nextScene, LoadSceneMode mode)//シーンが切り替わった時の処理
     {
-        
+        this.UpdateAsObservable().Take(1).Subscribe(_ => SceneLoadFead());
+    }
+
+    private void SceneLoadFead()
+    {
         if (!GameManager.Instance.GetisStage())
         {
             SetIsFeadIn();//シーンスタート時にフェードインを実行
@@ -133,8 +137,7 @@ public class FadeScript : MonoBehaviour
             ResetFlag();
             alfa = 0f;
             SetAlpha();
-            GameManager.Instance.SetPauseEnable(true);//ポーズ画面の使用を不可能に
+            GameManager.Instance.SetPauseEnable(true);//ポーズ画面の使用を可能に
         }
-
     }
 }
