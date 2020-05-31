@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -2743,7 +2743,7 @@ PrefabInstance:
     - target: {fileID: 7715687317888065898, guid: 235b534b96ebc4845a33a3169bef6618,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7715687317888065898, guid: 235b534b96ebc4845a33a3169bef6618,
         type: 3}
@@ -6672,6 +6672,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5522848376544167, guid: 77990eddc14e736439763a58085557ea, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1227513221353375525, guid: 77990eddc14e736439763a58085557ea,
         type: 3}
       propertyPath: m_Layer
@@ -6847,6 +6851,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3428759672583180982, guid: 77990eddc14e736439763a58085557ea,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3752352185438353653, guid: 77990eddc14e736439763a58085557ea,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -6898,6 +6907,11 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8533147014016815842, guid: 77990eddc14e736439763a58085557ea,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8686226761722065109, guid: 77990eddc14e736439763a58085557ea,
         type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -7117,7 +7131,7 @@ PrefabInstance:
     - target: {fileID: 7715687317888065898, guid: 235b534b96ebc4845a33a3169bef6618,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7715687317888065898, guid: 235b534b96ebc4845a33a3169bef6618,
         type: 3}
