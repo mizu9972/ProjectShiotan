@@ -51,6 +51,18 @@ public class LoopSeControl : MonoBehaviour
         SEChannel[cnannel].clip = null;
     }
 
+    public void StopLoopSeAll()
+    {
+        foreach (AudioSource mysource in SEChannel)
+        {
+            if (mysource.isPlaying)
+            {
+                mysource.Stop();
+            }
+            mysource.clip = null;
+        }
+    }
+
     public bool GetisPlaying(int cnannel)//ループSEが再生中かを取得
     {
         return SEChannel[cnannel].isPlaying;

@@ -69,6 +69,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     }
     public void SceneReload()//シーン再読み込み
     {
+        AudioManager.Instance.StopLoopSeAll();//ループSEを全て停止
         MainCamera.GetComponent<SceneTransition>().SetTransitionRun(SceneManager.GetActiveScene().name);
     }
 
@@ -175,6 +176,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public void SceneTransition(string SceneName)
     {
+        AudioManager.Instance.StopLoopSeAll();//ループSEを全て停止
         SceneManager.LoadScene(SceneName);
     }
 
