@@ -38,10 +38,10 @@ public class BattleFieldBase : MonoBehaviour
     {
         // ピラニア群と敵が存在し、敵対している場合に処理を行う
         if ((TotalFlock.Count > 0 && TotalEnemy.Count > 0) && !IsHostility) {
-            if (!BattleStart) {
-                AudioManager.Instance.PlaySE("SE_BATTELE_ENEMY");
-                BattleStart = true;
-            }
+            //if (!BattleStart) {
+            //    AudioManager.Instance.PlaySE("SE_BATTELE_ENEMY");
+            //    BattleStart = true;
+            //}
             // ピラニア群からの攻撃
             AttackFlock();
             AttackEnemy();
