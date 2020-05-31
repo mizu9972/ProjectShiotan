@@ -107,7 +107,7 @@ public class AttackField : MonoBehaviour {
         foreach(string tag in FreeBiteTag) {
             if(other.tag == tag) {
                 foreach(GameObject Piranha in transform.parent.gameObject.GetComponent<FlockBase>().ChildPiranha) {
-                    Piranha.GetComponent<PiranhaBase>().Attack(other.gameObject);
+                    Piranha.GetComponent<PiranhaBase>().Attack(other.gameObject, "SE_BITE");
                 }
             }
         }

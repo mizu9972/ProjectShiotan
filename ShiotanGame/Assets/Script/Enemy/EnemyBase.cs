@@ -10,7 +10,7 @@ public class EnemyBase : MonoBehaviour
     private float AttackTime = 0.0f;
     
     // 攻撃
-    public void Attack(HumanoidBase Target) {
+    public void Attack(HumanoidBase Target,string SE_KEY) {
         AttackTime += Time.deltaTime;
         if(AttackTime > AttackCoolDown) {
             Target.Damage(gameObject.GetComponent<HumanoidBase>().NowAttackPower);

@@ -38,10 +38,10 @@ public class BattleFieldBase : MonoBehaviour
     {
         // ピラニア群と敵が存在し、敵対している場合に処理を行う
         if ((TotalFlock.Count > 0 && TotalEnemy.Count > 0) && !IsHostility) {
-            if (!BattleStart) {
-                AudioManager.Instance.PlaySE("SE_BATTELE_ENEMY");
-                BattleStart = true;
-            }
+            //if (!BattleStart) {
+            //    AudioManager.Instance.PlaySE("SE_BATTELE_ENEMY");
+            //    BattleStart = true;
+            //}
             // ピラニア群からの攻撃
             AttackFlock();
             AttackEnemy();
@@ -64,7 +64,7 @@ public class BattleFieldBase : MonoBehaviour
                 foreach (GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
                     if (TotalEnemy.Count > 0) {
                         // ターゲットに順番に攻撃するようにしてます
-                        Piranha.GetComponent<PiranhaBase>().Attack(TotalEnemy[AttackCount % TotalEnemy.Count]);
+                        Piranha.GetComponent<PiranhaBase>().Attack(TotalEnemy[AttackCount % TotalEnemy.Count], "SE_BATTELE_PIRANHA");
 
                         // 死んだかの確認
                         if (TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<HumanoidBase>().DeadCheck()) {
@@ -95,7 +95,7 @@ public class BattleFieldBase : MonoBehaviour
                 // ToDo::エフェクトの作成
 
                 // 攻撃
-                Enemy.GetComponent<EnemyBase>().Attack(TotalFlockHumanoidBase);
+                Enemy.GetComponent<EnemyBase>().Attack(TotalFlockHumanoidBase, "SE_BATTELE_ENEMY");
             }
         }
     }
@@ -108,7 +108,7 @@ public class BattleFieldBase : MonoBehaviour
             foreach (GameObject Flock in TotalFlock) {
                 foreach (GameObject Piranha in Flock.GetComponent<FlockBase>().ChildPiranha) {
                     if (BattleCenter != null) {
-                        Piranha.GetComponent<PiranhaBase>().Attack(BattleCenter);
+                        Piranha.GetComponent<PiranhaBase>().Attack(BattleCenter, "SE_BITE");
                     }
                     else {
                         DestroyThisField();
@@ -129,7 +129,7 @@ public class BattleFieldBase : MonoBehaviour
                     // ToDo::エフェクトの作成
 
                     // 攻撃
-                    Enemy.GetComponent<EnemyBase>().Attack(BattleCenter.GetComponent<HumanoidBase>());
+                    Enemy.GetComponent<EnemyBase>().Attack(BattleCenter.GetComponent<HumanoidBase>(), "SE_BITE");
                 }
                 else {
                     DestroyThisField();
