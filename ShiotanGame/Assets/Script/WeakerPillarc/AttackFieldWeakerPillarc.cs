@@ -158,7 +158,7 @@ public class AttackFieldWeakerPillarc : MonoBehaviour
                         CreateObj.GetComponent<BattleFieldBase>().AddEnemy(gameObject.transform.parent.gameObject);
                         AffiliationBattleField = CreateObj;
                     }
-                    transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = true;
+                    transform.parent.gameObject.GetComponent<AIWeakerPillarc>().IsAttack = true;
                 }
             }
         }

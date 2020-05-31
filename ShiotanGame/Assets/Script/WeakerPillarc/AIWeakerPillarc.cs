@@ -191,6 +191,11 @@ public class AIWeakerPillarc : MonoBehaviour
         foreach(string tag in IntimidationTag) {
             if(TargetList[0].tag == tag) {
                 Intimidation = true;
+                gameObject.GetComponent<HumanoidBase>().AttackObject = null;
+                gameObject.GetComponent<WeakerPillarcAnimation>().SetIsAttack(false);
+                gameObject.GetComponent<NavMeshAgent>().enabled = true;
+                m_NavMeshAgent.destination = PatrolPoint[PatrolNum];
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 break;
             }
         }
