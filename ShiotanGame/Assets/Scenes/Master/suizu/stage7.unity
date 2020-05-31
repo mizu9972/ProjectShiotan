@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7209,11 +7209,16 @@ PrefabInstance:
     - target: {fileID: 2169904091210273037, guid: 63251d8856b759c47aa3a7e369bfa7c9,
         type: 3}
       propertyPath: ItemType
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2169904091210273037, guid: 63251d8856b759c47aa3a7e369bfa7c9,
         type: 3}
       propertyPath: HealFood
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2169904091210273037, guid: 63251d8856b759c47aa3a7e369bfa7c9,
+        type: 3}
+      propertyPath: HealHP
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2169904091210273038, guid: 63251d8856b759c47aa3a7e369bfa7c9,
@@ -9391,7 +9396,7 @@ PrefabInstance:
     - target: {fileID: 8451860890330539585, guid: 03c9f096fc4c19f41835e91589ff3882,
         type: 3}
       propertyPath: MaxRange.x
-      value: 75
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 8451860890330539585, guid: 03c9f096fc4c19f41835e91589ff3882,
         type: 3}
