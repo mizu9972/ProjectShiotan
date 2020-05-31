@@ -130,6 +130,11 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
         SE_LoopSource.GetComponent<LoopSeControl>().StopLoopSe(channel);
     }
 
+    public void StopLoopSeAll()
+    {
+        SE_LoopSource.GetComponent<LoopSeControl>().StopLoopSeAll();
+    }
+
     public bool GetisPlaying(int channel)//ループSEが再生中かを取得
     {
         return SE_LoopSource.GetComponent<LoopSeControl>().GetisPlaying(channel);
