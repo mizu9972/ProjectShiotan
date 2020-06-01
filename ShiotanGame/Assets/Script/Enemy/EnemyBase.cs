@@ -8,7 +8,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private int m_DropKey = 0;
     [SerializeField] private float AttackCoolDown = 1.0f;
     private float AttackTime = 0.0f;
-    
+
     // 攻撃
     public void Attack(HumanoidBase Target,string SE_KEY) {
         AttackTime += Time.deltaTime;

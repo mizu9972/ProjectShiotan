@@ -14,7 +14,7 @@ public class SparkEelSparkAttackField : MonoBehaviour
     [SerializeField] private float CoolTime = 3.0f;
     [SerializeField] private float AttackTime = 1.5f;
     [SerializeField] private bool IsAttack = false;
-    [SerializeField] private GameObject SparkEffect;
+    [SerializeField] private List<GameObject> SparkEffect;
 
     private GameObject Player;
     [SerializeField] private float SEDistance;
@@ -64,7 +64,9 @@ public class SparkEelSparkAttackField : MonoBehaviour
         else {
             IsAttack = !IsAttack;
             ResetTime();
-            //SparkEffect.GetComponent<ParticleSystem>().Stop();
+            foreach (GameObject Effect in SparkEffect) {
+                Effect.GetComponent<ParticleSystem>().Stop();
+            }
             if (SparkSEChannel != -1) {
                 AudioManager.Instance.StopLoopSe(SparkSEChannel);
                 SparkSEChannel = -1;
@@ -98,7 +100,9 @@ public class SparkEelSparkAttackField : MonoBehaviour
         else {
             IsAttack = !IsAttack;
             ResetTime();
-            //SparkEffect.GetComponent<ParticleSystem>().Play();
+            foreach (GameObject Effect in SparkEffect) {
+                Effect.GetComponent<ParticleSystem>().Play();
+            }
             if (Vector3.Distance(Player.transform.position, gameObject.transform.parent.gameObject.transform.position) <= SEDistance) {
                 if (SparkSEChannel == -1) {
                     SparkSEChannel = AudioManager.Instance.PlayLoopSe("SE_SPARK", true);

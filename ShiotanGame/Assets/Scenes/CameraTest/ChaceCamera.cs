@@ -69,4 +69,15 @@ public class ChaceCamera : MonoBehaviour
     {
         isChase = ischace;
     }
+
+    //上限下限のゲッター
+    public Vector3 GetMaxValue()
+    {
+        return MaxRange;
+    }
+
+    public Vector3 GetMinValue()
+    {
+        return MinRange;
+    }
 }

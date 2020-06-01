@@ -21,6 +21,10 @@ public class KeyOpenGate : MonoBehaviour
     private float UpSpeed;
     private float InitY;
     private float time = 0.0f;
+    [SerializeField, Header("鍵のUI")]
+    public GameObject UI;
+    [SerializeField, Header("鍵の必要数UICount")]
+    private GameObject UICount;
 
     // Start is called before the first frame update
     void Start() {
@@ -51,6 +55,10 @@ public class KeyOpenGate : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        if (UICount) {
+            UICount.GetComponent<DrawDig>().SetDrawNum(NeedKeys);
+        }
+
         if (IsOpen) {
             OpenGate();
         }

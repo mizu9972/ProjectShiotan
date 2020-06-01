@@ -212,7 +212,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122783824100154819}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.0001
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -415,7 +415,7 @@ Transform:
   m_GameObject: {fileID: 3559836240193240043}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.4, y: 1, z: 2.4}
+  m_LocalScale: {x: 2, y: 1, z: 2}
   m_Children:
   - {fileID: 3888276408201324753}
   - {fileID: 3479009432445847309}
@@ -497,11 +497,13 @@ MonoBehaviour:
   TargetTag:
   - Player
   - Flock
-  AttackPower: 0.1
+  AttackPower: 0.3
   CoolTime: 3
   AttackTime: 1.5
   IsAttack: 0
-  SparkEffect: {fileID: 3888276408201324754}
+  SparkEffect:
+  - {fileID: 3888276408201324754}
+  - {fileID: 7700483206304493466}
   SEDistance: 10
   SparkSEChannel: -1
 --- !u!198 &7359624839806508689
@@ -5602,7 +5604,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 18
+      scalar: 50
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -10100,7 +10102,7 @@ Transform:
   m_GameObject: {fileID: 7789163812639202414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 12, y: 1, z: 12}
   m_Children: []
   m_Father: {fileID: 9154170778038060074}
   m_RootOrder: 1
@@ -10752,17 +10754,17 @@ PrefabInstance:
     - target: {fileID: 5195420978006719178, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 5195420978006719178, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5195420978006719178, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 1.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1ee38627d5d95d4fb8a0e70f940ad12, type: 3}
