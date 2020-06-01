@@ -15,6 +15,8 @@ public class BattleFieldBase : MonoBehaviour
     [SerializeField] private List<GameObject> TotalFlock = new List<GameObject>();
     [SerializeField] private HumanoidBase TotalFlockHumanoidBase;
     private bool BattleStart = false;
+    [SerializeField] private GameObject DropFoodHopup;
+    [SerializeField] private GameObject DropKeyHopup;
 
     // Update is called once per frame
     void Update()
@@ -72,8 +74,14 @@ public class BattleFieldBase : MonoBehaviour
 
                             // ターゲットから削除
                             StopLoopSE(TotalEnemy[AttackCount % TotalEnemy.Count]);
-                            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetFoodManager().GetComponent<ThrowEsa>().count += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood();
-                            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().KeyCount += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey();
+                            if (TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood() > 0) {
+                                Instantiate(DropFoodHopup, transform.position, Quaternion.identity);
+                                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetFoodManager().GetComponent<ThrowEsa>().count += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood();
+                            }
+                            if (TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey() > 0) {
+                                Instantiate(DropKeyHopup, transform.position, Quaternion.identity);
+                                GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().KeyCount += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey();
+                            }
                             //Destroy(TotalEnemy[AttackCount % TotalEnemy.Count]);
                             TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<DeadEnemyClass>().StartDeadAnimation();
                             TotalEnemy.RemoveAt(AttackCount % TotalEnemy.Count);
