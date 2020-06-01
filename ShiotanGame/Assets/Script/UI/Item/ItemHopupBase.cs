@@ -38,7 +38,7 @@ public class ItemHopupBase : MonoBehaviour
             else {
                 gameObject.GetComponent<SpriteRenderer>().color = new Color(gameObject.GetComponent<SpriteRenderer>().color.r, gameObject.GetComponent<SpriteRenderer>().color.g,
                     gameObject.GetComponent<SpriteRenderer>().color.b, gameObject.GetComponent<SpriteRenderer>().color.a - 0.1f);
-                if (gameObject.GetComponent<SpriteRenderer>().color.a == 0.0f) {
+                if (gameObject.GetComponent<SpriteRenderer>().color.a <= 0.0f) {
                     Destroy(gameObject);
                 }
             }
