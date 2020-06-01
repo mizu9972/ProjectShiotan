@@ -1641,6 +1641,7 @@ GameObject:
   - component: {fileID: 3428759672583180982}
   - component: {fileID: 2717861365932856110}
   - component: {fileID: 3857430545446643777}
+  - component: {fileID: 5072497098911740322}
   m_Layer: 5
   m_Name: StageUI
   m_TagString: Untagged
@@ -1704,6 +1705,23 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5072497098911740322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8240172506469798856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52ad4d25cb9d5e48bc58263d2a78c70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeInTime: 2
+  FadeOutTime: 2
+  DrawTime: 2
+  MyText: {fileID: 9087523747151428906}
+  ElapsedTime: 0
 --- !u!1 &8366303564498130169
 GameObject:
   m_ObjectHideFlags: 0
