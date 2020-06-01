@@ -7,6 +7,9 @@ public class EsaDestroy : MonoBehaviour
     [SerializeField,Header("エサ消えるまでの時間")]
     private float Destroytime=0;
 
+    [SerializeField, Header("ステージに乗った時のエサ消えるまでの時間")]
+    private float OnStageDestroytime = 0;
+
     [SerializeField, Header("エサ浮上位置")]
     private float UpPos;
 
@@ -88,6 +91,8 @@ public class EsaDestroy : MonoBehaviour
         if (layerName == "Stage_Wall")
         {
             rb.velocity = Vector3.zero;
+            timeOnOff = true;
+            Destroytime = OnStageDestroytime;
         }
 
         if (layerName == "SeaPlane")

@@ -4,26 +4,25 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    [Header("移動する力")]
+    [Header("移動する力"), SerializeField]
     public float Speed;
 
-    [Header("速度制限")]
+    [Header("速度制限"), SerializeField]
     public float MaxSpeed;
 
-    [Header("進み始める角度")]
+    [Header("進み始める角度"), SerializeField]
     public float GoAng;
 
-    [Header("向く方向　設定")]
+    [Header("向く方向　設定"), SerializeField]
     public float Angle;
 
-    [Header("向くまでの速さ")]
+    [Header("向くまでの速さ"), SerializeField]
     public float AngSpeed;
 
+    //チェックポイントの壁の当たり判定　消す用
     public BoxCollider Box;
     private Rigidbody rb;
 
-    [Header("出す扉")]
-    public GameObject[] CheckDoor;
 
     // Update is called once per frame
     void Update()
@@ -35,13 +34,14 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //すり抜け　ON
+            //チェックポイントの壁　すり抜けON
             Box.isTrigger = true;
 
             //プレイヤー動きとめる
             other.GetComponentInParent<ProtoMove2>().Stop();
             other.GetComponentInParent<ProtoMove2>().enabled = false;
             rb = other.GetComponentInParent<Rigidbody>();
+            rb.AddForce(other.gameObject.transform.forward * Speed, ForceMode.Force);
 
             AudioManager.Instance.PlaySE("SE_CHECKPOINT");
         }
@@ -62,14 +62,14 @@ public class Checkpoint : MonoBehaviour
         if (MaxSpeed < rb.velocity.x)
         {
             Vector3 Save = rb.velocity;
-            Save.x = 5;
+            Save.x = MaxSpeed;
 
             rb.velocity = Save;
         }
         if (MaxSpeed < rb.velocity.z)
         {
             Vector3 Save = rb.velocity;
-            Save.z = 5;
+            Save.z = MaxSpeed;
 
             rb.velocity = Save;
         }
@@ -83,22 +83,6 @@ public class Checkpoint : MonoBehaviour
             //すり抜け　OFF
             Box.isTrigger = false;
             other.GetComponentInParent<ProtoMove2>().enabled = true;    //プレイヤー動く処理　ON
-
-            //出たとき動きとめる
-            other.GetComponentInParent<ProtoMove2>().Stop();
-
-            //チェックポイント　一度だけ
-            GetComponent<Checkpoint>().enabled = false;
-
-            //扉出現
-            for (int cnt = 0; cnt < 2; cnt++)
-            {
-                CheckDoor[cnt].SetActive(true);
-            }
-
-            AudioManager.Instance.PlaySE("SE_OPEN");
-
-            this.gameObject.SetActive(false);
         }
     }
 }

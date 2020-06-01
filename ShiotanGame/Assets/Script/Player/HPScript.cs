@@ -10,22 +10,19 @@ public class HPScript : MonoBehaviour
     private float DamageTime;
     
     private HumanoidBase HPcnt;
-
-    private ProtoMove2 MoveStop;
-
-    private float time;
-
-    private RespawnScript resscript;
-
+    private ProtoMove2 MoveStop;        //死んだとき移動処理　ストップ
+    private RespawnScript resscript;    //リスポーン用
+    private Rigidbody rb;               //rigidbody読み込み
+    
     private WaveAct Wave;
 
     [SerializeField, Header("HPゲージのスクリプト")]
     Gage GageScript;
 
-    // Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
-    private Rigidbody rb;
 
     [Header("沈む深さ"), SerializeField] private float Depth;
+    [Header("設定した時間経過でリスタート"), SerializeField] private float RestartTime;
+    private float R_time;
 
 
     [SerializeField, Header("死亡時エフェクト")]
@@ -38,10 +35,13 @@ public class HPScript : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Wave = this.GetComponent<WaveAct>();
 
+        //リスポーン　読み込み
         resscript = GameObject.Find("Respawn").GetComponent<RespawnScript>();
         MoveStop = GetComponent<ProtoMove2>();
         HPcnt = GetComponent<HumanoidBase>();
-        time = 0;
+
+        //リスタート時間計る用
+        R_time = 0;
 
         m_ParEffScp = DeathEffect.GetComponent<ParticleEffectScript>();
 
@@ -70,9 +70,12 @@ public class HPScript : MonoBehaviour
             if(pos.y> Depth)
             {
                 pos.y -= 1 * Time.deltaTime;
+                R_time += Time.deltaTime;
                 transform.position = pos;
             }
-            else
+
+            //リスタート処理
+            if(R_time>RestartTime)
             {
                 GameManager.Instance.SceneReload(true);
             }
@@ -83,13 +86,7 @@ public class HPScript : MonoBehaviour
     {
         resscript.Respawn = true;
     }
-
-    //当たるのをやめたとき
-    void OnCollisionExit(Collision other)
-    {
-        time = 0;
-    }
-
+    
     public float GetNowHP()
     {
         return HPcnt.NowHP;
