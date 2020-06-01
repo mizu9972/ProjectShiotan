@@ -17,6 +17,7 @@ public class BattleFieldBase : MonoBehaviour
     private bool BattleStart = false;
     [SerializeField] private GameObject DropFoodHopup;
     [SerializeField] private GameObject DropKeyHopup;
+    [SerializeField,Header("ホップアップ間の距離")] private float HopUpSpaceWidth;
 
     // Update is called once per frame
     void Update()
@@ -74,12 +75,28 @@ public class BattleFieldBase : MonoBehaviour
 
                             // ターゲットから削除
                             StopLoopSE(TotalEnemy[AttackCount % TotalEnemy.Count]);
+
+                            // ホップアップ位置調整
+                            int ItemCount = TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood() + TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey();
+                            int CreateItemCount = 0;
+
+                            // Item取得処理
                             if (TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood() > 0) {
-                                Instantiate(DropFoodHopup, transform.position, Quaternion.identity);
+                                for (int i = 0; i < TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood(); i++) {
+                                    Vector3 CreatePos = transform.position;
+                                    CreatePos.x += (CreateItemCount + 1 - (ItemCount / 2)) * HopUpSpaceWidth;
+                                    Instantiate(DropFoodHopup, CreatePos, Quaternion.identity);
+                                    CreateItemCount++;
+                                }
                                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GetFoodManager().GetComponent<ThrowEsa>().count += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropFood();
                             }
                             if (TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey() > 0) {
-                                Instantiate(DropKeyHopup, transform.position, Quaternion.identity);
+                                for (int i = 0; i < TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey(); i++) {
+                                    Vector3 CreatePos = transform.position;
+                                    CreatePos.x += (CreateItemCount + 1 - (ItemCount / 2)) * HopUpSpaceWidth;
+                                    Instantiate(DropKeyHopup, CreatePos, Quaternion.identity);
+                                    CreateItemCount++;
+                                }
                                 GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().KeyCount += TotalEnemy[AttackCount % TotalEnemy.Count].GetComponent<EnemyBase>().DropKey();
                             }
                             //Destroy(TotalEnemy[AttackCount % TotalEnemy.Count]);
