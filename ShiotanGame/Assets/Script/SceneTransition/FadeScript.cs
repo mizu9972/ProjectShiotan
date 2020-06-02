@@ -28,7 +28,7 @@ public class FadeScript : MonoBehaviour
         alfa = fadeImage.color.a;
         // イベントにイベントハンドラーを追加
         SceneManager.sceneLoaded += SceneLoaded;
-        SetIsFeadIn();
+        SceneLoadFead();
     }
 
     void Update()
