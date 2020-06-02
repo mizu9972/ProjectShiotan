@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -183,6 +183,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6445906994382605167, guid: c7556ab5c7e66cb44be55f6a29a05146,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445906994382605167, guid: c7556ab5c7e66cb44be55f6a29a05146,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.013
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562745781232783993, guid: c7556ab5c7e66cb44be55f6a29a05146,
+        type: 3}
+      propertyPath: RespawnObj
+      value: 
+      objectReference: {fileID: 361585233}
     - target: {fileID: 8170587765322106736, guid: c7556ab5c7e66cb44be55f6a29a05146,
         type: 3}
       propertyPath: m_Name
@@ -1251,6 +1266,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b83caa1bff0d23418e9c19d7f78cd26, type: 3}
+--- !u!1 &361585233 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2836403965903871745, guid: df5ec7c7f5e94e94792eca46a18504ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 1816240347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &379470611 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6641676052028214179, guid: 148e47cff4de2dd49a5720222cd90fbc,
@@ -7121,6 +7142,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MiniMapCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3109810805174308776, guid: 9543fda324c58c04cacf3aa13a0dccda,
+        type: 3}
+      propertyPath: MaxZPos
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3109810805174308776, guid: 9543fda324c58c04cacf3aa13a0dccda,
+        type: 3}
+      propertyPath: MinZPos
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3109810805174308777, guid: 9543fda324c58c04cacf3aa13a0dccda,
         type: 3}
