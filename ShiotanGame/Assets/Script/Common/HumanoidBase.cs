@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 using UniRx;
 using UniRx.Triggers;
 
-public class HumanoidBase : MonoBehaviour {
+public class HumanoidBase : MonoBehaviour,ISparkDamage {
     [SerializeField, Header("初期のHP")] private float m_InitHP = 0;
     [SerializeField, Header("初期の攻撃力")] private float m_InitAttackPower = 0;
 
@@ -24,6 +24,10 @@ public class HumanoidBase : MonoBehaviour {
 
     [SerializeField, Header("ダメージを受けた時の加算色")]
     private Color DamageAddColor = new Color(1, 1, 1, 1);
+
+    [SerializeField, Header("電撃ダメージ時のエフェクト")]
+    private GameObject m_SparkEffect = null;
+    private ParticleEffectScript m_SparkPareffScr = null;
 
     private Material m_myMat;
     DamageCameraEffect m_DamCamEff;
@@ -78,6 +82,13 @@ public class HumanoidBase : MonoBehaviour {
             ParticleSystem_.transform.parent = this.transform;
             m_ParEffScr = ParticleSystem_.GetComponent<ParticleEffectScript>();
         }
+
+        if(m_SparkEffect != null)
+        {
+            var SparkParticleSystem_ = Instantiate(m_SparkEffect, this.gameObject.transform.position, Quaternion.identity);
+            SparkParticleSystem_.transform.parent = this.transform;
+            m_SparkPareffScr = SparkParticleSystem_.GetComponent<ParticleEffectScript>();
+        }
     }
 
     //被弾
@@ -112,6 +123,22 @@ public class HumanoidBase : MonoBehaviour {
             );
     }
 
+    public void SparkDamage()
+    {
+        if (m_SparkPareffScr == null)
+        {
+            return;
+        }
+        m_SparkPareffScr.StartEffect();
+    }
+
+    public void SparkPostEffect()
+    {
+        m_DamCamEff.Active_Spark();
+        Observable.Timer(System.TimeSpan.FromSeconds(DamageEffInterval / 4.0f)).Subscribe(
+            _ => m_DamCamEff.InActive()
+            );
+    }
     /// <summary>
     /// HPが0になっているかをチェック
     /// </summary>
