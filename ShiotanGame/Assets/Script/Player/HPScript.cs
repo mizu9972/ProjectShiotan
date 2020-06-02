@@ -28,7 +28,15 @@ public class HPScript : MonoBehaviour
     [SerializeField, Header("死亡時エフェクト")]
     private GameObject DeathEffect = null;
     private ParticleEffectScript m_ParEffScp = null;
+<<<<<<< HEAD
     private bool ReloadFlg = false;//Reload処理は一回のみにするため
+=======
+
+    [SerializeField, Header("体力が０になってからフェードアウト開始までの時間")]
+    private float WaitTimeforFade = 0.5f;
+    FadebyTex m_CameraFbT = null;
+
+>>>>>>> 3934048604b142366341f5901772cee5a4ae49d8
     void Start()
     {
         // Rigidbodyコンポーネントを取得する
@@ -45,6 +53,7 @@ public class HPScript : MonoBehaviour
 
         m_ParEffScp = DeathEffect.GetComponent<ParticleEffectScript>();
 
+        m_CameraFbT = Camera.main.GetComponent<FadebyTex>();
         //体力０を感知して一回だけ行う処理設定
         this.UpdateAsObservable()
             .First(x => HPcnt.DeadCheck())
@@ -111,6 +120,13 @@ public class HPScript : MonoBehaviour
         }
         Wave.AwakeMultiWave();
         Wave.StopWaveAct();
+
+        //フェードアウト開始時間設定
+        Observable.Timer(System.TimeSpan.FromSeconds(WaitTimeforFade))
+            .Subscribe(_ =>
+
+                m_CameraFbT.StartFadeOut()
+            );
     }
 
 
