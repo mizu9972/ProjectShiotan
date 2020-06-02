@@ -17,6 +17,8 @@ public class AISparkEel : MonoBehaviour
     [SerializeField, Header("Rayを飛ばす距離")]
     private float RayDistance;
 
+    [SerializeField, Header("電気ウナギがターゲットを追いかけるまで停止するフレーム")]
+    private int SparkEelStopFrame = 20;
     [SerializeField, Header("電気ウナギがターゲットのフレーム前の方向を向くフレーム")]
     private int SparkEelChaceDirayFrame = 5;
 
@@ -120,7 +122,7 @@ public class AISparkEel : MonoBehaviour
             if (TargetList.Count > 0) {
                 //m_NavMeshAgent.destination = TargetList[0].transform.position;
                 // ディレイフレームを超え始めるとターゲットを追尾し、最初の座標を削除していく
-                if (TargetPosList.Count > SparkEelChaceDirayFrame) {
+                if (TargetPosList.Count > SparkEelStopFrame) {
                     TargetPosList.RemoveAt(0);
                     if (Time.frameCount % ChaceAccuracy == 0) {
                         ChaseTarget();
@@ -191,7 +193,7 @@ public class AISparkEel : MonoBehaviour
     /// ターゲット追尾
     /// </summary>
     private void ChaseTarget() {
-        gameObject.transform.LookAt(TargetPosList[0]);  // ターゲットの方向を向く
+        gameObject.transform.LookAt(TargetPosList[0 + SparkEelChaceDirayFrame]);  // ターゲットの方向を向く
         gameObject.transform.localEulerAngles = new Vector3(0.0f, gameObject.transform.localEulerAngles.y, 0.0f); // y軸のみ向かせる
         gameObject.GetComponent<Rigidbody>().velocity = transform.forward * MoveSpeed;  // 新追尾
 

@@ -30,6 +30,8 @@ public class AIFlock : MonoBehaviour
     [SerializeField, Header("Rayを飛ばす距離")]
     private float RayDistance;
 
+    [SerializeField, Header("ピラニアがターゲットを追いかけるまで停止するフレーム")]
+    private int PiranhaStopFrame =20;
     [SerializeField,Header("ピラニアがターゲットのフレーム前の方向を向くフレーム")]
     private int PiranhaChaceDirayFrame = 5;
 
@@ -142,7 +144,7 @@ public class AIFlock : MonoBehaviour
             if (TargetList.Count > 0) {
                 //m_NavMeshAgent.destination = TargetList[0].transform.position;
                 // ディレイフレームを超え始めるとターゲットを追尾し、最初の座標を削除していく
-                if (TargetPosList.Count > PiranhaChaceDirayFrame) {
+                if (TargetPosList.Count > PiranhaStopFrame) {
                     TargetPosList.RemoveAt(0);
                     if (Time.frameCount % ChaceAccuracy == 0) {
                         ChaseTarget();
@@ -208,7 +210,7 @@ public class AIFlock : MonoBehaviour
     /// ターゲット追尾
     /// </summary>
     private void ChaseTarget() {
-        gameObject.transform.LookAt(TargetPosList[0]);  // ターゲットの方向を向く
+        gameObject.transform.LookAt(TargetPosList[0 + PiranhaChaceDirayFrame]);  // ターゲットの方向を向く
         gameObject.transform.localEulerAngles = new Vector3(0.0f, gameObject.transform.localEulerAngles.y, 0.0f); // y軸のみ向かせる
         gameObject.GetComponent<Rigidbody>().velocity = transform.forward * MoveSpeed;  // 追尾
 
