@@ -76,7 +76,17 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public void SceneReload()//シーン再読み込み
     {
         AudioManager.Instance.StopLoopSeAll();//ループSEを全て停止
-        MainCamera.GetComponent<SceneTransition>().SetTransitionRun(SceneManager.GetActiveScene().name);
+        if(isStageObj.GetComponent<isGameMain>().GetisGameMain())//ゲームメイン中は円形フェード
+        {
+            MainCamera.GetComponent<FadebyTex>().StartFadeOut();
+            this.UpdateAsObservable().
+                Where(_ => !GetisFade()).Take(1).
+                Subscribe(_ => SceneTransition(SceneManager.GetActiveScene().name));
+        }
+        else
+        {
+            MainCamera.GetComponent<SceneTransition>().SetTransitionRun(SceneManager.GetActiveScene().name);
+        }
     }
 
     public void SetworkPosition(Vector3 pos)

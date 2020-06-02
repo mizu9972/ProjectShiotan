@@ -28,7 +28,7 @@ public class HPScript : MonoBehaviour
     [SerializeField, Header("死亡時エフェクト")]
     private GameObject DeathEffect = null;
     private ParticleEffectScript m_ParEffScp = null;
-
+    private bool ReloadFlg = false;//Reload処理は一回のみにするため
     void Start()
     {
         // Rigidbodyコンポーネントを取得する
@@ -76,8 +76,12 @@ public class HPScript : MonoBehaviour
 
             //リスタート処理
             if(R_time>RestartTime)
-            {
-                GameManager.Instance.SceneReload(true);
+            { 
+                if (!ReloadFlg)
+                {
+                    GameManager.Instance.SceneReload(true);
+                    ReloadFlg = true;
+                }
             }
         }
     }
