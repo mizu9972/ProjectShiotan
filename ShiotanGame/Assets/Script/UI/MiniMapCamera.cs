@@ -45,7 +45,7 @@ public class MiniMapCamera : MonoBehaviour
         float min = Camera.main.GetComponent<ChaceCamera>().GetMinValue().x;
         x = Mathf.Clamp(x, min, max);
         y = this.transform.position.y;
-        z = Mathf.Clamp(x, MinZPos, MaxZPos);
+        z = Mathf.Clamp(z, MinZPos, MaxZPos);
         MyTrans.position = new Vector3(x,y,z);
     }
 }
