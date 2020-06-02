@@ -20,6 +20,8 @@ public class SparkEelSparkAttackField : MonoBehaviour
     [SerializeField] private float SEDistance;
     public int SparkSEChannel = -1;
 
+    private bool SparkEffectFlag = false;//電撃エフェクト準備完了かどうかフラグ 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,7 +87,20 @@ public class SparkEelSparkAttackField : MonoBehaviour
             }
             // それ以外はダメージ
             else {
-                target.GetComponent<HumanoidBase>().NowHP -= AttackPower;
+                var target_Humanoidbase = target.GetComponent<HumanoidBase>();
+                target_Humanoidbase.NowHP -= AttackPower;
+
+                //電撃ダメージエフェクト
+                if (SparkEffectFlag)
+                {
+                    if (target.GetComponent<ISparkDamage>() != null)
+                    {
+                        target_Humanoidbase.SparkDamage();
+                        target_Humanoidbase.SparkPostEffect();
+                    }
+
+                    SparkEffectFlag = false;
+                }
             }
         }
     }
@@ -123,6 +138,7 @@ public class SparkEelSparkAttackField : MonoBehaviour
     /// </summary>
     private void ResetTime() {
         time = 0.0f;
+        SparkEffectFlag = true;
     }
     #endregion
     #region 当たり判定
