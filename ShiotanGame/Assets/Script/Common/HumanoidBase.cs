@@ -134,6 +134,10 @@ public class HumanoidBase : MonoBehaviour,ISparkDamage {
 
     public void SparkPostEffect()
     {
+        if (m_SparkPareffScr == null)
+        {
+            return;
+        }
         m_DamCamEff.Active_Spark();
         Observable.Timer(System.TimeSpan.FromSeconds(DamageEffInterval / 4.0f)).Subscribe(
             _ => m_DamCamEff.InActive()
