@@ -312,14 +312,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc383a5fbc9fd9d49a91b61f465d66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitHP: 150
-  m_InitAttackPower: 40
+  m_InitHP: 100
+  m_InitAttackPower: 10
   m_NowHP: 0
   m_NowAttackPower: 0
   m_AttackObject: {fileID: 0}
   m_DamageEffect: {fileID: 0}
   DamageEffInterval: 1
   DamageAddColor: {r: 1, g: 1, b: 1, a: 1}
+  m_SparkEffect: {fileID: 0}
 --- !u!114 &6877907482223673744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10334,7 +10335,7 @@ Transform:
   m_GameObject: {fileID: 7789163812639202414}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 1, z: 12}
+  m_LocalScale: {x: 7, y: 1, z: 7}
   m_Children: []
   m_Father: {fileID: 9154170778038060074}
   m_RootOrder: 1
@@ -10645,7 +10646,7 @@ PrefabInstance:
     - target: {fileID: 3170141287073376826, guid: a517d704852828d40b75769d2b5ef023,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3983940217821596167, guid: a517d704852828d40b75769d2b5ef023,
         type: 3}
