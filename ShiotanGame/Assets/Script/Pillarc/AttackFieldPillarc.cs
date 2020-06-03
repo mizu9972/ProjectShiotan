@@ -185,7 +185,7 @@ public class AttackFieldPillarc : MonoBehaviour
         }
 
         // バトルから抜ける
-        if (other.gameObject == AffiliationBattleField) {
+        if (other.gameObject == gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject) {
             gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = null;
             transform.parent.gameObject.GetComponent<AIPillarc>().IsAttack = false;
 

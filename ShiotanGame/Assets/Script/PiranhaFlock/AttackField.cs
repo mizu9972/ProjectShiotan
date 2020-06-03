@@ -157,7 +157,7 @@ public class AttackField : MonoBehaviour {
         }
 
         // バトルから抜ける
-        if(other.gameObject == AffiliationBattleField) {
+        if(other.gameObject == gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject) {
             gameObject.transform.parent.gameObject.GetComponent<HumanoidBase>().AttackObject = null;
             transform.parent.gameObject.GetComponent<AIFlock>().IsAttack = false;
 
