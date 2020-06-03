@@ -34,6 +34,8 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            this.GetComponent<BoxCollider>().size *= 2;
+
             //チェックポイントの壁　すり抜けON
             Box.isTrigger = true;
 
