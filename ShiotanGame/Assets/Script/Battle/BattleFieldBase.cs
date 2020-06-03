@@ -14,10 +14,12 @@ public class BattleFieldBase : MonoBehaviour
     private int MaxEnemyCount = 0;
     [SerializeField] private List<GameObject> TotalFlock = new List<GameObject>();
     [SerializeField] private HumanoidBase TotalFlockHumanoidBase;
+    private bool FlockDead = false;
     private bool BattleStart = false;
     [SerializeField] private GameObject DropFoodHopup;
     [SerializeField] private GameObject DropKeyHopup;
     [SerializeField,Header("ホップアップ間の距離")] private float HopUpSpaceWidth;
+    [SerializeField,Header("バトル終了時、敵・ピラルクが餌で止まっている時間")] private float BattleEndStopTime;
 
     // Update is called once per frame
     void Update()
@@ -121,6 +123,17 @@ public class BattleFieldBase : MonoBehaviour
 
                 // 攻撃
                 Enemy.GetComponent<EnemyBase>().Attack(TotalFlockHumanoidBase, "SE_BATTELE_ENEMY");
+                // ピラニア群が死んだときの処理
+                if (gameObject.GetComponent<HumanoidBase>().DeadCheck()) {
+                    foreach(GameObject Flock in TotalFlock) {
+                        Flock.GetComponent<AIFlock>().CompulsionReturnPosition();
+                    }
+                    TotalFlock.Clear();
+                    FlockDead = true;
+                    Destroy(GetComponent<HumanoidBase>());
+                    Destroy(gameObject.transform.GetChild(0).gameObject);
+                    Destroy(gameObject.GetComponent<EnemyHpBase>());
+                }
             }
         }
     }
@@ -165,8 +178,11 @@ public class BattleFieldBase : MonoBehaviour
     #endregion
     #region 死亡系
     private void BattleEndCheck() {
-        // ピラニア群が死んだか、敵がいなくなった時のみ処理を行う
-        if(TotalFlockDeadCheck() || TotalEnemyDeadCheck() || IsFlockAndEnemyNon()) {
+        if (TotalFlockDeadCheck() || TotalEnemyDeadCheck() && !IsFlockAndEnemyNon()) {
+            MaxEnemyCount = 0;
+            EsaRecover();
+        }
+        else if (TotalFlockDeadCheck() || TotalEnemyDeadCheck() || IsFlockAndEnemyNon()) {
             DestroyThisField();
         }
     }
@@ -176,11 +192,15 @@ public class BattleFieldBase : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     private bool TotalFlockDeadCheck() {
-        if (TotalFlock.Count > 0) {
+        if (TotalFlock.Count > 0 && TotalFlockHumanoidBase) {
             if (TotalFlockHumanoidBase.NowHP <= 0) {
                 AudioManager.Instance.PlaySE("SE_ESCAPE");
                 return true;
             }
+        }
+        if (FlockDead) {
+            FlockDead = false;
+            return true;
         }
         return false;
     }
@@ -226,6 +246,31 @@ public class BattleFieldBase : MonoBehaviour
 
         // 削除
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// エサのHP回復
+    /// </summary>
+    private void EsaRecover() {
+        if (BattleCenter != null) {
+            // 餌の時のみ処理を行う(敵対するものだけ処理を行うという風になっている)
+            if (!IsHostility) {
+                float TotalAttackPower = 0.0f;
+                foreach(GameObject List in TotalFlock) {
+                    TotalAttackPower += List.GetComponent<HumanoidBase>().NowAttackPower;
+                }
+                foreach (GameObject List in TotalEnemy) {
+                    TotalAttackPower += List.GetComponent<HumanoidBase>().NowAttackPower;
+                }
+                BattleCenter.GetComponent<HumanoidBase>().InitHP = TotalAttackPower * BattleEndStopTime;
+                BattleCenter.GetComponent<HumanoidBase>().NowHP = TotalAttackPower * BattleEndStopTime;
+            }
+            // プレイヤーの時は削除
+            else {
+                // 削除
+                Destroy(gameObject);
+            }
+        }
     }
     #endregion
     #region etc
@@ -351,6 +396,8 @@ public class BattleFieldBase : MonoBehaviour
             // 攻撃タイミングの調整
             Piranha.GetComponent<PiranhaBase>().FirstAttackTiming();
         }
+
+        FlockDead = false;
     }
 
     /// <summary>

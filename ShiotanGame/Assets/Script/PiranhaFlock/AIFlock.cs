@@ -24,6 +24,8 @@ public class AIFlock : MonoBehaviour
     public bool IsHit;
     public bool IsAttack;
 
+    [SerializeField, Header("AttackField")]
+    private GameObject AttackField;
     [SerializeField, Header("Rayをスルーするレイヤー")]
     private LayerMask Mask;
     private int IntLayerMask;
@@ -250,6 +252,7 @@ public class AIFlock : MonoBehaviour
     /// </summary>
     private void Patrol() {
         if (!m_NavMeshAgent.pathPending && m_NavMeshAgent.remainingDistance <= 0.1f) {
+            AttackField.SetActive(true);
             PatrolNum++;
             if (PatrolNum >= PatrolPoint.Count) {
                 PatrolNum = 0;
@@ -266,6 +269,8 @@ public class AIFlock : MonoBehaviour
         m_NavMeshAgent.destination = InitPos;
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         TargetPosList.Clear();
+        TargetList.Clear();
+        AttackField.SetActive(false);
     }
 
     // 帰宅したかどうか

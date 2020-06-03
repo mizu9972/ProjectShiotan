@@ -354,10 +354,12 @@ MonoBehaviour:
   TargetList: []
   IsHit: 0
   IsAttack: 0
+  AttackField: {fileID: 7829555208424448678}
   Mask:
     serializedVersion: 2
     m_Bits: 5722368
   RayDistance: 50
+  PiranhaStopFrame: 20
   PiranhaChaceDirayFrame: 7
   ChaceAccuracy: 1
   TargetPosList: []
@@ -387,6 +389,7 @@ MonoBehaviour:
   m_DamageEffect: {fileID: 0}
   DamageEffInterval: 1
   DamageAddColor: {r: 1, g: 1, b: 1, a: 1}
+  m_SparkEffect: {fileID: 0}
 --- !u!64 &6641676052028214182
 MeshCollider:
   m_ObjectHideFlags: 0
