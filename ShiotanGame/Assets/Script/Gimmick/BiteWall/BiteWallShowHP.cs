@@ -9,6 +9,7 @@ public class BiteWallShowHP : MonoBehaviour
     private List<GameObject> EnemyList;
 
     private void Start() {
+        EnemyList = new List<GameObject>();
         gameObject.transform.parent.GetComponent<EnemyHpBase>().enabled = false;
         ShowHPBar.SetActive(false);
     }
