@@ -27,6 +27,8 @@ public class NagareScript : MonoBehaviour
     public float MinNagareDawn;
     [Header("川の流れからの影響　減らす量")]
     public float NagareDawnPower;
+    [Header("川の流れの影響　回復量量")]
+    public float NagarePowerRecovery;
 
     private void Start()
     {
@@ -49,7 +51,7 @@ public class NagareScript : MonoBehaviour
         float SaveZ = 0;
 
         //加速してるとき　川の流れからの影響下げる
-        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.B))&& NagareDawn > MinNagareDawn)
+        if ((Input.GetKeyDown("joystick button 1") || Input.GetKeyDown(KeyCode.B)))
         {
             NagareDawn -= NagareDawnPower;
             if(NagareDawn < MinNagareDawn)
@@ -62,7 +64,7 @@ public class NagareScript : MonoBehaviour
             //川の流れの影響　回復
             if(NagareDawn<MaxNagareDawn)
             {
-                NagareDawn += NagareDawnPower / 10;
+                NagareDawn += NagarePowerRecovery;
                 if (NagareDawn >= MaxNagareDawn)
                 {
                     NagareDawn = MaxNagareDawn;
