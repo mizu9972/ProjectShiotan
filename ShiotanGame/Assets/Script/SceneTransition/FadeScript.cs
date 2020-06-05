@@ -129,7 +129,7 @@ public class FadeScript : MonoBehaviour
             SetIsFeadIn();//シーンスタート時にフェードインを実行
                           //フェードイン終了後に全てのフラグをリセット
             this.UpdateAsObservable().
-                Where(_ => !fadeImage.enabled).Take(1).
+                Where(_ => !GameManager.Instance.GetisFade()).Take(1).
                 Subscribe(_ => ResetFlag());
         }
         else

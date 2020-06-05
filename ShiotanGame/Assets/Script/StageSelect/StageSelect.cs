@@ -47,6 +47,8 @@ public class StageSelect : MonoBehaviour
     private float LongPushTime = 0f;//長押しタイマー
     private bool isLeftPushing = false;
     private bool isRightPushing = false;
+
+    private bool isControll = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -75,83 +77,87 @@ public class StageSelect : MonoBehaviour
 
     private void KeyInput()
     {
-        inputStick.StickUpdate();
-        InputHori = Input.GetAxisRaw("Horizontal");
-        Debug.Log("horizontal"+InputHori);
-        if(Input.GetKeyDown(KeyCode.LeftArrow)||inputStick.GetLeftStick()&&!isMoveRight)//ひとつ前のオブジェクトを選択
+        if (isControll)
         {
-            isLeftPushing = true;
-            if(NowSelectObj.GetComponent<StageImage>().GetPrevExist())//一つ前にオブジェクトがあれば
+            inputStick.StickUpdate();
+            InputHori = Input.GetAxisRaw("Horizontal");
+            Debug.Log("horizontal" + InputHori);
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || inputStick.GetLeftStick() && !isMoveRight)//ひとつ前のオブジェクトを選択
             {
-                MoveLeftAction();
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.RightArrow)||inputStick.GetRightStick()&&!isMoveLeft)//一つ後にオブジェクトがあれば
-        {
-            isRightPushing = true;
-            if(NowSelectObj.GetComponent<StageImage>().GetNextExist())
-            {
-                MoveRightAction();
-            }   
-        }
-
-        //移動フラグが立っている時のみ拡大と移動のアニメーション
-        if (isMoveLeft)
-        {
-            MoveLeft();
-        }
-        else if (isMoveRight)
-        {
-            MoveRight();
-        }
-
-
-        if(isLeftPushing)
-        {
-            LongPushTime += 1.0f;
-            if(LongPushTime>=LongPushMax&& !isMoveLeft)
-            {
+                isLeftPushing = true;
                 if (NowSelectObj.GetComponent<StageImage>().GetPrevExist())//一つ前にオブジェクトがあれば
                 {
                     MoveLeftAction();
-                    LongPushMax /= 2.0f;//だんだん加速していくように
-                    CountReset();
                 }
             }
-        }
-        else if(isRightPushing)
-        {
-            LongPushTime += 1.0f;
-            if (LongPushTime >= LongPushMax&& !isMoveRight)
+
+            if (Input.GetKeyDown(KeyCode.RightArrow) || inputStick.GetRightStick() && !isMoveLeft)//一つ後にオブジェクトがあれば
             {
+                isRightPushing = true;
                 if (NowSelectObj.GetComponent<StageImage>().GetNextExist())
                 {
                     MoveRightAction();
-                    LongPushMax /= 2.0f;//だんだん加速していくように
-                    CountReset();
                 }
             }
-        }
 
-        //長押しキャンセル
-        if(Input.GetKeyUp(KeyCode.LeftArrow)||InputHori==0f)
-        {
-            isLeftPushing = false;
-            CountReset();
-            LongPushMax = work_LongPushMax;
-        }
+            //移動フラグが立っている時のみ拡大と移動のアニメーション
+            if (isMoveLeft)
+            {
+                MoveLeft();
+            }
+            else if (isMoveRight)
+            {
+                MoveRight();
+            }
 
-        if(Input.GetKeyUp(KeyCode.RightArrow)||InputHori==0f)
-        {
-            isRightPushing = false;
-            CountReset();
-            LongPushMax = work_LongPushMax;
-        }
 
-        if (Input.GetKeyDown(KeyCode.Return)|| Input.GetButtonDown("MenuSelect"))//ステージを決定
-        {
-            NowSelectObj.GetComponent<StageImage>().SelectStage();
+            if (isLeftPushing)
+            {
+                LongPushTime += 1.0f;
+                if (LongPushTime >= LongPushMax && !isMoveLeft)
+                {
+                    if (NowSelectObj.GetComponent<StageImage>().GetPrevExist())//一つ前にオブジェクトがあれば
+                    {
+                        MoveLeftAction();
+                        LongPushMax /= 2.0f;//だんだん加速していくように
+                        CountReset();
+                    }
+                }
+            }
+            else if (isRightPushing)
+            {
+                LongPushTime += 1.0f;
+                if (LongPushTime >= LongPushMax && !isMoveRight)
+                {
+                    if (NowSelectObj.GetComponent<StageImage>().GetNextExist())
+                    {
+                        MoveRightAction();
+                        LongPushMax /= 2.0f;//だんだん加速していくように
+                        CountReset();
+                    }
+                }
+            }
+
+            //長押しキャンセル
+            if (Input.GetKeyUp(KeyCode.LeftArrow) || InputHori == 0f)
+            {
+                isLeftPushing = false;
+                CountReset();
+                LongPushMax = work_LongPushMax;
+            }
+
+            if (Input.GetKeyUp(KeyCode.RightArrow) || InputHori == 0f)
+            {
+                isRightPushing = false;
+                CountReset();
+                LongPushMax = work_LongPushMax;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("MenuSelect"))//ステージを決定
+            {
+                NowSelectObj.GetComponent<StageImage>().SelectStage();
+                this.GetComponent<StageSelect>().enabled = false;
+            }
         }
     }
 
@@ -243,5 +249,9 @@ public class StageSelect : MonoBehaviour
     private void CountReset()
     {
         LongPushTime = 0.0f;
+    }
+    public void  SetisControll(bool value)
+    {
+        isControll = value;
     }
 }

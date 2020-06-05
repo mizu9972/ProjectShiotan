@@ -21,6 +21,9 @@ public class StageImage : MonoBehaviour
     private bool isPrevExist = false;
     private RectTransform MyRectTrans;
     private bool Selected = false;
+    private Vector2 Size = new Vector2(300.0f, 250);
+    
+    public RectTransform childTrans;
     // Start is called before the first frame update
     void Awake()
     {
@@ -35,12 +38,13 @@ public class StageImage : MonoBehaviour
         }
 
         MyRectTrans = this.GetComponent<RectTransform>();
+        childTrans.sizeDelta = Size;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        childTrans.sizeDelta = Size;
     }
 
     public void SetisSelect(bool select)//選択状態の設定

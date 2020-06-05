@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UniRx;
+using UniRx.Triggers;
 public class ConfirmUI : MonoBehaviour
 {
     enum MenuState//メニューの状態
@@ -127,13 +128,15 @@ public class ConfirmUI : MonoBehaviour
 
                 case (int)MenuState.STAGESELECT://ステージセレクトへ
                     this.gameObject.SetActive(false);
-                    Camera.main.GetComponent<SceneTransition>().SetTransitionRun("MenuScene");
+                    Camera.main.GetComponent<FadebyTex>().StartFadeOut();
+                    ReservSceneLoad("MenuScene");
                     AudioManager.Instance.PlaySE("SE_ENTER");
                     GameManager.Instance.SetActivePause(false);//ポーズ画面の描画を終了
                     break;
 
                 case (int)MenuState.BACKTITLE://タイトルへ
-                    Camera.main.GetComponent<SceneTransition>().SetTransitionRun("TitleScene");
+                    Camera.main.GetComponent<FadebyTex>().StartFadeOut();
+                    ReservSceneLoad("TitleScene");
                     this.gameObject.SetActive(false);
                     AudioManager.Instance.PlaySE("SE_ENTER");
                     GameManager.Instance.SetActivePause(false);//ポーズ画面の描画を終了
@@ -159,5 +162,18 @@ public class ConfirmUI : MonoBehaviour
     public void SetState(int sts)//状態をセット
     {
         State = sts;
+    }
+
+    private void ReservSceneLoad(string NextScene)//シーン遷移を予約
+    {
+        Camera.main.UpdateAsObservable().
+            Where(_ => !GameManager.Instance.GetisFade()).Take(1).
+            Subscribe(_ => ReservFunc(NextScene));
+    }
+
+    private void ReservFunc(string NextScene)
+    {
+        Camera.main.GetComponent<FadebyTex>().StartFadeIn();
+        GameManager.Instance.SceneTransition(NextScene);
     }
 }
