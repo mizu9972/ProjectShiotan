@@ -13,6 +13,9 @@ public class GameClear : MonoBehaviour
 
     [Header("クリア用テキスト")]
     public ClearText clearText;
+
+    [Header("メインカメラ")]
+    public Camera mainCamera;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +59,6 @@ public class GameClear : MonoBehaviour
     {
         //入力検知で遷移を実行
         AudioManager.Instance.PlaySE("SE_ENTER");
-        Camera.main.GetComponent<SceneTransition>().SetTransitionRun("TitleScene");
+        mainCamera.GetComponent<SceneTransition>().SetTransitionRun("TitleScene");
     }
 }
