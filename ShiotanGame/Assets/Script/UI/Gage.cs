@@ -65,6 +65,10 @@ public class Gage : MonoBehaviour
             NowHP = 1f;
             MyImg.color = new Color(MyCol.r, MyCol.g, MyCol.b, 0f);//透明にして消滅させる
         }
+        else
+        {
+            MyImg.color = new Color(MyCol.r, MyCol.g, MyCol.b, 1f);//HPが存在するなら表示状態に
+        }
         //現在のHPと最大HPの割合でゲージのアニメーションを行う
         MyRectTrans.DOScale(new Vector3((NowHP/MaxHP),1,1), AnimationTime).SetEase(Ease.Linear);
         ChangeTexture();
