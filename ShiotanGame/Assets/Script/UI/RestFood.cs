@@ -37,6 +37,10 @@ public class RestFood : MonoBehaviour
             Where(_ => restFoods <= 0).
             Subscribe(_ => isSacrifi = true);//残りエサ数が0になったらHP犠牲状態へ
 
+        this.LateUpdateAsObservable().
+            Where(_ => PlayerObj.GetComponent<Player>().GetRestFood() > 0).
+            Subscribe(_ => isSacrifi = false);//残りエサ数が0になったらHP犠牲状態へ
+
         this.UpdateAsObservable().Where(_=>!PlayerObj).Subscribe(_ => Init());//プレイヤーポップ後に初期化
     }
 
