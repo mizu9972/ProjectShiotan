@@ -47,6 +47,10 @@ public class PiranhaBase : MonoBehaviour
     private float InstantAttackTimingCorrct = 0.0f;
     private float LastAttackTime = 0.0f;
 
+    [SerializeField, Header("ピラニアが噛む音のSEのボリューム")]
+    private float SEVolume = 1.0f;
+    private float MasterVolume;
+
     // Normal1
     [SerializeField] private float AroundFlockMinAngle;
     [SerializeField] private float AroundFlockMaxAngle;
@@ -65,6 +69,7 @@ public class PiranhaBase : MonoBehaviour
         ChangeDetailType();     // 細かい性格の設定
         CheckAllType();             // 性格をログで確認
         rb = gameObject.GetComponent<Rigidbody>();
+        MasterVolume = AudioManager.Instance.GetSeVolume();
     }
 
     // Update
@@ -306,7 +311,9 @@ public class PiranhaBase : MonoBehaviour
         if (LastAttackTime + transform.parent.GetComponent<FlockBase>().AttackCoolTime <= Time.time) {
             // 攻撃
             Target.GetComponent<HumanoidBase>().Damage(AttackPower);
+            AudioManager.Instance.SetSeVolume(SEVolume);
             AudioManager.Instance.PlaySE(SE_KEY);    // SE再生
+            AudioManager.Instance.SetSeVolume(MasterVolume);
 
             // 攻撃時間を更新
             LastAttackTime = Time.time;
