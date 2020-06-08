@@ -15,9 +15,10 @@ public class StageNameFead : MonoBehaviour
     [Header("表示しておく時間(秒)")]
     public double DrawTime = 2.0;
 
-    [Header("指定するテキスト")]
-    public Text MyText;
+    private Image MyImg;
 
+    [Header("使用するテクスチャ")]
+    public Sprite UseImg;
     private bool isFadeIn = true;//フェードイン状態
     private bool isDraw = false;//描画状態  
     private bool isFadeOut = false;//フェードアウト状態
@@ -31,12 +32,16 @@ public class StageNameFead : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MyImg = this.GetComponent<Image>();
         Alpha = 0f;//最初は透明状態から
         //描画状態になったら指定秒数後に描画終了させるメソッドの実行
         this.UpdateAsObservable().
             Where(_ => isDraw).Take(1).
             Subscribe(_=>DrawStageName());
-        
+        if(UseImg!=null)
+        {
+            MyImg.sprite = UseImg;
+        }
     }
 
     // Update is called once per frame
@@ -54,7 +59,7 @@ public class StageNameFead : MonoBehaviour
             }
         }
         //テキストのカラー値に現在の情報をセット
-        MyText.color = new Color(MyText.color.r, MyText.color.g, MyText.color.b, Alpha);
+        MyImg.color = new Color(MyImg.color.r, MyImg.color.g, MyImg.color.b, Alpha);
     }
 
     private void FadeIn()//フェードイン
