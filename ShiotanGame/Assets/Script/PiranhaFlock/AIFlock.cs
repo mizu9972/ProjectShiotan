@@ -101,7 +101,7 @@ public class AIFlock : MonoBehaviour
                     if (TargetList[0] != null) {
                         if (IsHit = RayShot(TargetList[0])) {
                             // ビックリマーク表示
-                            if(TargetPosList.Count == 0) {
+                            if(TargetPosList.Count == 1) {
                                 SurprisedMark.transform.GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
                                 Instantiate(SurprisedMark, gameObject.transform);
                                 AudioManager.Instance.PlaySE("SE_FIND");
@@ -253,6 +253,7 @@ public class AIFlock : MonoBehaviour
     private void Patrol() {
         if (!m_NavMeshAgent.pathPending && m_NavMeshAgent.remainingDistance <= 0.1f) {
             AttackField.SetActive(true);
+            transform.Find("DiscoveryField").gameObject.SetActive(true);
             PatrolNum++;
             if (PatrolNum >= PatrolPoint.Count) {
                 PatrolNum = 0;
@@ -271,6 +272,7 @@ public class AIFlock : MonoBehaviour
         TargetPosList.Clear();
         TargetList.Clear();
         AttackField.SetActive(false);
+        transform.Find("DiscoveryField").gameObject.SetActive(false);
     }
 
     // 帰宅したかどうか
