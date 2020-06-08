@@ -31,6 +31,7 @@ public class MiniMapCamera : MonoBehaviour
         //移動範囲制限設定
         if(isUseLimit)
         {
+            MyTrans.position = new Vector3(Target.position.x, MyTrans.position.y, Target.position.z);
             SetPosition();
         }
         else
@@ -43,9 +44,9 @@ public class MiniMapCamera : MonoBehaviour
     {
         float max = Camera.main.GetComponent<ChaceCamera>().GetMaxValue().x;
         float min = Camera.main.GetComponent<ChaceCamera>().GetMinValue().x;
-        x = Mathf.Clamp(x, min, max);
+        x = Mathf.Clamp(Target.position.x, min, max);
         y = this.transform.position.y;
-        z = Mathf.Clamp(z, MinZPos, MaxZPos);
+        z = Mathf.Clamp(MyTrans.position.z, MinZPos, MaxZPos);
         MyTrans.position = new Vector3(x,y,z);
     }
 }
