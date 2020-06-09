@@ -83,7 +83,7 @@ public class StageNameFead : MonoBehaviour
         ElapsedTime += Time.deltaTime;//経過時間計測
 
         //経過時間と終了時間の割合をアルファに適用
-        Alpha = 1f-(ElapsedTime / FadeInTime);
+        Alpha = 1f-(ElapsedTime / FadeOutTime);
 
         if(Alpha<=0f)
         {
