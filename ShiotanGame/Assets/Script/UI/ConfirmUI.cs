@@ -173,7 +173,7 @@ public class ConfirmUI : MonoBehaviour
 
     private void ReservFunc(string NextScene)
     {
-        Camera.main.GetComponent<FadebyTex>().StartFadeIn();
+        GameManager.Instance.SetPanelAlpha(1f);
         GameManager.Instance.SceneTransition(NextScene);
     }
 }

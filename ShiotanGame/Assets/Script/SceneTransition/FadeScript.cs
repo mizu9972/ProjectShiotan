@@ -124,6 +124,7 @@ public class FadeScript : MonoBehaviour
 
     private void SceneLoadFead()
     {
+
         if (!GameManager.Instance.GetisStage())
         {
             SetIsFeadIn();//シーンスタート時にフェードインを実行
@@ -137,7 +138,13 @@ public class FadeScript : MonoBehaviour
             ResetFlag();
             alfa = 0f;
             SetAlpha();
-            GameManager.Instance.SetPauseEnable(true);//ポーズ画面の使用を可能に
+            GameManager.Instance.SetPauseEnable(false);//ポーズ画面の使用を可能に
         }
+    }
+
+    public void SetPanelAlpha(float alpha)
+    {
+        alfa = alpha;
+        SetAlpha();
     }
 }

@@ -15,6 +15,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     [Header("ポーズ画面オブジェクト")]
     public GameObject PauseMenu;
 
+    [Header("フェード用パネル")]
+    public GameObject FadePanel;
+
     private GameObject isStageObj;//ゲームメインかを確認するオブジェクト
     //HPとエサ引き継ぎ用
     private bool isCarryover = false;
@@ -102,7 +105,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         //シーンが読み込まれた時にカメラを取得
         MainCamera = Camera.main;
 
-        if(isTakeover)
+        if(isTakeover)//リスポーン地点引き継ぎ
         {
             isTakeover = false;
             GameObject.Find("Respawn").transform.position = work_Position;
@@ -206,6 +209,11 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public bool GetisFade()
     {
         return isFade;
+    }
+
+    public void SetPanelAlpha(float value)
+    {
+        FadePanel.GetComponent<FadeScript>().SetPanelAlpha(value);
     }
 
     public void Quit()//終了処理

@@ -109,6 +109,7 @@ public class FadebyTex : MonoBehaviour
 
         isFade = true;
         GameManager.Instance.SetisFade(true);
+        GameManager.Instance.SetPauseEnable(false);
     }
 
     //フェードアウト
@@ -123,6 +124,7 @@ public class FadebyTex : MonoBehaviour
 
         isFade = true;
         GameManager.Instance.SetisFade(true);
+        GameManager.Instance.SetPauseEnable(false);
     }
 
     //フェード終了時処理
