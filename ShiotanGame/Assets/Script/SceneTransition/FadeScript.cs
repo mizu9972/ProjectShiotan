@@ -9,7 +9,7 @@ public class FadeScript : MonoBehaviour
 {
 
     float fadeSpeed = 0.016f;        //透明度が変わるスピードを管理
-    float red, green, blue, alfa;   //パネルの色、不透明度を管理
+    float red, green, blue, alpha;   //パネルの色、不透明度を管理
 
     public bool isFadeOut = false;  //フェードアウト処理の開始、完了を管理するフラグ
     public bool isFadeIn = false;   //フェードイン処理の開始、完了を管理するフラグ
@@ -25,7 +25,7 @@ public class FadeScript : MonoBehaviour
         red = fadeImage.color.r;
         green = fadeImage.color.g;
         blue = fadeImage.color.b;
-        alfa = fadeImage.color.a;
+        alpha = fadeImage.color.a;
         // イベントにイベントハンドラーを追加
         SceneManager.sceneLoaded += SceneLoaded;
         SceneLoadFead();
@@ -46,9 +46,9 @@ public class FadeScript : MonoBehaviour
 
     bool StartFadeIn()
     {
-        alfa -= Mathf.Sin(fadeSpeed);               //a)不透明度を徐々に下げる
+        alpha -= Mathf.Sin(fadeSpeed);               //a)不透明度を徐々に下げる
         SetAlpha();                      //b)変更した不透明度パネルに反映する
-        if (alfa <= 0)
+        if (alpha <= 0)
         {                    //c)完全に透明になったら処理を抜ける
             isFadeIn = false;
             fadeImage.enabled = false;    //d)パネルの表示をオフにする
@@ -61,9 +61,9 @@ public class FadeScript : MonoBehaviour
     bool StartFadeOut()
     {
         fadeImage.enabled = true;  // a)パネルの表示をオンにする
-        alfa += Mathf.Sin(fadeSpeed);         // b)不透明度を徐々にあげる
+        alpha += Mathf.Sin(fadeSpeed);         // b)不透明度を徐々にあげる
         SetAlpha();               // c)変更した透明度をパネルに反映する
-        if (alfa >= 1)
+        if (alpha >= 1)
         {             // d)完全に不透明になったら処理を抜ける
             isFadeOut = false;
             GameManager.Instance.SetisFade(false);
@@ -74,24 +74,25 @@ public class FadeScript : MonoBehaviour
 
     void SetAlpha()
     {
-        fadeImage.color = new Color(red, green, blue, alfa);
+        fadeImage.color = new Color(red, green, blue, alpha);
     }
 
 
     public void SetIsFeadOut()//フェードアウトスタートをセット
     {
         GameManager.Instance.SetisFade(true);
-        alfa = 0.0f;
+        alpha = 0.0f;
         isFadeOut = true;
         FadeOutSts = false;
         GameManager.Instance.SetPauseEnable(false);//ポーズ画面の使用を不可能に
         GameManager.Instance.PlayerControlStop();//プレイヤーがいれば操作可能に
+        AudioManager.Instance.AudioFadeOutStart();//オーディオのフェードアウト開始
 
     }
     public void SetIsFeadIn()//フェードアウトスタートをセット
     {
         GameManager.Instance.SetisFade(true);
-        alfa = 1.0f;
+        alpha = 1.0f;
         isFadeIn = true;
         FadeInSts = false;
         GameManager.Instance.SetPauseEnable(false);//ポーズ画面の使用を不可能に
@@ -136,15 +137,15 @@ public class FadeScript : MonoBehaviour
         else
         {
             ResetFlag();
-            alfa = 0f;
+            alpha = 0f;
             SetAlpha();
             GameManager.Instance.SetPauseEnable(false);//ポーズ画面の使用を可能に
         }
     }
 
-    public void SetPanelAlpha(float alpha)
+    public void SetPanelAlpha(float value)
     {
-        alfa = alpha;
+        alpha = value;
         SetAlpha();
     }
 }

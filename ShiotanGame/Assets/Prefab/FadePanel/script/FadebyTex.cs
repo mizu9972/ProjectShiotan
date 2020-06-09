@@ -125,6 +125,7 @@ public class FadebyTex : MonoBehaviour
         isFade = true;
         GameManager.Instance.SetisFade(true);
         GameManager.Instance.SetPauseEnable(false);
+        AudioManager.Instance.AudioFadeOutStart();//オーディオのフェードアウト開始
     }
 
     //フェード終了時処理

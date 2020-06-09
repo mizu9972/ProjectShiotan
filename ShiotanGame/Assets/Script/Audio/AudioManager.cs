@@ -33,9 +33,13 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     public bool isPlaySubBGM = false;
     [Header("サブBGMをBGMの再生時間に合わせるか")]
     public bool isSynchroTime;
+
+    private AudioFade audioFade;
+    private bool isFadeOut = false;
     //private int Channel = 4;
     private void Start()
     {
+        audioFade = this.GetComponent<AudioFade>();
         arraySize = this.GetComponent<AudioList>().GetArraySize();//要素数を取得
 
         //オーディオリストを取得
@@ -49,6 +53,14 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
     void Update()
     {
+        if(isFadeOut)//BGMのフェードがあれば実行
+        {
+            if(audioFade.AudioFadeOut())
+            {
+                FadeEndFunc();
+            }
+        }
+
         BGM_audioSource.volume = BgmVol;//BGMの音量設定
         BGM_subaudioSource.volume = BgmVol;//サブBGMの音量設定(BGMと同じ)
 
@@ -159,5 +171,16 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     public AudioClip GetDictionalyClip(string keyname)//オーディオリストの取得
     {
         return ClipList[keyname];
+    }
+
+    public void AudioFadeOutStart()//オーディオのフェードアウト開始
+    {
+        isFadeOut = true;
+    }
+
+    public void FadeEndFunc()//フェードが終了した後に通る
+    {
+        isFadeOut = false;
+        BgmVol = 1.0f;
     }
 }
