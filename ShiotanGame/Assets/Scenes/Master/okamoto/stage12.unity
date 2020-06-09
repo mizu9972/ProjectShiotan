@@ -805,7 +805,7 @@ PrefabInstance:
     - target: {fileID: 502411159638112362, guid: 0d676cb89431514498f97126bb9959db,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -72.9
+      value: -63.3
       objectReference: {fileID: 0}
     - target: {fileID: 502411159638112362, guid: 0d676cb89431514498f97126bb9959db,
         type: 3}
@@ -863,6 +863,11 @@ PrefabInstance:
       value: 0.37913
       objectReference: {fileID: 0}
     - target: {fileID: 1843163983887063449, guid: 0d676cb89431514498f97126bb9959db,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2700048622491697194, guid: 0d676cb89431514498f97126bb9959db,
         type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -930,7 +935,7 @@ PrefabInstance:
     - target: {fileID: 6117285902702059062, guid: 0d676cb89431514498f97126bb9959db,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6505717487517061694, guid: 0d676cb89431514498f97126bb9959db,
         type: 3}
@@ -6958,6 +6963,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniMapCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 3109810805174308776, guid: 9543fda324c58c04cacf3aa13a0dccda,
+        type: 3}
+      propertyPath: isUseLimit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3109810805174308776, guid: 9543fda324c58c04cacf3aa13a0dccda,
+        type: 3}
+      propertyPath: MaxZPos
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3109810805174308776, guid: 9543fda324c58c04cacf3aa13a0dccda,
+        type: 3}
+      propertyPath: MinZPos
+      value: -40
+      objectReference: {fileID: 0}
     - target: {fileID: 3109810805174308777, guid: 9543fda324c58c04cacf3aa13a0dccda,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8210,17 +8230,17 @@ PrefabInstance:
     - target: {fileID: 8451860890330539585, guid: 03c9f096fc4c19f41835e91589ff3882,
         type: 3}
       propertyPath: MinRange.x
-      value: -110
-      objectReference: {fileID: 0}
-    - target: {fileID: 8451860890330539585, guid: 03c9f096fc4c19f41835e91589ff3882,
-        type: 3}
-      propertyPath: MinRange.z
       value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 8451860890330539585, guid: 03c9f096fc4c19f41835e91589ff3882,
         type: 3}
+      propertyPath: MinRange.z
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8451860890330539585, guid: 03c9f096fc4c19f41835e91589ff3882,
+        type: 3}
       propertyPath: MaxRange.z
-      value: 90
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03c9f096fc4c19f41835e91589ff3882, type: 3}
