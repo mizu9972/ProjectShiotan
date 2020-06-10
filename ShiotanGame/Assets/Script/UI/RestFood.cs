@@ -27,9 +27,11 @@ public class RestFood : MonoBehaviour
     [Header("船パーツ画像")]
     public Sprite Boat;
 
-    
+    public GetItem getItem;
     private GameObject PlayerObj=null;//プレイヤー
     private bool isFast = true;//
+
+    private float workfood;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,10 +53,16 @@ public class RestFood : MonoBehaviour
         {
             if(!isSacrifi)
             {
+
+                workfood = restFoods;
                 restFoods = PlayerObj.GetComponent<Player>().GetRestFood();
                 if (FoodImg != null)
                 {
                     FoodImg.sprite = Food;//エサがあるならエサの画像に
+                }
+                if(restFoods>workfood)
+                {
+                    getItem.StartAnim();
                 }
             }
             else

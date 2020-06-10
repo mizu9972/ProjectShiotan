@@ -25,6 +25,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private float WorkHp = 0f;
     private bool PauseEnable = false;
     private bool isTakeover = false;
+    private bool workTakeover = false;
     private int WorkKey = 0;//引き継ぐ鍵
 
     private GameObject PlayerObj = null;
@@ -75,6 +76,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         work_Position = GameObject.Find("Respawn").transform.position;
         SceneReload();
         isTakeover = istakeover;
+        workTakeover = istakeover;
     }
     public void SceneReload()//シーン再読み込み
     {
@@ -214,6 +216,16 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public void SetPanelAlpha(float value)
     {
         FadePanel.GetComponent<FadeScript>().SetPanelAlpha(value);
+    }
+
+    public bool GetisTakeOver()//リスポーン地点引き継ぐかを取得
+    {
+        return workTakeover;
+    }
+
+    public void SetWorkTakeOver(bool istakeover)//チェックポイントを通ったら保存
+    {
+        workTakeover = istakeover;
     }
 
     public void Quit()//終了処理
