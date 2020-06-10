@@ -44,6 +44,7 @@ public class RestFood : MonoBehaviour
             Subscribe(_ => isSacrifi = false);//残りエサ数が0になったらHP犠牲状態へ
 
         this.UpdateAsObservable().Where(_=>!PlayerObj).Subscribe(_ => Init());//プレイヤーポップ後に初期化
+        Observable.TimerFrame(1).Subscribe(_ => AddAnimFunc());
     }
 
     // Update is called once per frame
@@ -53,17 +54,13 @@ public class RestFood : MonoBehaviour
         {
             if(!isSacrifi)
             {
-
                 workfood = restFoods;
                 restFoods = PlayerObj.GetComponent<Player>().GetRestFood();
                 if (FoodImg != null)
                 {
                     FoodImg.sprite = Food;//エサがあるならエサの画像に
                 }
-                if(restFoods>workfood)
-                {
-                    getItem.StartAnim();
-                }
+                
             }
             else
             {
@@ -92,5 +89,20 @@ public class RestFood : MonoBehaviour
     private void Init()
     {
         PlayerObj = GameManager.Instance.GetPlayer();//Playerを取得
+        restFoods = PlayerObj.GetComponent<Player>().GetRestFood();
+        workfood = restFoods;
+    }
+
+
+    private void AddAnimFunc()
+    {
+        this.LateUpdateAsObservable().Where(_ => !isSacrifi).Subscribe(_ => ScaleAnimation());
+    }
+    private void ScaleAnimation()
+    {
+        if (restFoods > workfood)
+        {
+            getItem.StartAnim();
+        }
     }
 }
