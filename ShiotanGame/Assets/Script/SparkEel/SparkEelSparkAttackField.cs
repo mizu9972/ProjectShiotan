@@ -13,6 +13,7 @@ public class SparkEelSparkAttackField : MonoBehaviour
     [SerializeField,Header("攻撃力(毎フレーム与える)")] private float AttackPower = 0.0f;
     [SerializeField] private float CoolTime = 3.0f;
     [SerializeField] private float AttackTime = 1.5f;
+    [SerializeField] private float FirstTime = 0.0f;
     [SerializeField] private bool IsAttack = false;
     [SerializeField] private List<GameObject> SparkEffect;
 
@@ -45,13 +46,18 @@ public class SparkEelSparkAttackField : MonoBehaviour
             }
         }
 
-        // 攻撃
-        if (IsAttack) {
-            Attack();
+        if (FirstTime <= 0.0f) {
+            // 攻撃
+            if (IsAttack) {
+                Attack();
+            }
+            // クールタイム
+            else {
+                CoolDown();
+            }
         }
-        // クールタイム
         else {
-            CoolDown();
+            FirstTime -= Time.deltaTime;
         }
     }
 
