@@ -35,10 +35,14 @@ public class StageNameFead : MonoBehaviour
         MyImg = this.GetComponent<Image>();
         Alpha = 0f;//最初は透明状態から
         //描画状態になったら指定秒数後に描画終了させるメソッドの実行
+        if(GameManager.Instance.GetisTakeOver())//途中からスタートする時は描画オフ
+        {
+            this.enabled = false; 
+        }
         this.UpdateAsObservable().
             Where(_ => isDraw).Take(1).
-            Subscribe(_=>DrawStageName());
-        if(UseImg!=null)
+            Subscribe(_ => DrawStageName());
+        if (UseImg!=null)
         {
             MyImg.sprite = UseImg;
         }
