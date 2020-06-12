@@ -51,29 +51,32 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        //回転の度合い
-        float step = AngSpeed * Time.deltaTime;
-
-        //プレイヤー　回転
-        other.transform.rotation = Quaternion.Slerp(other.transform.rotation, Quaternion.Euler(0, Angle, 0), step);
-
-        //プレイヤー　移動
-        rb.AddForce(other.gameObject.transform.forward * Speed, ForceMode.Force);
-
-        //スピード制限
-        if (MaxSpeed < rb.velocity.x)
+        if (other.tag == "Player")
         {
-            Vector3 Save = rb.velocity;
-            Save.x = MaxSpeed;
+            //回転の度合い
+            float step = AngSpeed * Time.deltaTime;
 
-            rb.velocity = Save;
-        }
-        if (MaxSpeed < rb.velocity.z)
-        {
-            Vector3 Save = rb.velocity;
-            Save.z = MaxSpeed;
+            //プレイヤー　回転
+            other.transform.rotation = Quaternion.Slerp(other.transform.rotation, Quaternion.Euler(0, Angle, 0), step);
 
-            rb.velocity = Save;
+            //プレイヤー　移動
+            rb.AddForce(other.gameObject.transform.forward * Speed, ForceMode.Force);
+
+            //スピード制限
+            if (MaxSpeed < rb.velocity.x)
+            {
+                Vector3 Save = rb.velocity;
+                Save.x = MaxSpeed;
+
+                rb.velocity = Save;
+            }
+            if (MaxSpeed < rb.velocity.z)
+            {
+                Vector3 Save = rb.velocity;
+                Save.z = MaxSpeed;
+
+                rb.velocity = Save;
+            }
         }
     }
 
