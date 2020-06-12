@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4163333638457294430}
   - component: {fileID: 8465230390396221308}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BoatImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8533147014016815842}
   - component: {fileID: 8358223899998663983}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RestFood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 5971214800865374365}
   - component: {fileID: 6082778641893520297}
   - component: {fileID: 5131936371915664082}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 1657645147164929774}
   - component: {fileID: 1657645147164929775}
   - component: {fileID: 1657645147164929760}
+  - component: {fileID: 6928931303604234710}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -241,9 +242,9 @@ Canvas:
   m_GameObject: {fileID: 1657645147164929762}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 15
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -292,6 +293,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6928931303604234710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657645147164929762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f534253226f7e45bcffa831c3e6417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1685069908584795137
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,7 +316,7 @@ GameObject:
   - component: {fileID: 9215746979387396648}
   - component: {fileID: 8445258022505192014}
   - component: {fileID: 7711492651207292015}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -381,7 +394,7 @@ GameObject:
   - component: {fileID: 6932750172841158855}
   - component: {fileID: 8698068896597401554}
   - component: {fileID: 56378400184688224}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Dig10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +496,7 @@ GameObject:
   - component: {fileID: 8433479733131778545}
   - component: {fileID: 3604609269188237689}
   - component: {fileID: 2026526418150054993}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: FoodImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -692,7 +705,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3752352185438353652}
   m_LocalRotation: {x: 0, y: 0.0011344751, z: 0, w: 0.9999994}
-  m_LocalPosition: {x: 0, y: 0, z: 1.1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 2, y: 0.2, z: 1}
   m_Children:
   - {fileID: 3752352186092324796}
@@ -1316,7 +1329,7 @@ GameObject:
   - component: {fileID: 3521142408312762680}
   - component: {fileID: 7567514111346068372}
   - component: {fileID: 1834100581604216772}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Dig1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1504,7 +1517,7 @@ GameObject:
   - component: {fileID: 6965399163900535594}
   - component: {fileID: 5644335187835305825}
   - component: {fileID: 8664363590395719065}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1767,7 +1780,7 @@ GameObject:
   - component: {fileID: 7956244500912005029}
   - component: {fileID: 1986765327569071645}
   - component: {fileID: 4437971552469899645}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MultiplyImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1911,10 +1924,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1657645147164929761}
     m_Modifications:
+    - target: {fileID: 818149680806298005, guid: dd6e9eb743e1e744f84a5be5374a2935,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3293415693185889308, guid: dd6e9eb743e1e744f84a5be5374a2935,
         type: 3}
       propertyPath: m_Name
       value: KeyCount
+      objectReference: {fileID: 0}
+    - target: {fileID: 3293415693185889308, guid: dd6e9eb743e1e744f84a5be5374a2935,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3999437549306248787, guid: dd6e9eb743e1e744f84a5be5374a2935,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4803436280975241868, guid: dd6e9eb743e1e744f84a5be5374a2935,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7592825279695867216, guid: dd6e9eb743e1e744f84a5be5374a2935,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8159301098739826817, guid: dd6e9eb743e1e744f84a5be5374a2935,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8176837152526680906, guid: dd6e9eb743e1e744f84a5be5374a2935,
         type: 3}

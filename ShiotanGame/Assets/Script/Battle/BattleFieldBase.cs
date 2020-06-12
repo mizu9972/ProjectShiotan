@@ -163,9 +163,6 @@ public class BattleFieldBase : MonoBehaviour
         if (TotalEnemy.Count > 0) {
             foreach (GameObject Enemy in TotalEnemy) {
                 if (BattleCenter != null) {
-
-                    // ToDo::エフェクトの作成
-
                     // 攻撃
                     Enemy.GetComponent<EnemyBase>().Attack(BattleCenter.GetComponent<HumanoidBase>(), "SE_BITE");
                 }
@@ -192,8 +189,9 @@ public class BattleFieldBase : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     private bool TotalFlockDeadCheck() {
-        if (TotalFlock.Count > 0 && TotalFlockHumanoidBase) {
+        if (TotalFlock.Count > 0 && TotalFlockHumanoidBase && TotalEnemy.Count > 0) {
             if (TotalFlockHumanoidBase.NowHP <= 0) {
+                Destroy(TotalFlockHumanoidBase);
                 AudioManager.Instance.PlaySE("SE_ESCAPE");
                 return true;
             }
@@ -239,8 +237,10 @@ public class BattleFieldBase : MonoBehaviour
                 // 餌の時に自動削除再開
                 BattleCenter.GetComponent<EsaDestroy>().IsCountDown(true);
 
-                // バトルの中心地を削除
-                Destroy(BattleCenter);
+                if (BattleCenter.GetComponent<HumanoidBase>().NowHP <= 0.0f) {
+                    // バトルの中心地を削除
+                    Destroy(BattleCenter);
+                }
             }
         }
 
