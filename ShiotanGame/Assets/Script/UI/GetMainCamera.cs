@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GetCamera1 : MonoBehaviour
+public class GetMainCamera : MonoBehaviour
 {
     Canvas MyCanvas;
     // Start is called before the first frame update
@@ -11,6 +11,6 @@ public class GetCamera1 : MonoBehaviour
         MyCanvas = this.GetComponent<Canvas>();
         MyCanvas.renderMode = RenderMode.ScreenSpaceCamera;
         MyCanvas.worldCamera = Camera.main;
-        MyCanvas.planeDistance = 15f;
+        MyCanvas.planeDistance = 1f;
     }
 }
