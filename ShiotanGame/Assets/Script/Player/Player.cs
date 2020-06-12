@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
         GageScript = GameObject.Find("PlayerGage").GetComponentInChildren<Gage>();
         
         GageScript.InitGage(this.GetComponent<HumanoidBase>().InitHP);//ゲージの初期化
+        //現在のHPをゲージに反映
+        GageScript.GageUpdate(this.GetComponent<HumanoidBase>().NowHP);
     }
 
     private void Update()
