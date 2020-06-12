@@ -43,9 +43,7 @@ public class Gage : MonoBehaviour
             isAnimation = PiranhaImg.GetComponent<PiranhaImage>().GetisAnim();
             //HPが変動した時かつアニメーション中じゃなければアニメーション開始
             this.UpdateAsObservable().
-                Select(x => NowHP).
-                DistinctUntilChanged(x => x).Skip(1).
-                Subscribe(_ => PiranhaAnimationStart());
+                Subscribe(_ => AddPiranhaAnimFunc());
         }
     }
 
@@ -98,5 +96,14 @@ public class Gage : MonoBehaviour
     {
         float proportion = NowHP / MaxHP;
         return proportion;
+    }
+
+    private void AddPiranhaAnimFunc()
+    {
+        //HPが変動した時かつアニメーション中じゃなければアニメーション開始
+        this.UpdateAsObservable().
+            Select(x => NowHP).
+            DistinctUntilChanged(x => x).Skip(1).
+            Subscribe(_ => PiranhaAnimationStart());
     }
 }
