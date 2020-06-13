@@ -21,6 +21,9 @@ public class Opening : MonoBehaviour
         this.LateUpdateAsObservable().
             Where(_ => !isPlaying).Take(1).
             Subscribe(_ => VideoEndStartFunc());
+        this.LateUpdateAsObservable().
+            Where(_ => Input.GetButtonDown("Pause")&&!GameManager.Instance.GetisFade()).Take(1).
+            Subscribe(_ => VideoEndStartFunc());
     }
 
     // Update is called once per frame

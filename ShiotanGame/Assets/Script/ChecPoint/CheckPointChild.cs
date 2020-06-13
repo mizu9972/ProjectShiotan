@@ -14,6 +14,8 @@ public class CheckPointChild : MonoBehaviour
     public float AddFood;
 
     private GameObject respawnObj = null;
+    [Header("リスポーン地点の移動先")]
+    public GameObject MoveRespown;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,6 @@ public class CheckPointChild : MonoBehaviour
 
     public void SetRespawnPosition()//リスポーン地点をチェックポイントの位置に変更
     {
-        respawnObj.transform.position = this.transform.position;
+        respawnObj.transform.position = MoveRespown.transform.position;
     }
 }
