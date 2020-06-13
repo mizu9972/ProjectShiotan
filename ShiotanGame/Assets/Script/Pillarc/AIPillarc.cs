@@ -95,7 +95,7 @@ public class AIPillarc : MonoBehaviour
                             // ビックリマーク表示
                             if (TargetPosList.Count == 0) {
                                 SurprisedMark.transform.GetChild(0).GetComponent<LookCamera>().parentTransform = gameObject.transform;
-                                Instantiate(SurprisedMark, gameObject.transform);
+                                Instantiate(SurprisedMark, gameObject.transform.position, Quaternion.identity, gameObject.transform);
                                 AudioManager.Instance.PlaySE("SE_FIND");
                             }
 
