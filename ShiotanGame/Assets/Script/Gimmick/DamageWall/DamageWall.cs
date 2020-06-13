@@ -40,6 +40,7 @@ public class DamageWall : MonoBehaviour
         {
             if (layerName == "Player")
             {
+                AudioManager.Instance.PlaySE("SE_DAMAGE");
                 HumanoidBase humanoidbase = other.gameObject.GetComponentInParent<HumanoidBase>();
                 humanoidbase.Damage(Damage);
                 humanoidbase.DamagePostEffect();
