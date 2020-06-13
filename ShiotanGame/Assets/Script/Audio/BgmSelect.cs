@@ -10,17 +10,24 @@ public class BgmSelect : MonoBehaviour
     {
         NONE,
         BGM_GAMEMAIN,
-        BGM_TITLE
+        BGM_TITLE,
+        BGM_STAGESELECT
     };
     [Header("BGMタイプ")]
     public AudioType audioType;
 
     private string keyName = null;//再生するBGMのキー名
-
+    [Header("ボリューム")]
+    public float Vol = 1f;
     // Start is called before the first frame update
     void Start()
     {
         this.UpdateAsObservable().Take(1).Subscribe(_ => BGMInit());
+    }
+
+    private void Update()
+    {
+        AudioManager.Instance.SetBgmVolume(Vol);
     }
 
     private void BGMInit()
