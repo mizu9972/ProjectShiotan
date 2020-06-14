@@ -131,6 +131,7 @@ public class ConfirmUI : MonoBehaviour
                     Camera.main.GetComponent<FadebyTex>().StartFadeOut();
                     ReservSceneLoad("MenuScene");
                     AudioManager.Instance.PlaySE("SE_ENTER");
+                    GameManager.Instance.StageCountReset();
                     GameManager.Instance.SetActivePause(false);//ポーズ画面の描画を終了
                     break;
 
@@ -139,6 +140,7 @@ public class ConfirmUI : MonoBehaviour
                     ReservSceneLoad("TitleScene");
                     this.gameObject.SetActive(false);
                     AudioManager.Instance.PlaySE("SE_ENTER");
+                    GameManager.Instance.StageCountReset();
                     GameManager.Instance.SetActivePause(false);//ポーズ画面の描画を終了
                     break;
             }
