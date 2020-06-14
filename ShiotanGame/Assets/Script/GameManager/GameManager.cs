@@ -80,6 +80,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         isTakeover = istakeover;
         workTakeover = istakeover;
         AddStageCount();
+        AudioManager.Instance.SetBgmVolume(1f);
     }
     public void SceneReload()//シーン再読み込み
     {

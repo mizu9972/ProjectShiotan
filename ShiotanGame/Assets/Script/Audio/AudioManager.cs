@@ -106,12 +106,13 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
 
     public void SetSeVolume(float vol)
     {
-        SeVol = Mathf.Clamp(vol, 0f, 1.0f);//0~1の範囲で音量をセット
+        SeVol = vol;//0~1の範囲で音量をセット
     }
 
     public void SetBgmVolume(float vol)
     {
-        BgmVol= Mathf.Clamp(vol, 0f, 1.0f);//0~1の範囲で音量をセット
+        BgmVol = vol;
+        //BgmVol= Mathf.Clamp(BgmVol, 0f, 1.0f);//0~1の範囲で音量をセット
     }
 
     public float GetSeVolume()

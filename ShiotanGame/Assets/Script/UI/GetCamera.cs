@@ -12,6 +12,7 @@ public class GetCamera : MonoBehaviour
         MyCanvas = this.GetComponent<Canvas>();
         mainCamera = Camera.main;
         MyCanvas.worldCamera = mainCamera;
+        MyCanvas.planeDistance = 1f;
     }
 
     public Canvas GetCanvas()

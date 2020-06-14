@@ -68,10 +68,18 @@ public class SelectItem : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.UpArrow)||inputStick.GetUpStick())//上
             {
                 NowSelect -= 1;
+                if(NowSelect>=0)
+                {
+                    AudioManager.Instance.PlaySE("SE_SHIFT");
+                }
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow)||inputStick.GetDownStick())//下
             {
                 NowSelect += 1;
+                if(NowSelect <= (Items.Length - 1))
+                {
+                    AudioManager.Instance.PlaySE("SE_SHIFT");
+                }
             }
             else if (Input.GetKeyDown(KeyCode.Return)||Input.GetButtonDown("MenuSelect"))//決定
             {

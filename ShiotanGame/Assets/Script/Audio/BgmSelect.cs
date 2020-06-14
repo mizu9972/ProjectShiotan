@@ -27,7 +27,10 @@ public class BgmSelect : MonoBehaviour
 
     private void Update()
     {
-        AudioManager.Instance.SetBgmVolume(Vol);
+        //if(!GameManager.Instance.GetisStage())
+        //{
+        //    AudioManager.Instance.SetBgmVolume(Vol);
+        //}
     }
 
     private void BGMInit()

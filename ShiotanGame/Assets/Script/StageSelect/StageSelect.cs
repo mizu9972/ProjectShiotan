@@ -73,6 +73,7 @@ public class StageSelect : MonoBehaviour
     void Update()
     {
         KeyInput();
+        AudioManager.Instance.SetBgmVolume(0.4f);
     }
 
     private void KeyInput()
