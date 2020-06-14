@@ -31,6 +31,8 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private GameObject PlayerObj = null;
 
     private bool isFade;//フェード中か
+
+    private int StageCount;//そのステージが何回目なのか
     // Start is called before the first frame update
     void Start()
     {
@@ -77,6 +79,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         SceneReload();
         isTakeover = istakeover;
         workTakeover = istakeover;
+        AddStageCount();
     }
     public void SceneReload()//シーン再読み込み
     {
@@ -84,6 +87,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         if(isStageObj.GetComponent<isGameMain>().GetisGameMain())//ゲームメイン中は円形フェード
         {
             MainCamera.GetComponent<FadebyTex>().StartFadeOut();
+            workTakeover = false;
             this.UpdateAsObservable().
                 Where(_ => !GetisFade()).Take(1).
                 Subscribe(_ => SceneTransition(SceneManager.GetActiveScene().name));
@@ -228,6 +232,19 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         workTakeover = istakeover;
     }
 
+    public void AddStageCount()
+    {
+        StageCount += 1;
+    }
+
+    public int GetStageCount()
+    {
+        return StageCount;
+    }
+    public void StageCountReset()
+    {
+        StageCount = 0;
+    }
     public void Quit()//終了処理
     {
 #if UNITY_EDITOR

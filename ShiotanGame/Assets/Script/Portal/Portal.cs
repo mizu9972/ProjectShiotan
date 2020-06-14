@@ -56,6 +56,7 @@ public class Portal : MonoBehaviour
                     float workFoods = other.GetComponent<Player>().GetRestFood() + BonusFood;
                     int workkey = GameManager.Instance.GetPlayer().GetComponent<Player>().KeyCount;
                     GameManager.Instance.SetWorkStatus(workHP, workFoods,workkey);
+                    GameManager.Instance.StageCountReset();
                 }
                 this.UpdateAsObservable().
                     Where(_ => !m_FadebyTex.GetisFade()).Take(1).
