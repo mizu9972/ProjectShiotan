@@ -23,6 +23,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     private bool isCarryover = false;
     private float WorkFoods = 0f;
     private float WorkHp = 0f;
+    private Vector3 WorkAngle = Vector3.zero;
     private bool PauseEnable = false;
     private bool isTakeover = false;
     private bool workTakeover = false;
@@ -75,7 +76,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
 
     public void SceneReload(bool istakeover)//シーンを再読み込み(リスポーン地点を引き継ぐか)
     {
-        work_Position = GameObject.Find("Respawn").transform.position;
+        Transform workTrans = GameObject.Find("Respawn").transform;
+        work_Position = workTrans.position;
+        WorkAngle = workTrans.eulerAngles;
         SceneReload();
         isTakeover = istakeover;
         workTakeover = istakeover;
@@ -115,7 +118,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         if(isTakeover)//リスポーン地点引き継ぎ
         {
             isTakeover = false;
-            GameObject.Find("Respawn").transform.position = work_Position;
+            GameObject respownObj = GameObject.Find("Respawn");
+            respownObj.transform.position = work_Position;
+            respownObj.transform.eulerAngles = WorkAngle;
         }
         if (isCarryover)//HPとエサを引き継ぐ場合
         {
