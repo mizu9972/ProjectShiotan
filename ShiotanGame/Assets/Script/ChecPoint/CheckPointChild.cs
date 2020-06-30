@@ -16,6 +16,9 @@ public class CheckPointChild : MonoBehaviour
     private GameObject respawnObj = null;
     [Header("リスポーン地点の移動先")]
     public GameObject MoveRespown;
+
+    [Header("リスポーン地点の角度")]
+    public float Respown_YAngle;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,5 +50,6 @@ public class CheckPointChild : MonoBehaviour
     public void SetRespawnPosition()//リスポーン地点をチェックポイントの位置に変更
     {
         respawnObj.transform.position = MoveRespown.transform.position;
+        respawnObj.transform.eulerAngles = new Vector3(0,Respown_YAngle,0);
     }
 }
