@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 1603477703594947030}
   - component: {fileID: 8431339172092061566}
   - component: {fileID: 3054736717253766492}
+  - component: {fileID: 6472743210617871839}
   m_Layer: 12
   m_Name: SparkEel
   m_TagString: Untagged
@@ -462,6 +463,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeadAnimation: {fileID: 9100000, guid: 9ae4e8cd101ea4d449436eaae29c5c69, type: 2}
   Model: {fileID: 6007911467612991595}
+--- !u!114 &6472743210617871839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122783824100154819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aeeab910e4703c4ead8d0356419e59a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GageScript: {fileID: 7214064436810103300}
 --- !u!1 &3559836240193240043
 GameObject:
   m_ObjectHideFlags: 0
@@ -11539,15 +11553,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1ee38627d5d95d4fb8a0e70f940ad12, type: 3}
---- !u!1 &3888276408201324754 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5195420978006719177, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
-    type: 3}
-  m_PrefabInstance: {fileID: 9073690092541628955}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3888276408201324753 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5195420978006719178, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
+    type: 3}
+  m_PrefabInstance: {fileID: 9073690092541628955}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3888276408201324754 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5195420978006719177, guid: b1ee38627d5d95d4fb8a0e70f940ad12,
     type: 3}
   m_PrefabInstance: {fileID: 9073690092541628955}
   m_PrefabAsset: {fileID: 0}
