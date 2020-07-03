@@ -146,7 +146,7 @@ public class ProtoMove2 : MonoBehaviour
             //減速処理（加速）
             if (Nowkasoku > 0.1f)
             {
-                Nowkasoku *= InertialDawn/100;
+                Nowkasoku *= InertialDawn / 100 ;
             }
             else
             {
@@ -162,13 +162,15 @@ public class ProtoMove2 : MonoBehaviour
             //初速度　補正　　キー押した最初だけスタートダッシュ
             if (5 > rb.velocity.magnitude&& OnStartDash==false)
             {
-                rb.AddForce(this.gameObject.transform.forward * speed* StartDashPower/100, ForceMode.VelocityChange);
+                rb.AddForce(this.gameObject.transform.forward * speed * StartDashPower / 10, ForceMode.VelocityChange);
             }
 
-            rb.AddForce(this.gameObject.transform.forward * (speed + Nowkasoku), ForceMode.Acceleration);
+            rb.AddForce(this.gameObject.transform.forward * (speed + Nowkasoku)*Time.deltaTime*60, ForceMode.Acceleration);
 
             //十字キー押した最初だけ　スタートダッシュ
             OnStartDash = true;
+
+            Debug.Log(speed + Nowkasoku);
         }
         else
         {
@@ -176,23 +178,23 @@ public class ProtoMove2 : MonoBehaviour
             OnStartDash = false;
 
             //慣性での移動
-            rb.AddForce(Max*1.5f);
+            rb.AddForce(Max * 1.5f);
 
             //減速
             rb.velocity *= InertialDawn / 100;
         }
 
         //速度制限
-        if ((speed + Nowkasoku+ NagareSpeed) < rb.velocity.magnitude)
+        if ((speed + Nowkasoku + NagareSpeed) < rb.velocity.magnitude)
         {
             rb.velocity *= 0.9f;
 
             //加速時　減速大きく
-            rb.velocity *= 1 - (Nowkasoku / MaxKasoku) * (1 - InertialAcceleDawn / 100);
+            rb.velocity *= 1 - ((Nowkasoku / MaxKasoku) * (1 - InertialAcceleDawn / 100) * Time.deltaTime * 60);
         }
 
         //どれだけ流されるかの値
-        if(NagareSpeed>1)
+        if (NagareSpeed>1)
         {
             NagareSpeed *= NagareDawn;
         }
@@ -204,7 +206,7 @@ public class ProtoMove2 : MonoBehaviour
         //アニメーション再生スピード変更用
         if (speed > 0.5f)
         {
-            speed *= InertialDawn/100;
+            speed *= InertialDawn / 100;
         }
         else
         {
