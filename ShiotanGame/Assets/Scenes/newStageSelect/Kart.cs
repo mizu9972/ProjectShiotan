@@ -12,13 +12,25 @@ public class Kart : MonoBehaviour
     [SerializeField]
     private bool isMoving = false;
     public PlayAnimation playAnimation;
+
+    [SerializeField]
+    private bool isControll = true;
+
+    private KartCamera kartCamera;
     private void Start()
     {
-        playAnimation.StartAnimation();
+        if(playAnimation!=null)
+        {
+            playAnimation.StartAnimation();
+        }
+        kartCamera = Camera.main.GetComponent<KartCamera>();
     }
     void Update()
     {
+        //カメラ動作中は操作不可、カメラ非動作中は操作可
+        isControll = !kartCamera.GetisMoving();
         KeyInput();
+
 
         Vector3 d = waypoint[count].transform.position - transform.position;
         if (d.magnitude < speed * Time.deltaTime)
@@ -35,17 +47,35 @@ public class Kart : MonoBehaviour
 
     void KeyInput()
     {
-        if(!isMoving)
+        if(isControll)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (!isMoving)
             {
-                count += 1;
-            }
-            if(Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                count -= 1;
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    count += 1;
+                    CheckValue();
+                    if (count > 0 && waypoint[count - 1].GetComponent<StageObject>().isEnd)
+                    {
+                        kartCamera.AddCount();
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    count -= 1;
+                    CheckValue();
+                    if (count > 0 && waypoint[count + 1].GetComponent<StageObject>().isStart)
+                    {
+                        kartCamera.SubCount();
+                    }
+                }
             }
         }
+        
+    }
+
+    void CheckValue()//値をチェックして最大値、最小値の設定を適用
+    {
         if (count >= waypoint.Count)
         {
             count = waypoint.Count - 1;
@@ -54,5 +84,10 @@ public class Kart : MonoBehaviour
         {
             count = 0;
         }
+    }
+
+    public bool GetisMoving()
+    {
+        return isMoving;
     }
 }
