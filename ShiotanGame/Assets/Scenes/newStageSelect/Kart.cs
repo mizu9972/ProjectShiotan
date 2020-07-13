@@ -17,7 +17,7 @@ public class Kart : MonoBehaviour
     private bool isControll = false;
 
     private KartCamera kartCamera;
-
+    private InputStick inputStick;
     private void Start()
     {
         if(playAnimation!=null)
@@ -62,7 +62,7 @@ public class Kart : MonoBehaviour
                     this.enabled = false;
                 }
 
-                if (Input.GetKeyDown(KeyCode.RightArrow))
+                if (Input.GetKeyDown(KeyCode.RightArrow)||inputStick.GetRightStick())
                 {
                     count += 1;
                     CheckValue();
@@ -71,7 +71,7 @@ public class Kart : MonoBehaviour
                         kartCamera.AddCount();
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                if (Input.GetKeyDown(KeyCode.LeftArrow)|| inputStick.GetLeftStick())
                 {
                     count -= 1;
                     CheckValue();
