@@ -14,9 +14,10 @@ public class Kart : MonoBehaviour
     public PlayAnimation playAnimation;
 
     [SerializeField]
-    private bool isControll = true;
+    private bool isControll = false;
 
     private KartCamera kartCamera;
+
     private void Start()
     {
         if(playAnimation!=null)
@@ -28,7 +29,10 @@ public class Kart : MonoBehaviour
     void Update()
     {
         //カメラ動作中は操作不可、カメラ非動作中は操作可
-        isControll = !kartCamera.GetisMoving();
+        if(!GameManager.Instance.GetisFade())
+        {
+            isControll = !kartCamera.GetisMoving();
+        }
         KeyInput();
 
 
@@ -51,6 +55,13 @@ public class Kart : MonoBehaviour
         {
             if (!isMoving)
             {
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("MenuSelect"))
+                {
+                    string stageName = waypoint[count].GetComponent<GetStageName>().GetName();
+                    Camera.main.GetComponent<SceneTransition>().SetTransitionRun(stageName);
+                    this.enabled = false;
+                }
+
                 if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     count += 1;
