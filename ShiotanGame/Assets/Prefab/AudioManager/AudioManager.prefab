@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 738249586571183973}
   - component: {fileID: 738249586571183975}
   - component: {fileID: 4418626567378360068}
+  - component: {fileID: 2394905929029724952}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -235,6 +236,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FadeOutTime: 0.5
+--- !u!114 &2394905929029724952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738249586571183961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3140bf9f12892478d839ad1cb17539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2848548961880195737
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,12 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51008f5d572d76d43811dce348d83e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SEChannel:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  SEChannel: []
 --- !u!1 &8555925446226942505
 GameObject:
   m_ObjectHideFlags: 0

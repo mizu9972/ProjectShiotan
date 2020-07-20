@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Kart : MonoBehaviour
 {
-    public List<Transform> waypoint;
+    public List<GameObject> waypoint;
     public int count = 0;
     [SerializeField]
     private float speed = 5;
@@ -16,10 +16,13 @@ public class Kart : MonoBehaviour
     [SerializeField]
     private bool isControll = false;
 
+    
     private KartCamera kartCamera;
+
     private InputStick inputStick;
     private void Start()
     {
+        inputStick = new InputStick();
         if(playAnimation!=null)
         {
             playAnimation.StartAnimation();
@@ -62,7 +65,7 @@ public class Kart : MonoBehaviour
                     this.enabled = false;
                 }
 
-                if (Input.GetKeyDown(KeyCode.RightArrow)||inputStick.GetRightStick())
+                if (Input.GetKeyDown(KeyCode.RightArrow) || inputStick.GetRightStick())
                 {
                     count += 1;
                     CheckValue();
