@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayAnimation : MonoBehaviour
 {
-    public Animator animator;
+    public MoveAnimation moveAnimation;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,6 @@ public class PlayAnimation : MonoBehaviour
 
     public void StartAnimation()
     {
-        //アニメーション最初から再生
-        animator.Play("Move", 0, 0.0f);
+        moveAnimation.SetAnimationStream();
     }
 }
