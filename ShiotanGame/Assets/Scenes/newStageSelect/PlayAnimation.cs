@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayAnimation : MonoBehaviour
 {
-    public MoveAnimation moveAnimation;
+    //オール漕ぐアニメーション
+    Animator _animator;
+    //public MoveAnimation moveAnimation;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -20,6 +22,8 @@ public class PlayAnimation : MonoBehaviour
 
     public void StartAnimation()
     {
-        moveAnimation.SetAnimationStream();
+        //アニメーション最初から再生
+        _animator.Play("Move", 0, 0.0f);
+        //moveAnimation.SetAnimationStream();
     }
 }

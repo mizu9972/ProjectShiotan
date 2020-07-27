@@ -3083,7 +3083,6 @@ GameObject:
   - component: {fileID: 1414411128}
   - component: {fileID: 1414411127}
   - component: {fileID: 1414411129}
-  - component: {fileID: 1414411126}
   m_Layer: 5
   m_Name: player
   m_TagString: Untagged
@@ -3111,19 +3110,6 @@ RectTransform:
   m_AnchoredPosition: {x: -8.69, y: 2.16}
   m_SizeDelta: {x: 0.5, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1414411126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1414411124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c1bd93f94694b24099604e5ba36c81d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveAnimation: {fileID: 1577030554}
 --- !u!114 &1414411127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3191,9 +3177,8 @@ MonoBehaviour:
   count: 0
   speed: 3
   isMoving: 0
-  playAnimation: {fileID: 1414411126}
+  playAnimation: {fileID: 1577030554}
   isControll: 0
-  moveAnimation: {fileID: 1577030554}
 --- !u!1 &1447538302
 GameObject:
   m_ObjectHideFlags: 0
@@ -3429,25 +3414,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1577030550 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3570129729668040040, guid: 4353a0963205cb048bbc83a86f0efa4b,
+--- !u!114 &1577030554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2104707558559329876, guid: 4353a0963205cb048bbc83a86f0efa4b,
     type: 3}
   m_PrefabInstance: {fileID: 1272949110}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1577030554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1577030550}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8405f6f70ce8a484b83d7c0c2a0023a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c1bd93f94694b24099604e5ba36c81d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animetime: 1
 --- !u!1 &1603051034
 GameObject:
   m_ObjectHideFlags: 0

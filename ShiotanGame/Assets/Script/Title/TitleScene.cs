@@ -108,7 +108,7 @@ public class TitleScene : MonoBehaviour
                 break;
 
             case (int)MenuState.STAGESELECT:
-                Camera.main.GetComponent<SceneTransition>().SetTransitionRun("MenuScene");
+                Camera.main.GetComponent<SceneTransition>().SetTransitionRun("StageSelect");
                 this.GetComponent<TitleScene>().enabled = false;
                 break;
 

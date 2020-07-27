@@ -23,8 +23,6 @@ public class Kart : MonoBehaviour
 
     private InputStick inputStick;
 
-    public MoveAnimation moveAnimation;
-
     private bool isAnim = false;
 
     private void Start()
@@ -50,11 +48,11 @@ public class Kart : MonoBehaviour
         {
             isMoving = false;
             transform.position += d;
-            moveAnimation.SetAnimationStream();
             return;
         }
         d.Normalize();
         transform.position += d * Time.deltaTime * speed;
+        
         isMoving = true;
     }
 
@@ -80,6 +78,7 @@ public class Kart : MonoBehaviour
                     {
                         kartCamera.AddCount();
                     }
+                    playAnimation.StartAnimation();
                 }
                 if (Input.GetKeyDown(KeyCode.LeftArrow)|| inputStick.GetLeftStick())
                 {
@@ -90,6 +89,7 @@ public class Kart : MonoBehaviour
                     {
                         kartCamera.SubCount();
                     }
+                    playAnimation.StartAnimation();
                 }
                 
             }
