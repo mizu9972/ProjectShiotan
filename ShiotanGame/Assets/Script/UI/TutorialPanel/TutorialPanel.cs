@@ -9,6 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 public class TutorialPanel : MonoBehaviour
 {
+    
     [Header("表示するパネル")]
     public Image DrawPanel;
 
