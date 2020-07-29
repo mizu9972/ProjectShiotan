@@ -81,6 +81,7 @@ public class Kart : MonoBehaviour
                         kartCamera.AddCount();
                     }
                     playAnimation.StartAnimation();
+                    AudioManager.Instance.PlaySE("SE_EOW");
                 }
                 if (Input.GetKeyDown(KeyCode.LeftArrow)|| inputStick.GetLeftStick())
                 {
@@ -92,6 +93,7 @@ public class Kart : MonoBehaviour
                         kartCamera.SubCount();
                     }
                     playAnimation.StartAnimation();
+                    AudioManager.Instance.PlaySE("SE_EOW");
                 }
                 
             }
