@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
 
 public class Kart : MonoBehaviour
 {
@@ -20,14 +22,16 @@ public class Kart : MonoBehaviour
     private KartCamera kartCamera;
 
     private InputStick inputStick;
+
+    private bool isAnim = false;
+
     private void Start()
     {
         inputStick = new InputStick();
-        if(playAnimation!=null)
-        {
-            playAnimation.StartAnimation();
-        }
+        
         kartCamera = Camera.main.GetComponent<KartCamera>();
+
+
     }
     void Update()
     {
@@ -44,11 +48,11 @@ public class Kart : MonoBehaviour
         {
             isMoving = false;
             transform.position += d;
-            
             return;
         }
         d.Normalize();
         transform.position += d * Time.deltaTime * speed;
+        
         isMoving = true;
     }
 
@@ -67,22 +71,27 @@ public class Kart : MonoBehaviour
 
                 if (Input.GetKeyDown(KeyCode.RightArrow) || inputStick.GetRightStick())
                 {
+                    SetRotationRight();
                     count += 1;
                     CheckValue();
                     if (count > 0 && waypoint[count - 1].GetComponent<StageObject>().isEnd)
                     {
                         kartCamera.AddCount();
                     }
+                    playAnimation.StartAnimation();
                 }
                 if (Input.GetKeyDown(KeyCode.LeftArrow)|| inputStick.GetLeftStick())
                 {
+                    SetRotationLeft();
                     count -= 1;
                     CheckValue();
                     if (count > 0 && waypoint[count + 1].GetComponent<StageObject>().isStart)
                     {
                         kartCamera.SubCount();
                     }
+                    playAnimation.StartAnimation();
                 }
+                
             }
         }
         
@@ -94,7 +103,7 @@ public class Kart : MonoBehaviour
         {
             count = waypoint.Count - 1;
         }
-        if (count <= 0)
+        if (count < 0)
         {
             count = 0;
         }
@@ -103,5 +112,15 @@ public class Kart : MonoBehaviour
     public bool GetisMoving()
     {
         return isMoving;
+    }
+
+    private void SetRotationLeft()
+    {
+        transform.eulerAngles = new Vector3(0f,180f,0f);
+    }
+
+    private void SetRotationRight()
+    {
+        transform.eulerAngles = new Vector3(0f, 0f, 0f);
     }
 }
