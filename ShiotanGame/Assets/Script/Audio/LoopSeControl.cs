@@ -12,12 +12,13 @@ public class LoopSeControl : MonoBehaviour
     void Awake()
     {
         LoopSEInit();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void LoopSEInit()
@@ -75,10 +76,10 @@ public class LoopSeControl : MonoBehaviour
 
     public void SetLoopSeVolumeAll(float vol)//全てのループSEのボリュームをセット
     {
-        foreach(AudioSource mysource in SEChannel)
-        {
-            mysource.volume= Mathf.Clamp(vol, 0f, 1.0f);
-        }
+        //foreach(AudioSource mysource in SEChannel)
+        //{
+        //    mysource.volume= Mathf.Clamp(vol, 0f, 1.0f);
+        //}
     }
 
     private int UseLoopNumber() {

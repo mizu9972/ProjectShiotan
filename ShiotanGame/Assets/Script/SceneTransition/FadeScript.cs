@@ -21,6 +21,7 @@ public class FadeScript : MonoBehaviour
     
     void Start()
     {
+        DontDestroyOnLoad(this);
         fadeImage = GetComponent<Image>();
         red = fadeImage.color.r;
         green = fadeImage.color.g;
@@ -29,6 +30,7 @@ public class FadeScript : MonoBehaviour
         // イベントにイベントハンドラーを追加
         SceneManager.sceneLoaded += SceneLoaded;
         SceneLoadFead();
+
     }
 
     void Update()

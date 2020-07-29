@@ -72,7 +72,7 @@ LightmapSettings:
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
-    m_BakeBackend: 1
+    m_BakeBackend: 2
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 512
@@ -4464,6 +4464,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 97.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 6200579373118613226, guid: 4353a0963205cb048bbc83a86f0efa4b,
+        type: 3}
+      propertyPath: m_BoundingSphereOverride.z
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4353a0963205cb048bbc83a86f0efa4b, type: 3}

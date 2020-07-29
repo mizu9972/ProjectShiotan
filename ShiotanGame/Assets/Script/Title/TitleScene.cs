@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 public class TitleScene : MonoBehaviour
 {
     public enum MenuState//メニューの状態
@@ -37,6 +39,9 @@ public class TitleScene : MonoBehaviour
     private Image MyImage;
     private int AnimCnt = 0;
     private bool isDraw = false;
+
+    bool isControll = true;
+    public VideoPlayer video;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +55,14 @@ public class TitleScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        KeyInput();//キー入力処理
+        if(isControll)
+        {
+            KeyInput();//キー入力処理
+        }
+        else
+        {
+            video.Pause();
+        }
     }
 
     private void KeyInput()//キー入力関数
@@ -104,12 +116,11 @@ public class TitleScene : MonoBehaviour
         {
             case (int)MenuState.START:
                 Camera.main.GetComponent<SceneTransition>().SetTransitionRun("stage1");
-                this.GetComponent<TitleScene>().enabled = false;
+                
                 break;
 
             case (int)MenuState.STAGESELECT:
                 Camera.main.GetComponent<SceneTransition>().SetTransitionRun("StageSelect");
-                this.GetComponent<TitleScene>().enabled = false;
                 break;
 
             //ゲーム終了は確認画面へ移行

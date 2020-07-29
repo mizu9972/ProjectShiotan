@@ -37,10 +37,10 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     // Start is called before the first frame update
     void Start()
     {
+        PauseMenu.SetActive(false);//ポーズ画面のDontDestroyが最初から有効化されてないと呼ばれないので
         SceneManager.sceneLoaded += OnSceneLoaded;
         MainCamera = Camera.main;
         isStageObj = GameObject.Find("isStage");
-        PauseMenu.SetActive(false);//ポーズ画面のDontDestroyが最初から有効化されてないと呼ばれないので
     }
 
     // Update is called once per frame
@@ -52,13 +52,17 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
 
         //ステージ中ならプレイヤーの取得
-        if (isStageObj.GetComponent<isGameMain>().GetisGameMain())
+        if(isStageObj)
         {
-            if(PlayerObj==null)
+            if (isStageObj.GetComponent<isGameMain>().GetisGameMain())
             {
-                PlayerObj = GameObject.FindGameObjectWithTag("Player");
+                if (PlayerObj == null)
+                {
+                    PlayerObj = GameObject.FindGameObjectWithTag("Player");
+                }
             }
         }
+        
 
         if (PauseEnable)
         {
