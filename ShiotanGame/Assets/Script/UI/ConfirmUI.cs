@@ -137,7 +137,7 @@ public class ConfirmUI : MonoBehaviour
                 case (int)MenuState.STAGESELECT://ステージセレクトへ
                     this.gameObject.SetActive(false);
                     Camera.main.GetComponent<FadebyTex>().StartFadeOut();
-                    ReservSceneLoad("MenuScene");
+                    ReservSceneLoad("StageSelect");
                     AudioManager.Instance.PlaySE("SE_ENTER");
                     GameManager.Instance.StageCountReset();
                     GameManager.Instance.SetActivePause(false);//ポーズ画面の描画を終了
