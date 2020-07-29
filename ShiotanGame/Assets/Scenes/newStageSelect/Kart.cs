@@ -62,10 +62,12 @@ public class Kart : MonoBehaviour
         {
             if (!isMoving)
             {
+                inputStick.StickUpdate();
                 if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("MenuSelect"))
                 {
                     string stageName = waypoint[count].GetComponent<GetStageName>().GetName();
                     Camera.main.GetComponent<SceneTransition>().SetTransitionRun(stageName);
+                    AudioManager.Instance.PlaySE("SE_ENTER");
                     this.enabled = false;
                 }
 
