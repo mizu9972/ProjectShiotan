@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageConveyorSystem : MonoBehaviour
+public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
 {
     [SerializeField,Header("ステージオブジェクト群")]
     private List<GameObject> StagePlaneList;
@@ -34,5 +34,11 @@ public class StageConveyorSystem : MonoBehaviour
     void StageInit()
     {
         ActiveStageObject = StagePlaneList[0];
+    }
+
+    public void OnEndLineSystem()
+    {
+        Debug.Log("EndLine到達");
+        Debug.Break();
     }
 }
