@@ -89,14 +89,19 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         }
     }
     //PlaneのEndLineに到達したときの処理
-    public void OnEndLineSystem()
+    public void OnEndLineSystem(GameObject obj)
     {
-        //StageObjectIter++;
-        //if(StageObjectIter >= StagePlaneList.Count)
-        //{
-        //    StageObjectIter = 0;
-        //}
-
-        //ActiveStageObject = StagePlaneList[StageObjectIter];
+        int ObjectInstanceID = obj.GetInstanceID();
+        //オブジェクトを削除して操作配列から削除
+        //インスタンスIDで判定
+        foreach(var StageObject in ActiveStagePlaneList)
+        {
+            if(ObjectInstanceID == StageObject.GetInstanceID())
+            {
+                ActiveStagePlaneList.Remove(StageObject);
+                break;
+            }
+        }
+        Destroy(obj);//削除
     }
 }
