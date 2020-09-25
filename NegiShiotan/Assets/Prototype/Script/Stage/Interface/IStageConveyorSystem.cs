@@ -5,5 +5,5 @@ using UnityEngine;
 //コンベアシステムで利用するインターフェース
 public interface IStageConveyorSystem
 {
-    void OnEndLineSystem();
+    void OnEndLineSystem(GameObject obj);
 }
