@@ -21,6 +21,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
 
     private GameObject ActiveStageObject = null;
     private float NowScrollSpeed;//ステージ移動速度
+    private int StagePlaneIter;
     //private int StageObjectIter = 0;
 
     // Start is called before the first frame update
@@ -44,21 +45,22 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     [ContextMenu("ステージ配置")]
     void StageInit()
     {
-        int StagePlaneIter = 0;
+        StagePlaneIter = 0;
         //描画指定数分配置する
         for (int num = 0; num < ViewStageNum; num++)
         {
             StagePlaneIter = num;
 
-            //描画数が設定されているplane数を超えていたらリストの先頭から配置する
-            if (num >= StagePlaneList.Count)
-            {
-                StagePlaneIter = num % StagePlaneList.Count;
-            }
+            StageAdd(num);
 
-            GameObject newStageObject = Object.Instantiate(StagePlaneList[StagePlaneIter]);//設定されているStagePlaneを複製
-            StageLineUpAtIter(num, newStageObject);//配置
-            ActiveStagePlaneList.Add(newStageObject);//配列へ追加
+            //if (num >= StagePlaneList.Count)
+            //{
+            //    StagePlaneIter = num % StagePlaneList.Count;
+            //}
+
+            //GameObject newStageObject = Object.Instantiate(StagePlaneList[StagePlaneIter]);//設定されているStagePlaneを複製
+            //StageLineUpAtIter(num, newStageObject);//配置
+            //ActiveStagePlaneList.Add(newStageObject);//配列へ追加
         }
         
     }
@@ -94,14 +96,32 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         int ObjectInstanceID = obj.GetInstanceID();
         //オブジェクトを削除して操作配列から削除
         //インスタンスIDで判定
-        foreach(var StageObject in ActiveStagePlaneList)
+        foreach (var StageObject in ActiveStagePlaneList)
         {
-            if(ObjectInstanceID == StageObject.GetInstanceID())
+            if (ObjectInstanceID == StageObject.GetInstanceID())
             {
                 ActiveStagePlaneList.Remove(StageObject);
                 break;
             }
         }
         Destroy(obj);//削除
+
+        //新しくステージプレーン追加
+        StageAdd(1);
+
+    }
+
+    //ステージプレーンを追加する
+    void StageAdd(int num)
+    {
+        //配置したい番号が設定されているplane数を超えていたらリストの先頭から配置する
+        if (StagePlaneIter >= StagePlaneList.Count)
+        {
+            StagePlaneIter = StagePlaneIter % StagePlaneList.Count;
+        }
+        GameObject newStageObject = Object.Instantiate(StagePlaneList[StagePlaneIter]);//設定されているStagePlaneを複製
+        StageLineUpAtIter(num, newStageObject);//配置
+        ActiveStagePlaneList.Add(newStageObject);//配列へ追加
+        StagePlaneIter++;
     }
 }
