@@ -15,6 +15,8 @@ public class PlayerMove : MonoBehaviour
 
     private float Zpos;
 
+    [SerializeField,Header("イカダのどの位置にいるか")]
+    private Vector2 OnRaftPosition;//イカダのどの位置にいるか
     // Start is called before the first frame update
     void Start()
     {
@@ -42,5 +44,9 @@ public class PlayerMove : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, Zpos);
     }
 
-
+    public void SetRaftPosition(Vector2 pos)
+    {
+        //イカダのどこにいるかをセット
+        OnRaftPosition = pos;
+    }
 }
