@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
 
 //ベルトコンベア式にステージをスクロールさせるシステムクラス
 //X座標を減少させて移動させる
@@ -79,7 +80,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
             newStagePlane.transform.position = new Vector3(
                 //新しく配置するPlaneのサイズの半分 +  既に配置されている最後尾のPlaneのサイズの半分 + 既に配置されている最後尾のPlaneの座標
                 newStagePlane.transform.lossyScale.x / 2.0f * 10  + OldStageScaleX / 2.0f * 10 + OldStagePosition.x,
-                OldStagePosition.y,
+                newStagePlane.transform.position.y,
                 OldStagePosition.z
                 );
 
@@ -123,5 +124,11 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         StageLineUpAtIter(num, newStageObject);//配置
         ActiveStagePlaneList.Add(newStageObject);//配列へ追加
         StagePlaneIter++;
+    }
+
+    //滝の落ちるラインの処理
+    public void OnFallLineSystem(float FallEndPositionY_)
+    {
+
     }
 }

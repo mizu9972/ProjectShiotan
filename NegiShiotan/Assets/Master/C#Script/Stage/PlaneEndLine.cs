@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlaneEndLine : MonoBehaviour
 {
     //コンベアシステムオブジェクト
-    private GameObject StageConveyor = null;
+    private GameObject m_StageConveyor = null;
     // Start is called before the first frame update
     void Start()
     {
-        StageConveyor = GameObject.FindGameObjectWithTag("StageConveyor");
+        m_StageConveyor = GameObject.FindGameObjectWithTag("StageConveyor");
     }
 
     //当たり判定
@@ -25,10 +25,10 @@ public class PlaneEndLine : MonoBehaviour
     //EndLineにPlayerPointが到達したらコンベアシステムへ通知する
     private void EndLine()
     {
-        var EndLineSystem_ = StageConveyor.GetComponent<IStageConveyorSystem>();
+        var EndLineSystem_ = m_StageConveyor.GetComponent<IStageConveyorSystem>();
         if(EndLineSystem_ != null)
         {
-            StageConveyor.GetComponent<IStageConveyorSystem>().OnEndLineSystem(this.gameObject.transform.root.gameObject);
+            m_StageConveyor.GetComponent<IStageConveyorSystem>().OnEndLineSystem(this.gameObject.transform.root.gameObject);
 
         }
     }

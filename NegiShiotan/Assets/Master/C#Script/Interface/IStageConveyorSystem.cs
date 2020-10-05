@@ -6,4 +6,5 @@ using UnityEngine;
 public interface IStageConveyorSystem
 {
     void OnEndLineSystem(GameObject obj);
+    void OnFallLineSystem(float FallEndPositionY_);
 }
