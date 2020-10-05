@@ -28,7 +28,7 @@ public class PlaneEndLine : MonoBehaviour
         var EndLineSystem_ = m_StageConveyor.GetComponent<IStageConveyorSystem>();
         if(EndLineSystem_ != null)
         {
-            m_StageConveyor.GetComponent<IStageConveyorSystem>().OnEndLineSystem(this.gameObject.transform.root.gameObject);
+            m_StageConveyor.GetComponent<IStageConveyorSystem>().OnEndLineSystem(this.gameObject.transform.parent.gameObject);
 
         }
     }

@@ -20,10 +20,16 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     public float ScrollBaseSpeed = 1.0f;
 
 
+    [Header("落下速度")]
+    [Header("滝を落ちる時の設定")]
+    public float FallSpeed = 10.0f;
+
     private GameObject ActiveStageObject = null;
     private float NowScrollSpeed;//ステージ移動速度
     private int StagePlaneIter;
-    //private int StageObjectIter = 0;
+
+    //滝落下用Tween
+    private Tween m_FallTween;
 
     // Start is called before the first frame update
     void Awake()
@@ -31,6 +37,12 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         NowScrollSpeed = ScrollBaseSpeed;
 
         StageInit();
+
+        //0にならないように(0割り算回避のため)
+        if(FallSpeed == 0)
+        {
+            FallSpeed = 1.0f;
+        }
     }
 
     // Update is called once per frame
@@ -120,15 +132,24 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         {
             StagePlaneIter = StagePlaneIter % StagePlaneList.Count;
         }
-        GameObject newStageObject = Object.Instantiate(StagePlaneList[StagePlaneIter]);//設定されているStagePlaneを複製
+        GameObject newStageObject = Object.Instantiate(StagePlaneList[StagePlaneIter]/*, Vector3.zero, Quaternion.identity, this.transform*/);//設定されているStagePlaneを複製
+        newStageObject.transform.parent = this.gameObject.transform;
         StageLineUpAtIter(num, newStageObject);//配置
         ActiveStagePlaneList.Add(newStageObject);//配列へ追加
         StagePlaneIter++;
     }
 
+    private void FallInit()
+    {
+        m_FallTween.SetRelative();
+        m_FallTween.SetEase(Ease.Linear);
+    }
+
     //滝の落ちるラインの処理
     public void OnFallLineSystem(float FallEndPositionY_)
     {
-
+        m_FallTween = transform.DOMoveY(0.0f - FallEndPositionY_, 1 / FallSpeed);
+        FallInit();
+        m_FallTween.Play();
     }
 }
