@@ -18,6 +18,8 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     public int ViewStageNum = 2;
     [Header("ステージの基本移動速度")]
     public float ScrollBaseSpeed = 1.0f;
+    [Header("ループさせるか")]
+    public bool isLooping = false;
 
 
     [Header("落下速度")]
@@ -127,9 +129,14 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     //ステージプレーンを追加する
     void StageAdd(int num)
     {
+        
         //配置したい番号が設定されているplane数を超えていたらリストの先頭から配置する
         if (StagePlaneIter >= StagePlaneList.Count)
         {
+            if(isLooping == false)
+            {
+                return;
+            }
             StagePlaneIter = StagePlaneIter % StagePlaneList.Count;
         }
         GameObject newStageObject = Object.Instantiate(StagePlaneList[StagePlaneIter]/*, Vector3.zero, Quaternion.identity, this.transform*/);//設定されているStagePlaneを複製
