@@ -17,10 +17,11 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField,Header("イカダのどの位置にいるか")]
     private Vector2 OnRaftPosition;//イカダのどの位置にいるか
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -33,15 +34,18 @@ public class PlayerMove : MonoBehaviour
     private void MoveFunc()
     {
         //←入力がある状態で左側が飛び出てなければ
-        if(Input.GetKey(KeyCode.LeftArrow) && LeftCollider.GetisHit())
+        if (Input.GetKey(KeyCode.LeftArrow) && LeftCollider.GetisHit())
         {
-            Zpos += Speed * Time.deltaTime;
+            transform.position = new Vector3(transform.position.x, 
+                                             transform.position.y, 
+                                             transform.position.z + (Speed * Time.deltaTime));
         }
         if(Input.GetKey(KeyCode.RightArrow) && RightCollider.GetisHit())
         {
-            Zpos -= Speed * Time.deltaTime;
+            transform.position = new Vector3(transform.position.x, 
+                                             transform.position.y, 
+                                             transform.position.z + (-Speed * Time.deltaTime));
         }
-        transform.position = new Vector3(transform.position.x, transform.position.y, Zpos);
     }
 
     public void SetRaftPosition(Vector2 pos)

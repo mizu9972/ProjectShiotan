@@ -16,10 +16,12 @@ public class GetRaftPosition : MonoBehaviour
     [SerializeField, Header("プレイヤー")]
     private GameObject PlayerObj;
 
+    [Header("イカダ")]
+    public GameObject RaftObj;
     // Start is called before the first frame update
     void Start()
     {
-
+        GetNowPosition();//イカダとプレイヤーの数値初期化のため
     }
 
     // Update is called once per frame
@@ -45,6 +47,9 @@ public class GetRaftPosition : MonoBehaviour
 
             //プレイヤーがイカダのどの位置にいるかを渡す
             PlayerObj.GetComponent<PlayerMove>().SetRaftPosition(hit.textureCoord);
+
+            //イカダにプレイヤーの現在位置を送信
+            RaftObj.GetComponent<RaftMove>().SetOnPlayerPos(hit.textureCoord);
         }
     }
 }
