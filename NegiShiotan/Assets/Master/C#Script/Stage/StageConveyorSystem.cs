@@ -13,6 +13,9 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
 
     private List<GameObject> ActiveStagePlaneList = new List<GameObject>();//実際に操作するオブジェクト群
 
+    [SerializeField, Header("描画カメラ")]
+    private GameObject MainCamera;
+
     [Header("描画ステージプレーン数")]
     [Header("ステージについての設定")]
     public int ViewStageNum = 2;
@@ -29,6 +32,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     private GameObject ActiveStageObject = null;
     private float NowScrollSpeed;//ステージ移動速度
     private int StagePlaneIter;
+    private FallCamera m_FallCamera;
 
     //滝落下用Tween
     private Tween m_FallTween;
@@ -44,6 +48,19 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         if(FallSpeed == 0)
         {
             FallSpeed = 1.0f;
+        }
+    }
+
+    void Start()
+    {
+        if(MainCamera == null)
+        {
+            Debug.LogWarning("カメラが設定されていません");
+            Debug.Break();
+        }
+        else
+        {
+            m_FallCamera = MainCamera.GetComponent<FallCamera>();
         }
     }
 
@@ -158,5 +175,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         m_FallTween = transform.DOMoveY(0.0f - FallEndPositionY_, 1 / FallSpeed);
         FallInit();
         m_FallTween.Play();
+
+        m_FallCamera.StartRotateTween();
     }
 }
