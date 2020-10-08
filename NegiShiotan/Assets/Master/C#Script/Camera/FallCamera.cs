@@ -27,6 +27,9 @@ public class FallCamera : MonoBehaviour
     private float m_DefaultRotateX;//元の回転角度
 
 
+    [SerializeField, Header("落ちている最中のカメラ停止時間の高さ倍率")]
+    private float StopTimeRate = 0.10f;
+
     private Camera m_myCamera;//カメラ
     ////カメラ挙動用Tween
     //Tween m_CameraFallTween;
@@ -49,8 +52,8 @@ public class FallCamera : MonoBehaviour
         
     }
 
-    [ContextMenu("回転")]
-    public void StartRotateTween()
+    [ContextMenu("落下カメラ")]
+    public void StartRotateTween(float FallHeight)
     {
         //元の位置の保存
         m_DefaultPosition = m_myCamera.transform.position;
@@ -60,13 +63,14 @@ public class FallCamera : MonoBehaviour
         //下を向いた後元の方向を向く
         m_CameraFallSequence = DOTween.Sequence();
         m_CameraFallSequence.Append(//下を向く
-    transform.DORotate(new Vector3(FallingRotationX, 0, 0), 1.0f / RotateSpeed, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetRelative()
+    transform.DORotate(new Vector3(FallingRotationX, 0, 0), 1.0f / RotateSpeed, RotateMode.LocalAxisAdd).SetEase(Ease.InOutQuart).SetRelative()
     )
     .Join(//上空へ移動
-    transform.DOMove(FallingPosition,1.0f / MoveSpeed).SetEase(Ease.Linear)
+    transform.DOMove(FallingPosition,1.0f / MoveSpeed).SetEase(Ease.InOutQuart)
     )
+    .AppendInterval(FallHeight * StopTimeRate)//落下中は停止
     .Append(//角度を戻す
-    transform.DORotate(new Vector3(-FallingRotationX, 0, 0), 1.0f / ReverseSpeed, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetRelative()
+    transform.DORotate(new Vector3(-FallingRotationX, 0, 0), 1.0f / ReverseSpeed, RotateMode.LocalAxisAdd).SetEase(Ease.OutBack).SetRelative()
     )
     .Join(//位置を戻す
     transform.DOMove(m_DefaultPosition,1.0f /BackSpeed).SetEase(Ease.Linear)

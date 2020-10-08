@@ -138,7 +138,7 @@ PrefabInstance:
     - target: {fileID: 3390695040291235701, guid: e1ef64b6c373f1645ade5b4b110e14e5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -114.3
+      value: -1340
       objectReference: {fileID: 0}
     - target: {fileID: 3390695040291235701, guid: e1ef64b6c373f1645ade5b4b110e14e5,
         type: 3}
@@ -185,6 +185,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3390695040291235701, guid: e1ef64b6c373f1645ade5b4b110e14e5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 3390695040291235705, guid: e1ef64b6c373f1645ade5b4b110e14e5,
         type: 3}
       propertyPath: m_Name
@@ -213,10 +218,11 @@ MonoBehaviour:
   tempPosition: {x: -2.5, y: 6.5, z: -0.4}
   FallingPosition: {x: 9, y: 10, z: -0.4}
   MoveSpeed: 1
-  BackSpeed: 1
+  BackSpeed: 3
   FallingRotationX: 75
-  RotateSpeed: 0.9
-  ReverseSpeed: 2
+  RotateSpeed: 1
+  ReverseSpeed: 1.5
+  StopTimeRate: 0.00035
 --- !u!1001 &1040539322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -920,7 +926,7 @@ PrefabInstance:
         type: 3}
       propertyPath: StagePlaneList.Array.data[1]
       value: 
-      objectReference: {fileID: 3390695040696479358}
+      objectReference: {fileID: 1664237492}
     - target: {fileID: 3200108519709265539, guid: d93a7a93953697b489a82c9788bfa956,
         type: 3}
       propertyPath: FallSpeed
@@ -935,7 +941,12 @@ PrefabInstance:
         type: 3}
       propertyPath: StagePlaneList.Array.data[2]
       value: 
-      objectReference: {fileID: 1492031765}
+      objectReference: {fileID: 1664237492}
+    - target: {fileID: 3200108519709265539, guid: d93a7a93953697b489a82c9788bfa956,
+        type: 3}
+      propertyPath: isLooping
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d93a7a93953697b489a82c9788bfa956, type: 3}
 --- !u!4 &8556405300743021440

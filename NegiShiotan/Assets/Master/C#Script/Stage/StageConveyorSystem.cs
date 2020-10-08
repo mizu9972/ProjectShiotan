@@ -166,7 +166,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     private void FallInit()
     {
         m_FallTween.SetRelative();
-        m_FallTween.SetEase(Ease.Linear);
+        m_FallTween.SetEase(Ease.InFlash);
     }
 
     //滝の落ちるラインの処理
@@ -176,6 +176,6 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         FallInit();
         m_FallTween.Play();
 
-        m_FallCamera.StartRotateTween();
+        m_FallCamera.StartRotateTween(Mathf.Abs(FallEndPositionY_));
     }
 }
