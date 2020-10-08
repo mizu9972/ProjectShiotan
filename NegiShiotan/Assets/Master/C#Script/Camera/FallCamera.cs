@@ -5,17 +5,29 @@ using DG.Tweening;
 
 public class FallCamera : MonoBehaviour
 {
+    //作業用
+    [SerializeField, Header("座標メモ用")]
+    private Vector3 tempPosition;
+    //-----
+
+    [SerializeField, Header("落ちる時の目標座標")]
+    private Vector3 FallingPosition;
+    [SerializeField, Header("移動速度")]
+    private float MoveSpeed = 1.0f;
+    [SerializeField, Header("元の位置に戻る速度")]
+    private float BackSpeed = 1.0f;
+    private Vector3 m_DefaultPosition;//元の座標
 
     [SerializeField, Header("落ちる時の目標X角度")]
-    float FallingRotationX;
-
+    private float FallingRotationX;
     [SerializeField, Header("回転速度")]
-    float RotateSpeed = 1.0f;
+    private float RotateSpeed = 1.0f;
     [SerializeField, Header("元の角度に戻る回転速度")]
-    float ReverseSpeed = 1.0f;
-    private Camera m_myCamera;//カメラ
-    private float m_DefaultRotateX;
+    private float ReverseSpeed = 1.0f;
+    private float m_DefaultRotateX;//元の回転角度
 
+
+    private Camera m_myCamera;//カメラ
     ////カメラ挙動用Tween
     //Tween m_CameraFallTween;
     Sequence m_CameraFallSequence;
@@ -40,16 +52,24 @@ public class FallCamera : MonoBehaviour
     [ContextMenu("回転")]
     public void StartRotateTween()
     {
+        //元の位置の保存
+        m_DefaultPosition = m_myCamera.transform.position;
 
+        //落下地点の上空へ移動した後元の位置へ戻る
+        // +
         //下を向いた後元の方向を向く
         m_CameraFallSequence = DOTween.Sequence();
-        m_CameraFallSequence.Append(
-    transform.DORotate(new Vector3(FallingRotationX, 0, 0), 1.0f / RotateSpeed, RotateMode.LocalAxisAdd)
-    .SetEase(Ease.InBack).SetRelative()
+        m_CameraFallSequence.Append(//下を向く
+    transform.DORotate(new Vector3(FallingRotationX, 0, 0), 1.0f / RotateSpeed, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetRelative()
     )
-    .Append(
-    transform.DORotate(new Vector3(-FallingRotationX, 0, 0), 1.0f / ReverseSpeed, RotateMode.LocalAxisAdd)
-    .SetEase(Ease.Linear).SetRelative()
+    .Join(//上空へ移動
+    transform.DOMove(FallingPosition,1.0f / MoveSpeed).SetEase(Ease.Linear)
+    )
+    .Append(//角度を戻す
+    transform.DORotate(new Vector3(-FallingRotationX, 0, 0), 1.0f / ReverseSpeed, RotateMode.LocalAxisAdd).SetEase(Ease.Linear).SetRelative()
+    )
+    .Join(//位置を戻す
+    transform.DOMove(m_DefaultPosition,1.0f /BackSpeed).SetEase(Ease.Linear)
     );
         m_CameraFallSequence.Play();
 
