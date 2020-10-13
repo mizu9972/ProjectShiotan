@@ -166,13 +166,13 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     private void FallInit()
     {
         m_FallTween.SetRelative();
-        m_FallTween.SetEase(Ease.InFlash);
+        m_FallTween.SetEase(Ease.InQuart);
     }
 
     //滝の落ちるラインの処理
     public void OnFallLineSystem(float FallEndPositionY_)
     {
-        m_FallTween = transform.DOMoveY(0.0f - FallEndPositionY_, 1 / FallSpeed);
+        m_FallTween = transform.DOMoveY(0.0f - FallEndPositionY_, Mathf.Abs(FallEndPositionY_)  / (FallSpeed * 10.0f));
         FallInit();
         m_FallTween.Play();
 
