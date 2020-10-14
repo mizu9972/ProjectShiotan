@@ -1,18 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField, Header("読み込むシーン名")]
+    private string SceneName;
 
-    // Update is called once per frame
-    void Update()
+    [ContextMenu("シーン読み込み")]
+    public void LoadScene()
     {
-        
+        SceneManager.LoadScene(SceneName);
     }
 }
