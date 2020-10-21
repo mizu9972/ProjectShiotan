@@ -5,7 +5,7 @@ using UnityEngine;
 public class FallStartLine : MonoBehaviour
 {
     [SerializeField, Header("落下地点のPlane")]
-    private GameObject FallEndPlane;
+    private GameObject FallEndPlane = null;
 
     //落下地点のY座標
     float m_FallEndPositionY;

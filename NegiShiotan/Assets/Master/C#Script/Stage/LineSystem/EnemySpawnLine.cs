@@ -10,7 +10,14 @@ public class EnemySpawnLine : MonoBehaviour
     private GameObject EnemyObject = null;
 
     private GameObject m_EnemySpawnErea = null;
-    //public List<bool> Erea;
+
+
+    [HideInInspector]
+    public int EreaCount = 9;
+    [HideInInspector]
+    private const int EreaCountCst = 9;
+    [HideInInspector]
+    public bool[] Erea = new bool[EreaCountCst];
 
     [HideInInspector]
     public bool E_1, E_2, E_3, E_4, E_5, E_6, E_7, E_8, E_9;
@@ -31,7 +38,7 @@ public class EnemySpawnLine : MonoBehaviour
         }
     }
 
-    private void SpawnLine()
+    private void SpawnEnemy()
     {
         if(EnemyObject != null)
         {
@@ -54,23 +61,23 @@ public class SpawnEreaSelecter : Editor
         EditorGUILayout.BeginVertical(GUI.skin.box);
         EditorGUILayout.LabelField("敵スポーン位置");
         EditorGUILayout.BeginHorizontal();
-        m_Erea.E_1 = ToggleCheck(m_Erea.E_1);
-        m_Erea.E_2 = ToggleCheck(m_Erea.E_2);
-        m_Erea.E_3 = ToggleCheck(m_Erea.E_3);
+        m_Erea.Erea[0] = ToggleCheck(m_Erea.Erea[0]);
+        m_Erea.Erea[1] = ToggleCheck(m_Erea.Erea[1]);
+        m_Erea.Erea[2] = ToggleCheck(m_Erea.Erea[2]);
 
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
-        m_Erea.E_4 = ToggleCheck(m_Erea.E_4);
-        m_Erea.E_5 = ToggleCheck(m_Erea.E_5);
-        m_Erea.E_6 = ToggleCheck(m_Erea.E_6);
+        m_Erea.Erea[3] = ToggleCheck(m_Erea.Erea[3]);
+        m_Erea.Erea[4] = ToggleCheck(m_Erea.Erea[4]);
+        m_Erea.Erea[5] = ToggleCheck(m_Erea.Erea[5]);
 
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
-        m_Erea.E_7 = ToggleCheck(m_Erea.E_7);
-        m_Erea.E_8 = ToggleCheck(m_Erea.E_8);
-        m_Erea.E_9 = ToggleCheck(m_Erea.E_9);
+        m_Erea.Erea[6] = ToggleCheck(m_Erea.Erea[6]);
+        m_Erea.Erea[7] = ToggleCheck(m_Erea.Erea[7]);
+        m_Erea.Erea[8] = ToggleCheck(m_Erea.Erea[8]);
 
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
@@ -100,15 +107,10 @@ public class SpawnEreaSelecter : Editor
             return false;
         }
 
-        m_Erea.E_1 = false;
-        m_Erea.E_2 = false;
-        m_Erea.E_3 = false;
-        m_Erea.E_4 = false;
-        m_Erea.E_5 = false;
-        m_Erea.E_6 = false;
-        m_Erea.E_7 = false;
-        m_Erea.E_8 = false;
-        m_Erea.E_9 = false;
+        for(int EreaNum = 0;EreaNum < m_Erea.EreaCount; EreaNum++)
+        {
+            m_Erea.Erea[EreaNum] = false;
+        }
 
         return true;
     }

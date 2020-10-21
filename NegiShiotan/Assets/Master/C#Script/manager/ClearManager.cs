@@ -5,7 +5,7 @@ using UnityEngine;
 public class ClearManager : MonoBehaviour
 {
     [SerializeField, Header("リザルト画面キャンバス")]
-    private GameObject ResultCanvas;
+    private GameObject ResultCanvas = null;
 
     private void Awake()
     {

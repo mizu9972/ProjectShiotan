@@ -9,7 +9,7 @@ public class StageEndLine : MonoBehaviour
     private ClearManager m_ClearManager;
 
     //コンベアシステムオブジェクト
-    private GameObject m_StageConveyor = null;
+    //private GameObject m_StageConveyor = null;
 
     void Start()
     {
