@@ -13,6 +13,12 @@ public class PlayerMove : MonoBehaviour
     [Header("右側の移動制限用コライダ")]
     public HitCheck RightCollider;
 
+    [Header("前側の移動制限用コライダ")]
+    public HitCheck FrontCollider;
+
+    [Header("後ろ側の移動制限用コライダ")]
+    public HitCheck BackCollider;
+
     private float Zpos;
 
     [SerializeField,Header("イカダのどの位置にいるか")]
@@ -36,15 +42,27 @@ public class PlayerMove : MonoBehaviour
         //←入力がある状態で左側が飛び出てなければ
         if (Input.GetKey(KeyCode.LeftArrow) && LeftCollider.GetisHit())
         {
-            transform.position = new Vector3(transform.position.x, 
-                                             transform.position.y, 
+            transform.position = new Vector3(transform.position.x,
+                                             transform.position.y,
                                              transform.position.z + (Speed * Time.deltaTime));
         }
-        if(Input.GetKey(KeyCode.RightArrow) && RightCollider.GetisHit())
+        if (Input.GetKey(KeyCode.RightArrow) && RightCollider.GetisHit())
         {
-            transform.position = new Vector3(transform.position.x, 
-                                             transform.position.y, 
+            transform.position = new Vector3(transform.position.x,
+                                             transform.position.y,
                                              transform.position.z + (-Speed * Time.deltaTime));
+        }
+        if (Input.GetKey(KeyCode.UpArrow) && FrontCollider.GetisHit())
+        {
+            transform.position = new Vector3(transform.position.x + (Speed * Time.deltaTime),
+                                             transform.position.y,
+                                             transform.position.z);
+        }
+        if (Input.GetKey(KeyCode.DownArrow) && BackCollider.GetisHit())
+        {
+            transform.position = new Vector3(transform.position.x + (-Speed * Time.deltaTime),
+                                             transform.position.y,
+                                             transform.position.z);
         }
     }
 
