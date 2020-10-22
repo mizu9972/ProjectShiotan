@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DataAccessor: MonoBehaviour
 {
-    DataManager dataManager;
+    DataManager dataManager = new DataManager();
 
     [SerializeField, Header("コインの数")]
     private int m_Coin;
