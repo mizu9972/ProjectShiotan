@@ -10,7 +10,7 @@ public class EnemySpawnLine : MonoBehaviour
     private GameObject EnemyObject = null;
 
     private GameObject m_EnemySpawnErea = null;
-
+    private EnemySpawnSystem m_ESS = null;
 
     [HideInInspector]
     public int EreaCount = 9;
@@ -19,30 +19,38 @@ public class EnemySpawnLine : MonoBehaviour
     [HideInInspector]
     public bool[] Erea = new bool[EreaCountCst];
 
-    [HideInInspector]
-    public bool E_1, E_2, E_3, E_4, E_5, E_6, E_7, E_8, E_9;
-
     // Start is called before the first frame update
     void Start()
     {
         m_EnemySpawnErea = GameObject.FindGameObjectWithTag("EnemySpawnErea");
+        m_ESS = m_EnemySpawnErea.GetComponent<EnemySpawnSystem>();
 
-        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == 11)
+        if (other.gameObject.layer == 11)
         {
-
+            SpawnEnemy();
         }
     }
 
+    //指定したエリアに敵オブジェクトを生成する
     private void SpawnEnemy()
     {
-        if(EnemyObject != null)
+        if (EnemyObject == null)
         {
+            return;
+        }
 
+        //trueになっているエリアに生成
+        //もし複数のエリアがtrueになっていたら複数体生成される
+        for (int EreaNum = 0; EreaNum < EreaCountCst; EreaNum++)
+        {
+            if (Erea[EreaNum] == true)
+            {
+                Instantiate(EnemyObject, m_ESS.getEreaTrans(EreaNum).position, Quaternion.identity);
+            }
         }
     }
 }
@@ -83,12 +91,13 @@ public class SpawnEreaSelecter : Editor
         EditorGUILayout.EndVertical();
 
     }
-
+    
     //トグルが変更されたかどうかを検知する
     private bool ToggleCheck(bool Erea)
     {
         EditorGUI.BeginChangeCheck();
 
+        //表示
         Erea = EditorGUILayout.Toggle("", Erea);
 
         if (EditorGUI.EndChangeCheck())
@@ -107,6 +116,7 @@ public class SpawnEreaSelecter : Editor
             return false;
         }
 
+        //一旦全てfalseに
         for(int EreaNum = 0;EreaNum < m_Erea.EreaCount; EreaNum++)
         {
             m_Erea.Erea[EreaNum] = false;
