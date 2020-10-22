@@ -11,7 +11,7 @@ public class FallCamera : MonoBehaviour
     //-----
 
     [SerializeField, Header("落ちる時の目標座標")]
-    private Vector3 FallingPosition;
+    private Vector3 FallingPosition = Vector3.zero;
     [SerializeField, Header("移動速度")]
     private float MoveSpeed = 1.0f;
     [SerializeField, Header("元の位置に戻る速度")]
@@ -19,7 +19,7 @@ public class FallCamera : MonoBehaviour
     private Vector3 m_DefaultPosition;//元の座標
 
     [SerializeField, Header("落ちる時の目標X角度")]
-    private float FallingRotationX;
+    private float FallingRotationX = 0.0f;
     [SerializeField, Header("回転速度")]
     private float RotateSpeed = 1.0f;
     [SerializeField, Header("元の角度に戻る回転速度")]

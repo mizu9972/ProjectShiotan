@@ -13,11 +13,11 @@ public class PoseWindow : MonoBehaviour
     private Image MainCanvasImage = null;
 
     [SerializeField, Header("暗くするときの色")]
-    private Color DarkMaskColor;
+    private Color DarkMaskColor = Color.grey;
     private Color m_DefaultColor;
 
     [SerializeField, Header("ポーズ中選択できないようにするボタン群")]
-    private List<Button> UnSelectabeButtons;
+    private List<Button> UnSelectabeButtons = new List<Button>();
 
     private bool m_isPoseActive = false;//ポーズ画面を開いているか判定用
     // Start is called before the first frame update

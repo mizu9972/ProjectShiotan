@@ -9,12 +9,12 @@ using DG.Tweening;
 public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
 {
     [SerializeField,Header("ステージオブジェクト群")]
-    private List<GameObject> StagePlaneList;
+    private List<GameObject> StagePlaneList = new List<GameObject>();
 
     private List<GameObject> ActiveStagePlaneList = new List<GameObject>();//実際に操作するオブジェクト群
 
     [SerializeField, Header("描画カメラ")]
-    private GameObject MainCamera;
+    private GameObject MainCamera = null;
 
     [Header("描画ステージプレーン数")]
     [Header("ステージについての設定")]
@@ -28,8 +28,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     [Header("落下速度")]
     [Header("滝を落ちる時の設定")]
     public float FallSpeed = 10.0f;
-
-    private GameObject ActiveStageObject = null;
+    
     private float NowScrollSpeed;//ステージ移動速度
     private int StagePlaneIter;
     private FallCamera m_FallCamera;
