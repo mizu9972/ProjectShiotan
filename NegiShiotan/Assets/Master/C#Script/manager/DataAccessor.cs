@@ -4,22 +4,16 @@ using UnityEngine;
 
 public class DataAccessor: MonoBehaviour
 {
+    DataManager dataManager;
+
     [SerializeField, Header("コインの数")]
     private int m_Coin;
 
     [SerializeField, Header("残機")]
     private int m_Remain;
-
-    #region Getter&Setter
-    public int Coin
+    public void SaveStatus()//コイン、残機を引き継ぎ
     {
-        get { return m_Coin; }
-        set { m_Coin = value; }
+        dataManager.Coin = m_Coin;
+        dataManager.Remain = m_Remain;
     }
-    public int Remain
-    {
-        get { return m_Remain; }
-        set { m_Remain = value; }
-    }
-    #endregion
 }

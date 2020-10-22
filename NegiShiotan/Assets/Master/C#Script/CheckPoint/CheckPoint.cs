@@ -6,9 +6,8 @@ public class CheckPoint : MonoBehaviour
 {
     DataAccessor dataAccessor;
 
-    public void SaveStatus(int coin,int remain)//コイン、残機を引き継ぎ
+    public void SaveStatusFunc()//コイン、残機を引き継ぎ
     {
-        dataAccessor.Coin = coin;
-        dataAccessor.Remain = remain;
+        dataAccessor.SaveStatus();
     }
 }
