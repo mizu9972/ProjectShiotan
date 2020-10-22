@@ -17,6 +17,11 @@ public class FallStartLine : MonoBehaviour
     {
         m_StageConveyor = GameObject.FindGameObjectWithTag("StageConveyor");
 
+        if(FallEndPlane == null)
+        {
+            Debug.Break();
+            Debug.Log("落下地点のオブジェクトが設定されていません。");
+        }
         m_FallEndPositionY = FallEndPlane.GetComponent<Transform>().position.y;
     }
 

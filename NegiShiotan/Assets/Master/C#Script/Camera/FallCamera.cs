@@ -11,24 +11,24 @@ public class FallCamera : MonoBehaviour
     //-----
 
     [SerializeField, Header("落ちる時の目標座標")]
-    private Vector3 FallingPosition = Vector3.zero;
+    private Vector3 FallingPosition = new Vector3(9, 10, -0.4f);
     [SerializeField, Header("移動速度")]
     private float MoveSpeed = 1.0f;
     [SerializeField, Header("元の位置に戻る速度")]
-    private float BackSpeed = 1.0f;
+    private float BackSpeed = 3.0f;
     private Vector3 m_DefaultPosition;//元の座標
 
     [SerializeField, Header("落ちる時の目標X角度")]
-    private float FallingRotationX = 0.0f;
+    private float FallingRotationX = 75.0f;
     [SerializeField, Header("回転速度")]
     private float RotateSpeed = 1.0f;
     [SerializeField, Header("元の角度に戻る回転速度")]
-    private float ReverseSpeed = 1.0f;
+    private float ReverseSpeed = 1.5f;
     private float m_DefaultRotateX;//元の回転角度
 
 
     [SerializeField, Header("落ちている最中のカメラ停止時間の高さ倍率")]
-    private float StopTimeRate = 0.10f;
+    private float StopTimeRate = 0.00035f;
 
     private Camera m_myCamera;//カメラ
     ////カメラ挙動用Tween
