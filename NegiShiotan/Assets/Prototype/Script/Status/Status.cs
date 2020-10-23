@@ -27,23 +27,18 @@ public class Status : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CoinNumDraw[0].SetNumberDraw(coin);
+        CoinNumDraw[1].SetNumberDraw(coin);
+        ZankiNumDraw[0].SetNumberDraw(Zanki);
+        ZankiNumDraw[1].SetNumberDraw(Zanki);
+
         HP = MAXHP;
     }
 
     // Update is called once per frame
     void Update()
     {
-        CoinNumDraw[0].SetNumberDraw(coin);
-        CoinNumDraw[1].SetNumberDraw(coin);
 
-        ZankiNumDraw[0].SetNumberDraw(Zanki);
-        ZankiNumDraw[1].SetNumberDraw(Zanki);
-
-        if (coin >= MAXcoin)
-        {
-            coin = 0;
-            SetZanki(1);
-        }
     }
 
     public int GetHP()
@@ -53,6 +48,20 @@ public class Status : MonoBehaviour
     public int GetMAXHP()
     {
         return MAXHP;
+    }
+
+    public void RecoveryHP(int HPUP)
+    {
+        HP += HPUP;
+        if(HP>MAXHP)
+        {
+            HP = MAXHP;
+        }
+    }
+
+    public void DamageHP(int Damage)
+    {
+        HP -= Damage;
     }
 
     public int GetCoin()
@@ -66,15 +75,15 @@ public class Status : MonoBehaviour
         if(coin>MAXcoin)
         {
             coin = 0;
-            SetZanki(1);
+            UpZanki(1);
         }
         CoinNumDraw[0].SetNumberDraw(coin);
         CoinNumDraw[1].SetNumberDraw(coin);
     }
 
-    public void SetZanki(int s_zanki)
+    public void UpZanki(int Up_zanki)
     {
-        Zanki += s_zanki;
+        Zanki += Up_zanki;
         if(Zanki>MAXZanki)
         {
             Zanki = MAXZanki;
