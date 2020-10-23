@@ -13,7 +13,7 @@ public class SEPlayer : MonoBehaviour
     [Header("ドップラー使用")]
     public bool m_UseDoppler = false;
 
-    [Header("ドップラーレベル")]
+    [HideInInspector]
     [Range(0f, 5f)] public float m_DopplerLevel = 1f;
 
 
@@ -47,17 +47,38 @@ public class SEPlayer : MonoBehaviour
     }
 }
 
-//[CustomEditor(typeof(SEPlayer))]
-//public class SEPlayerEditor :Editor
-//{
-//    private bool disabled;
-//    public override void OnInspectorGUI()
-//    {
-//        var seplayer = target as SEPlayer;
-//        disabled = EditorGUILayout.Toggle("Dopplerを使用するか", seplayer.m_UseDoppler);
+[CustomEditor(typeof(SEPlayer))]
+public class SEPlayerEditor : Editor
+{
+    SEPlayer m_SePlayer;
 
-//        EditorGUI.BeginDisabledGroup(disabled);
-//        seplayer.m_DopplerLevel = EditorGUILayout.FloatField("ドップラーレベル", seplayer.m_DopplerLevel);
-//        EditorGUI.EndDisabledGroup();
-//    }
-//}
+    private bool disabled;
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+        base.OnInspectorGUI();
+
+        m_SePlayer = (SEPlayer)target;
+
+        EditorGUI.BeginChangeCheck();
+
+        if(m_SePlayer.m_UseDoppler)
+        {
+            EditorGUILayout.BeginToggleGroup("ドップラーレベル", true);
+            m_SePlayer.m_DopplerLevel 
+                = EditorGUILayout.FloatField("0～5", Mathf.Clamp(m_SePlayer.m_DopplerLevel, 0f, 5f));
+            EditorGUILayout.EndToggleGroup();
+            
+        }
+        
+
+        if(EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(m_SePlayer, "ChangeSePlayer");
+            EditorUtility.SetDirty(m_SePlayer);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+        serializedObject.ApplyModifiedProperties();
+    }
+}
