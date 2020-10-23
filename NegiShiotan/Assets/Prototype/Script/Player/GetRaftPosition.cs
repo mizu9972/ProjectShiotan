@@ -14,7 +14,7 @@ public class GetRaftPosition : MonoBehaviour
     int distance = 10;//Rayの飛ばす距離
 
     [SerializeField, Header("プレイヤー")]
-    private GameObject PlayerObj;
+    private GameObject PlayerObj = null;
 
     [Header("イカダ")]
     public GameObject RaftObj;

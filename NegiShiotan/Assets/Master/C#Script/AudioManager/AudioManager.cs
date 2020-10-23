@@ -17,7 +17,7 @@ public class AudioManager : SingletonMonoBehaviour<AudioManager>
     [Header("ループSE用のオーディオソース")]
     public GameObject SE_LoopSource;
 
-    private float SE_LoopVol = 1.0f;//ループSE用のボリューム
+    //private float SE_LoopVol = 1.0f;//ループSE用のボリューム
 
     [SerializeField, Header("BGMの音量")]
     [Range(0, 1)] private float BgmVol = 1.0f;
