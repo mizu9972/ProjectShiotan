@@ -5,7 +5,7 @@ using UnityEngine;
 public class audiotest : MonoBehaviour
 {
     public SEPlayer sePlayer;
-    float x, y, z = 0f;
+    float x = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +27,6 @@ public class audiotest : MonoBehaviour
         {
             x -= 1;
         }
-        transform.position = new Vector3(x, y, z);
+        transform.position = new Vector3(x, 0f,0f);
     }
 }

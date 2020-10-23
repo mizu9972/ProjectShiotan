@@ -46,3 +46,18 @@ public class SEPlayer : MonoBehaviour
         }
     }
 }
+
+//[CustomEditor(typeof(SEPlayer))]
+//public class SEPlayerEditor :Editor
+//{
+//    private bool disabled;
+//    public override void OnInspectorGUI()
+//    {
+//        var seplayer = target as SEPlayer;
+//        disabled = EditorGUILayout.Toggle("Dopplerを使用するか", seplayer.m_UseDoppler);
+
+//        EditorGUI.BeginDisabledGroup(disabled);
+//        seplayer.m_DopplerLevel = EditorGUILayout.FloatField("ドップラーレベル", seplayer.m_DopplerLevel);
+//        EditorGUI.EndDisabledGroup();
+//    }
+//}
