@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CheckPointLine : MonoBehaviour
 {
+    CheckPoint checkPoint = new CheckPoint();
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,7 @@ public class CheckPointLine : MonoBehaviour
         //PlayerPointと触れたら
         if (other.gameObject.layer == 11)
         {
-            
+            checkPoint.SaveStatusFunc();
         }
     }
 }

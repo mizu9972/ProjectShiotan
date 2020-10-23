@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    DataAccessor dataAccessor;
+    DataAccessor dataAccessor = new DataAccessor();
 
     public void SaveStatusFunc()//コイン、残機を引き継ぎ
     {
