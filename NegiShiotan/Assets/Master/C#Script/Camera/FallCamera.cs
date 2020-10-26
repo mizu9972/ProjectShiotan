@@ -27,7 +27,7 @@ public class FallCamera : MonoBehaviour
     private float m_DefaultRotateX;//元の回転角度
 
 
-    [SerializeField, Header("落ちている最中のカメラ停止時間の高さ倍率")]
+    [SerializeField, Header("落ちている最中のカメラ停止時間の長さ倍率")]
     private float StopTimeRate = 0.00035f;
 
     private Camera m_myCamera;//カメラ
@@ -68,7 +68,7 @@ public class FallCamera : MonoBehaviour
     .Join(//上空へ移動
     transform.DOMove(FallingPosition,1.0f / MoveSpeed).SetEase(Ease.InOutQuart)
     )
-    .AppendInterval(FallHeight * StopTimeRate)//落下中は停止
+    .AppendInterval(FallHeight * StopTimeRate * 0.0000001f)//落下中は停止
     .Append(//角度を戻す
     transform.DORotate(new Vector3(-FallingRotationX, 0, 0), 1.0f / ReverseSpeed, RotateMode.LocalAxisAdd).SetEase(Ease.OutBack).SetRelative()
     )
