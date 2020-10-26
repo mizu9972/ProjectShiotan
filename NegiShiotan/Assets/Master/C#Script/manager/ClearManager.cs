@@ -9,6 +9,10 @@ public class ClearManager : MonoBehaviour
 
     private void Awake()
     {
+        if(ResultCanvas == null)
+        {
+            ResultCanvas = GameObject.FindGameObjectWithTag("ClearCanvas");
+        }
         ResultCanvas.SetActive(false);
     }
 

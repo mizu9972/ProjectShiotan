@@ -9,7 +9,7 @@ public class PoseWindow : MonoBehaviour
     [SerializeField, Header("ポーズ画面用キャンバスオブジェクト")]
     private GameObject PoseCanvasObject = null;
 
-    [SerializeField, Header("メインキャンパスの背景imageオブジェクト")]
+    [SerializeField, Header("メインキャンパスの背景imageオブジェクト(あれば)")]
     private Image MainCanvasImage = null;
 
     [SerializeField, Header("暗くするときの色")]
@@ -48,10 +48,12 @@ public class PoseWindow : MonoBehaviour
         //キャンパス有効化
         PoseCanvasObject.SetActive(true);
 
-        //色変更
-        m_DefaultColor = MainCanvasImage.color;
-        MainCanvasImage.color = DarkMaskColor;
-
+        if (MainCanvasImage != null)
+        {
+            //色変更
+            m_DefaultColor = MainCanvasImage.color;
+            MainCanvasImage.color = DarkMaskColor;
+        }
         //ボタン無効化
         foreach(var Button in UnSelectabeButtons)
         {
@@ -68,8 +70,11 @@ public class PoseWindow : MonoBehaviour
         PoseCanvasObject.SetActive(false);
 
         //色戻す
-        MainCanvasImage.color = m_DefaultColor;
+        if (MainCanvasImage = null)
+        {
+            MainCanvasImage.color = m_DefaultColor;
 
+        }
         //ボタン有効化
         foreach (var Button in UnSelectabeButtons)
         {

@@ -13,6 +13,12 @@ public class SEPlayer : MonoBehaviour
     [Header("ドップラー使用")]
     public bool m_UseDoppler = false;
 
+    [Header("SEをループさせるか")]
+    public bool isLoop = false;
+
+    [Header("音量"), Range(0f, 1f)]
+    public float m_Volume = 1f;
+
     [HideInInspector]
     [Range(0f, 5f)] public float m_DopplerLevel = 1f;
 
@@ -24,11 +30,32 @@ public class SEPlayer : MonoBehaviour
     {
         m_audioSource = this.GetComponent<AudioSource>();
         SetUseDoppler();
+        m_audioSource.volume = m_Volume;
+    }
+
+    private void Update()
+    {
+        m_audioSource.volume = m_Volume;//ボリュームをセット
     }
 
     public void PlaySound()//SEプレイ関数
     {
-        m_audioSource.PlayOneShot(m_SEData);
+        if(isLoop)//ループ再生なら
+        {
+            m_audioSource.clip = m_SEData;//データセット
+            m_audioSource.loop = true;
+            m_audioSource.Play();//再生
+        }
+        else
+        {
+            m_audioSource.PlayOneShot(m_SEData);
+        }
+    }
+
+    public void StopSound()
+    {
+        m_audioSource.Stop();//再生中のSEを停止
+        m_audioSource.clip = null;//クリップデータを空に
     }
 
     private void SetUseDoppler()//ドップラー使用切り替え
