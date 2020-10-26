@@ -54,8 +54,8 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     {
         if(MainCamera == null)
         {
-            Debug.LogWarning("カメラが設定されていません");
-            Debug.Break();
+            Debug.LogWarning("カメラが設定されていません\n 自動で設定しました。");
+            MainCamera = Camera.main.gameObject;
         }
         else
         {
