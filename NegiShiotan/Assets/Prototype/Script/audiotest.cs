@@ -5,11 +5,13 @@ using UnityEngine;
 public class audiotest : MonoBehaviour
 {
     public SEPlayer sePlayer;
+    public BGMPlayer bgmPlayer;
     float x = 0f;
+    float z = 0f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        bgmPlayer.PlayBgm();
     }
 
     // Update is called once per frame
@@ -21,12 +23,20 @@ public class audiotest : MonoBehaviour
         }
         if(Input.GetKey(KeyCode.A))
         {
-            x += 1;
+            x += 0.1f;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            x -= 1;
+            x -= 0.1f;
         }
-        transform.position = new Vector3(x, 0f,0f);
+        if (Input.GetKey(KeyCode.W))
+        {
+            z += 0.1f;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            z -= 0.1f;
+        }
+        transform.position = new Vector3(x, 0f,z);
     }
 }
