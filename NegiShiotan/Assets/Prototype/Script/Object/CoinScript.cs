@@ -22,11 +22,9 @@ public class CoinScript : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        string layerName = LayerMask.LayerToName(other.gameObject.layer);
-
-        if (layerName == "Player")
+        if (other.tag == "Player"|| other.tag == "Bullet")
         {
             CoinStatus.UpCoin(UpCoin);
             Destroy(this.gameObject);

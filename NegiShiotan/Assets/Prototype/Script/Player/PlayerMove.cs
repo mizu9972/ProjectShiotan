@@ -20,6 +20,9 @@ public class PlayerMove : MonoBehaviour
     public HitCheck BackCollider;
 
     private float Zpos;
+    
+    [Header("攻撃のためのコライダー")]
+    public GameObject AttackCollider;
 
     [SerializeField,Header("イカダのどの位置にいるか")]
     private Vector2 OnRaftPosition;//イカダのどの位置にいるか
@@ -27,7 +30,7 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        AttackCollider.SetActive(false);
     }
 
     // Update is called once per frame
@@ -63,6 +66,12 @@ public class PlayerMove : MonoBehaviour
             transform.position = new Vector3(transform.position.x + (-Speed * Time.deltaTime),
                                              transform.position.y,
                                              transform.position.z);
+        }
+
+        //攻撃コライダー　アクティブ化
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AttackCollider.SetActive(true);
         }
     }
 
