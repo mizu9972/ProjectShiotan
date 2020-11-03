@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Status : MonoBehaviour
 {
+    [Header("無敵時間")]
+    public float SetMutekiTime;
+    private float MutekiTime;
+
     [Header("MAXHP")]
     public int MAXHP;
     public int HP;      //現在のHP
@@ -24,9 +28,13 @@ public class Status : MonoBehaviour
     [Header("残機 表示画像")]
     public NumberScript[] ZankiNumDraw;
 
+    //コイン取得　同時取得　防止
+    private float coincooltime;
+
     // Start is called before the first frame update
     void Start()
     {
+        coincooltime = 0;
         HP = MAXHP;
     }
 
@@ -38,6 +46,18 @@ public class Status : MonoBehaviour
 
         ZankiNumDraw[0].SetNumberDraw(Zanki);
         ZankiNumDraw[1].SetNumberDraw(Zanki);
+
+        //コイン取得　クールタイム
+        if(coincooltime>0)
+        {
+            coincooltime -= 0.1f;
+        }
+
+        //無敵時間　計測
+        if (MutekiTime>0)
+        {
+            MutekiTime -= 0.1f;
+        }
     }
 
     public int GetHP()
@@ -60,7 +80,12 @@ public class Status : MonoBehaviour
 
     public void DamageHP(int Damage)
     {
-        HP -= Damage;
+        //無敵時間　以外
+        if(MutekiTime<=0)
+        {
+            HP -= Damage;
+            MutekiTime = SetMutekiTime; //無敵時間　セット
+        }
     }
 
     public int GetCoin()
@@ -70,11 +95,15 @@ public class Status : MonoBehaviour
 
     public void UpCoin(int s_coin)
     {
-        coin += s_coin;
-        if(coin>MAXcoin)
+        if (coincooltime <= 0)
         {
-            coin = 0;
-            UpZanki(1);
+            coin += s_coin;
+            coincooltime += 0.1f;
+            if (coin > MAXcoin)
+            {
+                coin = 0;
+                UpZanki(1);
+            }
         }
     }
 

@@ -24,7 +24,7 @@ public class CoinScript : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player"|| other.tag == "Bullet")
+        if (other.tag == "Human"|| other.tag == "Bullet")
         {
             CoinStatus.UpCoin(UpCoin);
             Destroy(this.gameObject);
