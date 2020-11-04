@@ -24,9 +24,7 @@ public class RockScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        string layerName = LayerMask.LayerToName(other.gameObject.layer);
-
-        if (layerName == "Player_Raft")
+        if (other.tag == "PlayerRaft")
         {
             HPStatus.DamageHP(Damage);
             Destroy(this.gameObject);

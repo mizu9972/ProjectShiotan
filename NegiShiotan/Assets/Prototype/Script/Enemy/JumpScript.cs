@@ -32,7 +32,7 @@ public class JumpScript : MonoBehaviour
         if(other.tag== "Piranha")
         {
             save = other.transform;
-            var bulletInstance = Instantiate<GameObject>(pira, save.position, this.transform.rotation);
+            GameObject bulletInstance = (GameObject)Instantiate(pira, save.position, this.transform.rotation);
 
             Vector3 Throwpos = this.transform.position;
             Throwpos.y = this.transform.position.y + JumpRange;

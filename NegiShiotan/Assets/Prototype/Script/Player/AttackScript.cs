@@ -36,16 +36,14 @@ public class AttackScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        string layerName = LayerMask.LayerToName(other.gameObject.layer);
-
-        if (layerName == "Enemy")
+        if (other.tag == "RidePiranha")
         {
             //ぶつかった　魚削除
             Destroy(other.gameObject);
 
             //弾丸型の魚生成し　前方に飛ばす
             GameObject instance = (GameObject)Instantiate(obj,
-                                                          this.transform.position,
+                                                          other.transform.position,
                                                           this.transform.rotation);
         }
     }
