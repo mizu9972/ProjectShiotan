@@ -31,7 +31,7 @@ public class StageSelectManager : MonoBehaviour
     private PreNexStageWhile[] m_PreNexStageWhile = new PreNexStageWhile[STAGE_NUM];
 
     [SerializeField, Header("ステージ選択シーケンスコレクション"), HideInInspector]
-    private Dictionary<GameObject, PreNexStageWhile> StageSeqCollection;
+    private Dictionary<GameObject, PreNexStageWhile> StageSeqCollection = new Dictionary<GameObject, PreNexStageWhile>();
 
 
     [SerializeField, Header("ステージ選択で動かすオブジェクト")]
@@ -47,21 +47,35 @@ public class StageSelectManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
-        SetStageCollections();
-
+        
         m_nowSelectStageIter = 0;
+        SetStageCollections();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (Input.GetButtonDown("SelectNext"))
+        {
+            //前進
+            MoveSelectStage(StageSelectAction.Next);
+        }
+        else if (Input.GetButtonDown("SelectPreview"))
+        {
+            //後退
+            MoveSelectStage(StageSelectAction.Prev);
+        }
     }
 
     //StageSeqCollectionの設定
     //ステージ選択のオブジェクトを紐づけていく
     private void SetStageCollections()
     {
+        for(int InitPNtStageWhileIter = 0; InitPNtStageWhileIter < STAGE_NUM; InitPNtStageWhileIter++)
+        {
+            m_PreNexStageWhile[InitPNtStageWhileIter] = new PreNexStageWhile(); 
+        }
         //ステージ１
         {
             m_PreNexStageWhile[0].PreWhile = null;
@@ -82,7 +96,7 @@ public class StageSelectManager : MonoBehaviour
         //ステージ10
         {
             m_PreNexStageWhile[9].PreWhile = StageWhiles[8];
-            m_PreNexStageWhile[9].NexWhile = StageWhiles[9];
+            m_PreNexStageWhile[9].NexWhile = null;
 
             StageSeqCollection[StageSquares[9]] = m_PreNexStageWhile[9];
         }
@@ -148,14 +162,23 @@ public class StageSelectManager : MonoBehaviour
         for (int StageWhilePointIter = 0; StageWhilePointIter < stageWhileList.Count; StageWhilePointIter++)
         {
             m_moveStageSequence.Append(
-                StageSelectPlayer.transform.DOMove(stageWhileList[StageWhilePointIter].transform.position, moveTimeperPoint).SetRelative()
+                StageSelectPlayer.transform.DOMove(stageWhileList[StageWhilePointIter].transform.position, moveTimeperPoint)
             );
         }
 
         //移動先ステージマス
         m_moveStageSequence.Append(
-            StageSelectPlayer.transform.DOMove(movedStageSquare.transform.position, moveTimeperPoint).SetRelative()
+            StageSelectPlayer.transform.DOMove(movedStageSquare.transform.position, moveTimeperPoint)
             );
+    }
+
+    //符号を取得
+    //正は１　０は０　負はー１
+    private float judgeSign(double value)
+    {
+        if (value > 0) { return 1; }
+        else if (value < 0) { return -1; }
+        else return 0;
     }
 }
 
