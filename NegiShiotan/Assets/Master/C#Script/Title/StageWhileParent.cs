@@ -17,15 +17,15 @@ public class StageWhileParent : MonoBehaviour
         //移動順リストを設定
         {
             int addStageWhilePointIter = 0;
-
+            int StageWhilePointNum = StageWhilePoints.Count;
             AdvanceList.Clear();
-            for (addStageWhilePointIter = 0; addStageWhilePointIter < StageWhilePoints.Count; addStageWhilePointIter++)
+            for (addStageWhilePointIter = 0; addStageWhilePointIter < StageWhilePointNum; addStageWhilePointIter++)
             {
                 AdvanceList.Add(StageWhilePoints[addStageWhilePointIter]);
             }
 
             RecessionList.Clear();
-            for (addStageWhilePointIter = StageWhilePoints.Count - 1; addStageWhilePointIter <= 0; addStageWhilePointIter--)
+            for (addStageWhilePointIter = StageWhilePointNum - 1; addStageWhilePointIter >= 0; addStageWhilePointIter--)
             {
                 RecessionList.Add(StageWhilePoints[addStageWhilePointIter]);
             }
