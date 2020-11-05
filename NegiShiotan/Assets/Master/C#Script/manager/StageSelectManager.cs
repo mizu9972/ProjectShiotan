@@ -40,6 +40,9 @@ public class StageSelectManager : MonoBehaviour
     //現在選択中のステージ添字
     private int m_nowSelectStageIter = 0;
 
+    //移動先オブジェクト
+    private bool isMoving = false;
+    
     [HideInInspector]//移動速度
     public float StageMoveTime = 1.0f;
 
@@ -49,22 +52,32 @@ public class StageSelectManager : MonoBehaviour
     { 
         
         m_nowSelectStageIter = 0;
+
+        StageSelectPlayer.transform.position = StageSquares[m_nowSelectStageIter].transform.position;
+
         SetStageCollections();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Coltrol();
+    }
 
-        if (Input.GetButtonDown("SelectNext"))
+    private void Coltrol()
+    {
+        if (isMoving == false)
         {
-            //前進
-            MoveSelectStage(StageSelectAction.Next);
-        }
-        else if (Input.GetButtonDown("SelectPreview"))
-        {
-            //後退
-            MoveSelectStage(StageSelectAction.Prev);
+            if (Input.GetButtonDown("SelectNext"))
+            {
+                //前進
+                MoveSelectStage(StageSelectAction.Next);
+            }
+            else if (Input.GetButtonDown("SelectPreview"))
+            {
+                //後退
+                MoveSelectStage(StageSelectAction.Prev);
+            }
         }
     }
 
@@ -148,7 +161,7 @@ public class StageSelectManager : MonoBehaviour
     //DOTweenによる実際の挙動      //ステージ間移動順リスト　　　　　　　　//移動先オブジェクト
     private void MoveStageTween(List<GameObject> stageWhileList, GameObject movedStageSquare)
     {
-
+        m_moveStageSequence.Kill();
         m_moveStageSequence = DOTween.Sequence();
 
         //移動するオブジェクト数を計算　ステージ間　＋　移動先ステージマス
@@ -158,6 +171,8 @@ public class StageSelectManager : MonoBehaviour
         float moveTimeperPoint = 0;
         moveTimeperPoint = StageMoveTime / ObjectCount;
 
+        isMoving = true;
+        
         //ステージ間
         for (int StageWhilePointIter = 0; StageWhilePointIter < stageWhileList.Count; StageWhilePointIter++)
         {
@@ -166,10 +181,14 @@ public class StageSelectManager : MonoBehaviour
             );
         }
 
-        //移動先ステージマス
+        //移動先ステージマスへ移動し、移動中フラグをfalseにする
         m_moveStageSequence.Append(
             StageSelectPlayer.transform.DOMove(movedStageSquare.transform.position, moveTimeperPoint)
-            );
+            )
+            .AppendCallback(() =>
+            {
+                isMoving = false;
+            });
     }
 
     //符号を取得
