@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class NumberScript : MonoBehaviour
 {
     [Header("数　表示画像")]
-    public RawImage SetNumber;
+    private RawImage SetNumber;
 
     [Header("桁数")]
     public int truss;
@@ -20,6 +20,8 @@ public class NumberScript : MonoBehaviour
         y = 0.5f;
         w = 0.2f;
         h = 0.5f;
+
+        SetNumber = this.GetComponent<RawImage>();
 
         //0　表示
         SetNumber.uvRect = new Rect(x, y, w, h);
