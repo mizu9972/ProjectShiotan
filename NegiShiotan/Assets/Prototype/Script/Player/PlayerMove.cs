@@ -137,7 +137,7 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //イカダ　離れたとき
-        if (other.tag == "PlayerRaft"&&other.tag!= "IkadaMoveLimit")
+        if (other.tag == "PlayerRaft")
         {
             //重力　ON
             rb.useGravity = true;

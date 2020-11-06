@@ -26,6 +26,9 @@ public class PiranhaScript : MonoBehaviour
     [Header("プレイヤー　吹き飛ばす力")]
     public float BlowPower;
 
+    [Header("ステージ移動　落下阻止用")]
+    public BoxCollider StageMoveLimit;
+
     //吹き飛び状態
     private bool BlowTime;
 
@@ -40,14 +43,33 @@ public class PiranhaScript : MonoBehaviour
         PlayerRb = GameObject.FindGameObjectWithTag("Human").GetComponent<Rigidbody>();
         PlayerStatus = GameObject.FindGameObjectWithTag("Status").GetComponent<Status>();
         rb = this.GetComponent<Rigidbody>();
+
+        //親子関係したとき　メッシュがずれるバグ解消のための一文
+        this.transform.rotation = new Quaternion(0, this.transform.rotation.y, 0, this.transform.rotation.w);
+
+        //イカダを親オブジェクトに設定
+        this.transform.SetParent(PlayerObj.transform.parent, true);
     }
 
     //Update is called once per frame
     void Update()
     {
-        if(cooltime>0)
+        //一定時間停止
+        if (cooltime > 0)
         {
             cooltime -= 0.1f;
+        }
+
+        //吹っ飛び中
+        if (BlowTime)
+        {
+            //XZ回転　初期化
+            Quaternion XYrot = this.transform.rotation;
+            XYrot.x = 0;
+            XYrot.z = 0;
+
+            //現在の回転情報と、ターゲット方向の回転情報を補完する
+            transform.rotation = XYrot;
         }
 
         //移動可能か（イカダの上）
@@ -68,34 +90,22 @@ public class PiranhaScript : MonoBehaviour
             Vector3 velocity = gameObject.transform.rotation * new Vector3(0, 0, Speed);
             gameObject.transform.position += velocity * Time.deltaTime;
         }
+
+        //一定以下の高度　削除
+        if(this.transform.position.y<-1)
+        {
+            Destroy(this.gameObject);
+        }
     }
-
-    public void SetBlow()
-    {
-        ////重力　ON
-        //rb.useGravity = true;
-
-        ////吹き飛ぶ方向
-        //Vector3 Throwpos = -this.transform.forward;
-        //Throwpos.y += 2;
-
-        ////吹き飛ぶ力　追加
-        //rb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
-
-
-        ////プレイヤーのHP減少
-        //PlayerStatus.DamageHP(ATK);
-    }
+    
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Human")
         {
-
             //プレイヤー向きをピラニアに(Z正面)
             other.transform.LookAt(this.transform.position);
             other.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0, other.transform.rotation.w);
-            //transform.Rotate(0.0f, other.transform.rotation.y, 0.0f, Space.World);
 
 
             //上に吹き飛ばす
@@ -104,9 +114,6 @@ public class PiranhaScript : MonoBehaviour
 
             //吹き飛ぶ力　追加
             PlayerRb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
-            //rb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
-            //rb.AddForce(other.transform.forward * BlowHigh, ForceMode.Impulse);
-
 
 
             //吹き飛ぶ方向
@@ -130,6 +137,19 @@ public class PiranhaScript : MonoBehaviour
             BlowTime = false;
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        //イカダに着地時
+        if (other.tag == "PlayerRaft")
+        {
+            rb.useGravity = false;
+
+            //移動可能
+            BlowTime = false;
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         //イカダに着地時
@@ -158,6 +178,13 @@ public class PiranhaScript : MonoBehaviour
 
             MoveOn = true;
             cooltime = 1.0f;
+            StageMoveLimit.enabled = true;
+        }
+
+        if(other.gameObject.tag== "IkadaMoveLimit")
+        {
+            Debug.Log("Stop");
+            rb.velocity = new Vector3(0, 0, 0);
         }
     }
 
