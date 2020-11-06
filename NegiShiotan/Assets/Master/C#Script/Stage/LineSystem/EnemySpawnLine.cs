@@ -88,25 +88,32 @@ public class SpawnEreaSelecter : Editor
 
         EditorGUILayout.BeginVertical(GUI.skin.box);
         EditorGUILayout.LabelField("敵スポーン位置");
-        EditorGUILayout.BeginHorizontal();
-        recordErea[0] = EditorGUILayout.Toggle("", m_Erea.Erea[0]);
-        recordErea[1] = EditorGUILayout.Toggle("", m_Erea.Erea[1]);
-        recordErea[2] = EditorGUILayout.Toggle("", m_Erea.Erea[2]);
-        EditorGUILayout.EndHorizontal();
+        {
+            EditorGUILayout.BeginHorizontal();
+            {
+                recordErea[0] = EditorGUILayout.Toggle("", m_Erea.Erea[0]);
+                recordErea[1] = EditorGUILayout.Toggle("", m_Erea.Erea[1]);
+                recordErea[2] = EditorGUILayout.Toggle("", m_Erea.Erea[2]);
+            }
+            EditorGUILayout.EndHorizontal();
 
-        EditorGUILayout.BeginHorizontal();
-        recordErea[3] = EditorGUILayout.Toggle("", m_Erea.Erea[3]);
-        recordErea[4] = EditorGUILayout.Toggle("", m_Erea.Erea[4]);
-        recordErea[5] = EditorGUILayout.Toggle("", m_Erea.Erea[5]);
+            EditorGUILayout.BeginHorizontal();
+            {
+                recordErea[3] = EditorGUILayout.Toggle("", m_Erea.Erea[3]);
+                recordErea[4] = EditorGUILayout.Toggle("", m_Erea.Erea[4]);
+                recordErea[5] = EditorGUILayout.Toggle("", m_Erea.Erea[5]);
+            }
 
-        EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
 
-        EditorGUILayout.BeginHorizontal();
-        recordErea[6] = EditorGUILayout.Toggle("", m_Erea.Erea[6]);
-        recordErea[7] = EditorGUILayout.Toggle("", m_Erea.Erea[7]);
-        recordErea[8] = EditorGUILayout.Toggle("", m_Erea.Erea[8]);
-
-        EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            {
+                recordErea[6] = EditorGUILayout.Toggle("", m_Erea.Erea[6]);
+                recordErea[7] = EditorGUILayout.Toggle("", m_Erea.Erea[7]);
+                recordErea[8] = EditorGUILayout.Toggle("", m_Erea.Erea[8]);
+            }
+            EditorGUILayout.EndHorizontal();
+        }
         EditorGUILayout.EndVertical();
 
         //変更されたら
