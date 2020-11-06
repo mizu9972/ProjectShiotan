@@ -43,7 +43,7 @@ public class AttackScript : MonoBehaviour
 
             //弾丸型の魚生成し　前方に飛ばす
             GameObject instance = (GameObject)Instantiate(obj,
-                                                          other.transform.position,
+                                                          this.transform.position,
                                                           this.transform.rotation);
         }
     }
