@@ -23,7 +23,7 @@ public class FishBase : MonoBehaviour {
 
     void Start()
     {
-        Player = GameObject.FindGameObjectWithTag("Player").transform;
+        Player = GameObject.FindGameObjectWithTag("Player")?.transform;
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -42,7 +42,6 @@ public class FishBase : MonoBehaviour {
         // 移動
         rb.AddForce(gameObject.transform.forward * m_TrackingSpeed, ForceMode.VelocityChange);
     }
-
     #region Getter//Setter
     public void SetSpawnFlg(bool val) {
         m_SpawnFlg = val;

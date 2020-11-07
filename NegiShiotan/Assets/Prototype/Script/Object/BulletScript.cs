@@ -16,9 +16,11 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(transform.position.x + (Speed * Time.deltaTime),
-                                         transform.position.y,
-                                         transform.position.z);
+        //transform.position = new Vector3(transform.position.x + (Speed * Time.deltaTime),
+        //                                 transform.position.y,
+        //                                 transform.position.z);
+        Vector3 velocity = gameObject.transform.rotation * new Vector3(0, 0, Speed);
+        gameObject.transform.position += velocity * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
