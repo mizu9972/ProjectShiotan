@@ -77,6 +77,10 @@ public class StageSelectManager : MonoBehaviour
             {
                 //後退
                 MoveSelectStage(StageSelectAction.Prev);
+            }else if (Input.GetButtonDown("SelectDecision"))
+            {
+                //決定
+                MoveSelectStage(StageSelectAction.Load);
             }
         }
     }
