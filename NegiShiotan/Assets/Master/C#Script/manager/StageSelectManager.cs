@@ -206,6 +206,7 @@ public class StageSelectManager : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 //ステージ間移動詳細設定用エディター拡張
 //TODO DOTween設定項目実装
 [CustomEditor(typeof(StageSelectManager))]
@@ -243,3 +244,5 @@ public class StageSelectManagerCustom : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+
+#endif

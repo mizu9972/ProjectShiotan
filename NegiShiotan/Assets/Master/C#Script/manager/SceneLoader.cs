@@ -20,7 +20,7 @@ public class SceneLoader : MonoBehaviour
         SceneManager.LoadScene(SceneIndex);
     }
 }
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(SceneLoader))]
 public class SceneLoaderCustom : Editor
 {
@@ -83,3 +83,4 @@ public class SceneLoaderCustom : Editor
         return ScenePath.Substring(NameStart, NameLength);
     }
 }
+#endif

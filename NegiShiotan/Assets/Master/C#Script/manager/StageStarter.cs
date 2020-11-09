@@ -46,6 +46,7 @@ public class StageStarter : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(StageStarter))]
 public class StageStarterEditor : Editor
 {
@@ -76,3 +77,5 @@ public class StageStarterEditor : Editor
 
     }
 }
+
+#endif
