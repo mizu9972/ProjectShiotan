@@ -31,11 +31,15 @@ public class Status : MonoBehaviour
     //コイン取得　同時取得　防止
     private float coincooltime;
 
+    //ゲームオーバー用オブジェクト
+    private GameOverManager m_GameOverManager = null;
     // Start is called before the first frame update
     void Start()
     {
         coincooltime = 0;
         HP = MAXHP;
+
+        m_GameOverManager = GameObject.FindWithTag("GameOverManager").GetComponent<GameOverManager>();
     }
 
     // Update is called once per frame
@@ -48,15 +52,26 @@ public class Status : MonoBehaviour
         ZankiNumDraw[1].SetNumberDraw(Zanki);
 
         //コイン取得　クールタイム
-        if(coincooltime>0)
+        if (coincooltime > 0)
         {
             coincooltime -= 0.1f;
         }
 
         //無敵時間　計測
-        if (MutekiTime>0)
+        if (MutekiTime > 0)
         {
             MutekiTime -= 0.1f;
+        }
+
+        //体力・残機
+        //０になった時
+        if (HP <= 0)
+        {
+            m_GameOverManager.HPGameOverFunction();
+        }
+        if (Zanki <= 0)
+        {
+            m_GameOverManager.ZankiGameOverFunction();
         }
     }
 
@@ -72,7 +87,7 @@ public class Status : MonoBehaviour
     public void RecoveryHP(int HPUP)
     {
         HP += HPUP;
-        if(HP>MAXHP)
+        if (HP > MAXHP)
         {
             HP = MAXHP;
         }
@@ -81,7 +96,7 @@ public class Status : MonoBehaviour
     public bool DamageHP(int Damage)
     {
         //無敵時間　以外
-        if(MutekiTime<=0)
+        if (MutekiTime <= 0)
         {
             HP -= Damage;
             MutekiTime = SetMutekiTime; //無敵時間　セット
@@ -112,9 +127,23 @@ public class Status : MonoBehaviour
     public void UpZanki(int Up_zanki)
     {
         Zanki += Up_zanki;
-        if(Zanki>MAXZanki)
+        if (Zanki > MAXZanki)
         {
             Zanki = MAXZanki;
         }
+    }
+
+    //デバッグ用
+    //HPを０にする
+    [ContextMenu("HP０")]
+    public void HP_Zero()
+    {
+        HP = 0;
+    }
+    //残機を０にする
+    [ContextMenu("残機０")]
+    public void Zanki_Zero()
+    {
+        Zanki = 0;
     }
 }
