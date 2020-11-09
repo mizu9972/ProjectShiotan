@@ -32,6 +32,7 @@ public class JumpScript : MonoBehaviour
         if(other.tag== "Piranha")
         {
             save = other.transform;
+            Destroy(other.gameObject);
             GameObject bulletInstance = (GameObject)Instantiate(pira, save.position, this.transform.rotation);
 
             Vector3 Throwpos = this.transform.position;

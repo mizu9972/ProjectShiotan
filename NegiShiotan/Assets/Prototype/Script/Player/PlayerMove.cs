@@ -120,7 +120,7 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //イカダに着地時
-        if (other.tag == "PlayerRaft")
+        if (other.tag == "Player")
         {
             rb.useGravity = false;
             rb.velocity = new Vector3(0, 0, 0);
@@ -137,7 +137,7 @@ public class PlayerMove : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //イカダ　離れたとき
-        if (other.tag == "PlayerRaft")
+        if (other.tag == "Player")
         {
             //重力　ON
             rb.useGravity = true;

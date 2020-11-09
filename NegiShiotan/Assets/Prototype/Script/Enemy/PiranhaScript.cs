@@ -32,6 +32,8 @@ public class PiranhaScript : MonoBehaviour
     //吹き飛び状態
     private bool BlowTime;
 
+    float SaveY;
+
 
     //Start is called before the first frame update
     void Start()
@@ -92,9 +94,11 @@ public class PiranhaScript : MonoBehaviour
         }
 
         //一定以下の高度　削除
-        if(this.transform.position.y<-1)
+        if(this.transform.position.y<SaveY)
         {
-            Destroy(this.gameObject);
+            Vector3 pos = this.transform.position;
+            pos.y = SaveY;
+            this.transform.position = pos;
         }
     }
     
@@ -129,7 +133,7 @@ public class PiranhaScript : MonoBehaviour
         }
 
         //イカダに着地時
-        if (other.tag == "PlayerRaft")
+        if (other.tag == "Player")
         {
             rb.useGravity = false;
 
@@ -141,7 +145,7 @@ public class PiranhaScript : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         //イカダに着地時
-        if (other.tag == "PlayerRaft")
+        if (other.tag == "Player")
         {
             rb.useGravity = false;
 
@@ -153,7 +157,7 @@ public class PiranhaScript : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //イカダに着地時
-        if (other.tag == "PlayerRaft")
+        if (other.tag == "Player")
         {
             //重力　ON
             rb.useGravity = true;
@@ -165,7 +169,7 @@ public class PiranhaScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "PlayerRaft")
+        if (other.gameObject.tag == "Player")
         {
             //親子関係したとき　メッシュがずれるバグ解消のための一文
             this.transform.rotation = new Quaternion(0, this.transform.rotation.y, 0, this.transform.rotation.w);
@@ -179,6 +183,8 @@ public class PiranhaScript : MonoBehaviour
             MoveOn = true;
             cooltime = 1.0f;
             StageMoveLimit.enabled = true;
+
+            SaveY = this.transform.position.y;
         }
 
         if(other.gameObject.tag== "IkadaMoveLimit")
