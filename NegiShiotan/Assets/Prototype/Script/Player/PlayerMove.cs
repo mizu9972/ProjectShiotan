@@ -9,18 +9,6 @@ public class PlayerMove : MonoBehaviour
     [Header("移動速度")]
     public float Speed = 1f;
 
-    [Header("左側の移動制限用コライダ")]
-    public HitCheck LeftCollider;
-
-    [Header("右側の移動制限用コライダ")]
-    public HitCheck RightCollider;
-
-    [Header("前側の移動制限用コライダ")]
-    public HitCheck FrontCollider;
-
-    [Header("後ろ側の移動制限用コライダ")]
-    public HitCheck BackCollider;
-
     [Header("攻撃のためのコライダー")]
     public GameObject AttackCollider;
 
@@ -56,21 +44,21 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+
+    private void FixedUpdate()
+    {
         //移動可能
         if (MoveActive)
         {
             //移動処理
             MoveFunc();
         }
-        else
+
+        if(Savepos>=transform.position.y)
         {
-            //プレイヤー　吹っ飛び中
-            if(BackCollider.GetisHit())
-            {
-                transform.position = new Vector3(transform.position.x + (-BlowSpeed * Time.deltaTime),
-                                                 transform.position.y,
-                                                 transform.position.z);
-            }
+            rb.useGravity = false;
         }
     }
 
@@ -80,34 +68,39 @@ public class PlayerMove : MonoBehaviour
         //回転の度合い
         float step = ang * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.LeftArrow) && LeftCollider.GetisHit())
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.position = new Vector3(transform.position.x,
                                              transform.position.y,
                                              transform.position.z + (Speed * Time.deltaTime));
-
             //指定した方向にゆっくり回転する場合
-            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, -90f, 0), step);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0f, 0), step);
         }
-        if (Input.GetKey(KeyCode.RightArrow) && RightCollider.GetisHit())
+        if (Input.GetKey(KeyCode.RightArrow))
         {
             transform.position = new Vector3(transform.position.x,
                                              transform.position.y,
                                              transform.position.z + (-Speed * Time.deltaTime));
             //指定した方向にゆっくり回転する場合
-            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 90f, 0), step);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 180f, 0), step);
         }
-        if (Input.GetKey(KeyCode.UpArrow) && FrontCollider.GetisHit())
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             transform.position = new Vector3(transform.position.x + (Speed * Time.deltaTime),
                                              transform.position.y,
                                              transform.position.z);
+            //指定した方向にゆっくり回転する場合
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 90f, 0), step);
+
         }
-        if (Input.GetKey(KeyCode.DownArrow) && BackCollider.GetisHit())
+        if (Input.GetKey(KeyCode.DownArrow))
         {
             transform.position = new Vector3(transform.position.x + (-Speed * Time.deltaTime),
                                              transform.position.y,
                                              transform.position.z);
+
+            //指定した方向にゆっくり回転する場合
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, -90f, 0), step);
         }
 
         //攻撃コライダー　アクティブ化
@@ -126,31 +119,8 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "RidePiranha")
-        {
-            //プレイヤー向きをピラニアに(Z正面)
-            this.transform.LookAt(other.transform.position);
-            this.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0, this.transform.rotation.w);
-            transform.Rotate(0.0f, 90, 0.0f, Space.World);
-
-            
-            //上に吹き飛ばす
-            Vector3 Throwpos = other.transform.forward;
-            Throwpos.y = other.transform.position.y + 1;
-
-            //吹き飛ぶ力　追加
-            //rb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
-            rb.AddForce(this.transform.up * BlowHigh, ForceMode.Impulse);
-
-            //重力　ON
-            rb.useGravity = true;
-
-            //移動不可（吹っ飛び中）
-            MoveActive = false;
-        }
-
         //イカダに着地時
-        if (other.tag == "PlayerRaft")
+        if (other.tag == "Player")
         {
             rb.useGravity = false;
             rb.velocity = new Vector3(0, 0, 0);
@@ -159,8 +129,21 @@ public class PlayerMove : MonoBehaviour
             pos.y = Savepos;
             this.transform.position = pos;
 
-            //移動不可（吹っ飛び中）
+            //移動可能
             MoveActive = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        //イカダ　離れたとき
+        if (other.tag == "Player")
+        {
+            //重力　ON
+            rb.useGravity = true;
+
+            //移動不可（吹っ飛び中）
+            MoveActive = false;
         }
     }
 }

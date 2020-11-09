@@ -24,7 +24,7 @@ public class RockScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PlayerRaft")
+        if (other.tag == "Player")
         {
             HPStatus.DamageHP(Damage);
             Destroy(this.gameObject);
