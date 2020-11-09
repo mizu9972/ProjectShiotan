@@ -7,13 +7,13 @@ public class RockScript : MonoBehaviour
     [Header("HP減る量")]
     public int Damage;
 
-    [Header("HP管理マネージャー")]
-    public Status HPStatus;
+    //HP管理マネージャー
+    private Status HPStatus;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        HPStatus = GameObject.FindGameObjectWithTag("Status").GetComponent<Status>();
     }
 
     // Update is called once per frame
