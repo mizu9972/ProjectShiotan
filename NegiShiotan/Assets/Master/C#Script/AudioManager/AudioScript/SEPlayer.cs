@@ -73,7 +73,7 @@ public class SEPlayer : MonoBehaviour
         }
     }
 }
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(SEPlayer))]
 public class SEPlayerEditor : Editor
 {
@@ -109,3 +109,4 @@ public class SEPlayerEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif
