@@ -78,14 +78,16 @@ public class Status : MonoBehaviour
         }
     }
 
-    public void DamageHP(int Damage)
+    public bool DamageHP(int Damage)
     {
         //無敵時間　以外
         if(MutekiTime<=0)
         {
             HP -= Damage;
             MutekiTime = SetMutekiTime; //無敵時間　セット
+            return true;
         }
+        return false;
     }
 
     public int GetCoin()
