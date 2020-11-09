@@ -133,6 +133,7 @@ public class StageSelectManager : MonoBehaviour
 
             //選択中のステージ読み込み
             case StageSelectAction.Load:
+                StageSquares[m_nowSelectStageIter].GetComponent<SceneLoader>().LoadScene();
                 break;
         }
     }
@@ -220,7 +221,7 @@ public class StageSelectManagerCustom : Editor
         EditorGUILayout.BeginVertical(GUI.skin.box);
         EditorGUILayout.LabelField("ステージ間の挙動に関する設定");
         {
-
+            m_SSManager.StageMoveTime = EditorGUILayout.FloatField("ステージ間の移動時間(秒)", m_SSManager.StageMoveTime);
         }
         EditorGUILayout.EndVertical();
 
