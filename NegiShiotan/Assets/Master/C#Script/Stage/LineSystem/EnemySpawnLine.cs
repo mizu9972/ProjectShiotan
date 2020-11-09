@@ -55,7 +55,7 @@ public class EnemySpawnLine : MonoBehaviour
     }
 
 }
-
+#if UNITY_EDITOR
 //エディター拡張
 [CustomEditor(typeof(EnemySpawnLine))]
 public class SpawnEreaSelecter : Editor
@@ -173,3 +173,5 @@ public class SpawnEreaSelecter : Editor
     //    return true;
     //}
 }
+
+#endif

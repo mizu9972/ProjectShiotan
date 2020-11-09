@@ -77,6 +77,10 @@ public class StageSelectManager : MonoBehaviour
             {
                 //後退
                 MoveSelectStage(StageSelectAction.Prev);
+            }else if (Input.GetButtonDown("SelectDecision"))
+            {
+                //決定
+                MoveSelectStage(StageSelectAction.Load);
             }
         }
     }
@@ -133,6 +137,7 @@ public class StageSelectManager : MonoBehaviour
 
             //選択中のステージ読み込み
             case StageSelectAction.Load:
+                StageSquares[m_nowSelectStageIter].GetComponent<SceneLoader>().LoadScene();
                 break;
         }
     }
@@ -201,6 +206,7 @@ public class StageSelectManager : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 //ステージ間移動詳細設定用エディター拡張
 //TODO DOTween設定項目実装
 [CustomEditor(typeof(StageSelectManager))]
@@ -220,7 +226,7 @@ public class StageSelectManagerCustom : Editor
         EditorGUILayout.BeginVertical(GUI.skin.box);
         EditorGUILayout.LabelField("ステージ間の挙動に関する設定");
         {
-
+            m_SSManager.StageMoveTime = EditorGUILayout.FloatField("ステージ間の移動時間(秒)", m_SSManager.StageMoveTime);
         }
         EditorGUILayout.EndVertical();
 
@@ -238,3 +244,5 @@ public class StageSelectManagerCustom : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+
+#endif
