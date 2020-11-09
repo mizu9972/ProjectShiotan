@@ -107,29 +107,31 @@ public class PiranhaScript : MonoBehaviour
     {
         if (other.tag == "Human")
         {
-            //プレイヤー向きをピラニアに(Z正面)
-            other.transform.LookAt(this.transform.position);
-            other.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0, other.transform.rotation.w);
-
-
-            //上に吹き飛ばす
-            Vector3 Throwpos = this.transform.forward;
-            Throwpos.y = this.transform.position.y + 3;
-
-            //吹き飛ぶ力　追加
-            PlayerRb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
-
-
-            //吹き飛ぶ方向
-            Vector3 Throwpos2 = -this.transform.forward;
-            Throwpos2.y += 2;
-
-            //吹き飛ぶ力　追加
-            rb.AddForce(Throwpos2 * BlowPower, ForceMode.Impulse);
-
-
             //プレイヤーのHP減少
-            PlayerStatus.DamageHP(ATK);
+            bool sts = PlayerStatus.DamageHP(ATK);
+
+            if(sts)
+            {
+                //プレイヤー向きをピラニアに(Z正面)
+                other.transform.LookAt(this.transform.position);
+                other.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0, other.transform.rotation.w);
+
+
+                //上に吹き飛ばす
+                Vector3 Throwpos = this.transform.forward;
+                Throwpos.y = this.transform.position.y + 3;
+
+                //吹き飛ぶ力　追加
+                PlayerRb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
+
+
+                //吹き飛ぶ方向
+                Vector3 Throwpos2 = -this.transform.forward;
+                Throwpos2.y += 2;
+
+                //吹き飛ぶ力　追加
+                rb.AddForce(Throwpos2 * BlowPower, ForceMode.Impulse);
+            }
         }
 
         //イカダに着地時
