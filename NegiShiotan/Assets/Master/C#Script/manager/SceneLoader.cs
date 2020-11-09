@@ -11,7 +11,7 @@ public class SceneLoader : MonoBehaviour
     public string SceneName = "";
 
     [SerializeField, HideInInspector]
-    public int SceneIndex = 0;
+    public int SceneIndex = 0;//選択されているシーンのビルド設定でのインデックス番号
 
     [ContextMenu("シーン読み込み")]
     public void LoadScene()
@@ -26,7 +26,7 @@ public class SceneLoaderCustom : Editor
 {
     private SceneLoader m_SceneLoader = null;
     private Vector2 scroll;
-    private int m_SceneCount;
+    private int m_SceneCount;//ビルド設定されているシーン数
     string[] sceneNames;
     private void Awake()
     {
@@ -37,8 +37,7 @@ public class SceneLoaderCustom : Editor
 
         for (int SceneIndex = 0; SceneIndex < m_SceneCount; SceneIndex++)
         {
-            //EditorGUILayout.Popup(m_SceneLoader.SceneIndex, SceneManager.GetSceneByBuildIndex(SceneIndex).buildIndex);
-            //Debug.Log(SceneManager.GetSceneByBuildIndex(SceneIndex).name);
+            //シーン名を配列に設定
             sceneNames[SceneIndex] = getSceneName(SceneUtility.GetScenePathByBuildIndex(SceneIndex));
         }
     }
@@ -54,13 +53,8 @@ public class SceneLoaderCustom : Editor
         scroll = EditorGUILayout.BeginScrollView(scroll);
 
         EditorGUILayout.LabelField("読み込むシーン");
+        //シーン名でプルダウンメニューを作成 ビルド設定のシーンのインデックス番号を保存
         m_SceneLoader.SceneIndex = EditorGUILayout.Popup(m_SceneLoader.SceneIndex, sceneNames);
-        //foreach(var guid in AssetDatabase.FindAssets("t:Scene"))
-        //{
-        //    Debug.Log(AssetDatabase.GUIDToAssetPath(guid).ToString());
-        //}
-
-        //m_SceneLoader.SceneIndex =  EditorGUILayout.Popup(m_SceneLoader.SceneIndex,new string[]{ "1","2"});
 
         EditorGUILayout.EndScrollView();
 
@@ -78,6 +72,8 @@ public class SceneLoaderCustom : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
+
+    //シーンのパスからシーンの名前を取得
     private static string getSceneName(string ScenePath)
     {
         var NameStart = ScenePath.LastIndexOf("/", StringComparison.Ordinal) + 1;
