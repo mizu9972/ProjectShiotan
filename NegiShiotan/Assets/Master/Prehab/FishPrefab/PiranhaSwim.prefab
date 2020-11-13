@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 7549962954186457293}
   - component: {fileID: 7549962954186457292}
   m_Layer: 0
-  m_Name: Piranha_PrefabOld
+  m_Name: PiranhaSwim
   m_TagString: Piranha
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,6 +186,7 @@ Transform:
   m_Children:
   - {fileID: 994430690606620997}
   - {fileID: 984474863231132940}
+  - {fileID: 8467501889713037204}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -354,7 +355,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4955119862987055319}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -469,3 +470,83 @@ Transform:
   m_Father: {fileID: 3225518795979830489}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &8216858641797888127
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 553071001279473396}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.062
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f68fada031126ce4aa430ade5b2f2810,
+        type: 3}
+      propertyPath: m_Name
+      value: pirania_swim
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f68fada031126ce4aa430ade5b2f2810, type: 3}
+--- !u!4 &8467501889713037204 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f68fada031126ce4aa430ade5b2f2810,
+    type: 3}
+  m_PrefabInstance: {fileID: 8216858641797888127}
+  m_PrefabAsset: {fileID: 0}
