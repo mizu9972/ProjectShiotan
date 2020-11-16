@@ -1,20 +1,42 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - AttackScript
+    - BGMPlayer
+    - BulletScript
+    - ClearManager
+    - DataManager
+    - EnemySpawnLine
+    - EnemySpawnSystem
+    - FallCamera
+    - FallStartLine
+    - FishBase
+    - GameOverManager
+    - GetRaftPosition
+    - HitCheck
+    - JumpScript
+    - LoadManagerScene
+    - NumberScript
+    - PiranhaScript
     - PlaneEndLine
+    - PlayerMove
+    - PlayerParent
     - PoseWindow
+    - RaftMove
+    - RaftSpin
     - SceneLoader
+    - SoundStart
     - StageConveyorSystem
+    - StageEndLine
+    - StageSelectManager
+    - StageStarter
+    - StageWhileParent
+    - Status
+    - UIScript
     DOTween.dll:
     - DG.Tweening.Core.DOTweenSettings
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -26,6 +48,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
+    - UnityEngine.UI.RawImage
     - UnityEngine.UI.Text
   sceneClasses:
     Assets/Master/Scene/Main/Stage/TempStage1.unity:
@@ -53,21 +76,85 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 90
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 12208}
+      Script: {instanceID: 11234}
     - Class: 114
-      Script: {instanceID: 12226}
+      Script: {instanceID: 11238}
+    - Class: 114
+      Script: {instanceID: 11408}
+    - Class: 114
+      Script: {instanceID: 11448}
+    - Class: 114
+      Script: {instanceID: 11456}
+    - Class: 114
+      Script: {instanceID: 11496}
+    - Class: 114
+      Script: {instanceID: 11536}
+    - Class: 114
+      Script: {instanceID: 12064}
+    - Class: 114
+      Script: {instanceID: 12170}
+    - Class: 114
+      Script: {instanceID: 12344}
+    - Class: 114
+      Script: {instanceID: 12506}
+    - Class: 114
+      Script: {instanceID: 12526}
+    - Class: 114
+      Script: {instanceID: 12722}
+    - Class: 114
+      Script: {instanceID: 12920}
+    - Class: 114
+      Script: {instanceID: 12980}
+    - Class: 114
+      Script: {instanceID: 13002}
+    - Class: 114
+      Script: {instanceID: 13324}
+    - Class: 114
+      Script: {instanceID: 13362}
+    - Class: 114
+      Script: {instanceID: 13780}
+    - Class: 114
+      Script: {instanceID: 13808}
+    - Class: 114
+      Script: {instanceID: 13822}
+    - Class: 114
+      Script: {instanceID: 13886}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 137
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
       Script: {instanceID: 0}
     Assets/Master/Scene/Main/StageSelect.unity:
     - Class: 1
@@ -78,7 +165,13 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 21
       Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
     - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
@@ -89,26 +182,32 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11244}
+      Script: {instanceID: 11234}
     - Class: 114
-      Script: {instanceID: 11286}
+      Script: {instanceID: 11238}
     - Class: 114
-      Script: {instanceID: 11440}
+      Script: {instanceID: 11408}
     - Class: 114
-      Script: {instanceID: 11480}
+      Script: {instanceID: 11456}
     - Class: 114
-      Script: {instanceID: 11922}
+      Script: {instanceID: 11876}
     - Class: 114
-      Script: {instanceID: 12392}
+      Script: {instanceID: 12158}
     - Class: 114
-      Script: {instanceID: 12558}
+      Script: {instanceID: 12170}
     - Class: 114
-      Script: {instanceID: 12936}
+      Script: {instanceID: 12722}
     - Class: 114
-      Script: {instanceID: 13316}
+      Script: {instanceID: 12920}
+    - Class: 114
+      Script: {instanceID: 13362}
+    - Class: 114
+      Script: {instanceID: 13808}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 136
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -142,26 +241,163 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11244}
+      Script: {instanceID: 11234}
     - Class: 114
-      Script: {instanceID: 11286}
+      Script: {instanceID: 11238}
     - Class: 114
-      Script: {instanceID: 11440}
+      Script: {instanceID: 11408}
     - Class: 114
-      Script: {instanceID: 11480}
+      Script: {instanceID: 11456}
     - Class: 114
-      Script: {instanceID: 11922}
+      Script: {instanceID: 12170}
     - Class: 114
-      Script: {instanceID: 12288}
+      Script: {instanceID: 12604}
     - Class: 114
-      Script: {instanceID: 12392}
+      Script: {instanceID: 12722}
     - Class: 114
-      Script: {instanceID: 12936}
+      Script: {instanceID: 13362}
     - Class: 114
-      Script: {instanceID: 13316}
+      Script: {instanceID: 13808}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Master/Scene/Main/suizu/Suizu_Test.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 90
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11234}
+    - Class: 114
+      Script: {instanceID: 11238}
+    - Class: 114
+      Script: {instanceID: 11408}
+    - Class: 114
+      Script: {instanceID: 11448}
+    - Class: 114
+      Script: {instanceID: 11456}
+    - Class: 114
+      Script: {instanceID: 11496}
+    - Class: 114
+      Script: {instanceID: 11536}
+    - Class: 114
+      Script: {instanceID: 11550}
+    - Class: 114
+      Script: {instanceID: 11738}
+    - Class: 114
+      Script: {instanceID: 11846}
+    - Class: 114
+      Script: {instanceID: 12064}
+    - Class: 114
+      Script: {instanceID: 12170}
+    - Class: 114
+      Script: {instanceID: 12198}
+    - Class: 114
+      Script: {instanceID: 12286}
+    - Class: 114
+      Script: {instanceID: 12344}
+    - Class: 114
+      Script: {instanceID: 12506}
+    - Class: 114
+      Script: {instanceID: 12526}
+    - Class: 114
+      Script: {instanceID: 12722}
+    - Class: 114
+      Script: {instanceID: 12760}
+    - Class: 114
+      Script: {instanceID: 12920}
+    - Class: 114
+      Script: {instanceID: 12958}
+    - Class: 114
+      Script: {instanceID: 12980}
+    - Class: 114
+      Script: {instanceID: 13002}
+    - Class: 114
+      Script: {instanceID: 13010}
+    - Class: 114
+      Script: {instanceID: 13156}
+    - Class: 114
+      Script: {instanceID: 13196}
+    - Class: 114
+      Script: {instanceID: 13244}
+    - Class: 114
+      Script: {instanceID: 13324}
+    - Class: 114
+      Script: {instanceID: 13362}
+    - Class: 114
+      Script: {instanceID: 13470}
+    - Class: 114
+      Script: {instanceID: 13546}
+    - Class: 114
+      Script: {instanceID: 13636}
+    - Class: 114
+      Script: {instanceID: 13780}
+    - Class: 114
+      Script: {instanceID: 13808}
+    - Class: 114
+      Script: {instanceID: 13822}
+    - Class: 114
+      Script: {instanceID: 13886}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 136
+      Script: {instanceID: 0}
+    - Class: 137
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
@@ -175,7 +411,60 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
+    Assets/Master/Scene/ManagerScene/ManagerScene.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 12056}
+    - Class: 114
+      Script: {instanceID: 12324}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
   scriptHashData:
+  - hash:
+      serializedVersion: 2
+      Hash: aeb62f729c52c814dec86c47dcac1471
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Text
+  - hash:
+      serializedVersion: 2
+      Hash: aa88ae22474df55295327e4ee99e5a24
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Toggle
+  - hash:
+      serializedVersion: 2
+      Hash: 89f9a1b4c64db9559e39f4a2e3bfaadd
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: ec260ae96f176bfa79e1ed103570fcaf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DamageAfter
+  - hash:
+      serializedVersion: 2
+      Hash: e4506974482ab19afc18c0a65829a5d1
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CoinScript
   - hash:
       serializedVersion: 2
       Hash: 4bc4346a71a8df53a6b106f68ef3a190
@@ -196,7 +485,7 @@ ScriptsOnlyBuild:
     className: FallCamera
   - hash:
       serializedVersion: 2
-      Hash: 2e8591ed05ccd0a04f3538adf80f0857
+      Hash: 2ca042e1cdaa758d0973f3268424cc59
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SceneLoader
@@ -208,10 +497,40 @@ ScriptsOnlyBuild:
     className: AudioPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx
+    className: MainThreadDispatcher
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableCancelTrigger
+  - hash:
+      serializedVersion: 2
       Hash: b4fc42b020df4b67385e61ff21d513cc
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_Dropdown
+  - hash:
+      serializedVersion: 2
+      Hash: bf4f57b53dab8f579842c4818966c95c
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample12_ReactiveProperty
+  - hash:
+      serializedVersion: 2
+      Hash: 273bf5bc1ba51e0f05c068e66c8ea86b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: StageStarter
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableMoveTrigger
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -226,6 +545,18 @@ ScriptsOnlyBuild:
     className: FishBase
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableUpdateTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: e836a4462e13cb3fcb39b1df888c77cf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AttackScript
+  - hash:
+      serializedVersion: 2
       Hash: e7a73f5f78ba6445195ec23b74a1ce2d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -238,6 +569,12 @@ ScriptsOnlyBuild:
     className: PlayerQuitHandler
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableVisibleTrigger
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -248,12 +585,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ActivationTrack
-  - hash:
-      serializedVersion: 2
-      Hash: aeb62f729c52c814dec86c47dcac1471
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Text
   - hash:
       serializedVersion: 2
       Hash: 499fd23433e68e265d153aa6b95d0047
@@ -274,12 +605,6 @@ ScriptsOnlyBuild:
     className: TouchInputModule
   - hash:
       serializedVersion: 2
-      Hash: 89f9a1b4c64db9559e39f4a2e3bfaadd
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Image
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
@@ -290,6 +615,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_InputField
+  - hash:
+      serializedVersion: 2
+      Hash: 2fba0a838c46935b38b2a8bd02af2c12
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PiranhaScript
   - hash:
       serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
@@ -322,10 +653,28 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 05a98180ba293ce68daf693fdb613918
+      Hash: f0d706bb7adbcca03d37187553c67dfa
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerMove
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservablePointerClickTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 057a7e581869ea5311f2c2a7b49967b7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: StageWhileParent
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableDestroyTrigger
   - hash:
       serializedVersion: 2
       Hash: bd3cf68c8964d3c66d1c43f4f98508c9
@@ -338,6 +687,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: AspectRatioFitter
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableJointTrigger
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -358,16 +713,64 @@ ScriptsOnlyBuild:
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableUpdateSelectedTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableScrollTrigger
+  - hash:
+      serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Mask
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableEndDragTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 6b50d99c3f83f76059f26eb677264e97
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DataManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableLateUpdateTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: StageEndLine
+  - hash:
+      serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Shadow
+  - hash:
+      serializedVersion: 2
+      Hash: 75dc08ac7394a23f352246ccedf0ab21
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: StageSelectManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample04_ConvertFromUnityCallback
   - hash:
       serializedVersion: 2
       Hash: cc4274b586df3c02688bac01b88bd16c
@@ -400,16 +803,88 @@ ScriptsOnlyBuild:
     className: ControlTrack
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservablePointerExitTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 8dc90e648ac06f43bdd31ac9fa8f4579
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Selectable
   - hash:
       serializedVersion: 2
+      Hash: 7aa9eb016006719934e1ec6a5952d73c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Status
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameInitialize
+  - hash:
+      serializedVersion: 2
+      Hash: e255c36616af4b3b0b74a2b68cb33e18
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample13_ToDoApp
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableDropTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LoadManagerScene
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CheckPoint
+  - hash:
+      serializedVersion: 2
+      Hash: b2c292cb470e94336217c43ef91ad7eb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameOverManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableEventTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableBeginDragTrigger
+  - hash:
+      serializedVersion: 2
       Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ScrollRect
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableEnableTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: b6743a6832e97f107ef160771e687dd4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: audiotest
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -424,6 +899,12 @@ ScriptsOnlyBuild:
     className: PlaneEndLine
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableAnimatorTrigger
+  - hash:
+      serializedVersion: 2
       Hash: d6b467210bbec63358d0edefb27c8fcb
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -431,9 +912,21 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableSelectTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SpriteAnimator
+  - hash:
+      serializedVersion: 2
+      Hash: 6b50d99c3f83f76059f26eb677264e97
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DataAccessor
   - hash:
       serializedVersion: 2
       Hash: 704dcd31abc789439bc3f3cd10b58c2b
@@ -448,16 +941,34 @@ ScriptsOnlyBuild:
     className: DOTweenSettings
   - hash:
       serializedVersion: 2
+      Hash: 2ec061be9d872623791ab769f42e0398
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: VisualEffectsControl
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: RemoteTestResultSender
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableMouseTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 4fd8bf02e3089425d3502e26c44ba31a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TextContainer
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableTriggerTrigger
   - hash:
       serializedVersion: 2
       Hash: 5f1752ed2092162f016c19510c28a8b9
@@ -472,6 +983,54 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
+      Hash: f993a636a7a3fa0c24949d66ba345192
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SEPlayer
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayParticle
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableCollisionTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableTrigger2DTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableParticleTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample09_EventHandling
+  - hash:
+      serializedVersion: 2
+      Hash: 05c12718a7923ed652cfb0906c861495
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RockScript
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservablePointerDownTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 5ad4aa237d47ac2bab17bacb672edf7a
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -484,16 +1043,52 @@ ScriptsOnlyBuild:
     className: PoseWindow
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableInitializePotentialDragTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: c7bb68d4831561903a58e9d9852a2792
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AudioList
+  - hash:
+      serializedVersion: 2
+      Hash: b6f1d8eff057860dabb46b7ee16a7970
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: UIScript
+  - hash:
+      serializedVersion: 2
       Hash: 783f593b9380cf72d0f7ebfd4a0d4bcd
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: InputField
   - hash:
       serializedVersion: 2
+      Hash: 2262c447261af61105e4b63d20a46cb9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BGMPlayer
+  - hash:
+      serializedVersion: 2
       Hash: c9a8b80298a116835b51ba1cf9284367
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: SignalReceiver
+  - hash:
+      serializedVersion: 2
+      Hash: e07eb8a782a1ee8e7ce5f7081a6d26ce
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EnemySpawnLine
+  - hash:
+      serializedVersion: 2
+      Hash: 8f52ccf62329c6fbf1f51e6cf6900ad4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AudioManager
   - hash:
       serializedVersion: 2
       Hash: 4abd01874ca85b9b9ee0f7a0d2ccea11
@@ -512,6 +1107,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_FontAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableTransformChangedTrigger
   - hash:
       serializedVersion: 2
       Hash: 87ad3705a58f19c47136728d4a6e9c47
@@ -538,10 +1139,46 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservablePointerUpTrigger
+  - hash:
+      serializedVersion: 2
       Hash: d200c4ed258b9f7546c94d09b882e1f3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerParent
+  - hash:
+      serializedVersion: 2
+      Hash: 33ba44167a528c7e70ba8a6c7753c1ec
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RecoveryScript
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerRotation
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CheckPointLine
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RaftSpin
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableCollision2DTrigger
   - hash:
       serializedVersion: 2
       Hash: d200c4ed258b9f7546c94d09b882e1f3
@@ -550,10 +1187,28 @@ ScriptsOnlyBuild:
     className: GetRaftPosition
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservablePointerEnterTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 6939772cb3ce775a8e8d99f332534491
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TextMeshProUGUI
+  - hash:
+      serializedVersion: 2
+      Hash: 3c0047576ef90780fd07953b5e2e3142
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SoundStart
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableFixedUpdateTrigger
   - hash:
       serializedVersion: 2
       Hash: f336e086360abe49a3323e5f1583c35a
@@ -574,16 +1229,82 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableDeselectTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample01_ObservableWWW
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableDragTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 0185be608cb6d4b9188b77a55e941692
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: JumpScript
+  - hash:
+      serializedVersion: 2
+      Hash: 7c282fa1c1f7e3d17888c0d1f5ef8478
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LoopSeControl
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample07_OrchestratIEnumerator
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: MarkerTrack
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample02_ObservableTriggers
+  - hash:
+      serializedVersion: 2
+      Hash: 0aeda5e2ca514a8d85b7ffc5693af6bd
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NumberScript
+  - hash:
+      serializedVersion: 2
       Hash: d791aa6007fa3640be1164ea75bb087d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_StyleSheet
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableRectTransformTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 13f8f373b951cbaf0f891949929b196a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BulletScript
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableCanvasGroupChangedTrigger
   - hash:
       serializedVersion: 2
       Hash: 8cd1cbba27f3cb1717254f668e9e0d5a
@@ -596,6 +1317,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_ColorGradient
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample03_GameObjectAsObservable
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableStateMachineTrigger
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -616,6 +1349,12 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableSubmitTrigger
+  - hash:
+      serializedVersion: 2
       Hash: a63fc1a3b035e5a0b5839cd7f7b3086e
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -632,6 +1371,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestRunner.Utils
     className: TestRunCallbackListener
+  - hash:
+      serializedVersion: 2
+      Hash: 9eb236ef5467876156ee5155aa352e42
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ClearManager
   - hash:
       serializedVersion: 2
       Hash: 4ef0f7d42cdb13479386e1f049c315aa
@@ -652,10 +1397,16 @@ ScriptsOnlyBuild:
     className: StandaloneInputModule
   - hash:
       serializedVersion: 2
-      Hash: aa88ae22474df55295327e4ee99e5a24
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Toggle
+      Hash: fb32e0292d269fe58701988119d1ac8a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EnemySpawnSystem
+  - hash:
+      serializedVersion: 2
+      Hash: 47cad33a6eb17a829b63e943bee1c741
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BgmSelect
   - hash:
       serializedVersion: 2
       Hash: 8220b46879dc5e37db1b940c938f5744
@@ -664,10 +1415,28 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample06_ConvertToCoroutine
+  - hash:
+      serializedVersion: 2
       Hash: 7072231382eb3c4871b3dd75ad0227e1
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Slider
+  - hash:
+      serializedVersion: 2
+      Hash: 55bd075a2a6dda2562b880689fd4cee5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: AudioFade
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample08_DetectDoubleClick
   - hash:
       serializedVersion: 2
       Hash: 2c2fa97a5d664572d6078f78c00dc048
@@ -691,4 +1460,6 @@ ScriptsOnlyBuild:
   - Assets/Master/Scene/Main/Title.unity
   - Assets/Master/Scene/Main/StageSelect.unity
   - Assets/Master/Scene/Main/Stage/TempStage1.unity
-  playerPath: "C:/Users/oisii/Desktop/Shiotan/NegiShiotan/\u30D3\u30EB\u30C9\u30C7\u30FC\u30BF/NegiShiotan.exe"
+  - Assets/Master/Scene/ManagerScene/ManagerScene.unity
+  - Assets/Master/Scene/Main/suizu/Suizu_Test.unity
+  playerPath: C:/Users/oisii/Desktop/NegishiotanBuild 1109/NegiShiotan.exe
