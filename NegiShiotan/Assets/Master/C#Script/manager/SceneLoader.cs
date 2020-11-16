@@ -62,6 +62,23 @@ public class SceneLoader : MonoBehaviour
             SceneManager.UnloadSceneAsync(SceneIndex);
         }
     }
+
+    //クリア時のシーン遷移
+    public void LoadSceneByStageClear()
+    {
+        SceneManager.sceneLoaded += ClearFunction;
+        SceneManager.LoadScene(SceneIndex);
+    }
+    private void ClearFunction(Scene next, LoadSceneMode mode)
+    {
+        var stageStausManager = GameObject.FindGameObjectWithTag("StageSelectManager").GetComponent<StageStatusManager>();
+
+        //クリア処理
+        stageStausManager.clearedStage();
+
+        //イベントから削除
+        SceneManager.sceneLoaded -= ClearFunction;
+    }
 }
 
 #if UNITY_EDITOR

@@ -137,6 +137,7 @@ public class StageSelectManager : MonoBehaviour
 
             //選択中のステージ読み込み
             case StageSelectAction.Load:
+                StageSquares[m_nowSelectStageIter].GetComponent<StageSquare>().setStagetype();
                 StageSquares[m_nowSelectStageIter].GetComponent<SceneLoader>().LoadScene();
                 break;
         }

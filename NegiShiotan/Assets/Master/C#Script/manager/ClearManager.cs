@@ -23,4 +23,5 @@ public class ClearManager : MonoBehaviour
         ResultCanvas.SetActive(true);
 
     }
+
 }
