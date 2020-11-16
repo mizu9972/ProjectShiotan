@@ -14,11 +14,14 @@ public class ClearManager : MonoBehaviour
             ResultCanvas = GameObject.FindGameObjectWithTag("ClearCanvas");
         }
         ResultCanvas.SetActive(false);
+        
     }
 
     //クリア演出
     public void ClearFunction()
     {
         ResultCanvas.SetActive(true);
+
     }
+
 }

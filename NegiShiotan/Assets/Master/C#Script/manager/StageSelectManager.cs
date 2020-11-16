@@ -137,6 +137,7 @@ public class StageSelectManager : MonoBehaviour
 
             //選択中のステージ読み込み
             case StageSelectAction.Load:
+                StageSquares[m_nowSelectStageIter].GetComponent<StageSquare>().setStagetype();
                 StageSquares[m_nowSelectStageIter].GetComponent<SceneLoader>().LoadScene();
                 break;
         }
@@ -208,7 +209,6 @@ public class StageSelectManager : MonoBehaviour
 
 #if UNITY_EDITOR
 //ステージ間移動詳細設定用エディター拡張
-//TODO DOTween設定項目実装
 [CustomEditor(typeof(StageSelectManager))]
 public class StageSelectManagerCustom : Editor
 {
