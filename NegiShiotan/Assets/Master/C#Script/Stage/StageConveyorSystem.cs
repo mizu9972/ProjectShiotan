@@ -196,5 +196,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         .TakeUntil(MoveStopStream)
         .Subscribe(_ => NowScrollSpeed -= DefalutSpeed / (SpeedDownTime * 60.0f));
 
+        var SpeedZeroStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime))
+            .Subscribe(_ => NowScrollSpeed = 0.0f);
     }
 }
