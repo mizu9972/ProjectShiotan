@@ -121,7 +121,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5553395344534631225}
-        m_MethodName: LoadScene
+        m_MethodName: LoadMyScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: TempStage1
+  SceneIndex: 0
 --- !u!1 &5553395345014421844
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,7 +601,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5553395346179660673}
-        m_MethodName: LoadScene
+        m_MethodName: LoadSceneByStageClear
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -623,3 +624,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: StageSelect
+  SceneIndex: 1

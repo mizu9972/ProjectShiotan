@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 95055833}
   - component: {fileID: 95055832}
   - component: {fileID: 95055831}
+  - component: {fileID: 95055834}
   m_Layer: 0
   m_Name: Stage7Square
   m_TagString: Untagged
@@ -255,6 +256,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95055829}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &95055834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95055829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967522d1d7827ae42a17734cd845e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisStage: 6
+  stageSelectManager: {fileID: 274668888}
 --- !u!1001 &234809610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -482,9 +497,10 @@ GameObject:
   m_Component:
   - component: {fileID: 274668887}
   - component: {fileID: 274668886}
+  - component: {fileID: 274668888}
   m_Layer: 0
   m_Name: StageSelectManager
-  m_TagString: Untagged
+  m_TagString: StageSelectManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -538,6 +554,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &274668888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274668885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b077088ff2f3364eae1f750cede135f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &350725402
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +578,7 @@ GameObject:
   - component: {fileID: 350725406}
   - component: {fileID: 350725405}
   - component: {fileID: 350725404}
+  - component: {fileID: 350725407}
   m_Layer: 0
   m_Name: Stage10Square
   m_TagString: Untagged
@@ -632,6 +661,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 350725402}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &350725407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350725402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967522d1d7827ae42a17734cd845e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisStage: 9
+  stageSelectManager: {fileID: 274668888}
 --- !u!1 &424202946
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +687,7 @@ GameObject:
   - component: {fileID: 424202950}
   - component: {fileID: 424202949}
   - component: {fileID: 424202948}
+  - component: {fileID: 424202951}
   m_Layer: 0
   m_Name: Stage6Square
   m_TagString: Untagged
@@ -726,6 +770,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 424202946}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &424202951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424202946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967522d1d7827ae42a17734cd845e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisStage: 5
+  stageSelectManager: {fileID: 274668888}
 --- !u!1 &452060663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1241,7 @@ GameObject:
   - component: {fileID: 602411993}
   - component: {fileID: 602411992}
   - component: {fileID: 602411991}
+  - component: {fileID: 602411994}
   m_Layer: 0
   m_Name: Stage3Square
   m_TagString: Untagged
@@ -1217,7 +1276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: 
-  SceneIndex: 3
+  SceneIndex: 0
 --- !u!23 &602411992
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1265,6 +1324,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602411989}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &602411994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602411989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967522d1d7827ae42a17734cd845e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisStage: 2
+  stageSelectManager: {fileID: 274668888}
 --- !u!1001 &833925197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1462,6 +1535,7 @@ GameObject:
   - component: {fileID: 1184159307}
   - component: {fileID: 1184159306}
   - component: {fileID: 1184159305}
+  - component: {fileID: 1184159308}
   m_Layer: 0
   m_Name: Stage9Square
   m_TagString: Untagged
@@ -1544,6 +1618,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184159303}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1184159308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184159303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967522d1d7827ae42a17734cd845e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisStage: 8
+  stageSelectManager: {fileID: 274668888}
 --- !u!1001 &1213964975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1873,6 +1961,7 @@ GameObject:
   - component: {fileID: 1333317800}
   - component: {fileID: 1333317799}
   - component: {fileID: 1333317798}
+  - component: {fileID: 1333317801}
   m_Layer: 0
   m_Name: Stage5Square
   m_TagString: Untagged
@@ -1955,6 +2044,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333317796}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1333317801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333317796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967522d1d7827ae42a17734cd845e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisStage: 4
+  stageSelectManager: {fileID: 274668888}
 --- !u!1001 &1366038480
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2191,6 +2294,7 @@ GameObject:
   - component: {fileID: 1568271861}
   - component: {fileID: 1568271860}
   - component: {fileID: 1568271859}
+  - component: {fileID: 1568271862}
   m_Layer: 0
   m_Name: Stage1Square
   m_TagString: Untagged
@@ -2225,7 +2329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: 
-  SceneIndex: 3
+  SceneIndex: 2
 --- !u!23 &1568271860
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2273,6 +2377,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568271857}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1568271862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568271857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967522d1d7827ae42a17734cd845e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisStage: 0
+  stageSelectManager: {fileID: 274668888}
 --- !u!1 &1650956534
 GameObject:
   m_ObjectHideFlags: 0
@@ -2285,6 +2403,7 @@ GameObject:
   - component: {fileID: 1650956538}
   - component: {fileID: 1650956537}
   - component: {fileID: 1650956536}
+  - component: {fileID: 1650956539}
   m_Layer: 0
   m_Name: Stage8Square
   m_TagString: Untagged
@@ -2367,6 +2486,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650956534}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1650956539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650956534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967522d1d7827ae42a17734cd845e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisStage: 7
+  stageSelectManager: {fileID: 274668888}
 --- !u!1 &1700780171
 GameObject:
   m_ObjectHideFlags: 0
@@ -2479,6 +2612,7 @@ GameObject:
   - component: {fileID: 1705865578}
   - component: {fileID: 1705865577}
   - component: {fileID: 1705865576}
+  - component: {fileID: 1705865579}
   m_Layer: 0
   m_Name: Stage4Square
   m_TagString: Untagged
@@ -2561,6 +2695,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705865574}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1705865579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705865574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967522d1d7827ae42a17734cd845e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisStage: 3
+  stageSelectManager: {fileID: 274668888}
 --- !u!1 &1785150547
 GameObject:
   m_ObjectHideFlags: 0
@@ -2814,6 +2962,7 @@ GameObject:
   - component: {fileID: 1961128075}
   - component: {fileID: 1961128074}
   - component: {fileID: 1961128073}
+  - component: {fileID: 1961128076}
   m_Layer: 0
   m_Name: Stage2Square
   m_TagString: Untagged
@@ -2848,7 +2997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: 
-  SceneIndex: 3
+  SceneIndex: 4
 --- !u!23 &1961128074
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2896,6 +3045,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1961128071}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1961128076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961128071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967522d1d7827ae42a17734cd845e9ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thisStage: 1
+  stageSelectManager: {fileID: 274668888}
 --- !u!1001 &7642578437644482333
 PrefabInstance:
   m_ObjectHideFlags: 0
