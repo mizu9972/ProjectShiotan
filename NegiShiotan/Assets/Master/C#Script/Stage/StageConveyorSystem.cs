@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using DG.Tweening;
+using UniRx;
 
 //ベルトコンベア式にステージをスクロールさせるシステムクラス
 //X座標を減少させて移動させる
@@ -28,6 +29,10 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     [Header("落下速度")]
     [Header("滝を落ちる時の設定")]
     public float FallSpeed = 10.0f;
+
+    [Header("減速速度")]
+    [SerializeField, Header("ステージリア時の処理")]
+    private float SpeedDownTime = 1.0f;
     
     private float NowScrollSpeed;//ステージ移動速度
     private int StagePlaneIter;
@@ -176,5 +181,22 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         m_FallTween.Play();
 
         m_FallCamera.StartRotateTween(Mathf.Abs(FallEndPositionY_));
+    }
+
+    //クリア時の処理
+    public void OnClearSystem()
+    {
+        float DefalutSpeed = NowScrollSpeed;
+
+        //停止条件
+        var MoveStopStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime));
+
+        //減速させる
+        var ClearMoveStream = Observable.EveryUpdate()
+        .TakeUntil(MoveStopStream)
+        .Subscribe(_ => NowScrollSpeed -= DefalutSpeed / (SpeedDownTime * 60.0f));
+
+        var SpeedZeroStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime))
+            .Subscribe(_ => NowScrollSpeed = 0.0f);
     }
 }
