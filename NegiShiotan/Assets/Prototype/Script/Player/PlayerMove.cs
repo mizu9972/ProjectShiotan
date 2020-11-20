@@ -30,24 +30,26 @@ public class PlayerMove : MonoBehaviour
     //移動できるか
     private bool MoveActive;
 
+    //空中に吹っ飛んでいるか
+    private bool Air;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        BlowHigh = BlowHigh + this.transform.localPosition.y;
+
         MoveActive = true;      //操作　可能
         Savepos = transform.position.y;         //基本Y座標　保存
         rb = this.GetComponent<Rigidbody>();    //Rigidbody　取得
         AttackCollider.SetActive(false);        //攻撃コライダー　非アクティブ
+
+        Air = false;
     }
 
     // Update is called once per frame
-    void Update()
-    {
-    }
-
-
-    private void FixedUpdate()
+    void LateUpdate()
     {
         //移動可能
         if (MoveActive)
@@ -56,9 +58,42 @@ public class PlayerMove : MonoBehaviour
             MoveFunc();
         }
 
-        if(Savepos>=transform.position.y)
+        //イカダに着地
+        if (Savepos > transform.position.y)
         {
             rb.useGravity = false;
+            rb.velocity = new Vector3(0, 0, 0);
+
+            Vector3 pos = this.transform.position;
+            pos.y = Savepos;
+            this.transform.position = pos;
+
+            //移動可能
+            MoveActive = true;
+        }
+
+        //設定した高さまで飛んだ
+        if (BlowHigh < this.transform.position.y)
+        {
+            rb.useGravity = true;
+            Air = false;
+        }
+
+        //空中
+        if (Savepos < this.transform.localPosition.y)
+        {
+            //移動不可能
+            MoveActive = false;
+        }
+
+        if(Air)
+        {
+            //上に吹き飛ばす
+            Vector3 Throwpos = this.transform.forward;
+            Throwpos.y = this.transform.position.y + 1;
+
+            //吹き飛ぶ力　追加
+            rb.AddForce(Throwpos * 2, ForceMode.Force);
         }
     }
 
@@ -116,34 +151,30 @@ public class PlayerMove : MonoBehaviour
         OnRaftPosition = pos;
     }
 
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        //イカダに着地時
         if (other.tag == "Player")
         {
-            rb.useGravity = false;
-            rb.velocity = new Vector3(0, 0, 0);
-
-            Vector3 pos = this.transform.position;
-            pos.y = Savepos;
-            this.transform.position = pos;
-
-            //移動可能
-            MoveActive = true;
+            //移動不可能
+            MoveActive = false;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        //イカダ　離れたとき
-        if (other.tag == "Player")
-        {
-            //重力　ON
-            rb.useGravity = true;
+    }
 
-            //移動不可（吹っ飛び中）
-            MoveActive = false;
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "IkadaMoveLimit")
+        {
+            //rb.velocity = new Vector3(0, rb.velocity.y, 0);
         }
+
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
     }
 }

@@ -9,10 +9,10 @@ public class JumpScript : MonoBehaviour
     Transform save;
 
 
-    [Header("ピラニア　ジャンプ力")]
+    [Header("ピラニア　進む力")]
     public float JumpPower ;
 
-    [Header("ピラニア　発射角度")]
+    [Header("ピラニア　飛ぶ高さ")]
     public float JumpRange;
 
     // Start is called before the first frame update
@@ -25,6 +25,16 @@ public class JumpScript : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void SetJumpPower(float Power)
+    {
+        JumpPower = Power;
+    }
+
+    public void SetJumpRange(float Range)
+    {
+        JumpRange = Range;
     }
 
     private void OnTriggerEnter(Collider other)

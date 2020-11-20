@@ -18,6 +18,15 @@ public class RaftMove : MonoBehaviour
     [SerializeField, Header("Z座標")]
     private float ZPos;
 
+    [SerializeField, Header("イカダ　幅")]
+    public float IkadaWidth;
+
+    [SerializeField, Header("ステージ右壁")]
+    public GameObject RightWall;
+
+    [SerializeField, Header("ステージ左壁")]
+    public GameObject LeftWall;
+
     [SerializeField, Header("プレイヤーがイカダのどこにいるか")]
     private Vector2 OnPlayerPos;
     // Start is called before the first frame update
@@ -50,6 +59,15 @@ public class RaftMove : MonoBehaviour
                 //Z座標用変数に代入
                 ZPos -= RaftSpead * Time.deltaTime;
 
+                if (ZPos+ IkadaWidth > LeftWall.transform.position.z)
+                {
+                    ZPos = LeftWall.transform.position.z- IkadaWidth;
+                }
+                if (ZPos- IkadaWidth < RightWall.transform.position.z)
+                {
+                    ZPos = RightWall.transform.position.z+ IkadaWidth;
+                }
+
                 //実際の座標に代入
                 transform.position = new Vector3(transform.position.x, transform.position.y, ZPos);
             }
@@ -61,6 +79,15 @@ public class RaftMove : MonoBehaviour
 
             //Z座標用変数に代入
             ZPos -= RaftSpead * Time.deltaTime;
+
+            if (ZPos + IkadaWidth > LeftWall.transform.position.z)
+            {
+                ZPos = LeftWall.transform.position.z - IkadaWidth;
+            }
+            if (ZPos - IkadaWidth < RightWall.transform.position.z)
+            {
+                ZPos = RightWall.transform.position.z + IkadaWidth;
+            }
 
             //実際の座標に代入
             transform.position = new Vector3(transform.position.x, transform.position.y, ZPos);
