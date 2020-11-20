@@ -1,10 +1,15 @@
-﻿using System.Collections;
+﻿#pragma warning disable 
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
 public class PrefabWindow : MonoBehaviour
 {
+    [Header("フォルダのパス")]
+    public string FolderPass = null;
+
     public class PrefabData
     {
         [HideInInspector]
@@ -55,12 +60,12 @@ class PrefabWindowEditor : Editor
 
         EditorGUI.BeginChangeCheck();
 
-        for(int listIter = 0;listIter < m_PW.prefabWindowsList.Count; listIter++)
-        {
-            ViewPrefabData(m_PW.prefabWindowsList[listIter]);
-        }
+        //for(int listIter = 0;listIter < m_PW.prefabWindowsList.Count; listIter++)
+        //{
+        //    ViewPrefabData(m_PW.prefabWindowsList[listIter]);
+        //}
+        ViewPrefabData();
 
-        addPrefab();
         //変更されたら
         if (EditorGUI.EndChangeCheck())
         {
@@ -75,6 +80,28 @@ class PrefabWindowEditor : Editor
 
     }
 
+    //フォルダー以下のプレハブ表示
+    private void ViewPrefabData()
+    {
+        if(m_PW.FolderPass.Length == 0)
+        {
+            return;
+        }
+        string[] PrefabPasses = UnityEditor.AssetDatabase.FindAssets("t:Prefab", new string[] { m_PW.FolderPass });
+
+        for(int PrefabNumber = 0;PrefabNumber < PrefabPasses.Length; PrefabNumber++)
+        {
+            string prefabPass = AssetDatabase.GUIDToAssetPath(PrefabPasses[PrefabNumber]);
+            var prefab_ = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPass);
+            EditorGUILayout.BeginVertical(GUI.skin.box);
+            EditorGUILayout.ObjectField(prefab_, typeof(GameObject), false);
+
+            GenerateButton(prefab_);
+
+            EditorGUILayout.EndVertical();
+        }
+    }
+
     //保存済みプレハブ表示
     private void ViewPrefabData(PrefabWindow.PrefabData data)
     {
@@ -83,9 +110,14 @@ class PrefabWindowEditor : Editor
         EditorGUILayout.TextField(data.text);
         EditorGUILayout.EndHorizontal();
 
+        GenerateButton(data.obj);
+    }
+
+    private void GenerateButton(GameObject obj)
+    {
         if (GUILayout.Button("生成"))
         {
-            m_PW.InstantiatePrefabbyList(data.obj);
+            m_PW.InstantiatePrefabbyList(obj);
         }
     }
 
