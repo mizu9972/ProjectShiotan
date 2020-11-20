@@ -24,7 +24,8 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     public float ScrollBaseSpeed = 1.0f;
     [Header("ループさせるか")]
     public bool isLooping = false;
-
+    [Header("ステージを超えてから消えるまでの時間")]
+    public float DestroyTime = 10.0f;
 
     [Header("落下速度")]
     [Header("滝を落ちる時の設定")]
@@ -37,7 +38,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     private float NowScrollSpeed;//ステージ移動速度
     private int StagePlaneIter;
     private FallCamera m_FallCamera;
-
+    
     //Y座標保存用
     private float planeYpos = 0.0f;
 
@@ -138,18 +139,24 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     //PlaneのEndLineに到達したときの処理
     public void OnEndLineSystem(GameObject obj)
     {
-        int ObjectInstanceID = obj.GetInstanceID();
-        //オブジェクトを削除して操作配列から削除
-        //インスタンスIDで判定
-        foreach (var StageObject in ActiveStagePlaneList)
-        {
-            if (ObjectInstanceID == StageObject.GetInstanceID())
+        Observable
+            .Timer(System.TimeSpan.FromSeconds(DestroyTime))
+            .Subscribe(_ =>
             {
-                ActiveStagePlaneList.Remove(StageObject);
-                break;
-            }
-        }
-        Destroy(obj);//削除
+                int ObjectInstanceID = obj.GetInstanceID();
+                //オブジェクトを削除して操作配列から削除
+                //インスタンスIDで判定
+                foreach (var StageObject in ActiveStagePlaneList)
+                {
+                    if (ObjectInstanceID == StageObject.GetInstanceID())
+                    {
+                        ActiveStagePlaneList.Remove(StageObject);
+                        break;
+                    }
+                }
+                Destroy(obj);//削除
+
+            });
 
         //新しくステージプレーン追加
         StageAdd(1);
