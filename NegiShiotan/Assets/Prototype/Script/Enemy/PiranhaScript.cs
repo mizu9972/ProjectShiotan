@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class PiranhaScript : MonoBehaviour
 {
-    private bool MoveOn;
+    //移動可能か
+    [Header("移動可能か")]
+    public bool MoveActive;
+
+    //停止時間
     private float cooltime;
+    private bool Air;
 
     //Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
     private Rigidbody rb;
@@ -26,23 +31,25 @@ public class PiranhaScript : MonoBehaviour
     [Header("プレイヤー　吹き飛ばす力")]
     public float BlowPower;
 
-    [Header("ステージ移動　落下阻止用")]
-    public BoxCollider StageMoveLimit;
+    [Header("ピラニア　吹き飛ぶ高さ")]
+    public float BlowHigh;
 
-    //吹き飛び状態
-    public bool BlowTime;
+    //イカダY座標　保存
+    private float Savepos=0;
 
-    float SaveY;
+    //自身（ピラニア）の当たり判定
+    private BoxCollider ThisBox;
 
-    bool ok;
+    //イカダ乗り込み時の処理　一度だけ行いたい
+    bool onePlay;
 
 
     //Start is called before the first frame update
     void Start()
     {
-        ok = false;
-        BlowTime = false;   //吹っ飛んでいない
-        MoveOn = false;     //動かない
+        Air = false;
+        onePlay = false;
+        MoveActive = false;     //動かない
         cooltime = 1;       //動かない時間
         PlayerObj = GameObject.FindGameObjectWithTag("Human");
         PlayerRb = GameObject.FindGameObjectWithTag("Human").GetComponent<Rigidbody>();
@@ -54,31 +61,47 @@ public class PiranhaScript : MonoBehaviour
 
         //イカダを親オブジェクトに設定
         this.transform.SetParent(PlayerObj.transform.parent, true);
+
+        //自身の当たり判定　取得
+        ThisBox = this.GetComponent<BoxCollider>();
     }
 
     //Update is called once per frame
     void Update()
     {
-        //一定時間停止
-        if (cooltime > 0)
+        if(cooltime>0)
         {
             cooltime -= 0.1f;
         }
 
-        //吹っ飛び中
-        if (BlowTime)
-        {
-            //XZ回転　初期化
-            Quaternion XYrot = this.transform.rotation;
-            XYrot.x = 0;
-            XYrot.z = 0;
+        //XZ回転　初期化
+        Quaternion XYrot = this.transform.rotation;
+        XYrot.x = 0;
+        XYrot.z = 0;
 
-            //現在の回転情報と、ターゲット方向の回転情報を補完する
-            transform.rotation = XYrot;
+        //現在の回転情報と、ターゲット方向の回転情報を補完する
+        transform.rotation = XYrot;
+
+        //設定した高さまで飛んだ
+        if (BlowHigh < this.transform.position.y)
+        {
+            rb.useGravity = true;
+            ThisBox.isTrigger = false;
+            Air = false;
+        }
+
+        if (MoveActive==false&&Air)
+        {
+            //吹き飛ぶ方向
+            Vector3 Throwpos2 = -this.transform.forward;
+            Throwpos2.y = BlowHigh;
+
+            //吹き飛ぶ力　追加
+            rb.AddForce(Throwpos2 * BlowPower, ForceMode.Force);
         }
 
         //移動可能か（イカダの上）
-        if (MoveOn && cooltime < 0&&BlowTime==false)
+        if (MoveActive && cooltime < 0)
         {
             //プレイヤー方向のベクトル　取得
             Vector3 relativePos = PlayerObj.transform.position - this.transform.position;
@@ -96,22 +119,23 @@ public class PiranhaScript : MonoBehaviour
             gameObject.transform.position += velocity * Time.deltaTime;
         }
     }
-    
-
-    private void OnTriggerEnter(Collider other)
-    {
-
-    }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Human")
+        //人間とぶつかる
+        if (other.tag == "Human" && MoveActive)
         {
+            //ステージから落ちない用の壁　ON　
+            //StageMoveLimit.enabled = true;
+
             //プレイヤーのHP減少
             bool sts = PlayerStatus.DamageHP(ATK);
 
+            //  無敵時間外にプレイヤーに当たったら吹っ飛ばす
             if (sts)
             {
+                ThisBox.isTrigger = true;
+
                 //プレイヤー向きをピラニアに(Z正面)
                 other.transform.LookAt(this.transform.position);
                 other.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0, other.transform.rotation.w);
@@ -120,78 +144,61 @@ public class PiranhaScript : MonoBehaviour
                 Vector3 Throwpos = this.transform.forward;
                 Throwpos.y = this.transform.position.y + 3;
 
+                //プレイヤー速度　初期化
+                PlayerRb.velocity *= 0;
+
                 //吹き飛ぶ力　追加
                 PlayerRb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
-
-
-                //吹き飛ぶ方向
-                Vector3 Throwpos2 = -this.transform.forward;
-                Throwpos2.y += 2;
-
-                //吹き飛ぶ力　追加
-                rb.AddForce(Throwpos2 * BlowPower, ForceMode.Impulse);
             }
+
+            //吹き飛ぶ方向
+            Vector3 Throwpos2 = -this.transform.forward;
+            Throwpos2.y = BlowHigh;
+
+            //吹き飛ぶ力　追加
+            rb.AddForce(Throwpos2 * BlowPower, ForceMode.Impulse);
+
+            //移動不可能
+            cooltime = 3;
+            MoveActive = false;
+            Air = true;
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        //重力　ON
-        rb.useGravity = true;
-
-        //移動不可能
-        BlowTime = true;
     }
 
     private void OnCollisionEnter(Collision other)
     {
+        //イカダとぶつかる
         if (other.gameObject.tag == "Player")
         {
-            if(ok == false)
+            //一度だけ
+            if(onePlay == false)
             {
-                ok = true;
+                onePlay = true;
+
                 //親子関係したとき　メッシュがずれるバグ解消のための一文
                 this.transform.rotation = new Quaternion(0, this.transform.rotation.y, 0, this.transform.rotation.w);
 
                 //イカダを親オブジェクトに設定
-                this.transform.SetParent(other.transform, true);
+                this.transform.SetParent(PlayerObj.transform.parent, true);
 
-                //当たり判定処理　変更
-                //this.GetComponent<BoxCollider>().isTrigger = true;
+                //イカダの上の座標　取得
+                Savepos = this.transform.position.y;
+                BlowHigh += this.transform.localPosition.y;
 
-                MoveOn = true;
-                cooltime = 1.0f;
-                StageMoveLimit.enabled = true;
-
-                SaveY = this.transform.position.y;
+                gameObject.layer = LayerMask.NameToLayer("Default");
             }
 
+            cooltime = 1.0f;
+
             rb.useGravity = false;
-
-            //移動可能
-            BlowTime = false;
-        }
-
-        if(other.gameObject.tag== "IkadaMoveLimit")
-        {
-            Debug.Log("Stop");
             rb.velocity = new Vector3(0, 0, 0);
 
-            BlowTime = false;
+            Vector3 pos = this.transform.position;
+            pos.y = Savepos;
+            this.transform.position = pos;
+
+            //移動可能
+            MoveActive = true;
         }
     }
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //   if (other.tag == "IkadaMoveLimit"&&BlowTime)
-    //   {
-    //       rb.velocity = new Vector3(0, 0, 0);
-    //       Debug.Log("bbb");
-    //   }
-    //}
 }
