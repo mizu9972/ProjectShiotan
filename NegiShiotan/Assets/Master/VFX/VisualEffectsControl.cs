@@ -5,7 +5,17 @@ using UnityEngine.VFX;
 
 public class VisualEffectsControl : MonoBehaviour
 {
+    public enum DrawQuality {
+        all,
+        low,
+        medium,
+        high,
+        veryhigh,
+        none,
+    }
+
     private VisualEffect ve;
+    [SerializeField] private DrawQuality Quality = DrawQuality.none;
 
     [SerializeField] private bool OnPlay = false;
     [SerializeField] private bool DontDestroy = false;
@@ -17,12 +27,14 @@ public class VisualEffectsControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ve = gameObject.GetComponent<VisualEffect>();
+        //if (/*クオリティ設定変数*/ >= (int)Quality) {
+            ve = gameObject.GetComponent<VisualEffect>();
 
-        // 開始時にスタート
-        if (OnPlay) {
-            StartVFX();
-        }
+            // 開始時にスタート
+            if (OnPlay) {
+                StartVFX();
+            }
+        //}
     }
 
     /// <summary>
@@ -30,13 +42,15 @@ public class VisualEffectsControl : MonoBehaviour
     /// </summary>
     /// <returns>実行できたらtrueを返す(受け取らなくてもよい)</returns>
     public bool StartVFX() {
+        //if (/*クオリティ設定変数*/ >= (int)Quality) {
         // 一度終了されていたら開始できない様にロックする
-        if (!mEndVFX) {
-            mStartVFX = true;
-            ve.SendEvent("Play");
-            mStartTiming += System.DateTime.Now.Hour.ToString() + ':' + System.DateTime.Now.Minute.ToString() + ':' + System.DateTime.Now.Second.ToString();
-            return true;
-        }
+            if (!mEndVFX) {
+                mStartVFX = true;
+                ve.SendEvent("Play");
+                mStartTiming += System.DateTime.Now.Hour.ToString() + ':' + System.DateTime.Now.Minute.ToString() + ':' + System.DateTime.Now.Second.ToString();
+                return true;
+            }
+        //}
         return false;
     }
 
