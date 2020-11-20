@@ -42,7 +42,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     private float planeYpos = 0.0f;
 
     //滝落下用Tween
-    private Tween m_FallTween;
+    private Sequence m_FallTween;
 
     // Start is called before the first frame update
     void Awake()
@@ -185,9 +185,13 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     //滝の落ちるラインの処理
     public void OnFallLineSystem(float FallEndPositionY_)
     {
-        m_FallTween = transform.DOMoveY(0.0f - FallEndPositionY_, Mathf.Abs(FallEndPositionY_)  / (FallSpeed * 10.0f));
+        float defaultSpeed = NowScrollSpeed;
+        m_FallTween = DOTween.Sequence().Append(transform.DOMoveY(0.0f - FallEndPositionY_, Mathf.Abs(FallEndPositionY_) / (FallSpeed * 10.0f)))
+            .AppendCallback(() => ChangeSpeed(defaultSpeed));
         FallInit();
         m_FallTween.Play();
+
+        ChangeSpeed(0);
 
         m_FallCamera.StartRotateTween(Mathf.Abs(FallEndPositionY_));
     }
@@ -195,17 +199,42 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     //クリア時の処理
     public void OnClearSystem()
     {
+        //float DefalutSpeed = NowScrollSpeed;
+
+        ////停止条件
+        //var MoveStopStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime));
+
+        ////減速させる
+        //var ClearMoveStream = Observable.EveryUpdate()
+        //.TakeUntil(MoveStopStream)
+        //.Subscribe(_ => NowScrollSpeed -= DefalutSpeed / (SpeedDownTime * 60.0f));
+
+        //var SpeedZeroStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime))
+        //    .Subscribe(_ => NowScrollSpeed = 0.0f);
+
+        ChangeSpeedbyTime(0, SpeedDownTime);
+    }
+
+    //段々速度変化
+    public void ChangeSpeedbyTime(float toSpeed,float time)
+    {
         float DefalutSpeed = NowScrollSpeed;
 
-        //停止条件
-        var MoveStopStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime));
+        //終了条件
+        var ChangeStopStream = Observable.Timer(System.TimeSpan.FromSeconds(time));
 
-        //減速させる
-        var ClearMoveStream = Observable.EveryUpdate()
-        .TakeUntil(MoveStopStream)
-        .Subscribe(_ => NowScrollSpeed -= DefalutSpeed / (SpeedDownTime * 60.0f));
+        //速度変化
+        var ChangeSpeedStream = Observable.EveryUpdate()
+            .TakeUntil(ChangeStopStream)
+            .Subscribe(_ => NowScrollSpeed += (toSpeed -  DefalutSpeed) / (time * 60.0f));
 
-        var SpeedZeroStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime))
-            .Subscribe(_ => NowScrollSpeed = 0.0f);
+        var adjustSpeedStream = Observable.Timer(System.TimeSpan.FromSeconds(time))
+            .Subscribe(_ => NowScrollSpeed = toSpeed);
+    }
+
+    //速度変更
+    public void ChangeSpeed(float speed)
+    {
+        NowScrollSpeed = speed;
     }
 }
