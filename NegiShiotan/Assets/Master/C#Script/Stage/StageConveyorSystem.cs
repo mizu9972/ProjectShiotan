@@ -38,6 +38,9 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     private int StagePlaneIter;
     private FallCamera m_FallCamera;
 
+    //Y座標保存用
+    private float planeYpos = 0.0f;
+
     //滝落下用Tween
     private Tween m_FallTween;
 
@@ -111,11 +114,17 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
             var OldStageScaleX = ActiveStagePlaneList.Last().transform.lossyScale.x;
             var OldStagePosition = ActiveStagePlaneList.Last().transform.position;
 
+            //滝の落下後のY座標保存
+            if(newStagePlane.tag == "FallBottom")
+            {
+                planeYpos = newStagePlane.transform.position.y;
+            }
+
             //配置位置計算
             newStagePlane.transform.position = new Vector3(
                 //新しく配置するPlaneのサイズの半分 +  既に配置されている最後尾のPlaneのサイズの半分 + 既に配置されている最後尾のPlaneの座標
                 newStagePlane.transform.lossyScale.x / 2.0f * 10  + OldStageScaleX / 2.0f * 10 + OldStagePosition.x,
-                newStagePlane.transform.position.y,
+                planeYpos,
                 OldStagePosition.z
                 );
 
