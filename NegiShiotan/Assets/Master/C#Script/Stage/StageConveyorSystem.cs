@@ -24,7 +24,8 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     public float ScrollBaseSpeed = 1.0f;
     [Header("ループさせるか")]
     public bool isLooping = false;
-
+    [Header("ステージを超えてから消えるまでの時間")]
+    public float DestroyTime = 10.0f;
 
     [Header("落下速度")]
     [Header("滝を落ちる時の設定")]
@@ -37,9 +38,12 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     private float NowScrollSpeed;//ステージ移動速度
     private int StagePlaneIter;
     private FallCamera m_FallCamera;
+    
+    //Y座標保存用
+    private float planeYpos = 0.0f;
 
     //滝落下用Tween
-    private Tween m_FallTween;
+    private Sequence m_FallTween;
 
     // Start is called before the first frame update
     void Awake()
@@ -111,11 +115,17 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
             var OldStageScaleX = ActiveStagePlaneList.Last().transform.lossyScale.x;
             var OldStagePosition = ActiveStagePlaneList.Last().transform.position;
 
+            //滝の落下後のY座標保存
+            if(newStagePlane.tag == "FallBottom")
+            {
+                planeYpos = newStagePlane.transform.position.y;
+            }
+
             //配置位置計算
             newStagePlane.transform.position = new Vector3(
                 //新しく配置するPlaneのサイズの半分 +  既に配置されている最後尾のPlaneのサイズの半分 + 既に配置されている最後尾のPlaneの座標
                 newStagePlane.transform.lossyScale.x / 2.0f * 10  + OldStageScaleX / 2.0f * 10 + OldStagePosition.x,
-                newStagePlane.transform.position.y,
+                planeYpos,
                 OldStagePosition.z
                 );
 
@@ -129,18 +139,24 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     //PlaneのEndLineに到達したときの処理
     public void OnEndLineSystem(GameObject obj)
     {
-        int ObjectInstanceID = obj.GetInstanceID();
-        //オブジェクトを削除して操作配列から削除
-        //インスタンスIDで判定
-        foreach (var StageObject in ActiveStagePlaneList)
-        {
-            if (ObjectInstanceID == StageObject.GetInstanceID())
+        Observable
+            .Timer(System.TimeSpan.FromSeconds(DestroyTime))
+            .Subscribe(_ =>
             {
-                ActiveStagePlaneList.Remove(StageObject);
-                break;
-            }
-        }
-        Destroy(obj);//削除
+                int ObjectInstanceID = obj.GetInstanceID();
+                //オブジェクトを削除して操作配列から削除
+                //インスタンスIDで判定
+                foreach (var StageObject in ActiveStagePlaneList)
+                {
+                    if (ObjectInstanceID == StageObject.GetInstanceID())
+                    {
+                        ActiveStagePlaneList.Remove(StageObject);
+                        break;
+                    }
+                }
+                Destroy(obj);//削除
+
+            });
 
         //新しくステージプレーン追加
         StageAdd(1);
@@ -176,9 +192,13 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     //滝の落ちるラインの処理
     public void OnFallLineSystem(float FallEndPositionY_)
     {
-        m_FallTween = transform.DOMoveY(0.0f - FallEndPositionY_, Mathf.Abs(FallEndPositionY_)  / (FallSpeed * 10.0f));
+        float defaultSpeed = NowScrollSpeed;
+        m_FallTween = DOTween.Sequence().Append(transform.DOMoveY(0.0f - FallEndPositionY_, Mathf.Abs(FallEndPositionY_) / (FallSpeed * 10.0f)))
+            .AppendCallback(() => ChangeSpeed(defaultSpeed));
         FallInit();
         m_FallTween.Play();
+
+        ChangeSpeed(0);
 
         m_FallCamera.StartRotateTween(Mathf.Abs(FallEndPositionY_));
     }
@@ -186,17 +206,42 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     //クリア時の処理
     public void OnClearSystem()
     {
+        //float DefalutSpeed = NowScrollSpeed;
+
+        ////停止条件
+        //var MoveStopStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime));
+
+        ////減速させる
+        //var ClearMoveStream = Observable.EveryUpdate()
+        //.TakeUntil(MoveStopStream)
+        //.Subscribe(_ => NowScrollSpeed -= DefalutSpeed / (SpeedDownTime * 60.0f));
+
+        //var SpeedZeroStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime))
+        //    .Subscribe(_ => NowScrollSpeed = 0.0f);
+
+        ChangeSpeedbyTime(0, SpeedDownTime);
+    }
+
+    //段々速度変化
+    public void ChangeSpeedbyTime(float toSpeed,float time)
+    {
         float DefalutSpeed = NowScrollSpeed;
 
-        //停止条件
-        var MoveStopStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime));
+        //終了条件
+        var ChangeStopStream = Observable.Timer(System.TimeSpan.FromSeconds(time));
 
-        //減速させる
-        var ClearMoveStream = Observable.EveryUpdate()
-        .TakeUntil(MoveStopStream)
-        .Subscribe(_ => NowScrollSpeed -= DefalutSpeed / (SpeedDownTime * 60.0f));
+        //速度変化
+        var ChangeSpeedStream = Observable.EveryUpdate()
+            .TakeUntil(ChangeStopStream)
+            .Subscribe(_ => NowScrollSpeed += (toSpeed -  DefalutSpeed) / (time * 60.0f));
 
-        var SpeedZeroStream = Observable.Timer(System.TimeSpan.FromSeconds(SpeedDownTime))
-            .Subscribe(_ => NowScrollSpeed = 0.0f);
+        var adjustSpeedStream = Observable.Timer(System.TimeSpan.FromSeconds(time))
+            .Subscribe(_ => NowScrollSpeed = toSpeed);
+    }
+
+    //速度変更
+    public void ChangeSpeed(float speed)
+    {
+        NowScrollSpeed = speed;
     }
 }
