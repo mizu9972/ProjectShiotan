@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8274546428760766889}
   - component: {fileID: 6322799253503640107}
   - component: {fileID: 4770058382197792640}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: IkadaStage
   m_TagString: IkadaMoveLimit
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809081147981468311}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.55, y: 25.1, z: 0}
+  m_LocalPosition: {x: 0.55, y: 11.2, z: 0}
   m_LocalScale: {x: 0.1, y: 30, z: 2}
   m_Children: []
   m_Father: {fileID: 7941060788605349917}
@@ -2255,6 +2255,9 @@ MonoBehaviour:
   RaftSpead: 0
   Range: 0.1
   ZPos: 0
+  IkadaWidth: 3
+  RightWall: {fileID: 0}
+  LeftWall: {fileID: 0}
   OnPlayerPos: {x: 0, y: 0}
 --- !u!1 &3483828463797745840
 GameObject:
@@ -2269,7 +2272,7 @@ GameObject:
   - component: {fileID: 5738020914638351239}
   - component: {fileID: 8320403376126963534}
   - component: {fileID: 4535298406261595288}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: IkadaStage
   m_TagString: IkadaMoveLimit
   m_Icon: {fileID: 0}
@@ -2284,7 +2287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3483828463797745840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.55, y: 25.1, z: 0}
+  m_LocalPosition: {x: -0.55, y: 11.200001, z: 0}
   m_LocalScale: {x: 0.1, y: 30, z: 2}
   m_Children: []
   m_Father: {fileID: 7941060788605349917}
@@ -2597,7 +2600,7 @@ GameObject:
   - component: {fileID: 7261158506016723404}
   - component: {fileID: 3264094827674284437}
   - component: {fileID: 1545892279956410824}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: IkadaStage
   m_TagString: IkadaMoveLimit
   m_Icon: {fileID: 0}
@@ -2612,7 +2615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6530103180664541226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 25.1, z: -0.55}
+  m_LocalPosition: {x: 0, y: 11.200001, z: -0.55}
   m_LocalScale: {x: 2, y: 30, z: 0.1}
   m_Children: []
   m_Father: {fileID: 7941060788605349917}
@@ -2707,7 +2710,7 @@ GameObject:
   - component: {fileID: 488853081171398557}
   - component: {fileID: 6358485595948969174}
   - component: {fileID: 5492031295890313964}
-  m_Layer: 0
+  m_Layer: 30
   m_Name: IkadaStage
   m_TagString: IkadaMoveLimit
   m_Icon: {fileID: 0}
@@ -2722,7 +2725,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6885755737980595313}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 25.099998, z: 0.55}
+  m_LocalPosition: {x: 0, y: 11.199999, z: 0.55}
   m_LocalScale: {x: 2, y: 30, z: 0.1}
   m_Children: []
   m_Father: {fileID: 7941060788605349917}
@@ -2832,7 +2835,7 @@ Transform:
   m_GameObject: {fileID: 8070530073915964216}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 10.76, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 186816876919193698}
   m_RootOrder: 2
@@ -3012,7 +3015,7 @@ MonoBehaviour:
   AttackCollider: {fileID: 6248610801409385178}
   OnRaftPosition: {x: 0, y: 0}
   ang: 5
-  BlowSpeed: 3
+  BlowSpeed: 2
   BlowHigh: 2
 --- !u!54 &5834391806360414533
 Rigidbody:
