@@ -1195,7 +1195,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147453748}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 2.5671892, z: 1}
@@ -1455,7 +1455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179676727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.199999, z: 0.55}
+  m_LocalPosition: {x: 0, y: 11.199999, z: 0.6}
   m_LocalScale: {x: 2, y: 30, z: 0.1}
   m_Children: []
   m_Father: {fileID: 147453756}
@@ -1488,7 +1488,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &179676731
 MeshRenderer:
@@ -5997,7 +5997,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 902917360}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.55, y: 11.2, z: 0}
+  m_LocalPosition: {x: 0.6, y: 11.2, z: 0}
   m_LocalScale: {x: 0.1, y: 30, z: 2}
   m_Children: []
   m_Father: {fileID: 147453756}
@@ -6030,7 +6030,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &902917364
 MeshRenderer:
@@ -6726,7 +6726,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042913809}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.55, y: 11.200001, z: 0}
+  m_LocalPosition: {x: -0.6, y: 11.200001, z: 0}
   m_LocalScale: {x: 0.1, y: 30, z: 2}
   m_Children: []
   m_Father: {fileID: 147453756}
@@ -6759,7 +6759,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1042913813
 MeshRenderer:
@@ -12065,7 +12065,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011093872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.200001, z: -0.55}
+  m_LocalPosition: {x: 0, y: 11.200001, z: -0.6}
   m_LocalScale: {x: 2, y: 30, z: 0.1}
   m_Children: []
   m_Father: {fileID: 147453756}
@@ -12098,7 +12098,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2011093876
 MeshRenderer:
@@ -12364,6 +12364,7 @@ GameObject:
   - component: {fileID: 2056111535}
   - component: {fileID: 2056111534}
   - component: {fileID: 2056111533}
+  - component: {fileID: 2056111536}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -12456,6 +12457,28 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2056111536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056111531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d02ce233bbcaf43b5c23290ed08158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftObj: {fileID: 925226255}
+  RightObj: {fileID: 419392972}
+  LeftDistance: 0
+  RightDistance: 0
+  ZPos: 0
+  isMoveLeft: 1
+  isMoveRight: 1
+  Player: {fileID: 147453748}
+  ChaseStartDistance: 7
+  isChase: 0
 --- !u!1001 &2068578578
 PrefabInstance:
   m_ObjectHideFlags: 0
