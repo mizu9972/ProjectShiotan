@@ -9,6 +9,15 @@ public class EnemySpawnLine : MonoBehaviour
     [SerializeField, Header("出現させる敵オブジェクト")]
     private GameObject EnemyObject = null;
 
+    [Header("ジャンプのためのコライダー")]
+    private JumpScript JumpCollider;
+
+    [Header("ジャンプする力")]
+    public int JumpPower;
+
+    [Header("ジャンプする高さ")]
+    public int JumpHigh;
+
     private GameObject m_EnemySpawnErea = null;
     private EnemySpawnSystem m_ESS = null;
 
@@ -24,13 +33,15 @@ public class EnemySpawnLine : MonoBehaviour
     {
         m_EnemySpawnErea = GameObject.FindGameObjectWithTag("EnemySpawnErea");
         m_ESS = m_EnemySpawnErea.GetComponent<EnemySpawnSystem>();
-
+        JumpCollider= GameObject.FindGameObjectWithTag("JumpArea").GetComponent<JumpScript>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 11)
         {
+            JumpCollider.SetJumpPower(JumpPower);
+            JumpCollider.SetJumpRange(JumpHigh);
             SpawnEnemy();
         }
     }

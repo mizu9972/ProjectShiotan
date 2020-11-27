@@ -40,6 +40,7 @@ public class PlayerCamera : MonoBehaviour
     {
         MyPos = this.GetComponent<Transform>();
         ZPos = MyPos.position.z;
+        
     }
 
     // Update is called once per frame
@@ -56,7 +57,7 @@ public class PlayerCamera : MonoBehaviour
         {
             isChase = true;
         }
-        else
+        else if(distance<=0f)//範囲内に入ってプレイヤーにカメラが追い付いたら追従を切る
         {
             isChase = false;
         }
@@ -65,10 +66,12 @@ public class PlayerCamera : MonoBehaviour
     private void ChaceTarget()//ターゲット追従処理
     {
         CalcTargetDistance();//ターゲットとの距離を計算
+
+
         ZPos = Mathf.Lerp(MyPos.position.z, Player.transform.position.z, Time.deltaTime);
-        //MyPos.position=
-        if(isChase)
+        if (isChase)//追従状態ならZ座標を適用
         {
+
             Vector3 workpos = new Vector3(MyPos.position.x, MyPos.position.y, ZPos);
             MyPos.position = workpos;
         }
