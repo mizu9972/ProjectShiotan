@@ -1375,6 +1375,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock
       objectReference: {fileID: 0}
+    - target: {fileID: 6740395325574700411, guid: 19b1020d6db66054d9c976189a49c1bb,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6740395325574700411, guid: 19b1020d6db66054d9c976189a49c1bb,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6740395325574700411, guid: 19b1020d6db66054d9c976189a49c1bb,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 6740395325574700414, guid: 19b1020d6db66054d9c976189a49c1bb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1433,7 +1448,7 @@ PrefabInstance:
     - target: {fileID: 6740395325574700414, guid: 19b1020d6db66054d9c976189a49c1bb,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.4049082
+      value: 4.689571
       objectReference: {fileID: 0}
     - target: {fileID: 6740395325574700414, guid: 19b1020d6db66054d9c976189a49c1bb,
         type: 3}
@@ -1443,7 +1458,7 @@ PrefabInstance:
     - target: {fileID: 6740395325574700414, guid: 19b1020d6db66054d9c976189a49c1bb,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5593
+      value: 4.048332
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19b1020d6db66054d9c976189a49c1bb, type: 3}
@@ -9307,6 +9322,7 @@ GameObject:
   - component: {fileID: 2109856527}
   - component: {fileID: 2109856526}
   - component: {fileID: 2109856525}
+  - component: {fileID: 2109856528}
   m_Layer: 0
   m_Name: BgmPlayer(Clone)
   m_TagString: Untagged
@@ -9441,6 +9457,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2109856528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109856524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03a821c52c8839418f2a53672af03fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmPlayer: {fileID: 2109856526}
 --- !u!1 &2119077665
 GameObject:
   m_ObjectHideFlags: 0
@@ -9521,6 +9550,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1966685834}
     m_Modifications:
+    - target: {fileID: 5308657450329950593, guid: 36e219678fb38b942b6d815a22d5c3ec,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308657450329950593, guid: 36e219678fb38b942b6d815a22d5c3ec,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308657451269166625, guid: 36e219678fb38b942b6d815a22d5c3ec,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4
+      objectReference: {fileID: 0}
     - target: {fileID: 8824769024293757510, guid: 36e219678fb38b942b6d815a22d5c3ec,
         type: 3}
       propertyPath: m_Name

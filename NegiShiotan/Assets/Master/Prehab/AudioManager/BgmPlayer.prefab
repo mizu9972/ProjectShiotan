@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4632250720978861419}
   - component: {fileID: 3571452493969099}
   - component: {fileID: 3635101228116198425}
+  - component: {fileID: 3700325386923666025}
   m_Layer: 0
   m_Name: BgmPlayer
   m_TagString: Untagged
@@ -44,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621b7d0a1901e9c4bbc97a55c98262e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BgmData:
+  m_BgmData:
   - {fileID: 0}
-  BgmNum: 0
-  audioSource: {fileID: 3635101228116198425}
+  m_BgmNum: 0
+  m_audioSource: {fileID: 0}
+  m_Volume: 1
 --- !u!82 &3635101228116198425
 AudioSource:
   m_ObjectHideFlags: 0
@@ -144,3 +146,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3700325386923666025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5180599019805332446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03a821c52c8839418f2a53672af03fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmPlayer: {fileID: 3571452493969099}
