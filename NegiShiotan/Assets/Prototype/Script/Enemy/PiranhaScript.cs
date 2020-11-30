@@ -43,6 +43,8 @@ public class PiranhaScript : MonoBehaviour
     //イカダ乗り込み時の処理　一度だけ行いたい
     bool onePlay;
 
+    public float IkadaSize;
+
 
     //Start is called before the first frame update
     void Start()
@@ -64,6 +66,8 @@ public class PiranhaScript : MonoBehaviour
 
         //自身の当たり判定　取得
         ThisBox = this.GetComponent<BoxCollider>();
+
+        IkadaSize = PlayerStatus.GetIkadaSize();
     }
 
     //Update is called once per frame
@@ -118,6 +122,35 @@ public class PiranhaScript : MonoBehaviour
             Vector3 velocity = gameObject.transform.rotation * new Vector3(0, 0, Speed);
             gameObject.transform.position += velocity * Time.deltaTime;
         }
+
+        if(onePlay==true)
+        {
+            //イカダから落ちないようにする処理
+            Vector3 Pos = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, this.transform.localPosition.z);
+
+            //X軸の端
+            if (IkadaSize < this.transform.localPosition.x)
+            {
+                Pos.x = IkadaSize;
+            }
+            if (-IkadaSize > this.transform.localPosition.x)
+            {
+                Pos.x = -IkadaSize;
+            }
+
+            //Z軸の端
+            if (IkadaSize < this.transform.localPosition.z)
+            {
+                Pos.z = IkadaSize;
+            }
+            if (-IkadaSize > this.transform.localPosition.z)
+            {
+                Pos.z = -IkadaSize;
+            }
+
+            //位置修正
+            transform.localPosition = Pos;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -125,9 +158,6 @@ public class PiranhaScript : MonoBehaviour
         //人間とぶつかる
         if (other.tag == "Human" && MoveActive)
         {
-            //ステージから落ちない用の壁　ON　
-            //StageMoveLimit.enabled = true;
-
             //プレイヤーのHP減少
             bool sts = PlayerStatus.DamageHP(ATK);
 
