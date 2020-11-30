@@ -40,13 +40,10 @@ public class PiranhaScript : MonoBehaviour
     //イカダY座標　保存
     private float Savepos=0;
 
-    //自身（ピラニア）の当たり判定
-    private BoxCollider ThisBox;
-
     //イカダ乗り込み時の処理　一度だけ行いたい
     bool onePlay;
 
-    public float IkadaSize;
+    public float IkadaWidth;
 
 
     //Start is called before the first frame update
@@ -66,37 +63,39 @@ public class PiranhaScript : MonoBehaviour
 
         //イカダを親オブジェクトに設定
         this.transform.SetParent(PlayerObj.transform.parent, true);
-
-        //自身の当たり判定　取得
-        ThisBox = this.GetComponent<BoxCollider>();
-
-        IkadaSize = PlayerStatus.GetIkadaSize();
+        
+        //イカダの端（幅）　取得
+        IkadaWidth = PlayerStatus.GetIkadaWidth();
     }
 
     //Update is called once per frame
     void Update()
     {
+        //移動停止時間（着地時）　カウント
         if(cooltime>0)
         {
             cooltime -= 0.1f;
         }
 
-        //XZ回転　初期化
-        Quaternion XYrot = this.transform.rotation;
-        XYrot.x = 0;
-        XYrot.z = 0;
+        //プレイヤー方向のベクトル　取得
+        Vector3 relativePos = PlayerObj.transform.position - this.transform.position;
+
+        //プレイヤーの方　向く
+        Quaternion rotation = Quaternion.LookRotation(relativePos);
+        rotation.x = 0;
+        rotation.z = 0;
 
         //現在の回転情報と、ターゲット方向の回転情報を補完する
-        transform.rotation = XYrot;
-
-        //設定した高さまで飛んだ
+        transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, 0.1f);
+        
+        //ピラニア　設定最高高度　制限（設定した高さ　超えない）
         if (BlowHigh < this.transform.position.y)
         {
             rb.useGravity = true;
-            ThisBox.isTrigger = false;
             Air = false;
         }
 
+        //吹き飛び
         if (MoveActive==false&&Air)
         {
             //吹き飛ぶ方向
@@ -110,45 +109,35 @@ public class PiranhaScript : MonoBehaviour
         //移動可能か（イカダの上）
         if (MoveActive && cooltime < 0)
         {
-            //プレイヤー方向のベクトル　取得
-            Vector3 relativePos = PlayerObj.transform.position - this.transform.position;
-
-            //プレイヤーの方　向く
-            Quaternion rotation = Quaternion.LookRotation(relativePos);
-            rotation.x = 0;
-            rotation.z = 0;
-
-            //現在の回転情報と、ターゲット方向の回転情報を補完する
-            transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, 0.1f);
-            
             //移動処理（前方へ）
             Vector3 velocity = gameObject.transform.rotation * new Vector3(0, 0, Speed);
             gameObject.transform.position += velocity * Time.deltaTime;
         }
 
-        if(onePlay==true)
+        //イカダ着地後    移動制限（イカダから落ちない）
+        if(onePlay)
         {
             //イカダから落ちないようにする処理
             Vector3 Pos = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, this.transform.localPosition.z);
 
-            //X軸の端
-            if (IkadaSize < this.transform.localPosition.x)
+            //X軸の端　超えない
+            if (IkadaWidth < this.transform.localPosition.x)
             {
-                Pos.x = IkadaSize;
+                Pos.x = IkadaWidth;
             }
-            if (-IkadaSize > this.transform.localPosition.x)
+            if (-IkadaWidth > this.transform.localPosition.x)
             {
-                Pos.x = -IkadaSize;
+                Pos.x = -IkadaWidth;
             }
 
-            //Z軸の端
-            if (IkadaSize < this.transform.localPosition.z)
+            //Z軸の端　超えない
+            if (IkadaWidth < this.transform.localPosition.z)
             {
-                Pos.z = IkadaSize;
+                Pos.z = IkadaWidth;
             }
-            if (-IkadaSize > this.transform.localPosition.z)
+            if (-IkadaWidth > this.transform.localPosition.z)
             {
-                Pos.z = -IkadaSize;
+                Pos.z = -IkadaWidth;
             }
 
             //位置修正
@@ -167,8 +156,6 @@ public class PiranhaScript : MonoBehaviour
             //  無敵時間外にプレイヤーに当たったら吹っ飛ばす
             if (sts)
             {
-                ThisBox.isTrigger = true;
-
                 //プレイヤー向きをピラニアに(Z正面)
                 other.transform.LookAt(this.transform.position);
                 other.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0, other.transform.rotation.w);
@@ -203,7 +190,7 @@ public class PiranhaScript : MonoBehaviour
         //イカダとぶつかる
         if (other.gameObject.tag == "Player")
         {
-            //一度だけ
+            //一度だけ使用
             if(onePlay == false)
             {
                 onePlay = true;
@@ -217,20 +204,21 @@ public class PiranhaScript : MonoBehaviour
                 //イカダの上の座標　取得
                 Savepos = this.transform.position.y;
                 BlowHigh += this.transform.localPosition.y;
-
-                gameObject.layer = LayerMask.NameToLayer("Default");
             }
 
+            //移動停止時間（着地硬直状態）
             cooltime = 1.0f;
 
+            //重力停止
             rb.useGravity = false;
             rb.velocity = new Vector3(0, 0, 0);
 
+            //イカダ　めりこまない処理
             Vector3 pos = this.transform.position;
             pos.y = Savepos;
             this.transform.position = pos;
 
-            //移動可能
+            //移動可能に
             MoveActive = true;
         }
     }
