@@ -13,10 +13,10 @@ public class EnemySpawnLine : MonoBehaviour
     private JumpScript JumpCollider;
 
     [Header("ジャンプする力")]
-    public int JumpPower;
+    public float JumpPower;
 
     [Header("ジャンプする高さ")]
-    public int JumpHigh;
+    public float JumpHigh;
 
     private GameObject m_EnemySpawnErea = null;
     private EnemySpawnSystem m_ESS = null;

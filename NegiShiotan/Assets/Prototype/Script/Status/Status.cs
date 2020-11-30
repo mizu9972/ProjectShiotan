@@ -33,6 +33,10 @@ public class Status : MonoBehaviour
 
     //ゲームオーバー用オブジェクト
     private GameOverManager m_GameOverManager = null;
+
+    [Header("イカダ端の壁の位置")]
+    public Transform IkadaSize;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +77,11 @@ public class Status : MonoBehaviour
         {
             m_GameOverManager.ZankiGameOverFunction();
         }
+    }
+
+    public float GetIkadaSize()
+    {
+        return IkadaSize.localPosition.x;
     }
 
     public int GetHP()

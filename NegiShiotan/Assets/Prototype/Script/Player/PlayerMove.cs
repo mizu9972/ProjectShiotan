@@ -33,11 +33,24 @@ public class PlayerMove : MonoBehaviour
     //空中に吹っ飛んでいるか
     private bool Air;
 
+    // Animator コンポーネント
+    private Animator animator;
+
+    // 設定したフラグの名前
+    private const string key_isRun = "isRun";
+    private const string key_isAttack = "isAttack";
+
+    public Transform PX_Kabe;
+
+    private float time;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        // 自分に設定されているAnimatorコンポーネントを習得する
+        this.animator = GetComponent<Animator>();
+
         BlowHigh = BlowHigh + this.transform.localPosition.y;
 
         MoveActive = true;      //操作　可能
@@ -46,6 +59,7 @@ public class PlayerMove : MonoBehaviour
         AttackCollider.SetActive(false);        //攻撃コライダー　非アクティブ
 
         Air = false;
+        time = 0;
     }
 
     // Update is called once per frame
@@ -54,8 +68,19 @@ public class PlayerMove : MonoBehaviour
         //移動可能
         if (MoveActive)
         {
-            //移動処理
-            MoveFunc();
+            if(time<=0)
+            {
+                //移動処理
+                MoveFunc();
+            }
+            else
+            {
+                time -= Time.deltaTime;
+                if(time<0)
+                {
+                    this.animator.SetBool(key_isAttack, false);
+                }
+            }
         }
 
         //イカダに着地
@@ -95,6 +120,34 @@ public class PlayerMove : MonoBehaviour
             //吹き飛ぶ力　追加
             rb.AddForce(Throwpos * 2, ForceMode.Force);
         }
+
+
+        //イカダから落ちないようにする処理
+        Vector3 Pos=new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, this.transform.localPosition.z);
+
+        //X軸の端
+        if (PX_Kabe.localPosition.x < this.transform.localPosition.x)
+        {
+            Pos.x = PX_Kabe.localPosition.x;
+        }
+        if (-PX_Kabe.localPosition.x > this.transform.localPosition.x)
+        {
+            Pos.x = -PX_Kabe.localPosition.x;
+        }
+
+        //Z軸の端
+        if (PX_Kabe.localPosition.x < this.transform.localPosition.z)
+        {
+            Pos.z = PX_Kabe.localPosition.x;
+        }
+        if (-PX_Kabe.localPosition.x > this.transform.localPosition.z)
+        {
+            Pos.z = -PX_Kabe.localPosition.x;
+        }
+
+        //位置修正
+        transform.localPosition = Pos;
+
     }
 
 
@@ -103,6 +156,10 @@ public class PlayerMove : MonoBehaviour
         //回転の度合い
         float step = ang * Time.deltaTime;
 
+        // RunからWaitに遷移する
+        this.animator.SetBool(key_isRun, false);
+        
+
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             transform.position = new Vector3(transform.position.x,
@@ -110,6 +167,9 @@ public class PlayerMove : MonoBehaviour
                                              transform.position.z + (Speed * Time.deltaTime));
             //指定した方向にゆっくり回転する場合
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0f, 0), step);
+
+            // WaitからRunに遷移する
+            this.animator.SetBool(key_isRun, true);
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -118,6 +178,9 @@ public class PlayerMove : MonoBehaviour
                                              transform.position.z + (-Speed * Time.deltaTime));
             //指定した方向にゆっくり回転する場合
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 180f, 0), step);
+
+            // WaitからRunに遷移する
+            this.animator.SetBool(key_isRun, true);
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
@@ -126,6 +189,9 @@ public class PlayerMove : MonoBehaviour
                                              transform.position.z);
             //指定した方向にゆっくり回転する場合
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 90f, 0), step);
+
+            // WaitからRunに遷移する
+            this.animator.SetBool(key_isRun, true);
 
         }
         if (Input.GetKey(KeyCode.DownArrow))
@@ -136,13 +202,28 @@ public class PlayerMove : MonoBehaviour
 
             //指定した方向にゆっくり回転する場合
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, -90f, 0), step);
+
+            // WaitからRunに遷移する
+            this.animator.SetBool(key_isRun, true);
         }
+
 
         //攻撃コライダー　アクティブ化
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            // Wait or RunからAttackに遷移する
+            this.animator.SetBool(key_isAttack, true);
+            this.animator.SetBool(key_isRun, false);
+
             AttackCollider.SetActive(true);
+            time = 1;
         }
+    }
+
+    public void EndAttack()
+    {
+        // AttackからWait or Runに遷移する
+        this.animator.SetBool(key_isAttack, false);
     }
 
     public void SetRaftPosition(Vector2 pos)
