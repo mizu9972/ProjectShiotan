@@ -3506,11 +3506,6 @@ PrefabInstance:
       propertyPath: IkadaSize
       value: 
       objectReference: {fileID: 1957395430222895116}
-    - target: {fileID: 5979927275713815475, guid: ce721a0d993ec5f43b08958db517bcf2,
-        type: 3}
-      propertyPath: MAXHP
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 9075375486024285971, guid: ce721a0d993ec5f43b08958db517bcf2,
         type: 3}
       propertyPath: ResultCanvas
@@ -3875,7 +3870,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057746763398288050, guid: 42e13ce1d18896f45b42ce584e780de0,
         type: 3}
-      propertyPath: m_AnchorMin.y
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4057746763398288050, guid: 42e13ce1d18896f45b42ce584e780de0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4057746763398288050, guid: 42e13ce1d18896f45b42ce584e780de0,
@@ -3885,12 +3885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4057746763398288050, guid: 42e13ce1d18896f45b42ce584e780de0,
         type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4057746763398288050, guid: 42e13ce1d18896f45b42ce584e780de0,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4057746763967855114, guid: 42e13ce1d18896f45b42ce584e780de0,
@@ -3987,11 +3982,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8622657175993173449, guid: 42e13ce1d18896f45b42ce584e780de0,
-        type: 3}
-      propertyPath: FadeSpeed
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42e13ce1d18896f45b42ce584e780de0, type: 3}
@@ -4164,26 +4154,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8923784867732521268}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8923784867732521270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8923784867732521269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9bcb70ad1f1d8a47add02515a2cb490, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FadeInMat: {fileID: 2100000, guid: da8041fce6c4f0848ad3360d572a514b, type: 2}
-  FadeOutMat: {fileID: 2100000, guid: fee7f157f6f43614d89bb13227f250b7, type: 2}
-  WhiteOutMat: {fileID: 2100000, guid: 568b99c7f04c2734f98bef36774720d6, type: 2}
-  TransitionTex: {fileID: 2800000, guid: 5f7a8f2d25620b141bc82eb3671f036a, type: 3}
-  FadeInSpeed: 4
-  FadeOutSpeed: 2
-  isActive: 1
-  isFadeIn: 1
 --- !u!1001 &9207296687612397383
 PrefabInstance:
   m_ObjectHideFlags: 0

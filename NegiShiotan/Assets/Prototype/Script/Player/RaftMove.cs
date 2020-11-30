@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using DG.Tweening;
+
 public class RaftMove : MonoBehaviour
 {
     [Header("あそびのOn,Off")]
@@ -92,5 +94,16 @@ public class RaftMove : MonoBehaviour
             //実際の座標に代入
             transform.position = new Vector3(transform.position.x, transform.position.y, ZPos);
         }
+    }
+
+    //画面奥へ移動させる
+    public void moveFar()
+    {
+        Tween moveTween;
+
+        moveTween = transform.DOMoveX(1000f, 100.0f)
+            .SetRelative();
+
+        moveTween.Play();
     }
 }
