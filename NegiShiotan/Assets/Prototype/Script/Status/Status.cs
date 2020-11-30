@@ -37,6 +37,8 @@ public class Status : MonoBehaviour
     [Header("イカダ端の壁の位置")]
     public Transform IkadaSize;
 
+    private PlayerMove P_MoveScript;    //プレイヤー
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,10 @@ public class Status : MonoBehaviour
         HP = MAXHP;
 
         m_GameOverManager = GameObject.FindWithTag("GameOverManager").GetComponent<GameOverManager>();
+        P_MoveScript= GameObject.FindWithTag("Human").GetComponent<PlayerMove>();
+
+        //イカダ端　位置セット
+        P_MoveScript.SetIkadaHasi(IkadaSize.localPosition.x);
     }
 
     // Update is called once per frame
@@ -102,7 +108,7 @@ public class Status : MonoBehaviour
         }
     }
 
-    public bool DamageHP(int Damage)
+    public bool DamageHP(int Damage,bool ac)
     {
         //無敵時間　以外
         if (MutekiTime <= 0)
@@ -110,6 +116,11 @@ public class Status : MonoBehaviour
             HP -= Damage;
             MutekiTime = SetMutekiTime; //無敵時間　セット
             return true;
+        }
+
+        if(ac)
+        {
+            P_MoveScript.SetKokeru();
         }
         return false;
     }
