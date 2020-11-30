@@ -162,7 +162,7 @@ public class PiranhaScript : MonoBehaviour
         if (other.tag == "Human" && MoveActive)
         {
             //プレイヤーのHP減少
-            bool sts = PlayerStatus.DamageHP(ATK);
+            bool sts = PlayerStatus.DamageHP(ATK,false);
 
             //  無敵時間外にプレイヤーに当たったら吹っ飛ばす
             if (sts)

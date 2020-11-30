@@ -26,7 +26,7 @@ public class RockScript : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            HPStatus.DamageHP(Damage);
+            HPStatus.DamageHP(Damage,true);
             Destroy(this.gameObject);
         }
     }
