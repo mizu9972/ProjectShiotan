@@ -37,7 +37,6 @@ public class ClearManager : MonoBehaviour
     //クリア演出
     public void ClearFunction()
     {
-        ResultCanvas.SetActive(true);
         stageConveyorSystem.OnClearSystem();
 
         {
@@ -46,10 +45,28 @@ public class ClearManager : MonoBehaviour
                 mainCamera.transform.DOMove(cameraPosition, cameraSpeed)
                 )
                 .Join(
-                mainCamera.transform.DORotate(cameraRotate,cameraSpeed)
+                mainCamera.transform.DORotate(cameraRotate, cameraSpeed)
                 );
 
+            clearSeq.Play();
+            PlayDirecting();
         }
+    }
+
+    //クリア演出再生
+    private void PlayDirecting()
+    {
+        //プレイヤーアニメーション開始
+
+        //クリア画像表示
+        ResultCanvas.SetActive(true);
+        
+        //エフェクト再生
+
+        //BGM再生
+
+        //SE再生
+
     }
 
 }

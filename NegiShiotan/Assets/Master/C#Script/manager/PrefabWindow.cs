@@ -44,7 +44,7 @@ public class PrefabWindow : MonoBehaviour
     }
 }
 
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(PrefabWindow))]
 class PrefabWindowEditor : Editor
 {
@@ -143,3 +143,4 @@ class PrefabWindowEditor : Editor
     }
 
 }
+#endif

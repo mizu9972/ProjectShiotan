@@ -169,4 +169,16 @@ public class FadebyTex : MonoBehaviour
     {
         return isFade;
     }
+
+    public FadebyTex setFeedinSpeed(float setSpeed)
+    {
+        FadeInSpeed = setSpeed;
+        return this;
+    }
+
+    public FadebyTex setFeedOutSpeed(float setSpeed)
+    {
+        FadeOutSpeed = setSpeed;
+        return this;
+    }
 }
