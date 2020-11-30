@@ -35,6 +35,11 @@
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
+
+			uniform float _TimeCount;//経過時間
+			uniform float _isActive;//有効かどうか
+
+
             v2f vert (appdata v)
             {
                 v2f o;

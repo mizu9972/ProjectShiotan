@@ -16,6 +16,9 @@ public class FadebyTex : MonoBehaviour
     [SerializeField, Header("フェードアウトマテリアル")]
     private Material FadeOutMat = null;
 
+    [SerializeField, Header("ホワイトアウトマテリアル")]
+    private Material WhiteOutMat = null;
+
     private Material ActiveMaterial = null;
 
     [SerializeField, Header("トランジションルール画像")]
@@ -91,6 +94,13 @@ public class FadebyTex : MonoBehaviour
         m_FunctionTimeCount.Value += FadeOutSpeed;
     }
 
+    private void WhiteOut_Function(RenderTexture source,RenderTexture destination)
+    {
+        WhiteOutMat.SetFloat("_TimeCount", m_FunctionTimeCount.Value);
+        Graphics.Blit(source, destination, WhiteOutMat);
+        m_FunctionTimeCount.Value += FadeOutSpeed;
+    }
+
     //描画するだけ(フェードインアウト処理を行わない)
     private void NoFunction(RenderTexture source, RenderTexture destination)
     {
@@ -108,8 +118,8 @@ public class FadebyTex : MonoBehaviour
         m_FadeFunction = FadeIn_Function;
 
         isFade = true;
-        GameManager.Instance.SetisFade(true);
-        GameManager.Instance.SetPauseEnable(false);
+        //GameManager.Instance.SetisFade(true);
+        //GameManager.Instance.SetPauseEnable(false);
     }
 
     //フェードアウト
@@ -123,9 +133,21 @@ public class FadebyTex : MonoBehaviour
         m_FadeFunction = FadeOut_Function;
 
         isFade = true;
-        GameManager.Instance.SetisFade(true);
-        GameManager.Instance.SetPauseEnable(false);
-        AudioManager.Instance.AudioFadeOutStart();//オーディオのフェードアウト開始
+        //GameManager.Instance.SetisFade(true);
+        //GameManager.Instance.SetPauseEnable(false);
+        //AudioManager.Instance.AudioFadeOutStart();//オーディオのフェードアウト開始
+    }
+
+    [ContextMenu("WhiteOutStart")]
+    public void StartWhiteOut()
+    {
+        WhiteOutMat.SetFloat("_isActive", 1);
+        m_FunctionTimeCount.Value = 0;
+
+        ActiveMaterial = WhiteOutMat;
+        m_FadeFunction = WhiteOut_Function;
+
+        isFade = true;
     }
 
     //フェード終了時処理
@@ -134,12 +156,12 @@ public class FadebyTex : MonoBehaviour
         //Debug.Log("フェード終わり");
         if(isFadeIn)
         {
-            GameManager.Instance.SetPauseEnable(true);//ポーズ画面の仕様を可能に
-            GameManager.Instance.PlayerControlStart();//プレイヤーがいれば操作可能に
+            //GameManager.Instance.SetPauseEnable(true);//ポーズ画面の仕様を可能に
+            //GameManager.Instance.PlayerControlStart();//プレイヤーがいれば操作可能に
         }
 
         isFade = false;//フェード終了
-        GameManager.Instance.SetisFade(false);
+        //GameManager.Instance.SetisFade(false);
     }
 
     //現在フェード中かを返す
