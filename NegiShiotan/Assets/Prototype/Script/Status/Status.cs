@@ -22,51 +22,43 @@ public class Status : MonoBehaviour
     [Header("最大残機数")]
     public int MAXZanki;
 
+    [Header("イカダ端の壁の位置")]
+    public Transform IkadaWidth;
+
     [Header("コイン数 表示画像")]
     public NumberScript[] CoinNumDraw;
 
     [Header("残機 表示画像")]
     public NumberScript[] ZankiNumDraw;
 
-    //コイン取得　同時取得　防止
-    private float coincooltime;
+    private PlayerMove P_MoveScript;    //プレイヤー　倒れるアニメーション設定用
 
     //ゲームオーバー用オブジェクト
     private GameOverManager m_GameOverManager = null;
 
-    [Header("イカダ端の壁の位置")]
-    public Transform IkadaSize;
 
-    private PlayerMove P_MoveScript;    //プレイヤー
 
     // Start is called before the first frame update
     void Start()
     {
-        coincooltime = 0;
         HP = MAXHP;
 
         m_GameOverManager = GameObject.FindWithTag("GameOverManager").GetComponent<GameOverManager>();
         P_MoveScript= GameObject.FindWithTag("Human").GetComponent<PlayerMove>();
 
         //イカダ端　位置セット
-        P_MoveScript.SetIkadaHasi(IkadaSize.localPosition.x);
+        P_MoveScript.SetIkadaWidth(IkadaWidth.localPosition.x);
     }
 
     // Update is called once per frame
     void Update()
     {
-        CoinNumDraw[0].SetNumberDraw(coin);
+        //UI表示
+        CoinNumDraw[0].SetNumberDraw(coin);     //コイン
         CoinNumDraw[1].SetNumberDraw(coin);
-
-        ZankiNumDraw[0].SetNumberDraw(Zanki);
+        ZankiNumDraw[0].SetNumberDraw(Zanki);   //残機
         ZankiNumDraw[1].SetNumberDraw(Zanki);
-
-        //コイン取得　クールタイム
-        if (coincooltime > 0)
-        {
-            coincooltime -= 0.1f;
-        }
-
+        
         //無敵時間　計測
         if (MutekiTime > 0)
         {
@@ -85,11 +77,10 @@ public class Status : MonoBehaviour
         }
     }
 
-    public float GetIkadaSize()
+    public float GetIkadaWidth()
     {
-        return IkadaSize.localPosition.x;
+        return IkadaWidth.localPosition.x;
     }
-
     public int GetHP()
     {
         return HP;
@@ -98,7 +89,12 @@ public class Status : MonoBehaviour
     {
         return MAXHP;
     }
+    public int GetCoin()
+    {
+        return coin;
+    }
 
+    //HP回復
     public void RecoveryHP(int HPUP)
     {
         HP += HPUP;
@@ -108,9 +104,10 @@ public class Status : MonoBehaviour
         }
     }
 
+    //プレイヤー　ダメージ計算
     public bool DamageHP(int Damage,bool ac)
     {
-        //無敵時間　以外
+        //無敵時間　以外　ダメージ受ける
         if (MutekiTime <= 0)
         {
             HP -= Damage;
@@ -118,6 +115,7 @@ public class Status : MonoBehaviour
             return true;
         }
 
+        //すぐに倒れるか
         if(ac)
         {
             P_MoveScript.SetKokeru();
@@ -125,25 +123,18 @@ public class Status : MonoBehaviour
         return false;
     }
 
-    public int GetCoin()
-    {
-        return coin;
-    }
-
+    //コイン取得
     public void UpCoin(int s_coin)
     {
-        if (coincooltime <= 0)
+        coin += s_coin;
+        if (coin > MAXcoin)
         {
-            coin += s_coin;
-            coincooltime += 0.1f;
-            if (coin > MAXcoin)
-            {
-                coin = 0;
-                UpZanki(1);
-            }
+            coin = 0;
+            UpZanki(1);
         }
     }
 
+    //残機増幅
     public void UpZanki(int Up_zanki)
     {
         Zanki += Up_zanki;

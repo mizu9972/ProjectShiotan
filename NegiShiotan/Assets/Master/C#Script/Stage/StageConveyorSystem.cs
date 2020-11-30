@@ -66,10 +66,10 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
             Debug.LogWarning("カメラが設定されていません\n 自動で設定しました。");
             MainCamera = Camera.main.gameObject;
         }
-        else
-        {
+        
+        
             m_FallCamera = MainCamera.GetComponent<FallCamera>();
-        }
+        
     }
 
     // Update is called once per frame
