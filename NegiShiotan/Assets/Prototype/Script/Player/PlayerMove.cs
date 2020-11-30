@@ -51,7 +51,7 @@ public class PlayerMove : MonoBehaviour
     private const string key_isKokeru = "isKokeru";
 
     //イカダ端　位置
-    private float IkadaHasi;
+    private float IkadaWidth;
 
 
 
@@ -78,11 +78,13 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        //倒れている状態か
         if (_Kokeru == false)
         {
-            //移動可能
+            //移動可能（空中でない）
             if (MoveActive)
             {
+                //攻撃していない状態か
                 if (_Attack == false)
                 {
                     //移動・アクティブ処理
@@ -236,24 +238,24 @@ public class PlayerMove : MonoBehaviour
     {
         Vector3 Pos = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, this.transform.localPosition.z);
 
-        //X軸の端
-        if (IkadaHasi < this.transform.localPosition.x)
+        //X軸の端　超えない
+        if (IkadaWidth < this.transform.localPosition.x)
         {
-            Pos.x = IkadaHasi;
+            Pos.x = IkadaWidth;
         }
-        if (-IkadaHasi > this.transform.localPosition.x)
+        if (-IkadaWidth > this.transform.localPosition.x)
         {
-            Pos.x = -IkadaHasi;
+            Pos.x = -IkadaWidth;
         }
 
-        //Z軸の端
-        if (IkadaHasi < this.transform.localPosition.z)
+        //Z軸の端　超えない
+        if (IkadaWidth < this.transform.localPosition.z)
         {
-            Pos.z = IkadaHasi;
+            Pos.z = IkadaWidth;
         }
-        if (-IkadaHasi > this.transform.localPosition.z)
+        if (-IkadaWidth > this.transform.localPosition.z)
         {
-            Pos.z = -IkadaHasi;
+            Pos.z = -IkadaWidth;
         }
 
         //位置修正
@@ -269,10 +271,10 @@ public class PlayerMove : MonoBehaviour
         _Kokeru = true;
     }
 
-
-    public void SetIkadaHasi(float hasi)
+    //イカダの幅　取得
+    public void SetIkadaWidth(float hasi)
     {
-        IkadaHasi = hasi;
+        IkadaWidth = hasi;
     }
 
     public void SetRaftPosition(Vector2 pos)
