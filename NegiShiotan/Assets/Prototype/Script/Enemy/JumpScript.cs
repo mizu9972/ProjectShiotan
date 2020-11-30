@@ -51,6 +51,8 @@ public class JumpScript : MonoBehaviour
             //円　中心向かせる
             bulletInstance.transform.LookAt(Throwpos);
 
+            //エフェクト再生
+            bulletInstance.GetComponent<PiranhaScript>().EffectPlay();
             //向いた方向に　飛ばす
             bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * JumpPower, ForceMode.Impulse);
         }

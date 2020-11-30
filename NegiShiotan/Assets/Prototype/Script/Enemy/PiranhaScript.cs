@@ -34,6 +34,9 @@ public class PiranhaScript : MonoBehaviour
     [Header("ピラニア　吹き飛ぶ高さ")]
     public float BlowHigh;
 
+    [Header("Effect")]
+    public ParticleEffectScript m_Effect;
+
     //イカダY座標　保存
     private float Savepos=0;
 
@@ -218,5 +221,10 @@ public class PiranhaScript : MonoBehaviour
             //移動可能に
             MoveActive = true;
         }
+    }
+
+    public void EffectPlay()//Effect再生
+    {
+        m_Effect.StartEffect();
     }
 }
