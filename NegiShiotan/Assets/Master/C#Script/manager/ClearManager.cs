@@ -15,9 +15,16 @@ public class ClearManager : MonoBehaviour
     [SerializeField, Header("カメラの移動速度")]
     private float cameraSpeed = 1.0f;
 
+    [SerializeField, Header("元の位置へ戻るカメラの速度")]
+    private float removeCameraSpeed = 1.0f;
+
     private StageConveyorSystem stageConveyorSystem = null;
     private Sequence clearSeq = null;
     private Camera mainCamera = null;
+
+    //初期のカメラ座標
+    private Vector3 defaultPosition;
+    private Vector3 defaultRotate;
     private void Awake()
     {
         if(ResultCanvas == null)
@@ -32,6 +39,8 @@ public class ClearManager : MonoBehaviour
     {
         stageConveyorSystem = GameObject.FindGameObjectWithTag("StageConveyor").GetComponent<StageConveyorSystem>();
         mainCamera = Camera.main;
+        defaultPosition = mainCamera.transform.position;
+        defaultRotate = mainCamera.transform.rotation.eulerAngles;
     }
 
     //クリア演出
@@ -67,6 +76,20 @@ public class ClearManager : MonoBehaviour
 
         //SE再生
 
+    }
+
+    //元のカメラ位置へ戻る
+    public void moveToDefaultCamera()
+    {
+        clearSeq = DOTween.Sequence();
+        clearSeq.Append(
+            mainCamera.transform.DOMove(defaultPosition, removeCameraSpeed)
+            )
+            .Join(
+            mainCamera.transform.DORotate(defaultRotate, removeCameraSpeed)
+            );
+
+        clearSeq.Play();
     }
 
 }

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using System;
 
+using UniRx;
+
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField, Header("読み込むシーン名"),HideInInspector]
@@ -12,6 +14,9 @@ public class SceneLoader : MonoBehaviour
 
     [SerializeField, HideInInspector]
     public int SceneIndex = 0;//選択されているシーンのビルド設定でのインデックス番号
+
+    [SerializeField, Header("クリア時のシーン遷移までの時間")]
+    private float turnSceneTime = 3.0f;
 
     private int mySceneIndex;
     
@@ -66,9 +71,28 @@ public class SceneLoader : MonoBehaviour
     //クリア時のシーン遷移
     public void LoadSceneByStageClear()
     {
+        //カメラをもとの位置へ戻す
+        var clearManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ClearManager>();
+        clearManager.moveToDefaultCamera();
+
         SceneManager.sceneLoaded += ClearFunction;
-        SceneManager.LoadScene(SceneIndex);
+
+        Observable.Timer(System.TimeSpan.FromSeconds(turnSceneTime))
+            .Subscribe(_ => SceneManager.LoadScene(SceneIndex));
+
+        //クリアキャンバスを非表示にする
+        var clearCanvas = GameObject.FindGameObjectWithTag("ClearCanvas");
+        clearCanvas.SetActive(false);
+
+        //プレイヤーを画面奥へ移動させる
+        RaftMove playerRaft = GameObject.FindGameObjectWithTag("Player").GetComponent<RaftMove>();
+        playerRaft.moveFar();
+
+        //ホワイトアウトさせる
+        var mainCamera = Camera.main.GetComponent<FadebyTex>();
+        mainCamera.StartWhiteOut();
     }
+
     private void ClearFunction(Scene next, LoadSceneMode mode)
     {
         var stageStausManager = GameObject.FindGameObjectWithTag("StageSelectManager").GetComponent<StageStatusManager>();
