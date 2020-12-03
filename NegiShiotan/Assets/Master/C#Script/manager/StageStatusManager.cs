@@ -51,6 +51,7 @@ public class StageStatusManager : MonoBehaviour
     public void clearedStage()
     {
         m_stageStatusDictionary[m_NowStage] = true;
+        this.GetComponent<StageSelectManager>().MoveSelectStage(StageSelectAction.Next);
     }
 
     //選択中ステージ保存
