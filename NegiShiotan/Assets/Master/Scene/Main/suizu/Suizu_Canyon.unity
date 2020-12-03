@@ -1415,6 +1415,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1789983815}
     m_Modifications:
+    - target: {fileID: 4236902914119370185, guid: 19b1020d6db66054d9c976189a49c1bb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6740395325574700410, guid: 19b1020d6db66054d9c976189a49c1bb,
         type: 3}
       propertyPath: m_Name
@@ -2316,6 +2321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: StageSelect
   SceneIndex: 0
+  turnSceneTime: 3
 --- !u!114 &346364422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2332,6 +2338,7 @@ MonoBehaviour:
   cameraPosition: {x: 3, y: 3, z: 0}
   cameraRotate: {x: 0, y: 90, z: 0}
   cameraSpeed: 1
+  removeCameraSpeed: 1
 --- !u!1 &351546471
 GameObject:
   m_ObjectHideFlags: 0
@@ -6255,6 +6262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: StageSelect
   SceneIndex: 1
+  turnSceneTime: 3
 --- !u!114 &816162420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7431,6 +7439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: TempStage1
   SceneIndex: 3
+  turnSceneTime: 3
 --- !u!114 &1118383915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7899,7 +7908,7 @@ PrefabInstance:
     - target: {fileID: 6740395325574700414, guid: 19b1020d6db66054d9c976189a49c1bb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6740395325574700414, guid: 19b1020d6db66054d9c976189a49c1bb,
         type: 3}
@@ -8147,6 +8156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: StageSelect
   SceneIndex: 1
+  turnSceneTime: 3
 --- !u!114 &1231004705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8958,10 +8968,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 38858481525328027, guid: b0d116edc55b8084bba86c35b4118c05,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 436747645279142817, guid: b0d116edc55b8084bba86c35b4118c05,
         type: 3}
       propertyPath: ang
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3203901378262511168, guid: b0d116edc55b8084bba86c35b4118c05,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3286326904500659300, guid: b0d116edc55b8084bba86c35b4118c05,
         type: 3}
@@ -9861,6 +9881,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: TempStage1
   SceneIndex: 0
+  turnSceneTime: 3
 --- !u!114 &1575604237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12184,6 +12205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: Title
   SceneIndex: 0
+  turnSceneTime: 3
 --- !u!114 &1927432388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13376,6 +13398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: TempStage1
   SceneIndex: 3
+  turnSceneTime: 3
 --- !u!114 &2108994832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13521,6 +13544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: StageSelect
   SceneIndex: 1
+  turnSceneTime: 3
 --- !u!114 &2112191024
 MonoBehaviour:
   m_ObjectHideFlags: 0

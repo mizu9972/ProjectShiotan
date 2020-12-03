@@ -28,7 +28,7 @@ public class StageStatusManager : MonoBehaviour
 
     //各ステージの状態
     [HideInInspector]
-    public Dictionary<StageStatus.Stages, bool> m_stageStatusDictionary = new Dictionary<StageStatus.Stages, bool>() {
+    public static Dictionary<StageStatus.Stages, bool> m_stageStatusDictionary = new Dictionary<StageStatus.Stages, bool>() {
         { StageStatus.Stages.Stage1, false },
         { StageStatus.Stages.Stage2, false },
         { StageStatus.Stages.Stage3, false },
@@ -51,6 +51,7 @@ public class StageStatusManager : MonoBehaviour
     public void clearedStage()
     {
         m_stageStatusDictionary[m_NowStage] = true;
+        this.GetComponent<StageSelectManager>().MoveSelectStage(StageSelectAction.Next);
     }
 
     //選択中ステージ保存
@@ -100,7 +101,7 @@ class StageStatusManagerEditor : Editor
     {
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.TextField(label);
-        isClearView(m_SSM.m_stageStatusDictionary[stage]);
+        isClearView(StageStatusManager.m_stageStatusDictionary[stage]);
         EditorGUILayout.EndHorizontal();
     }
 

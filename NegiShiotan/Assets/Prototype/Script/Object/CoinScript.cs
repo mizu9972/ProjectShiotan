@@ -38,7 +38,7 @@ public class CoinScript : MonoBehaviour
 
             //パーティクル再生が終わったら削除
             this.UpdateAsObservable().
-                Where(_ => m_playPart.isActive == false).
+                Where(_ => m_playPart.isActive == false).Take(1).
                 Subscribe(_ => Destroy(this.gameObject));
             
         }
