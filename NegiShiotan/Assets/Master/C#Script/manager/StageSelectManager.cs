@@ -38,7 +38,7 @@ public class StageSelectManager : MonoBehaviour
     private GameObject StageSelectPlayer = null;
 
     //現在選択中のステージ添字
-    private int m_nowSelectStageIter = 0;
+    private static int m_nowSelectStageIter = 0;
 
     //移動先オブジェクト
     private bool isMoving = false;
@@ -48,11 +48,9 @@ public class StageSelectManager : MonoBehaviour
 
     private Sequence m_moveStageSequence = null;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     { 
         
-        m_nowSelectStageIter = 0;
-
         StageSelectPlayer.transform.position = StageSquares[m_nowSelectStageIter].transform.position;
 
         SetStageCollections();
@@ -120,7 +118,7 @@ public class StageSelectManager : MonoBehaviour
     }
 
     
-    private void MoveSelectStage(StageSelectAction stageSelectAct)
+    public void MoveSelectStage(StageSelectAction stageSelectAct)
     {
         //ステージ選択行動
         switch (stageSelectAct)

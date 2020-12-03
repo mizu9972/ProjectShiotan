@@ -17,10 +17,13 @@ public class RockScript : MonoBehaviour
     //HP管理マネージャー
     private Status HPStatus;
 
+    private EffectCamera effectCamera;
+
     // Start is called before the first frame update
     void Start()
     {
         HPStatus = GameObject.FindGameObjectWithTag("Status").GetComponent<Status>();
+        effectCamera = Camera.main.GetComponent<EffectCamera>();
     }
 
     // Update is called once per frame
@@ -43,6 +46,9 @@ public class RockScript : MonoBehaviour
             this.UpdateAsObservable().
                 Where(_ => m_playPart.isStopped()).Take(1).
                 Subscribe(_ => Destroy(this.gameObject));
+            effectCamera.Shake();
+            HPStatus.DamageHP(Damage,true);
+            Destroy(this.gameObject);
         }
     }
 }
