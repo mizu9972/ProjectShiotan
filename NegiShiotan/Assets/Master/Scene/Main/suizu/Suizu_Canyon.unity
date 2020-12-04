@@ -12987,6 +12987,8 @@ GameObject:
   - component: {fileID: 2056111534}
   - component: {fileID: 2056111533}
   - component: {fileID: 2056111536}
+  - component: {fileID: 2056111538}
+  - component: {fileID: 2056111537}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -13101,6 +13103,40 @@ MonoBehaviour:
   Player: {fileID: 1390337304}
   ChaseStartDistance: 7
   isChase: 0
+--- !u!114 &2056111537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056111531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9bcb70ad1f1d8a47add02515a2cb490, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FadeInMat: {fileID: 2100000, guid: da8041fce6c4f0848ad3360d572a514b, type: 2}
+  FadeOutMat: {fileID: 2100000, guid: fee7f157f6f43614d89bb13227f250b7, type: 2}
+  WhiteOutMat: {fileID: 2100000, guid: 568b99c7f04c2734f98bef36774720d6, type: 2}
+  TransitionTex: {fileID: 2800000, guid: 231d7c548096119478e119cb776c93b5, type: 3}
+  FadeInSpeed: 4
+  FadeOutSpeed: 2
+  isActive: 1
+  isFadeIn: 1
+--- !u!114 &2056111538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056111531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25230c5d6d0d55f42b310a40dabbdad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShakeImpact: 0.5
+  ShakeDuration: 0.5
 --- !u!1001 &2068578578
 PrefabInstance:
   m_ObjectHideFlags: 0
