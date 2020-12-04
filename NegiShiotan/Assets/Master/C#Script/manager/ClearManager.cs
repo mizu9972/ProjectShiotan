@@ -69,7 +69,7 @@ public class ClearManager : MonoBehaviour
 
         //クリア画像表示
         ResultCanvas.SetActive(true);
-        
+        ResultCanvas.GetComponent<ButtonManager>().selectInitialButton();
         //エフェクト再生
 
         //BGM再生
