@@ -1,9 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.ParticleSystemJobs;
 public class SplashControl : MonoBehaviour
 {
+    [SerializeField, Header("アクティブ状態")]
+    private bool m_isActive = true;
+
+    public bool isActive
+    {
+        get { return m_isActive; }
+        set { m_isActive = value; }
+    }
+
     [Header("左側のしぶき")]
     public ParticleSystem m_LeftPart = null;
 
@@ -37,16 +46,17 @@ public class SplashControl : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Init();
+        Init();//サイズに初期値代入
     }
 
     // Update is called once per frame
     void Update()
     {
-        SetSize();
+        DrawSwitch();
+        SetSize();//サイズを更新
     }
 
-    private void SetSize()
+    private void SetSize()//パーティクルサイズの更新
     {
         var LeftPartSize_ = m_LeftPart.main;
         LeftPartSize_.startSize = m_SizeLeft;
@@ -59,5 +69,19 @@ public class SplashControl : MonoBehaviour
     {
         m_SizeLeft = m_SizeBase;
         m_SizeRight = m_SizeBase;
+    }
+
+    private void DrawSwitch()
+    {
+        if(m_isActive)
+        {
+            m_LeftPart.gameObject.SetActive(true);
+            m_RightPart.gameObject.SetActive(true);
+        }
+        else
+        {
+            m_LeftPart.gameObject.SetActive(false);
+            m_RightPart.gameObject.SetActive(false);
+        }
     }
 }
