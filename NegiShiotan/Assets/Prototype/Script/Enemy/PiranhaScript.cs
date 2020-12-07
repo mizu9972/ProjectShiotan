@@ -43,7 +43,7 @@ public class PiranhaScript : MonoBehaviour
     //イカダ乗り込み時の処理　一度だけ行いたい
     bool onePlay;
 
-    public float IkadaWidth;
+    private float IkadaWidth;
 
 
     //Start is called before the first frame update

@@ -9,11 +9,17 @@ public class PirarukuScript : MonoBehaviour
     [Header("ピラルク　吹き飛ぶ高さ")]
     public float BlowHigh;
 
+    [Header("ピラルク　吹き飛ぶ力")]
+    public float BlowPower;
+
     //イカダの上の位置　渡す
     private RaftMove IkadaPos;
 
     //Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
     private Rigidbody rb;
+
+    //BoxColliderコンポーネントを入れる変数"bc"を宣言する。
+    private BoxCollider bc;
 
     private bool OnePlay;
 
@@ -29,9 +35,9 @@ public class PirarukuScript : MonoBehaviour
         //イカダを親オブジェクトに設定
         PlayerObj = GameObject.FindGameObjectWithTag("Human");
         this.transform.SetParent(PlayerObj.transform.parent, true);
-
-        //Rigidbodyコンポーネント　取得
-        rb = this.GetComponent<Rigidbody>();
+        
+        rb = this.GetComponent<Rigidbody>();    //Rigidbodyコンポーネント　取得
+        bc = this.GetComponent<BoxCollider>();  //BoxColliderコンポーネント　取得
 
         OnePlay = true;
     }
@@ -39,7 +45,14 @@ public class PirarukuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(this.transform.localPosition.y<-4.0f)
+        //当たり判定　開始
+        if (this.transform.localPosition.y > 0.0f&&OnePlay)
+        {
+            //ピラルク 当たり判定ON
+            bc.isTrigger = false;
+        }
+
+        if (this.transform.localPosition.y<-4.0f)
         {
             //ピラルク削除
             Destroy(this.gameObject);
@@ -77,12 +90,12 @@ public class PirarukuScript : MonoBehaviour
 
             //飛んでいく方向　指定
             Vector3 Throwpos = other.transform.forward;
-            Throwpos.y = other.transform.localPosition.y+2;
+            Throwpos.y = other.transform.localPosition.y+ BlowHigh;
 
             //エフェクト再生
             //bulletInstance.GetComponent<PiranhaScript>().EffectPlay();
             //向いた方向に　飛ばす
-            rb.AddForce(Throwpos*20, ForceMode.Force);
+            rb.AddForce(Throwpos* BlowPower, ForceMode.Force);
         }
     }
 }

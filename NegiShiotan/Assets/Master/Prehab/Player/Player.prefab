@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4157353691532557998}
   m_Layer: 18
   m_Name: Attack
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3267,7 +3267,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7489709398954600862}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: 1.4, z: 0}
   m_LocalScale: {x: 6, y: 0.5, z: 6}
   m_Children:
@@ -3374,7 +3374,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7489709398954600862}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 524e80abff9a4254ca2b05baa6693fa8, type: 3}
   m_Name: 
@@ -3393,15 +3393,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db25d1540f185545aceb03b7cb1bfbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseRange: 1
   MoveRate: 10
-  RaftSpead: 0
+  PirarukuMoveRate: 10
+  RaftMaxSpeed: 10
   Range: 0.1
+  RaftSpead: 0
   ZPos: 0
   IkadaWidth: 3
   RightWall: {fileID: 0}
   LeftWall: {fileID: 0}
   OnPlayerPos: {x: 0, y: 0}
+  _Piraruku: []
+  PlayerObj: {fileID: 7489709398954600862}
 --- !u!1 &8760772137688308854
 GameObject:
   m_ObjectHideFlags: 0
@@ -3509,6 +3512,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f46c5c0df47b446449d43b95693b11cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pira: {fileID: 3463028333784962041, guid: dbbeaa06186ce6a4d9129a138becac0d, type: 3}
+  pirania: {fileID: 3463028333784962041, guid: dbbeaa06186ce6a4d9129a138becac0d, type: 3}
+  piraruku: {fileID: 3347219891188914273, guid: d15b3489eb9d4844d875c4d3a8784f2f,
+    type: 3}
   JumpPower: 4
   JumpRange: 12
