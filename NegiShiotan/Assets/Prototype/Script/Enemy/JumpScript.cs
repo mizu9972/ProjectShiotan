@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class JumpScript : MonoBehaviour
 {
-    public GameObject pira;
+    //生成オブジェクト：ピラニア
+    public GameObject pirania;
 
-    Transform save;
+    //生成オブジェクト：ピラルク
+    public GameObject piraruku;
+
+    //生成位置
+    Transform savepos;
 
 
     [Header("ピラニア　進む力")]
@@ -39,11 +44,12 @@ public class JumpScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //ピラニア
         if(other.tag== "Piranha")
         {
-            save = other.transform;
+            savepos = other.transform;
             Destroy(other.gameObject);
-            GameObject bulletInstance = (GameObject)Instantiate(pira, save.position, this.transform.rotation);
+            GameObject bulletInstance = (GameObject)Instantiate(pirania, savepos.position, this.transform.rotation);
 
             Vector3 Throwpos = this.transform.position;
             Throwpos.y = this.transform.position.y + JumpRange;
@@ -53,6 +59,25 @@ public class JumpScript : MonoBehaviour
 
             //エフェクト再生
             bulletInstance.GetComponent<PiranhaScript>().EffectPlay();
+            //向いた方向に　飛ばす
+            bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * JumpPower, ForceMode.Impulse);
+        }
+
+        //ピラルク
+        if(other.tag=="Pillarc")
+        {
+            savepos = other.transform;
+            Destroy(other.gameObject);
+            GameObject bulletInstance = (GameObject)Instantiate(piraruku, savepos.position, this.transform.rotation);
+
+            Vector3 Throwpos = this.transform.position;
+            Throwpos.y = this.transform.position.y + JumpRange/3;
+
+            //円　中心向かせる
+            bulletInstance.transform.LookAt(Throwpos);
+
+            //エフェクト再生
+            //bulletInstance.GetComponent<PiranhaScript>().EffectPlay();
             //向いた方向に　飛ばす
             bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * JumpPower, ForceMode.Impulse);
         }

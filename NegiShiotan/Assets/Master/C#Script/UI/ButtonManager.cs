@@ -17,4 +17,10 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
+
+    public void selectInitialButton()
+    {
+
+        InitialSelevtButton.Select();
+    }
 }

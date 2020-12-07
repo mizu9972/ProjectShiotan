@@ -2,21 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using CreateFish;
 
+namespace CreateFish
+{
+    enum CreateFishType
+    {
+        Piranha,
+        Piraruku,
+    }
+}
 
 public class EnemySpawnLine : MonoBehaviour
 {
+    [SerializeField, Header("出現させる敵のタイプ（種類）")] private CreateFishType m_FishType;
+
     [SerializeField, Header("出現させる敵オブジェクト")]
     private GameObject EnemyObject = null;
+
+    [SerializeField, Header("ピラニアプレハブ")]
+    private GameObject PiranhaObj = null;
+
+    [SerializeField, Header("ピラルクプレハブ")]
+    private GameObject PirarukuObj = null;
 
     [Header("ジャンプのためのコライダー")]
     private JumpScript JumpCollider;
 
     [Header("ジャンプする力")]
-    public float JumpPower;
+    private float JumpPower;
+
+    [Header("ジャンプする力(ピラニア)")]
+    public float PnJumpPower = 4;
+
+    [Header("ジャンプする力(ピラルク)")]
+    public float PrJumpPower = 4;
 
     [Header("ジャンプする高さ")]
-    public float JumpHigh;
+    private float JumpHigh;
+
+    [Header("ジャンプする高さ(ピラニア)")]
+    public float PnJumpHigh = 12;
+
+    [Header("ジャンプする高さ(ピラルク)")]
+    public float PrJumpHigh = 12;
 
     private GameObject m_EnemySpawnErea = null;
     private EnemySpawnSystem m_ESS = null;
@@ -31,6 +60,21 @@ public class EnemySpawnLine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        switch(m_FishType)
+        {
+            case CreateFishType.Piranha:
+                EnemyObject = PiranhaObj;
+                JumpPower = PnJumpPower;
+                JumpHigh = PnJumpHigh;
+                break;
+            case CreateFishType.Piraruku:
+                EnemyObject = PirarukuObj;
+                JumpPower = PrJumpPower;
+                JumpHigh = PrJumpHigh;
+                break;
+            default:
+                break;
+        }
         m_EnemySpawnErea = GameObject.FindGameObjectWithTag("EnemySpawnErea");
         m_ESS = m_EnemySpawnErea.GetComponent<EnemySpawnSystem>();
         JumpCollider= GameObject.FindGameObjectWithTag("JumpArea").GetComponent<JumpScript>();
