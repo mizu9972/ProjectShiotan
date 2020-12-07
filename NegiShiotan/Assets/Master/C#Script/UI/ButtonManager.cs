@@ -4,6 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
+
 public class ButtonManager : MonoBehaviour
 {
     [SerializeField, Header("初期選択ボタン")]
@@ -22,5 +23,10 @@ public class ButtonManager : MonoBehaviour
     {
 
         InitialSelevtButton.Select();
+    }
+
+    private void OnEnable()
+    {
+        selectInitialButton();
     }
 }
