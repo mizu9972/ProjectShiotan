@@ -16,12 +16,18 @@ TagManager:
   - RidePiranha
   - PlayerRaft
   - Human
-  - IkadaMoveLimit
   - Status
   - GameOverManager
   - StageSelectManager
   - FallBottom
   - JumpArea
+  - Pillarc
+  - IkadaMoveLimit
+  - RideFish
+  - Attack
+  - FlockPiranhaBattleField
+  - PatrolPoint
+  - Flock
   layers:
   - Default
   - TransparentFX
@@ -42,6 +48,7 @@ TagManager:
   - Player_MoveCollider
   - Player_Raft
   - Player
+  - RideFish
   - 
   - 
   - 
@@ -53,8 +60,7 @@ TagManager:
   - 
   - 
   - 
-  - Wall
-  - NothingWall
+  - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
