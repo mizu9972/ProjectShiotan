@@ -43,7 +43,7 @@ public class GetRaftPosition : MonoBehaviour
         if (Physics.Raycast(ray,out hit,distance,1 << PlayerRaftLayer))
         {
             //Rayが当たったオブジェクトのLayerがイカダなら
-            Debug.Log(hit.textureCoord);
+            //Debug.Log(hit.textureCoord);
 
             //プレイヤーがイカダのどの位置にいるかを渡す
             PlayerObj.GetComponent<PlayerMove>().SetRaftPosition(hit.textureCoord);

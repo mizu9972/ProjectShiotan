@@ -923,6 +923,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 71.726715
       objectReference: {fileID: 0}
+    - target: {fileID: 4693549170707363839, guid: 385fd8c4fcf382a4db43580967eab9f6,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5228801597786269303, guid: 385fd8c4fcf382a4db43580967eab9f6,
         type: 3}
       propertyPath: m_LocalRotation.y
@@ -2316,6 +2321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: StageSelect
   SceneIndex: 0
+  turnSceneTime: 3
 --- !u!114 &346364422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2332,6 +2338,7 @@ MonoBehaviour:
   cameraPosition: {x: 3, y: 3, z: 0}
   cameraRotate: {x: 0, y: 90, z: 0}
   cameraSpeed: 1
+  removeCameraSpeed: 1
 --- !u!1 &351546471
 GameObject:
   m_ObjectHideFlags: 0
@@ -4566,6 +4573,11 @@ PrefabInstance:
       propertyPath: Erea.Array.data[5]
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1090401614908894780, guid: b8362eab485acd742b0d23b963c37db3,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1090401614908894781, guid: b8362eab485acd742b0d23b963c37db3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5216,10 +5228,21 @@ PrefabInstance:
       propertyPath: JumpPower
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: EnemyObject
+      value: 
+      objectReference: {fileID: 4113307204624872526, guid: b9ea901d7024e7642a4a945999683478,
+        type: 3}
     - target: {fileID: 742384373883704286, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 742384373883704287, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5978842166536771751, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
@@ -5451,7 +5474,7 @@ PrefabInstance:
     - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
       propertyPath: Erea.Array.data[3]
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
@@ -5488,10 +5511,21 @@ PrefabInstance:
       propertyPath: JumpPower
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: EnemyObject
+      value: 
+      objectReference: {fileID: 4113307204624872526, guid: b9ea901d7024e7642a4a945999683478,
+        type: 3}
     - target: {fileID: 742384373883704286, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 742384373883704287, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5978842166536771751, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
@@ -5841,9 +5875,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StagePlaneList:
-  - {fileID: 1475609596}
-  - {fileID: 724358921}
-  - {fileID: 317147104}
+  - {fileID: 1394709118}
+  - {fileID: 1394709118}
+  - {fileID: 341531630}
   - {fileID: 724358921}
   - {fileID: 1394709118}
   - {fileID: 5546159}
@@ -6109,13 +6143,13 @@ MonoBehaviour:
   MAXcoin: 99
   Zanki: 1
   MAXZanki: 99
+  IkadaWidth: {fileID: 1667186941}
   CoinNumDraw:
   - {fileID: 324918089}
   - {fileID: 1407428438}
   ZankiNumDraw:
   - {fileID: 1775958477}
   - {fileID: 430546766}
-  IkadaSize: {fileID: 1667186941}
 --- !u!1001 &805408859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6255,6 +6289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: StageSelect
   SceneIndex: 1
+  turnSceneTime: 3
 --- !u!114 &816162420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6622,10 +6657,21 @@ PrefabInstance:
       propertyPath: JumpPower
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: EnemyObject
+      value: 
+      objectReference: {fileID: 4113307204624872526, guid: b9ea901d7024e7642a4a945999683478,
+        type: 3}
     - target: {fileID: 742384373883704286, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 742384373883704287, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5978842166536771751, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
@@ -7431,6 +7477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: TempStage1
   SceneIndex: 3
+  turnSceneTime: 3
 --- !u!114 &1118383915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8147,6 +8194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: StageSelect
   SceneIndex: 1
+  turnSceneTime: 3
 --- !u!114 &1231004705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8958,6 +9006,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1520165208954517155, guid: b0d116edc55b8084bba86c35b4118c05,
+        type: 3}
+      propertyPath: m_TagString
+      value: Attack
+      objectReference: {fileID: 0}
     - target: {fileID: 3286326904500659300, guid: b0d116edc55b8084bba86c35b4118c05,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9013,20 +9066,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3604997088542998838, guid: b0d116edc55b8084bba86c35b4118c05,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4329253532733240689, guid: b0d116edc55b8084bba86c35b4118c05,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4369377763691395016, guid: b0d116edc55b8084bba86c35b4118c05,
+        type: 3}
+      propertyPath: pirania
+      value: 
+      objectReference: {fileID: 3463028333784962041, guid: dbbeaa06186ce6a4d9129a138becac0d,
+        type: 3}
+    - target: {fileID: 4369377763691395016, guid: b0d116edc55b8084bba86c35b4118c05,
+        type: 3}
+      propertyPath: piraruku
+      value: 
+      objectReference: {fileID: 1461084883075160782, guid: d15b3489eb9d4844d875c4d3a8784f2f,
+        type: 3}
     - target: {fileID: 4699652082894492699, guid: b0d116edc55b8084bba86c35b4118c05,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.84
       objectReference: {fileID: 0}
+    - target: {fileID: 5230191385263359726, guid: b0d116edc55b8084bba86c35b4118c05,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 7489709398954600862, guid: b0d116edc55b8084bba86c35b4118c05,
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7890133914643651519, guid: b0d116edc55b8084bba86c35b4118c05,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8659931391236018944, guid: b0d116edc55b8084bba86c35b4118c05,
         type: 3}
@@ -9038,7 +9118,8 @@ PrefabInstance:
       propertyPath: RightWall
       value: 
       objectReference: {fileID: 419392972}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2633682751410341386, guid: b0d116edc55b8084bba86c35b4118c05, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b0d116edc55b8084bba86c35b4118c05, type: 3}
 --- !u!1001 &1455405347
 PrefabInstance:
@@ -9856,6 +9937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: TempStage1
   SceneIndex: 0
+  turnSceneTime: 3
 --- !u!114 &1575604237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12179,6 +12261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: Title
   SceneIndex: 0
+  turnSceneTime: 3
 --- !u!114 &1927432388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12517,6 +12600,11 @@ PrefabInstance:
     - target: {fileID: 1090401614908894779, guid: b8362eab485acd742b0d23b963c37db3,
         type: 3}
       propertyPath: Erea.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090401614908894780, guid: b8362eab485acd742b0d23b963c37db3,
+        type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1090401614908894781, guid: b8362eab485acd742b0d23b963c37db3,
@@ -13131,6 +13219,17 @@ PrefabInstance:
       propertyPath: JumpPower
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: EnemyObject
+      value: 
+      objectReference: {fileID: 3600556424587105511, guid: fd2f36de1db440f4e918d42a80474001,
+        type: 3}
+    - target: {fileID: 742384373883704287, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5978842166536771751, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13371,6 +13470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: TempStage1
   SceneIndex: 3
+  turnSceneTime: 3
 --- !u!114 &2108994832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13516,6 +13616,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: StageSelect
   SceneIndex: 1
+  turnSceneTime: 3
 --- !u!114 &2112191024
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -258,7 +258,7 @@ MonoBehaviour:
   BlowPower: 1
   BlowHigh: 2
   m_Effect: {fileID: 8550757122930725988}
-  IkadaSize: 0
+  IkadaWidth: 0
 --- !u!1 &4023345386846643435
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,10 +542,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: JumpSplash
       objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028325, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531363028870333, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 31
+      objectReference: {fileID: 0}
     - target: {fileID: 3141531363440599825, guid: f834b8c58c0e44a47af7b3b00b29697a,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531363440599828, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 3141531363609352453, guid: f834b8c58c0e44a47af7b3b00b29697a,
         type: 3}
@@ -576,6 +591,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531363609352457, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f834b8c58c0e44a47af7b3b00b29697a, type: 3}

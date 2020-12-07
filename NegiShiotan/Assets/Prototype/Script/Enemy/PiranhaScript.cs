@@ -71,12 +71,6 @@ public class PiranhaScript : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
-        //移動停止時間（着地時）　カウント
-        if(cooltime>0)
-        {
-            cooltime -= 0.1f;
-        }
-
         //プレイヤー方向のベクトル　取得
         Vector3 relativePos = PlayerObj.transform.position - this.transform.position;
 
@@ -88,15 +82,9 @@ public class PiranhaScript : MonoBehaviour
         //現在の回転情報と、ターゲット方向の回転情報を補完する
         transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, 0.1f);
         
-        //ピラニア　設定最高高度　制限（設定した高さ　超えない）
-        if (BlowHigh < this.transform.position.y)
-        {
-            rb.useGravity = true;
-            Air = false;
-        }
 
         //吹き飛び
-        if (MoveActive==false&&Air)
+        if (Air)
         {
             //吹き飛ぶ方向
             Vector3 Throwpos2 = -this.transform.forward;
@@ -106,12 +94,24 @@ public class PiranhaScript : MonoBehaviour
             rb.AddForce(Throwpos2 * BlowPower, ForceMode.Force);
         }
 
+        //ピラニア　設定最高高度　制限（設定した高さ　超えない）
+        if (BlowHigh < this.transform.position.y)
+        {
+            rb.useGravity = true;
+            Air = false;
+        }
+
         //移動可能か（イカダの上）
         if (MoveActive && cooltime < 0)
         {
             //移動処理（前方へ）
             Vector3 velocity = gameObject.transform.rotation * new Vector3(0, 0, Speed);
             gameObject.transform.position += velocity * Time.deltaTime;
+        }
+        else
+        {
+            //移動停止時間（着地時）　カウント
+            cooltime -= 0.1f;
         }
 
         //イカダ着地後    移動制限（イカダから落ちない）
@@ -185,6 +185,45 @@ public class PiranhaScript : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.tag == "Human"&&MoveActive)
+        {
+            //プレイヤーのHP減少
+            bool sts = PlayerStatus.DamageHP(ATK, false);
+
+            //  無敵時間外にプレイヤーに当たったら吹っ飛ばす
+            if (sts)
+            {
+                //プレイヤー向きをピラニアに(Z正面)
+                other.transform.LookAt(this.transform.position);
+                other.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0, other.transform.rotation.w);
+
+                //上に吹き飛ばす
+                Vector3 Throwpos = this.transform.forward;
+                Throwpos.y = this.transform.position.y + 3;
+
+                //プレイヤー速度　初期化
+                PlayerRb.velocity *= 0;
+
+                //吹き飛ぶ力　追加
+                PlayerRb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
+            }
+
+            //吹き飛ぶ方向
+            Vector3 Throwpos2 = -this.transform.forward;
+            Throwpos2.y = BlowHigh;
+
+            //吹き飛ぶ力　追加
+            rb.AddForce(Throwpos2 * BlowPower, ForceMode.Impulse);
+
+            //移動不可能
+            cooltime = 3;
+            MoveActive = false;
+            Air = true;
+        }
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         //イカダとぶつかる
@@ -220,6 +259,8 @@ public class PiranhaScript : MonoBehaviour
 
             //移動可能に
             MoveActive = true;
+
+            Debug.Log("Ride");
         }
     }
 
