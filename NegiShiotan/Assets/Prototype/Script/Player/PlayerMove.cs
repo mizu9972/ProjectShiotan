@@ -33,9 +33,6 @@ public class PlayerMove : MonoBehaviour
 
     //基本Y座標　保存
     private float Savepos;
-
-    //移動できるか
-    private bool MoveActive;
     
     private bool Air;       //空中に吹っ飛んでいるか
     private bool _Attack;   //攻撃状態
@@ -63,8 +60,7 @@ public class PlayerMove : MonoBehaviour
 
         //プレイヤー　最高高度　設定
         BlowHigh = BlowHigh + this.transform.localPosition.y;
-
-        MoveActive = true;      //操作　可能
+        
         Savepos = transform.position.y;         //基本Y座標　保存
         rb = this.GetComponent<Rigidbody>();    //Rigidbody　取得
         AttackCollider.SetActive(false);        //攻撃コライダー　非アクティブ
@@ -81,29 +77,31 @@ public class PlayerMove : MonoBehaviour
         //倒れている状態か
         if (_Kokeru == false)
         {
-            //移動可能（空中でない）
-            if (MoveActive)
+            //攻撃していない状態か
+            if (_Attack == false)
             {
-                //攻撃していない状態か
-                if (_Attack == false)
-                {
-                    //移動・アクティブ処理
-                    MoveFunc();
-                }
-                else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > Atk_EndTime)
-                {
-                    //アニメーション終了
-                    _Attack = false;
-                    this._animator.SetBool(key_isAttack, false);
+                //移動・アクティブ処理
+                MoveFunc();
+            }
+            else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > Atk_EndTime)
+            {
+                //アニメーション終了
+                _Kokeru = false;
+                _Attack = false;
+                this._animator.SetBool(key_isAttack, false);
+                this._animator.SetBool(key_isRun, false);
+                this._animator.SetBool(key_isKokeru, false);
 
-                    AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
-                }
+                AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
             }
         }
         else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
         {
             //アニメーション終了
             _Kokeru = false;
+            _Attack = false;
+            this._animator.SetBool(key_isAttack, false);
+            this._animator.SetBool(key_isRun, false);
             this._animator.SetBool(key_isKokeru, false);
         }
 
@@ -118,10 +116,7 @@ public class PlayerMove : MonoBehaviour
             Vector3 pos = this.transform.position;
             pos.y = Savepos;
             this.transform.position = pos;
-
-            //移動可能
-            MoveActive = true;
-
+            
             //攻撃くらったか
             if(_JumpKoke)
             {
@@ -137,14 +132,7 @@ public class PlayerMove : MonoBehaviour
             Air = false;
             _JumpKoke = true;   //イカダ着地時　こける
         }
-
-        //空中
-        if (Savepos < this.transform.localPosition.y)
-        {
-            //移動不可能
-            MoveActive = false;
-        }
-
+        
         //吹き飛び
         if(Air)
         {
@@ -219,11 +207,12 @@ public class PlayerMove : MonoBehaviour
 
 
         //攻撃コライダー　アクティブ化
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)&& _Attack==false)
         {
             // Wait or RunからAttackに遷移する
             this._animator.SetBool(key_isAttack, true);
             this._animator.SetBool(key_isRun, false);
+            this._animator.SetBool(key_isKokeru, false);
 
             //アニメーション最初から再生
             _animator.Play("Attack", 0, Atk_StartTime);
@@ -267,7 +256,11 @@ public class PlayerMove : MonoBehaviour
     {
         //アニメーション最初から再生
         _animator.Play("Kokeru", 0, 0.0f);
+        this._animator.SetBool(key_isAttack, false);
+        this._animator.SetBool(key_isRun, false);
         this._animator.SetBool(key_isKokeru, true);
+        AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
+        _Attack = false;
         _Kokeru = true;
     }
 
@@ -287,8 +280,7 @@ public class PlayerMove : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //移動不可能
-            MoveActive = false;
+
         }
     }
 

@@ -48,7 +48,6 @@ public class RockScript : MonoBehaviour
                 Subscribe(_ => Destroy(this.gameObject));
             effectCamera.Shake();
             HPStatus.DamageHP(Damage,true);
-            Destroy(this.gameObject);
         }
     }
 }

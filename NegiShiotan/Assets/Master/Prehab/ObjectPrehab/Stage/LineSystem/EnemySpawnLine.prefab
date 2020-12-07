@@ -57,9 +57,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99211c2a958e599499ed0389e3911339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyObject: {fileID: 3600556424587105511, guid: fd2f36de1db440f4e918d42a80474001,
+  m_FishType: 0
+  EnemyObject: {fileID: 0}
+  PiranhaObj: {fileID: 3600556424587105511, guid: fd2f36de1db440f4e918d42a80474001,
     type: 3}
-  JumpPower: 4
-  JumpHigh: 12
+  PirarukuObj: {fileID: 3252045439493166699, guid: b9ea901d7024e7642a4a945999683478,
+    type: 3}
+  PnJumpPower: 4
+  PrJumpPower: 4
+  PnJumpHigh: 12
+  PrJumpHigh: 12
   EreaCount: 9
   Erea: 000000000000000001
