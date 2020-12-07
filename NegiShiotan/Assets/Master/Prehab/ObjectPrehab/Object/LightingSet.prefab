@@ -119,6 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d02ce233bbcaf43b5c23290ed08158, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DivValue: 5
+  Correction: 0.1
+  Speed: 5
   LeftObj: {fileID: 0}
   RightObj: {fileID: 0}
   LeftDistance: 0
@@ -129,6 +132,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   ChaseStartDistance: 2
   isChase: 0
+  distance: 0
 --- !u!114 &4820650556883658871
 MonoBehaviour:
   m_ObjectHideFlags: 0
