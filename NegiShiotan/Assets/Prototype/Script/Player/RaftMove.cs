@@ -6,14 +6,20 @@ using DG.Tweening;
 
 public class RaftMove : MonoBehaviour
 {
-    [Header("プレイヤーの位置による移動の割合")]
+    [Header("プレイヤーの位置によるイカダの移動速度")]
     public float MoveRate;
+    
+    [Header("ピラルクの位置によるイカダの移動速度")]
+    public float PirarukuMoveRate;
+
+    [Header("イカダの最大移動スピード（制限）")]
+    public float RaftMaxSpeed;
+
+    [Header("イカダが移動を始めるイカダ中心からの距離")]
+    public float Range;
 
     [Header("Z軸方向のスピード(左が+、右が-)")]
     public float RaftSpead;
-
-    [Header("プレイヤーの中心からのあそび")]
-    public float Range;
 
     [SerializeField, Header("Z座標")]
     private float ZPos;
@@ -35,6 +41,7 @@ public class RaftMove : MonoBehaviour
 
     [SerializeField, Header("プレイヤー")]
     private GameObject PlayerObj = null;
+
 
     //イカダのレイヤー番号
     const int PlayerRaftLayer = 17;
@@ -62,11 +69,12 @@ public class RaftMove : MonoBehaviour
         GetNowPlayerPosition(PlayerObj);
 
         //リストに格納されているピラルクの数だけ検索
-        for (int i=1;i<_Piraruku.Count;i++)
+        for (int i=0;i<_Piraruku.Count;i++)
         {
             //ピラルク　位置　イカダより下か
             if (_Piraruku[i].transform.localPosition.y < -1.0f)
             {
+                Debug.Log("delete");
                 //ピラルク削除
                 _Piraruku.RemoveAt(i);
                 i--;
@@ -84,13 +92,13 @@ public class RaftMove : MonoBehaviour
     private void MoveMain()
     {
         //イカダ　速度制限
-        if (RaftSpead > 2 * MoveRate)
+        if (RaftSpead > RaftMaxSpeed)
         {
-            RaftSpead = 2 * MoveRate;
+            RaftSpead = RaftMaxSpeed;
         }
-        if (RaftSpead < -2 * MoveRate)
+        if (RaftSpead < -RaftMaxSpeed)
         {
-            RaftSpead = -2 * MoveRate;
+            RaftSpead = -RaftMaxSpeed;
         }
 
         //Z座標用変数に代入
@@ -146,7 +154,7 @@ public class RaftMove : MonoBehaviour
     {
         //レイ　位置調整
         Vector3 save = obj.transform.position;
-        save.y += 0.5f;
+        save.y += 1.5f;
 
         //Rayを飛ばす原点と方向を設定
         ray = new Ray(save, new Vector3(0, -1, 0));
@@ -182,7 +190,7 @@ public class RaftMove : MonoBehaviour
         if ((OnPlayerPos.y - 0.5f) <= -Range || (OnPlayerPos.y - 0.5f) >= Range)
         {
             //プレイヤーの位置によってスピードを決定
-            RaftSpead += (OnPlayerPos.y - 0.5f) * MoveRate;
+            RaftSpead += (OnPlayerPos.y - 0.5f) * PirarukuMoveRate;
         }
     }
 
