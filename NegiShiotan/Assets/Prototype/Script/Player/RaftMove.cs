@@ -114,8 +114,6 @@ public class RaftMove : MonoBehaviour
             ZPos = RightWall.transform.position.z + IkadaWidth;
         }
 
-        Debug.Log(ZPos);
-
         //実際の座標に代入
         transform.position = new Vector3(transform.position.x, transform.position.y, ZPos);
     }
@@ -179,6 +177,10 @@ public class RaftMove : MonoBehaviour
         {
             //プレイヤーの位置によってスピードを決定
             RaftSpead = (OnPlayerPos.y - 0.5f) * MoveRate;
+        }
+        else
+        {
+            RaftSpead = 0;
         }
     }
 
