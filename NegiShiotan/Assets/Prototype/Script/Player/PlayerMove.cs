@@ -61,7 +61,7 @@ public class PlayerMove : MonoBehaviour
         //プレイヤー　最高高度　設定
         BlowHigh = BlowHigh + this.transform.localPosition.y;
         
-        Savepos = transform.position.y;         //基本Y座標　保存
+        Savepos = transform.localPosition.y;         //基本Y座標　保存
         rb = this.GetComponent<Rigidbody>();    //Rigidbody　取得
         AttackCollider.SetActive(false);        //攻撃コライダー　非アクティブ
 
@@ -106,16 +106,16 @@ public class PlayerMove : MonoBehaviour
         }
 
         //イカダに着地
-        if (Savepos > transform.position.y)
+        if (Savepos > transform.localPosition.y)
         {
             //重力　停止
             rb.useGravity = false;
             rb.velocity = new Vector3(0, 0, 0);
 
             //イカダにめりこまない
-            Vector3 pos = this.transform.position;
+            Vector3 pos = this.transform.localPosition;
             pos.y = Savepos;
-            this.transform.position = pos;
+            this.transform.localPosition = pos;
             
             //攻撃くらったか
             if(_JumpKoke)
@@ -126,22 +126,22 @@ public class PlayerMove : MonoBehaviour
         }
 
         //設定した高さまで飛んだ
-        if (BlowHigh < this.transform.position.y)
+        if (BlowHigh < this.transform.localPosition.y)
         {
             rb.useGravity = true;
             Air = false;
             _JumpKoke = true;   //イカダ着地時　こける
         }
-        
-        //吹き飛び
-        if(Air)
-        {
-            //上に吹き飛ばす
-            Vector3 Throwpos = this.transform.forward;
-            Throwpos.y = this.transform.position.y + 1;
 
-            //吹き飛ぶ力　追加
-            rb.AddForce(Throwpos * 2, ForceMode.Force);
+        //吹き飛び
+        if (Air)
+        {
+            ////上に吹き飛ばす
+            //Vector3 Throwpos = this.transform.forward;
+            //Throwpos.y = this.transform.localPosition.y + 1;
+
+            ////吹き飛ぶ力　追加
+            //rb.AddForce(Throwpos * 2, ForceMode.Force);
         }
         
         //イカダからはみ出さない処理
