@@ -42,6 +42,9 @@ public class RaftMove : MonoBehaviour
     [SerializeField, Header("プレイヤー")]
     private GameObject PlayerObj = null;
 
+    [SerializeField, Header("いかだを傾けるスクリプト")]
+    private RaftTilt raftTilt = null;
+
 
     //イカダのレイヤー番号
     const int PlayerRaftLayer = 17;
@@ -165,7 +168,14 @@ public class RaftMove : MonoBehaviour
         {
             //イカダにピラルクの現在位置を送信
             SetOnPlusPos(hit.textureCoord);
+
+            //ピラルクの位置によっていかだを傾ける
+            if (raftTilt != null)
+            {
+                
+            }
         }
+
     }
 
     public void SetOnPlayerPos(Vector2 pos)
@@ -181,6 +191,12 @@ public class RaftMove : MonoBehaviour
         else
         {
             RaftSpead = 0;
+        }
+
+        //いかだの速度によっていかだを傾ける
+        if(raftTilt != null)
+        {
+            raftTilt.TiltbyPlayerPosition(RaftSpead);
         }
     }
 
