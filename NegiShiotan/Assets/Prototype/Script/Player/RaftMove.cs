@@ -18,7 +18,7 @@ public class RaftMove : MonoBehaviour
     [Header("イカダが移動を始めるイカダ中心からの距離")]
     public float Range;
 
-    [Header("Z軸方向のスピード(左が+、右が-)")]
+    [Header("Z軸方向のスピード(右が+、左が-)")]
     public float RaftSpead;
 
     [SerializeField, Header("Z座標")]
