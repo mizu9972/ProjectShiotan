@@ -43,11 +43,14 @@ public class PlayerMove : MonoBehaviour
     public float Atk_EndTime;
 
     //基本Y座標　保存
+    [SerializeField, Header("イカダ着地高度")]
     private float Savepos;
     
     private bool _Attack;   //攻撃状態
     private bool _Kokeru;   //ダメージ受けてこけるアニメーション状態か
     private bool _JumpKoke;
+    [SerializeField, Header("吹き飛び中か")]
+    private bool _Blow;     //吹き飛び中か
 
     // Animator コンポーネント
     private Animator _animator;
@@ -86,6 +89,7 @@ public class PlayerMove : MonoBehaviour
         _JumpKoke = false;
         _Stand = true;
         _Goal = false;
+        _Blow = true;
     }
 
     // Update is called once per frame
@@ -100,8 +104,12 @@ public class PlayerMove : MonoBehaviour
                 //攻撃していない状態か
                 if (_Attack == false)
                 {
-                    //移動・アクティブ処理
-                    MoveFunc();
+                    //吹き飛び中でない
+                    if(_Blow)
+                    {
+                        //移動・アクティブ処理
+                        MoveFunc();
+                    }
                 }
                 else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > Atk_EndTime)
                 {
@@ -131,6 +139,7 @@ public class PlayerMove : MonoBehaviour
                     _Kokeru = false;
                     _Attack = false;
                     _Stand = true;
+                    _Blow = true;
                     this._animator.SetBool(key_isAttack, false);
                     this._animator.SetBool(key_isRun, false);
                     this._animator.SetBool(key_isKokeru, false);
@@ -140,6 +149,7 @@ public class PlayerMove : MonoBehaviour
             //イカダに着地
             if (Savepos > transform.localPosition.y)
             {
+                Debug.Log("aaaaaaaaaaa");
                 //重力　停止
                 rb.useGravity = false;
                 rb.velocity = new Vector3(0, 0, 0);
@@ -363,6 +373,11 @@ public class PlayerMove : MonoBehaviour
     {
         //イカダのどこにいるかをセット
         OnRaftPosition = pos;
+    }
+
+    public void SetBlow()
+    {
+        _Blow = false;
     }
 
     private void OnTriggerExit(Collider other)

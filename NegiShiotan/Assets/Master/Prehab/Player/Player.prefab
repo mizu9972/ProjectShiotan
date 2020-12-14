@@ -172,7 +172,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4329253532733240689}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
+  m_LocalPosition: {x: 0, y: 1.31, z: 0}
   m_LocalScale: {x: 0.07, y: 1.4, z: 0.07}
   m_Children:
   - {fileID: 8917478175020102508}
@@ -257,9 +257,15 @@ MonoBehaviour:
   OnRaftPosition: {x: 0, y: 0}
   ang: 18
   BlowSpeed: 2
-  BlowHigh: 1.1
+  BlowHigh: 0.2
+  AnimeSpeed: 1
+  AttackSpeed: 1
+  KokeruSpeed: 1
+  StandUpSpeed: 1
   Atk_StartTime: 0.3
   Atk_EndTime: 0.7
+  Savepos: 0
+  _Blow: 0
 --- !u!54 &1394106188765281596
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -285,7 +291,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4329253532733240689}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: d127d13f9c1bf9d42a3b2302cb946fa6, type: 3}
+  m_Avatar: {fileID: 9000000, guid: b0cb829a17ca69e4992695252e2a7f5b, type: 3}
   m_Controller: {fileID: 9100000, guid: fc5d23c12a4d7d44891a80257bcb3f15, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -2008,7 +2014,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6958535402886157023}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.48, z: 0}
   m_LocalScale: {x: 1.6, y: 20, z: 1.6}
   m_Children:
   - {fileID: 2212466567800787740}
@@ -2047,7 +2053,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MarutaParent: {fileID: 2212466567800787740}
-  TiltRate: 1
+  TiltRatebyPlayer: 1
+  TiltRatebyPirarucu: 1
 --- !u!1 &6958535402910214708
 GameObject:
   m_ObjectHideFlags: 0
@@ -3471,7 +3478,7 @@ MonoBehaviour:
   OnPlayerPos: {x: 0, y: 0}
   _Piraruku: []
   PlayerObj: {fileID: 7489709398954600862}
-  raftTilt: {fileID: 0}
+  raftTilt: {fileID: 2842941121112568569}
 --- !u!1 &8760772137688308854
 GameObject:
   m_ObjectHideFlags: 0
