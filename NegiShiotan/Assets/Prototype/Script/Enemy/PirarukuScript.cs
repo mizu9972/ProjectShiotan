@@ -82,6 +82,13 @@ public class PirarukuScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //クリアライン超えたとき
+        if (other.gameObject.tag == "ClearLine")
+        {
+            IkadaPos.ClearFishDelete();
+            Destroy(this.gameObject);
+        }
+
         //攻撃にあたる
         if (other.tag == "Attack")
         {

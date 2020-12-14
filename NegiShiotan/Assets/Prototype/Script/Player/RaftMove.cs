@@ -74,7 +74,6 @@ public class RaftMove : MonoBehaviour
             //ピラルク　位置　イカダより下か
             if (_Piraruku[i].transform.localPosition.y < -1.0f)
             {
-                Debug.Log("delete");
                 //ピラルク削除
                 _Piraruku.RemoveAt(i);
                 i--;
@@ -199,5 +198,10 @@ public class RaftMove : MonoBehaviour
     public void SetOnPirarukuPos(GameObject obj)
     {
         _Piraruku.Add(obj);
+    }
+
+    public void ClearFishDelete()
+    {
+        _Piraruku.Clear();
     }
 }
