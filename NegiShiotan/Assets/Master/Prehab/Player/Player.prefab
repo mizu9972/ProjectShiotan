@@ -107,6 +107,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 1727055280292124952, guid: 962fe82767266844b88d467161375071, type: 3}
+--- !u!1 &2431022313246526345
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2212466567800787740}
+  m_Layer: 0
+  m_Name: marutaParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2212466567800787740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2431022313246526345}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6958535401942362891}
+  - {fileID: 6958535401873368339}
+  - {fileID: 6958535403760289597}
+  - {fileID: 6958535402302659888}
+  - {fileID: 6958535403762676164}
+  m_Father: {fileID: 6958535402886157022}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4329253532733240689
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,14 +518,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6958535401873368332}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6958535402649287787}
   - {fileID: 6958535402423797397}
   - {fileID: 6958535403877209814}
-  m_Father: {fileID: 6958535402886157022}
+  m_Father: {fileID: 2212466567800787740}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6958535401882589490
@@ -626,14 +661,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6958535401942362884}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.125, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.12500004, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6958535403748482068}
   - {fileID: 6958535403555483657}
   - {fileID: 6958535401882589489}
-  m_Father: {fileID: 6958535402886157022}
+  m_Father: {fileID: 2212466567800787740}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6958535401974741508
@@ -1078,14 +1113,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6958535402302659889}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.125, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.12500004, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6958535402188125606}
   - {fileID: 6958535403327222197}
   - {fileID: 6958535402393574954}
-  m_Father: {fileID: 6958535402886157022}
+  m_Father: {fileID: 2212466567800787740}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6958535402321551092
@@ -1956,6 +1991,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6958535402886157022}
+  - component: {fileID: 5015503889097560615}
+  - component: {fileID: 2842941121112568569}
   m_Layer: 0
   m_Name: RaftModel
   m_TagString: Untagged
@@ -1974,14 +2011,43 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.6, y: 20, z: 1.6}
   m_Children:
-  - {fileID: 6958535401942362891}
-  - {fileID: 6958535401873368339}
-  - {fileID: 6958535403760289597}
-  - {fileID: 6958535402302659888}
-  - {fileID: 6958535403762676164}
+  - {fileID: 2212466567800787740}
   m_Father: {fileID: 1874493218045027610}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!95 &5015503889097560615
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6958535402886157023}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1a3956765a0bc5544bfb3044a059a569, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2842941121112568569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6958535402886157023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196ca72067c8f9d43b299da7fce943c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MarutaParent: {fileID: 2212466567800787740}
+  TiltRate: 1
 --- !u!1 &6958535402910214708
 GameObject:
   m_ObjectHideFlags: 0
@@ -3022,14 +3088,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6958535403760289598}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.25, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.2500001, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6958535403620215049}
   - {fileID: 6958535403337477494}
   - {fileID: 6958535402139687631}
-  m_Father: {fileID: 6958535402886157022}
+  m_Father: {fileID: 2212466567800787740}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6958535403762676165
@@ -3055,14 +3121,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6958535403762676165}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.25, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.2500001, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6958535403331127245}
   - {fileID: 6958535402545644153}
   - {fileID: 6958535402724734120}
-  m_Father: {fileID: 6958535402886157022}
+  m_Father: {fileID: 2212466567800787740}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6958535403827140538
@@ -3405,6 +3471,7 @@ MonoBehaviour:
   OnPlayerPos: {x: 0, y: 0}
   _Piraruku: []
   PlayerObj: {fileID: 7489709398954600862}
+  raftTilt: {fileID: 0}
 --- !u!1 &8760772137688308854
 GameObject:
   m_ObjectHideFlags: 0
