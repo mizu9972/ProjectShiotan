@@ -149,7 +149,6 @@ public class PlayerMove : MonoBehaviour
             //イカダに着地
             if (Savepos > transform.localPosition.y)
             {
-                Debug.Log("aaaaaaaaaaa");
                 //重力　停止
                 rb.useGravity = false;
                 rb.velocity = new Vector3(0, 0, 0);
