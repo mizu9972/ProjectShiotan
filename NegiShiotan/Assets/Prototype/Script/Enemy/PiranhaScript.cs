@@ -43,8 +43,8 @@ public class PiranhaScript : MonoBehaviour
     //イカダY座標　保存
     private float Savepos=0;
 
-    //イカダ乗り込み時の処理　一度だけ行いたい
-    bool onePlay;
+    
+    private bool onePlay;       //イカダ乗り込み時の処理　一度だけ行いたい
 
     private float IkadaWidth;
 
@@ -118,7 +118,7 @@ public class PiranhaScript : MonoBehaviour
         }
 
         //イカダ着地後    移動制限（イカダから落ちない）
-        if(onePlay)
+        if(onePlay&&MoveActive)
         {
             //イカダから落ちないようにする処理
             Vector3 Pos = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, this.transform.localPosition.z);
@@ -150,11 +150,7 @@ public class PiranhaScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //クリアライン超えたとき
-        if (other.gameObject.tag == "ClearLine")
-        {
-            Destroy(this.gameObject);
-        }
+
     }
 
     private void OnCollisionStay(Collision other)
@@ -212,8 +208,7 @@ public class PiranhaScript : MonoBehaviour
                 //イカダを親オブジェクトに設定
                 this.transform.SetParent(PlayerObj.transform.parent, true);
 
-                //イカダの上の座標　取得
-                Savepos = this.transform.position.y;
+                //ピラニア　最高高度　設定
                 BlowHigh += this.transform.localPosition.y;
             }
 
@@ -224,17 +219,24 @@ public class PiranhaScript : MonoBehaviour
             rb.useGravity = false;
             rb.velocity = new Vector3(0, 0, 0);
 
-            //イカダ　めりこまない処理
-            Vector3 pos = this.transform.position;
-            pos.y = Savepos;
-            this.transform.position = pos;
-
             //移動可能に
             MoveActive = true;
-
-            Debug.Log("Ride");
         }
         
+        //イカダの上で魚とぶつかった時
+        if ((other.gameObject.tag == "RidePiranha" || other.gameObject.tag == "RideFish")&&MoveActive==false)
+        {
+            //重力停止
+            //rb.useGravity = false;
+            rb.velocity = new Vector3(0, 0, 0);
+
+            //吹き飛ぶ方向
+            Vector3 Throwpos2 = -this.transform.forward;
+            Throwpos2.y = BlowHigh;
+
+            //吹き飛ぶ力　追加
+            rb.AddForce(Throwpos2 * BlowPower, ForceMode.Impulse);
+        }
     }
 
     public void EffectPlay()//Effect再生

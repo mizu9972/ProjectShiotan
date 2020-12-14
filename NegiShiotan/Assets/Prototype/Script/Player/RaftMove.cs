@@ -54,6 +54,16 @@ public class RaftMove : MonoBehaviour
     RaycastHit hit;//Rayが当たったオブジェクトいれる
 
     int distance = 10;//Rayの飛ばす距離
+    
+    //ゴールしたか
+    private bool _Goal;
+
+    //スタート座標　保存用
+    private Vector3 StartPos;
+
+    [SerializeField, Header("中心に戻る速度")]
+    public float GoalSpeed=1;
+
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +73,11 @@ public class RaftMove : MonoBehaviour
 
         //プレイヤーオブジェクト　取得
         PlayerObj= GameObject.FindGameObjectWithTag("Human");
+
+        _Goal = true;
+
+        //スタート座標　保存
+        StartPos = this.transform.localPosition;
     }
 
     // Update is called once per frame
@@ -87,10 +102,28 @@ public class RaftMove : MonoBehaviour
             GetNowPirarukuPosition(_Piraruku[i]);
         }
 
-        //イカダ移動処理
-        MoveMain();
+        //ゴールしていない時
+        if(_Goal)
+        {
+            //イカダ移動処理
+            MoveMain();
+        }
+        else
+        {
+            //イカダ中心に移動
+            float step = GoalSpeed * Time.deltaTime;
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, StartPos, step);
+
+            //中心に移動　完了
+            if(transform.localPosition==StartPos)
+            {
+                PlayerObj.GetComponent<PlayerMove>().SetIkada();
+                this.enabled = false;
+            }
+        }
     }
 
+    //イカダ移動処理
     private void MoveMain()
     {
         //イカダ　速度制限
@@ -131,6 +164,11 @@ public class RaftMove : MonoBehaviour
         moveTween.Play();
     }
 
+    public void SetGoal()
+    {
+        PlayerObj.GetComponent<PlayerMove>().SetGoal();
+        _Goal = false;
+    }
 
     //現在のプレイヤーがイカダのどこにいるかを取得
     void GetNowPlayerPosition(GameObject obj)

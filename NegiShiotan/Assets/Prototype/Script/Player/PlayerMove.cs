@@ -12,6 +12,9 @@ public class PlayerMove : MonoBehaviour
     [Header("攻撃のためのコライダー")]
     public GameObject AttackCollider;
 
+    [Header("攻撃時のエフェクト")]
+    public GameObject AttackEffect;
+
     [SerializeField, Header("イカダのどの位置にいるか")]
     private Vector2 OnRaftPosition;//イカダのどの位置にいるか
 
@@ -43,13 +46,11 @@ public class PlayerMove : MonoBehaviour
     public float Atk_EndTime;
 
     //基本Y座標　保存
-    [SerializeField, Header("イカダ着地高度")]
-    private float Savepos;
+    private Vector3 Savepos;
     
     private bool _Attack;   //攻撃状態
     private bool _Kokeru;   //ダメージ受けてこけるアニメーション状態か
     private bool _JumpKoke;
-    [SerializeField, Header("吹き飛び中か")]
     private bool _Blow;     //吹き飛び中か
 
     // Animator コンポーネント
@@ -65,10 +66,13 @@ public class PlayerMove : MonoBehaviour
 
     //立ち上がったか？
     private bool _Stand;
-
-    //ゴールしたか
-    private bool _Goal;
-
+    
+    private bool _Goal;     //ゴールしたか
+    private bool _Ikada;    //イカダ中心に移動したか
+    private bool _ZoomC;   //カメラズーム完了したか
+    
+    [SerializeField, Header("中心に戻る速度")]
+    public float GoalSpeed = 1;
 
 
     // Start is called before the first frame update
@@ -80,15 +84,18 @@ public class PlayerMove : MonoBehaviour
         //プレイヤー　最高高度　設定
         BlowHigh = BlowHigh + this.transform.localPosition.y;
         
-        Savepos = transform.localPosition.y;         //基本Y座標　保存
+        Savepos = transform.localPosition;         //基本Y座標　保存
         rb = this.GetComponent<Rigidbody>();    //Rigidbody　取得
         AttackCollider.SetActive(false);        //攻撃コライダー　非アクティブ
-        
+        AttackEffect.SetActive(false);        //攻撃エフェクト　非アクティブ
+
         _Attack = false;
         _Kokeru = false;
         _JumpKoke = false;
         _Stand = true;
         _Goal = false;
+        _Ikada = false;
+        _ZoomC = false;
         _Blow = true;
     }
 
@@ -121,6 +128,7 @@ public class PlayerMove : MonoBehaviour
                     this._animator.SetBool(key_isKokeru, false);
 
                     AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
+                    AttackEffect.SetActive(false);        //攻撃エフェクト　非アクティブ化
                 }
             }
             else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
@@ -147,7 +155,7 @@ public class PlayerMove : MonoBehaviour
             }
 
             //イカダに着地
-            if (Savepos > transform.localPosition.y)
+            if (Savepos.y > transform.localPosition.y)
             {
                 //重力　停止
                 rb.useGravity = false;
@@ -155,7 +163,7 @@ public class PlayerMove : MonoBehaviour
 
                 //イカダにめりこまない
                 Vector3 pos = this.transform.localPosition;
-                pos.y = Savepos;
+                pos.y = Savepos.y;
                 this.transform.localPosition = pos;
 
                 //攻撃くらったか
@@ -178,41 +186,30 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            //回転の度合い
-            float step = ang * Time.deltaTime;
-
-            //ゴール後　イカダ中心に向かって移動
-            float LR=0;
-            float CB=0;
-
-            if (transform.localPosition.x < 0)
-            {
-                CB = -Speed*Time.deltaTime;
-            }
-
-            if (transform.localPosition.x > 0)
-            {
-                CB = Speed * Time.deltaTime;
-            }
-
-            if (transform.localPosition.y < 0)
-            {
-                LR = -Speed * Time.deltaTime;
-            }
-
-            if (transform.localPosition.y > 0)
-            {
-                LR = Speed * Time.deltaTime;
-            }
-
-            //プレイヤーの位置に入力の値足す
-            Vector3 targetPositon = new Vector3(transform.position.x + LR, transform.position.y, transform.position.z + CB);
-
+            float step = GoalSpeed * Time.deltaTime;
+            //プレイヤーの移動の値足す
+            Vector3 targetPositon = Vector3.MoveTowards(transform.localPosition, Savepos, step);
+            
             //進行方向に回転していく
             Quaternion targetRotation = Quaternion.LookRotation(targetPositon - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step*3);
 
-            transform.position = targetPositon;
+            transform.localPosition = targetPositon;
+
+            //中心に移動
+            if ( transform.localPosition == Savepos)
+            {
+                this._animator.SetBool(key_isAttack, false);
+                this._animator.SetBool(key_isRun, false);
+                this._animator.SetBool(key_isKokeru, false);
+
+                //カメラズーム終了　＆　イカダ中心に移動
+                if(_ZoomC&&_Ikada)
+                {
+                    _animator.Play("Clear", 0, 0.0f);
+                    this.enabled = false;
+                }
+            }
         }
     }
 
@@ -313,6 +310,7 @@ public class PlayerMove : MonoBehaviour
             _animator.speed = AttackSpeed;
 
             AttackCollider.SetActive(true); //攻撃用コライダー　アクティブ化
+            AttackEffect.SetActive(true);        //攻撃エフェクト　アクティブ化
             _Attack = true;
         }
     }
@@ -379,6 +377,21 @@ public class PlayerMove : MonoBehaviour
         _Blow = false;
     }
 
+    public void SetGoal()
+    {
+        _Goal= true;
+    }
+
+    public void SetZoomC()
+    {
+        _ZoomC= true;
+    }
+
+    public void SetIkada()
+    {
+        _Ikada= true;
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
@@ -389,11 +402,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //クリアライン超えたとき
-        if (other.gameObject.tag == "ClearLine")
-        {
-            _Goal = true;
-        }
+
     }
 
 
