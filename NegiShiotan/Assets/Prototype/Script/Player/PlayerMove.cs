@@ -12,6 +12,9 @@ public class PlayerMove : MonoBehaviour
     [Header("攻撃のためのコライダー")]
     public GameObject AttackCollider;
 
+    [Header("攻撃時のエフェクト")]
+    public GameObject AttackEffect;
+
     [SerializeField, Header("イカダのどの位置にいるか")]
     private Vector2 OnRaftPosition;//イカダのどの位置にいるか
 
@@ -84,7 +87,8 @@ public class PlayerMove : MonoBehaviour
         Savepos = transform.localPosition;         //基本Y座標　保存
         rb = this.GetComponent<Rigidbody>();    //Rigidbody　取得
         AttackCollider.SetActive(false);        //攻撃コライダー　非アクティブ
-        
+        AttackEffect.SetActive(false);        //攻撃エフェクト　非アクティブ
+
         _Attack = false;
         _Kokeru = false;
         _JumpKoke = false;
@@ -124,6 +128,7 @@ public class PlayerMove : MonoBehaviour
                     this._animator.SetBool(key_isKokeru, false);
 
                     AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
+                    AttackEffect.SetActive(false);        //攻撃エフェクト　非アクティブ化
                 }
             }
             else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
@@ -305,6 +310,7 @@ public class PlayerMove : MonoBehaviour
             _animator.speed = AttackSpeed;
 
             AttackCollider.SetActive(true); //攻撃用コライダー　アクティブ化
+            AttackEffect.SetActive(true);        //攻撃エフェクト　アクティブ化
             _Attack = true;
         }
     }
