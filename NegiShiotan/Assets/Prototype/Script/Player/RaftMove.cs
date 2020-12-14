@@ -18,7 +18,7 @@ public class RaftMove : MonoBehaviour
     [Header("イカダが移動を始めるイカダ中心からの距離")]
     public float Range;
 
-    [Header("Z軸方向のスピード(左が+、右が-)")]
+    [Header("Z軸方向のスピード(右が+、左が-)")]
     public float RaftSpead;
 
     [SerializeField, Header("Z座標")]
@@ -77,7 +77,6 @@ public class RaftMove : MonoBehaviour
             //ピラルク　位置　イカダより下か
             if (_Piraruku[i].transform.localPosition.y < -1.0f)
             {
-                Debug.Log("delete");
                 //ピラルク削除
                 _Piraruku.RemoveAt(i);
                 i--;
@@ -215,5 +214,10 @@ public class RaftMove : MonoBehaviour
     public void SetOnPirarukuPos(GameObject obj)
     {
         _Piraruku.Add(obj);
+    }
+
+    public void ClearFishDelete()
+    {
+        _Piraruku.Clear();
     }
 }
