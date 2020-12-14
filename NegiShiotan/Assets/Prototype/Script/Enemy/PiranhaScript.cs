@@ -31,6 +31,9 @@ public class PiranhaScript : MonoBehaviour
     [Header("プレイヤー　吹き飛ばす力")]
     public float BlowPower;
 
+    [Header("プレイヤー　吹き飛ばす（高さの）方向")]
+    public float P_BlowHigh;
+
     [Header("ピラニア　吹き飛ぶ高さ")]
     public float BlowHigh;
 
@@ -145,43 +148,12 @@ public class PiranhaScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        //人間とぶつかる
-        if (other.tag == "Human" && MoveActive)
+        //クリアライン超えたとき
+        if (other.gameObject.tag == "ClearLine")
         {
-            //プレイヤーのHP減少
-            bool sts = PlayerStatus.DamageHP(ATK,false);
-
-            //  無敵時間外にプレイヤーに当たったら吹っ飛ばす
-            if (sts)
-            {
-                //プレイヤー向きをピラニアに(Z正面)
-                other.transform.LookAt(this.transform.position);
-                other.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0, other.transform.rotation.w);
-
-                //上に吹き飛ばす
-                Vector3 Throwpos = this.transform.forward;
-                Throwpos.y = this.transform.position.y + 3;
-
-                //プレイヤー速度　初期化
-                PlayerRb.velocity *= 0;
-
-                //吹き飛ぶ力　追加
-                PlayerRb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
-            }
-
-            //吹き飛ぶ方向
-            Vector3 Throwpos2 = -this.transform.forward;
-            Throwpos2.y = BlowHigh;
-
-            //吹き飛ぶ力　追加
-            rb.AddForce(Throwpos2 * BlowPower, ForceMode.Impulse);
-
-            //移動不可能
-            cooltime = 3;
-            MoveActive = false;
-            Air = true;
+            Destroy(this.gameObject);
         }
     }
 
@@ -201,7 +173,7 @@ public class PiranhaScript : MonoBehaviour
 
                 //上に吹き飛ばす
                 Vector3 Throwpos = this.transform.forward;
-                Throwpos.y = this.transform.position.y + 3;
+                Throwpos.y = this.transform.position.y + P_BlowHigh;
 
                 //プレイヤー速度　初期化
                 PlayerRb.velocity *= 0;
@@ -230,7 +202,7 @@ public class PiranhaScript : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             //一度だけ使用
-            if(onePlay == false)
+            if (onePlay == false)
             {
                 onePlay = true;
 
@@ -262,6 +234,7 @@ public class PiranhaScript : MonoBehaviour
 
             Debug.Log("Ride");
         }
+        
     }
 
     public void EffectPlay()//Effect再生

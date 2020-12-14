@@ -19,6 +19,8 @@ public class PoseWindow : MonoBehaviour
     [SerializeField, Header("ポーズ中選択できないようにするボタン群")]
     private List<Button> UnSelectabeButtons = new List<Button>();
 
+    [SerializeField, Header("初期選択ボタン")]
+    private Button InitialSelectButton = null;
     private bool m_isPoseActive = false;//ポーズ画面を開いているか判定用
     // Start is called before the first frame update
     void Start()
@@ -35,9 +37,16 @@ public class PoseWindow : MonoBehaviour
     {
         if (m_isPoseActive == false)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetButtonDown("Pose"))
             {
                 OpenPoseWindow();
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("Pose"))
+            {
+                ClosePoseWindow();
             }
         }
     }
@@ -59,6 +68,10 @@ public class PoseWindow : MonoBehaviour
         {
             Button.interactable = false;
         }
+        //時間停止
+        Time.timeScale = 0;
+
+        InitialSelectButton.Select();
 
         m_isPoseActive = true;
     }
@@ -70,7 +83,7 @@ public class PoseWindow : MonoBehaviour
         PoseCanvasObject.SetActive(false);
 
         //色戻す
-        if (MainCanvasImage = null)
+        if (MainCanvasImage != null)
         {
             MainCanvasImage.color = m_DefaultColor;
 
@@ -80,6 +93,8 @@ public class PoseWindow : MonoBehaviour
         {
             Button.interactable = true;
         }
+        //時間再開
+        Time.timeScale = 1;
 
         m_isPoseActive = false;
     }

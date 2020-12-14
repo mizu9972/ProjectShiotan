@@ -77,7 +77,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
     {
         foreach(var StageObject in ActiveStagePlaneList)
         {
-            StageObject.transform.Translate(-1.0f * NowScrollSpeed, 0, 0);
+            StageObject.transform.Translate(-1.0f * NowScrollSpeed * (Time.deltaTime / 0.016f) , 0, 0);
         }
     }
 

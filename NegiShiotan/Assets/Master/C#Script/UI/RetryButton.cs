@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
+[RequireComponent(typeof(SceneLoader))]
 public class RetryButton : MonoBehaviour
 {
     [SerializeField, Header("フェード速度")]
@@ -28,19 +29,18 @@ public class RetryButton : MonoBehaviour
             //fadeCamera.StartFadeOut()
             //);
 
-            StartCoroutine("RetryScene");            
+            RetryScene();            
         }
     }
 
-    private IEnumerator RetryScene()
+    private void RetryScene()
     {
         fadeCamera.setFeedinSpeed(FadeSpeed)
        .setFeedOutSpeed(FadeSpeed);
 
         fadeCamera.StartFadeOut();
 
-        yield return new WaitForSeconds(FadeSpeed);
-
-        sceneLoader.LoadMyScene();
+        Observable.Timer(System.TimeSpan.FromSeconds(FadeSpeed))
+            .Subscribe(_ => sceneLoader.LoadMyScene());
     }
 }

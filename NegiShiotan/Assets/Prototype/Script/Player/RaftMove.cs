@@ -42,6 +42,9 @@ public class RaftMove : MonoBehaviour
     [SerializeField, Header("プレイヤー")]
     private GameObject PlayerObj = null;
 
+    [SerializeField, Header("いかだを傾けるスクリプト")]
+    private RaftTilt raftTilt = null;
+
 
     //イカダのレイヤー番号
     const int PlayerRaftLayer = 17;
@@ -74,7 +77,6 @@ public class RaftMove : MonoBehaviour
             //ピラルク　位置　イカダより下か
             if (_Piraruku[i].transform.localPosition.y < -1.0f)
             {
-                Debug.Log("delete");
                 //ピラルク削除
                 _Piraruku.RemoveAt(i);
                 i--;
@@ -113,8 +115,6 @@ public class RaftMove : MonoBehaviour
         {
             ZPos = RightWall.transform.position.z + IkadaWidth;
         }
-
-        Debug.Log(ZPos);
 
         //実際の座標に代入
         transform.position = new Vector3(transform.position.x, transform.position.y, ZPos);
@@ -167,7 +167,14 @@ public class RaftMove : MonoBehaviour
         {
             //イカダにピラルクの現在位置を送信
             SetOnPlusPos(hit.textureCoord);
+
+            //ピラルクの位置によっていかだを傾ける
+            if (raftTilt != null)
+            {
+                
+            }
         }
+
     }
 
     public void SetOnPlayerPos(Vector2 pos)
@@ -179,6 +186,16 @@ public class RaftMove : MonoBehaviour
         {
             //プレイヤーの位置によってスピードを決定
             RaftSpead = (OnPlayerPos.y - 0.5f) * MoveRate;
+        }
+        else
+        {
+            RaftSpead = 0;
+        }
+
+        //いかだの速度によっていかだを傾ける
+        if(raftTilt != null)
+        {
+            raftTilt.TiltbyPlayerPosition(RaftSpead);
         }
     }
 
@@ -197,5 +214,10 @@ public class RaftMove : MonoBehaviour
     public void SetOnPirarukuPos(GameObject obj)
     {
         _Piraruku.Add(obj);
+    }
+
+    public void ClearFishDelete()
+    {
+        _Piraruku.Clear();
     }
 }
