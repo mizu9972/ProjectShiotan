@@ -148,52 +148,19 @@ public class PiranhaScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        ////人間とぶつかる
-        //if (other.tag == "Human" && MoveActive)
-        //{
-        //    //プレイヤーのHP減少
-        //    bool sts = PlayerStatus.DamageHP(ATK,false);
-
-        //    //  無敵時間外にプレイヤーに当たったら吹っ飛ばす
-        //    if (sts)
-        //    {
-        //        //プレイヤー向きをピラニアに(Z正面)
-        //        other.transform.LookAt(this.transform.position);
-        //        other.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0, other.transform.rotation.w);
-
-        //        //上に吹き飛ばす
-        //        Vector3 Throwpos = this.transform.forward;
-        //        Throwpos.y = this.transform.position.y + 3;
-
-        //        //プレイヤー速度　初期化
-        //        PlayerRb.velocity *= 0;
-
-        //        //吹き飛ぶ力　追加
-        //        PlayerRb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
-        //    }
-
-        //    //吹き飛ぶ方向
-        //    Vector3 Throwpos2 = -this.transform.forward;
-        //    Throwpos2.y = BlowHigh;
-
-        //    //吹き飛ぶ力　追加
-        //    rb.AddForce(Throwpos2 * BlowPower, ForceMode.Impulse);
-
-        //    //移動不可能
-        //    cooltime = 3;
-        //    MoveActive = false;
-        //    Air = true;
-        //}
+        //クリアライン超えたとき
+        if (other.gameObject.tag == "ClearLine")
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnCollisionStay(Collision other)
     {
         if (other.gameObject.tag == "Human"&&MoveActive)
         {
-            Debug.Log("dddddddddd");
-
             //プレイヤーのHP減少
             bool sts = PlayerStatus.DamageHP(ATK, false);
 
@@ -267,6 +234,7 @@ public class PiranhaScript : MonoBehaviour
 
             Debug.Log("Ride");
         }
+        
     }
 
     public void EffectPlay()//Effect再生
