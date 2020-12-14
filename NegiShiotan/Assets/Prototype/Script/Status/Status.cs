@@ -65,16 +65,7 @@ public class Status : MonoBehaviour
             MutekiTime -= 0.1f;
         }
 
-        //体力・残機
-        //０になった時
-        if (HP <= 0)
-        {
-            m_GameOverManager.HPGameOverFunction();
-        }
-        if (Zanki <= 0)
-        {
-            m_GameOverManager.ZankiGameOverFunction();
-        }
+
     }
 
     public float GetIkadaWidth()
@@ -104,6 +95,12 @@ public class Status : MonoBehaviour
         }
     }
 
+    //HP元に戻す
+    public void ResetHP()
+    {
+        HP = MAXHP;
+    }
+
     //プレイヤー　ダメージ計算
     public bool DamageHP(int Damage,bool ac)
     {
@@ -122,6 +119,23 @@ public class Status : MonoBehaviour
         {
             HP -= Damage;
             MutekiTime = SetMutekiTime; //無敵時間　セット
+
+            //体力・残機
+            //０になった時
+            if (HP <= 0)
+            {
+                //残機によって復活可能なら
+                if (Zanki > 0)
+                {
+                    //演出
+                    m_GameOverManager.HPGameOverFunction();
+                }
+
+                //残機減少
+                DownZanki(1);
+            }
+
+
             return true;
         }
         return false;
@@ -145,6 +159,18 @@ public class Status : MonoBehaviour
         if (Zanki > MAXZanki)
         {
             Zanki = MAXZanki;
+        }
+    }
+
+    //残機減少
+    public void DownZanki(int Down_zanki)
+    {
+        Zanki -= Down_zanki;
+
+        //残機がゼロになったら
+        if (Zanki < 0)
+        {
+            m_GameOverManager.ZankiGameOverFunction();
         }
     }
 
