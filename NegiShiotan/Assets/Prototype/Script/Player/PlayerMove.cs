@@ -46,6 +46,7 @@ public class PlayerMove : MonoBehaviour
     public float Atk_EndTime;
 
     //基本Y座標　保存
+    [SerializeField, Header("プレイヤー最高高度")]
     private Vector3 Savepos;
     
     private bool _Attack;   //攻撃状態
