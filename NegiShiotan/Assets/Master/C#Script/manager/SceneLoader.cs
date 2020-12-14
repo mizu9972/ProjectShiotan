@@ -18,6 +18,9 @@ public class SceneLoader : MonoBehaviour
     [SerializeField, Header("クリア時のシーン遷移までの時間")]
     private float turnSceneTime = 3.0f;
 
+    [SerializeField, Header("基本ゲーム進行速度")]
+    private float DefaultGameSpeed = 1.0f;
+
     private int mySceneIndex;
     
 
@@ -33,6 +36,7 @@ public class SceneLoader : MonoBehaviour
     [ContextMenu("シーン読み込み")]
     public void LoadScene()
     {
+        Time.timeScale = DefaultGameSpeed;
         if (isPreLoading)
         {
             m_AsyncOperation.allowSceneActivation = true;
@@ -47,6 +51,7 @@ public class SceneLoader : MonoBehaviour
     //現在のシーン再読み込み
     public void LoadMyScene()
     {
+        Time.timeScale = DefaultGameSpeed;
         SceneManager.LoadScene(mySceneIndex);
     }
 
