@@ -264,8 +264,7 @@ MonoBehaviour:
   StandUpSpeed: 1
   Atk_StartTime: 0.3
   Atk_EndTime: 0.7
-  Savepos: 0
-  _Blow: 0
+  GoalSpeed: 1
 --- !u!54 &1394106188765281596
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2345,7 +2344,6 @@ GameObject:
   - component: {fileID: 3453742745246508480}
   - component: {fileID: 2650395263752859134}
   - component: {fileID: 3770795724386539054}
-  - component: {fileID: 2633682751410341386}
   - component: {fileID: 8659931391236018944}
   m_Layer: 17
   m_Name: Player
@@ -2461,20 +2459,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2633682751410341386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7489709398954600862}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 524e80abff9a4254ca2b05baa6693fa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerObj: {fileID: 4329253532733240689}
-  RaftObj: {fileID: 7489709398954600862}
 --- !u!114 &8659931391236018944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2500,6 +2484,7 @@ MonoBehaviour:
   _Piraruku: []
   PlayerObj: {fileID: 7489709398954600862}
   raftTilt: {fileID: 2842941121112568569}
+  GoalSpeed: 1
 --- !u!1 &8760772137688308854
 GameObject:
   m_ObjectHideFlags: 0

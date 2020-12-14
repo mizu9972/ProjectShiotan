@@ -2,25 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PirarukuScript : MonoBehaviour
+public class UnagiScript : MonoBehaviour
 {
     private GameObject PlayerObj;   //プレイヤーの位置
 
-    [Header("ピラルク　吹き飛ぶ高さ")]
-    public float BlowHigh;
+    [Header("ウナギ　吹き飛ぶ高さ")] public float BlowHigh;
+    [Header("ウナギ　吹き飛ぶ力")] public float BlowPower;
 
-    [Header("ピラルク　吹き飛ぶ力")]
-    public float BlowPower;
+    private Rigidbody rb;       //Rigidbodyコンポーネントを入れる変数"rb"を宣言する
+    private BoxCollider bc;     //BoxColliderコンポーネントを入れる変数"bc"を宣言する
 
     //イカダの上の位置　渡す
     private RaftMove IkadaPos;
 
-    //Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
-    private Rigidbody rb;
-
-    //BoxColliderコンポーネントを入れる変数"bc"を宣言する。
-    private BoxCollider bc;
-
+    //一度だけの処理実行判断用
     private bool OnePlay;
 
     // Start is called before the first frame update
@@ -35,7 +30,7 @@ public class PirarukuScript : MonoBehaviour
         //イカダを親オブジェクトに設定
         PlayerObj = GameObject.FindGameObjectWithTag("Human");
         this.transform.SetParent(PlayerObj.transform.parent, true);
-        
+
         rb = this.GetComponent<Rigidbody>();    //Rigidbodyコンポーネント　取得
         bc = this.GetComponent<BoxCollider>();  //BoxColliderコンポーネント　取得
 
@@ -45,9 +40,9 @@ public class PirarukuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.transform.localPosition.y<-4.0f)
+        if (this.transform.localPosition.y < -4.0f)
         {
-            //ピラルク削除
+            //ウナギ削除
             Destroy(this.gameObject);
         }
     }
@@ -62,26 +57,11 @@ public class PirarukuScript : MonoBehaviour
 
             //回転　防ぐ
             rb.isKinematic = true;
-
-            //ピラルク　格納（一度だけ）
-            if(OnePlay)
-            {
-                //ピラルクのデータ　イカダ移動スクリプトに渡す
-                IkadaPos.SetOnPirarukuPos(this.gameObject);
-                OnePlay = false;
-            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //クリアライン超えたとき
-        if (other.gameObject.tag == "ClearLine")
-        {
-            IkadaPos.ClearFishDelete();
-            Destroy(this.gameObject);
-        }
-
         //攻撃にあたる
         if (other.tag == "Attack")
         {
@@ -90,12 +70,12 @@ public class PirarukuScript : MonoBehaviour
 
             //飛んでいく方向　指定
             Vector3 Throwpos = other.transform.forward;
-            Throwpos.y = other.transform.localPosition.y+ BlowHigh;
+            Throwpos.y = other.transform.localPosition.y + BlowHigh;
 
             //エフェクト再生
             //bulletInstance.GetComponent<PiranhaScript>().EffectPlay();
             //向いた方向に　飛ばす
-            rb.AddForce(Throwpos* BlowPower, ForceMode.Force);
+            rb.AddForce(Throwpos * BlowPower, ForceMode.Force);
         }
     }
 }

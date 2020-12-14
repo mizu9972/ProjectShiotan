@@ -859,7 +859,7 @@ PrefabInstance:
         type: 3}
       propertyPath: StagePlaneList.Array.data[1]
       value: 
-      objectReference: {fileID: 9207296687612397384}
+      objectReference: {fileID: 1562079278}
     - target: {fileID: 5364425804764445422, guid: 00c91dfc45883e444952c08b25b61708,
         type: 3}
       propertyPath: StagePlaneList.Array.data[2]
@@ -3398,7 +3398,7 @@ PrefabInstance:
     - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
       propertyPath: m_FishType
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
@@ -3429,6 +3429,17 @@ PrefabInstance:
         type: 3}
       propertyPath: Erea.Array.data[7]
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: UnagiObj
+      value: 
+      objectReference: {fileID: 7758297837396930408, guid: 70794825f5568774f9907df2dfd010d4,
+        type: 3}
+    - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: UnJumpPower
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 742384373883704281, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
@@ -3998,6 +4009,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4369377763691395016, guid: b0d116edc55b8084bba86c35b4118c05,
+        type: 3}
+      propertyPath: unagi
+      value: 
+      objectReference: {fileID: 1939340166050730239, guid: 1c03c3eb19f0f3044bdd760a6a630e30,
+        type: 3}
     - target: {fileID: 7489709398954600862, guid: b0d116edc55b8084bba86c35b4118c05,
         type: 3}
       propertyPath: m_Name
@@ -4389,6 +4406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LastPlane_Canyon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4693549170707363832, guid: 385fd8c4fcf382a4db43580967eab9f6,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 385fd8c4fcf382a4db43580967eab9f6, type: 3}
