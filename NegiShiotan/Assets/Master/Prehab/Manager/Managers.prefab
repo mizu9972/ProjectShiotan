@@ -149,6 +149,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2392953295767967901}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5979927275713815475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8343343221787523886, guid: 972415c28e433f7458955d8fc7b9fae0,
+    type: 3}
+  m_PrefabInstance: {fileID: 2392953295767967901}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31834495465f9c241b2946c5f49a0ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2392953296274807701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -615,6 +627,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2392953297063474062}
     m_Modifications:
+    - target: {fileID: 1138762224487201279, guid: 7ef13930ce759414bb41bd5a4d9422e0,
+        type: 3}
+      propertyPath: StatusManager
+      value: 
+      objectReference: {fileID: 5979927275713815475}
     - target: {fileID: 6109239510096956344, guid: 7ef13930ce759414bb41bd5a4d9422e0,
         type: 3}
       propertyPath: m_Name
@@ -684,6 +701,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986365000146113011, guid: 7ef13930ce759414bb41bd5a4d9422e0,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.33708617
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986365000146113011, guid: 7ef13930ce759414bb41bd5a4d9422e0,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.7075472
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986365000146113011, guid: 7ef13930ce759414bb41bd5a4d9422e0,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.4491009
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986365001722083659, guid: 7ef13930ce759414bb41bd5a4d9422e0,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.33708617
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986365001722083659, guid: 7ef13930ce759414bb41bd5a4d9422e0,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.7075472
+      objectReference: {fileID: 0}
+    - target: {fileID: 8986365001722083659, guid: 7ef13930ce759414bb41bd5a4d9422e0,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.4491009
       objectReference: {fileID: 0}
     - target: {fileID: 8986365001722083660, guid: 7ef13930ce759414bb41bd5a4d9422e0,
         type: 3}
