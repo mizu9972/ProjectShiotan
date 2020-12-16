@@ -4838,6 +4838,7 @@ GameObject:
   - component: {fileID: 8599807682745159656}
   - component: {fileID: 8599807682745159658}
   - component: {fileID: 8599807682745159661}
+  - component: {fileID: 1477042276484105341}
   m_Layer: 0
   m_Name: SplashDown
   m_TagString: Untagged
@@ -9600,6 +9601,19 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &1477042276484105341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8599807682745159660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103dc37dcc89f0245b340bcd4034b026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PartScript: {fileID: 8599807682745159656}
 --- !u!1 &8599807683118016768
 GameObject:
   m_ObjectHideFlags: 0
@@ -9648,7 +9662,7 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
