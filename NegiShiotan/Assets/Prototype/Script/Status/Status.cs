@@ -114,7 +114,7 @@ public class Status : MonoBehaviour
             }
 
             HP -= Damage;
-            MutekiTime = SetMutekiTime; //無敵時間　セット
+            MutekiTime = SetMutekiTime; //無敵時間　セット\
 
             //体力・残機
             //０になった時

@@ -5,22 +5,16 @@ using UnityEngine;
 public class PirarukuScript : MonoBehaviour
 {
     private GameObject PlayerObj;   //プレイヤーの位置
+    private Rigidbody rb;           //Rigidbodyコンポーネントを入れる変数"rb"を宣言する
 
-    [Header("ピラルク　吹き飛ぶ高さ")]
-    public float BlowHigh;
-
-    [Header("ピラルク　吹き飛ぶ力")]
-    public float BlowPower;
+    [Header("ピラルク　吹き飛ぶ高さ")] public float BlowHigh;
+    [Header("ピラルク　吹き飛ぶ力")] public float BlowPower;
+    [Header("ピラルク　跳ねる力")] public float BoundPower;
 
     //イカダの上の位置　渡す
     private RaftMove IkadaPos;
 
-    //Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
-    private Rigidbody rb;
-
-    //BoxColliderコンポーネントを入れる変数"bc"を宣言する。
-    private BoxCollider bc;
-
+    //一度だけの処理
     private bool OnePlay;
 
     // Start is called before the first frame update
@@ -37,7 +31,6 @@ public class PirarukuScript : MonoBehaviour
         this.transform.SetParent(PlayerObj.transform.parent, true);
         
         rb = this.GetComponent<Rigidbody>();    //Rigidbodyコンポーネント　取得
-        bc = this.GetComponent<BoxCollider>();  //BoxColliderコンポーネント　取得
 
         OnePlay = true;
     }
@@ -70,6 +63,21 @@ public class PirarukuScript : MonoBehaviour
                 IkadaPos.SetOnPirarukuPos(this.gameObject);
                 OnePlay = false;
             }
+        }
+
+        //イカダの上で魚とぶつかった時
+        if ((other.gameObject.tag == "RidePiranha" || other.gameObject.tag == "RideFish") && rb.velocity.y<0)
+        {
+            //重力停止
+            //rb.useGravity = false;
+            rb.velocity = new Vector3(0, 0, 0);
+
+            //吹き飛ぶ方向
+            Vector3 Throwpos2 = -this.transform.forward;
+            Throwpos2.y = BlowHigh;
+
+            //吹き飛ぶ力　追加
+            rb.AddForce(Throwpos2 * BoundPower, ForceMode.Force);
         }
     }
 

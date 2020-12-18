@@ -75,9 +75,9 @@ public class PlayerMove : MonoBehaviour
         // 自分に設定されているAnimatorコンポーネントを習得する
         this._animator = GetComponent<Animator>();
         
-        Savepos = transform.localPosition;         //基本Y座標　保存
-        rb = this.GetComponent<Rigidbody>();    //Rigidbody　取得
-        AttackCollider.SetActive(false);        //攻撃コライダー　非アクティブ
+        Savepos = transform.localPosition;    //基本Y座標　保存
+        rb = this.GetComponent<Rigidbody>();  //Rigidbody　取得
+        AttackCollider.SetActive(false);      //攻撃コライダー　非アクティブ
         AttackEffect.SetActive(false);        //攻撃エフェクト　非アクティブ
 
         _Attack = false;
@@ -146,23 +146,7 @@ public class PlayerMove : MonoBehaviour
                     this._animator.SetBool(key_isKokeru, false);
                 }
             }
-
-            //イカダに着地
-            if (Savepos.y > transform.localPosition.y)
-            {
-                //攻撃くらったか
-                if (_Blow&&_Kokeru==false)
-                {
-                    SetKokeru();
-                }
-            }
-
-            //上昇した（上に吹き飛ばされた）
-            if (rb.velocity.y > 0)
-            {
-                _Blow = true;   //イカダ着地時　こける
-            }
-
+            
             //イカダからはみ出さない処理
             MoveLimit();
         }
@@ -375,28 +359,30 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
-        {
-
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
 
     }
 
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "IkadaMoveLimit")
+        //イカダに着地
+        if (other.gameObject.tag == "Player")
         {
-            //rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            //攻撃くらったか
+            if (_Blow && _Kokeru == false)
+            {
+                SetKokeru();
+            }
         }
 
     }
 
-    private void OnCollisionStay(Collision other)
+    private void OnCollisionExit(Collision other)
     {
+        //上昇した（上に吹き飛ばされた）
+        if (other.gameObject.tag == "Player")
+        {
+            _Blow = true;   //イカダ着地時　こける
+        }
     }
 }

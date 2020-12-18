@@ -5,24 +5,35 @@ using UnityEngine;
 public class UnagiScript : MonoBehaviour
 {
     private GameObject PlayerObj;   //プレイヤーの位置
+    private Rigidbody rb;           //Rigidbodyコンポーネントを入れる変数"rb"を宣言する
+    private BoxCollider bc;         //BoxColliderコンポーネントを入れる変数"bc"を宣言する
 
     [Header("ウナギ　吹き飛ぶ高さ")] public float BlowHigh;
     [Header("ウナギ　吹き飛ぶ力")] public float BlowPower;
+    [Header("ウナギ　跳ねる力")] public float BoundPower;
 
-    private Rigidbody rb;       //Rigidbodyコンポーネントを入れる変数"rb"を宣言する
-    private BoxCollider bc;     //BoxColliderコンポーネントを入れる変数"bc"を宣言する
+    [Header("放電　エフェクト")] public GameObject ELEEfect;
+    [Header("放電　クールタイム")] public float ELECoolTime=20;
+    [Header("放電する時間")] public float ELEPlayTime = 10;
 
-    //イカダの上の位置　渡す
-    private RaftMove IkadaPos;
+    [Header("電撃のクールタイム　吹っ飛び時指定時間カウントしない")] public float NotCoolCountTime = 5;
+    private float NotCountTime=0;
 
-    //一度だけの処理実行判断用
-    private bool OnePlay;
+    //電気放出中か
+    private bool ELEEnable;
+    [SerializeField]private float ELETime;  //何秒電気放出したか
+
+    //着地したか
+    private bool OnIkada;
+
+    private bool onePlay;
 
     // Start is called before the first frame update
     void Start()
     {
-        //イカダ移動スクリプト　取得
-        IkadaPos = GameObject.FindGameObjectWithTag("Player").GetComponent<RaftMove>();
+        onePlay = true;
+        ELEEnable = false;
+        OnIkada = false;
 
         //親子関係したとき　メッシュがずれるバグ解消のための一文
         this.transform.rotation = new Quaternion(0, this.transform.rotation.y, 0, this.transform.rotation.w);
@@ -33,17 +44,65 @@ public class UnagiScript : MonoBehaviour
 
         rb = this.GetComponent<Rigidbody>();    //Rigidbodyコンポーネント　取得
         bc = this.GetComponent<BoxCollider>();  //BoxColliderコンポーネント　取得
-
-        OnePlay = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(NotCountTime<0)
+        {
+            ELETime += Time.deltaTime;  //放電時間カウント　増加
+        }
+        else
+        {
+            NotCountTime -= Time.deltaTime;
+        }
+
+        //ウナギ　角度初期化
+        Vector3 localAngle = transform.localEulerAngles;
+        localAngle.x = 0.0f;
+        localAngle.y = 0.0f;
+        localAngle.z = 0.0f;
+        transform.localEulerAngles = localAngle; // 回転角度を設定
+
+        //イカダに着地した
+        if (OnIkada)
+        {
+            //電気放出中の時
+            if (ELEEnable)
+            {
+                //設定した時間　電気放出
+                if (ELETime > ELEPlayTime)
+                {
+                    ELETime = 0;
+                    ELEEnable = false;
+                    ELEEfect.SetActive(false);
+                }
+            }
+            else
+            {
+                //電気放出　クールタイム終了
+                if (ELETime > ELECoolTime)
+                {
+                    ELETime = 0;
+                    ELEEnable = true;
+                    ELEEfect.SetActive(true);
+                }
+            }
+        }
+
         if (this.transform.localPosition.y < -4.0f)
         {
             //ウナギ削除
             Destroy(this.gameObject);
+        }
+
+        //当たり判定　変更
+        if (onePlay && transform.localPosition.y > 0)
+        {
+            onePlay = false;
+            bc.center = new Vector3(-0.001f, 0.05f, 0);
+            bc.size = new Vector3(0.06f, 0.03f, 0.06f);
         }
     }
 
@@ -51,12 +110,26 @@ public class UnagiScript : MonoBehaviour
     {
         //イカダとぶつかる
         if (other.gameObject.tag == "Player")
-        {
-            //ピラルク　吹き飛ぶ最高高度　設定
-            BlowHigh += this.transform.localPosition.y;
-
+        {   
             //回転　防ぐ
             rb.isKinematic = true;
+
+            OnIkada = true;
+        }
+
+        //イカダの上で魚とぶつかった時
+        if ((other.gameObject.tag == "RidePiranha" || other.gameObject.tag == "RideFish") && rb.velocity.y < 0)
+        {
+            //重力停止
+            //rb.useGravity = false;
+            rb.velocity = new Vector3(0, 0, 0);
+
+            //吹き飛ぶ方向
+            Vector3 Throwpos2 = -this.transform.forward;
+            Throwpos2.y = BlowHigh;
+
+            //吹き飛ぶ力　追加
+            rb.AddForce(Throwpos2 * BoundPower, ForceMode.Force);
         }
     }
 
@@ -76,6 +149,8 @@ public class UnagiScript : MonoBehaviour
             //bulletInstance.GetComponent<PiranhaScript>().EffectPlay();
             //向いた方向に　飛ばす
             rb.AddForce(Throwpos * BlowPower, ForceMode.Force);
+
+            NotCountTime = NotCoolCountTime;
         }
     }
 }
