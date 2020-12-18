@@ -10,6 +10,7 @@ namespace CreateFish
     {
         Piranha,
         Piraruku,
+        Unagi,
     }
 }
 
@@ -26,6 +27,9 @@ public class EnemySpawnLine : MonoBehaviour
     [SerializeField, Header("ピラルクプレハブ")]
     private GameObject PirarukuObj = null;
 
+    [SerializeField, Header("ウナギプレハブ")]
+    private GameObject UnagiObj = null;
+
     [Header("ジャンプのためのコライダー")]
     private JumpScript JumpCollider;
 
@@ -38,6 +42,9 @@ public class EnemySpawnLine : MonoBehaviour
     [Header("ジャンプする力(ピラルク)")]
     public float PrJumpPower = 4;
 
+    [Header("ジャンプする力(ウナギ)")]
+    public float UnJumpPower = 4;
+
     [Header("ジャンプする高さ")]
     private float JumpHigh;
 
@@ -46,6 +53,9 @@ public class EnemySpawnLine : MonoBehaviour
 
     [Header("ジャンプする高さ(ピラルク)")]
     public float PrJumpHigh = 12;
+
+    [Header("ジャンプする高さ(ウナギ)")]
+    public float UnJumpHigh = 12;
 
     private GameObject m_EnemySpawnErea = null;
     private EnemySpawnSystem m_ESS = null;
@@ -71,6 +81,11 @@ public class EnemySpawnLine : MonoBehaviour
                 EnemyObject = PirarukuObj;
                 JumpPower = PrJumpPower;
                 JumpHigh = PrJumpHigh;
+                break;
+            case CreateFishType.Unagi:
+                EnemyObject = UnagiObj;
+                JumpPower = UnJumpPower;
+                JumpHigh = UnJumpHigh;
                 break;
             default:
                 break;

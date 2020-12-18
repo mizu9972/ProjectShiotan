@@ -10,7 +10,6 @@ public class PiranhaScript : MonoBehaviour
 
     //停止時間
     private float cooltime;
-    private bool Air;
 
     //Rigidbodyコンポーネントを入れる変数"rb"を宣言する。
     private Rigidbody rb;
@@ -28,14 +27,12 @@ public class PiranhaScript : MonoBehaviour
     [Header("移動速度")]
     public float Speed;
 
-    [Header("プレイヤー　吹き飛ばす力")]
-    public float BlowPower;
+    [Header("プレイヤー　吹き飛ばす力")] public float P_BlowPower;
+    [Header("プレイヤー　吹き飛ばす（高さの）方向")] public float P_BlowHigh;
+    [Header("ピラニア　吹き飛ぶ高さ")]public float BlowHigh;
+    [Header("ピラニア　吹き飛ぶ力")] public float BlowPower;
+    [Header("ピラニア　跳ねる力")] public float BoundPower;
 
-    [Header("プレイヤー　吹き飛ばす（高さの）方向")]
-    public float P_BlowHigh;
-
-    [Header("ピラニア　吹き飛ぶ高さ")]
-    public float BlowHigh;
 
     [Header("Effect")]
     public ParticleEffectScript m_Effect;
@@ -43,8 +40,8 @@ public class PiranhaScript : MonoBehaviour
     //イカダY座標　保存
     private float Savepos=0;
 
-    //イカダ乗り込み時の処理　一度だけ行いたい
-    bool onePlay;
+    
+    private bool onePlay;       //イカダ乗り込み時の処理　一度だけ行いたい
 
     private float IkadaWidth;
 
@@ -52,7 +49,6 @@ public class PiranhaScript : MonoBehaviour
     //Start is called before the first frame update
     void Start()
     {
-        Air = false;
         onePlay = false;
         MoveActive = false;     //動かない
         cooltime = 1;       //動かない時間
@@ -85,25 +81,6 @@ public class PiranhaScript : MonoBehaviour
         //現在の回転情報と、ターゲット方向の回転情報を補完する
         transform.rotation = Quaternion.Slerp(this.transform.rotation, rotation, 0.1f);
         
-
-        //吹き飛び
-        if (Air)
-        {
-            //吹き飛ぶ方向
-            Vector3 Throwpos2 = -this.transform.forward;
-            Throwpos2.y = BlowHigh;
-
-            //吹き飛ぶ力　追加
-            rb.AddForce(Throwpos2 * BlowPower, ForceMode.Force);
-        }
-
-        //ピラニア　設定最高高度　制限（設定した高さ　超えない）
-        if (BlowHigh < this.transform.position.y)
-        {
-            rb.useGravity = true;
-            Air = false;
-        }
-
         //移動可能か（イカダの上）
         if (MoveActive && cooltime < 0)
         {
@@ -118,7 +95,7 @@ public class PiranhaScript : MonoBehaviour
         }
 
         //イカダ着地後    移動制限（イカダから落ちない）
-        if(onePlay)
+        if(onePlay&&MoveActive)
         {
             //イカダから落ちないようにする処理
             Vector3 Pos = new Vector3(this.transform.localPosition.x, this.transform.localPosition.y, this.transform.localPosition.z);
@@ -146,54 +123,23 @@ public class PiranhaScript : MonoBehaviour
             //位置修正
             transform.localPosition = Pos;
         }
+
+        if (this.transform.localPosition.y < -4.0f)
+        {
+            //ピラニア削除
+            Destroy(this.gameObject);
+        }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        ////人間とぶつかる
-        //if (other.tag == "Human" && MoveActive)
-        //{
-        //    //プレイヤーのHP減少
-        //    bool sts = PlayerStatus.DamageHP(ATK,false);
 
-        //    //  無敵時間外にプレイヤーに当たったら吹っ飛ばす
-        //    if (sts)
-        //    {
-        //        //プレイヤー向きをピラニアに(Z正面)
-        //        other.transform.LookAt(this.transform.position);
-        //        other.transform.rotation = new Quaternion(0, other.transform.rotation.y, 0, other.transform.rotation.w);
-
-        //        //上に吹き飛ばす
-        //        Vector3 Throwpos = this.transform.forward;
-        //        Throwpos.y = this.transform.position.y + 3;
-
-        //        //プレイヤー速度　初期化
-        //        PlayerRb.velocity *= 0;
-
-        //        //吹き飛ぶ力　追加
-        //        PlayerRb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
-        //    }
-
-        //    //吹き飛ぶ方向
-        //    Vector3 Throwpos2 = -this.transform.forward;
-        //    Throwpos2.y = BlowHigh;
-
-        //    //吹き飛ぶ力　追加
-        //    rb.AddForce(Throwpos2 * BlowPower, ForceMode.Impulse);
-
-        //    //移動不可能
-        //    cooltime = 3;
-        //    MoveActive = false;
-        //    Air = true;
-        //}
     }
 
     private void OnCollisionStay(Collision other)
     {
         if (other.gameObject.tag == "Human"&&MoveActive)
         {
-            Debug.Log("dddddddddd");
-
             //プレイヤーのHP減少
             bool sts = PlayerStatus.DamageHP(ATK, false);
 
@@ -212,7 +158,7 @@ public class PiranhaScript : MonoBehaviour
                 PlayerRb.velocity *= 0;
 
                 //吹き飛ぶ力　追加
-                PlayerRb.AddForce(Throwpos * BlowPower, ForceMode.Impulse);
+                PlayerRb.AddForce(Throwpos * P_BlowPower, ForceMode.Force);
             }
 
             //吹き飛ぶ方向
@@ -220,12 +166,11 @@ public class PiranhaScript : MonoBehaviour
             Throwpos2.y = BlowHigh;
 
             //吹き飛ぶ力　追加
-            rb.AddForce(Throwpos2 * BlowPower, ForceMode.Impulse);
+            rb.AddForce(Throwpos2 * BlowPower, ForceMode.Force);
 
             //移動不可能
             cooltime = 3;
             MoveActive = false;
-            Air = true;
         }
     }
 
@@ -245,27 +190,29 @@ public class PiranhaScript : MonoBehaviour
                 //イカダを親オブジェクトに設定
                 this.transform.SetParent(PlayerObj.transform.parent, true);
 
-                //イカダの上の座標　取得
-                Savepos = this.transform.position.y;
+                //ピラニア　最高高度　設定
                 BlowHigh += this.transform.localPosition.y;
             }
 
             //移動停止時間（着地硬直状態）
             cooltime = 1.0f;
-
-            //重力停止
-            rb.useGravity = false;
             rb.velocity = new Vector3(0, 0, 0);
-
-            //イカダ　めりこまない処理
-            Vector3 pos = this.transform.position;
-            pos.y = Savepos;
-            this.transform.position = pos;
 
             //移動可能に
             MoveActive = true;
+        }
+        
+        //イカダの上で魚とぶつかった時
+        if ((other.gameObject.tag == "RidePiranha" || other.gameObject.tag == "RideFish")&&MoveActive==false)
+        {
+            rb.velocity = new Vector3(0, 0, 0);
 
-            Debug.Log("Ride");
+            //吹き飛ぶ方向
+            Vector3 Throwpos2 = -this.transform.forward;
+            Throwpos2.y = BlowHigh;
+
+            //吹き飛ぶ力　追加
+            rb.AddForce(Throwpos2 * BoundPower, ForceMode.Force);
         }
     }
 

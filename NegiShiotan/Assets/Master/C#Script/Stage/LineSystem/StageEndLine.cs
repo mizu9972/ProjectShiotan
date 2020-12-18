@@ -25,6 +25,22 @@ public class StageEndLine : MonoBehaviour
         }
     }
 
+    //魚　削除
+    private void OnTriggerStay(Collider other)
+    {
+        //クリアライン超えたとき
+        if (other.gameObject.tag == "Piranha" || other.gameObject.tag == "Pillarc" || other.gameObject.tag == "RidePiranha"|| other.gameObject.tag == "RideFish")
+        {
+            Destroy(other.gameObject);
+        }
+
+        //プレイヤー（イカダ）　ゴールライン通過時
+        if (other.gameObject.tag == "Player")
+        {
+            other.GetComponent<RaftMove>().SetGoal();
+        }
+    }
+
     //ステージエンドラインにPlayerPointが到達したらゲームマネージャーへ通知する
     private void EndLine()
     {
