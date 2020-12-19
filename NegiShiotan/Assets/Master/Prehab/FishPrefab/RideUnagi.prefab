@@ -91,7 +91,7 @@ Transform:
   m_GameObject: {fileID: 1939340166050730239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children:
   - {fileID: 1565995291333649032}
   - {fileID: 3752827084197289132}
@@ -145,8 +145,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.03, y: 0.03, z: 0.16}
-  m_Center: {x: -0.001, y: 0.05, z: -0.03}
+  m_Size: {x: 0.03, y: 0.03, z: 0.06}
+  m_Center: {x: -0.001, y: 0.055, z: 0.01}
 --- !u!114 &3406271847246930674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,8 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f144bb139fb4b4eb860e8a93923f8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlowHigh: 4
-  BlowPower: 20
+  BlowHigh: 2
+  BlowPower: 40
   BoundPower: 40
   ELEEfect: {fileID: 347400385876463705}
   ELECoolTime: 3
@@ -564,7 +564,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3.4
+  m_Radius: 2.3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1200843873
 MonoBehaviour:
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ELEBlowHigh: 1
-  ELEBlowPower: 50
+  ELEBlowPower: 40
   ELEATK: 1
 --- !u!1 &5693533808832915780
 GameObject:
@@ -798,7 +798,7 @@ PrefabInstance:
     - target: {fileID: 347400383960550602, guid: f8e02b9bbed4c6149a977793f1f4254a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 347400383960550603, guid: f8e02b9bbed4c6149a977793f1f4254a,
         type: 3}
@@ -813,7 +813,7 @@ PrefabInstance:
     - target: {fileID: 347400383960550603, guid: f8e02b9bbed4c6149a977793f1f4254a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0093
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 347400383960550603, guid: f8e02b9bbed4c6149a977793f1f4254a,
         type: 3}
@@ -913,17 +913,27 @@ PrefabInstance:
     - target: {fileID: 2928069882020056625, guid: f8e02b9bbed4c6149a977793f1f4254a,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 0.35807768
       objectReference: {fileID: 0}
     - target: {fileID: 2928069882020056625, guid: f8e02b9bbed4c6149a977793f1f4254a,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.35807768
       objectReference: {fileID: 0}
     - target: {fileID: 2928069882020056625, guid: f8e02b9bbed4c6149a977793f1f4254a,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 0.35807768
+      objectReference: {fileID: 0}
+    - target: {fileID: 2928069882020056625, guid: f8e02b9bbed4c6149a977793f1f4254a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.000000029802
+      objectReference: {fileID: 0}
+    - target: {fileID: 2928069882020056625, guid: f8e02b9bbed4c6149a977793f1f4254a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.6e-14
       objectReference: {fileID: 0}
     - target: {fileID: 5646828977333957975, guid: f8e02b9bbed4c6149a977793f1f4254a,
         type: 3}
