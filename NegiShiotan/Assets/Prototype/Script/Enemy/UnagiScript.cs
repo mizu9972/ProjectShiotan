@@ -8,6 +8,9 @@ public class UnagiScript : MonoBehaviour
     private Rigidbody rb;           //Rigidbodyコンポーネントを入れる変数"rb"を宣言する
     private BoxCollider bc;         //BoxColliderコンポーネントを入れる変数"bc"を宣言する
 
+    [Header("着地後　当たり判定　中心地点")] public Vector3 BoxCenter = new Vector3(-0.001f, 0.05f, 0);
+    [Header("着地後　当たり判定　サイズ")] public Vector3 BoxSize = new Vector3(0.06f, 0.03f, 0.06f);
+
     [Header("ウナギ　吹き飛ぶ高さ")] public float BlowHigh;
     [Header("ウナギ　吹き飛ぶ力")] public float BlowPower;
     [Header("ウナギ　跳ねる力")] public float BoundPower;
@@ -18,7 +21,7 @@ public class UnagiScript : MonoBehaviour
 
     [Header("電撃のクールタイム　吹っ飛び時指定時間カウントしない")] public float NotCoolCountTime = 5;
     private float NotCountTime=0;
-
+    
     //電気放出中か
     private bool ELEEnable;
     [SerializeField]private float ELETime;  //何秒電気放出したか
@@ -101,8 +104,8 @@ public class UnagiScript : MonoBehaviour
         if (onePlay && transform.localPosition.y > 0)
         {
             onePlay = false;
-            bc.center = new Vector3(-0.001f, 0.05f, 0);
-            bc.size = new Vector3(0.06f, 0.03f, 0.06f);
+            bc.center = BoxCenter;
+            bc.size = BoxSize;
         }
     }
 

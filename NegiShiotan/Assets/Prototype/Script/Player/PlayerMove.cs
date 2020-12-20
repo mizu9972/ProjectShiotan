@@ -263,22 +263,25 @@ public class PlayerMove : MonoBehaviour
         }
 
         //攻撃コライダー　アクティブ化
-        if (Input.GetKeyDown(KeyCode.Space) && _Attack == false)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
         {
-            // Wait or RunからAttackに遷移する
-            this._animator.SetBool(key_isAttack, true);
-            this._animator.SetBool(key_isRun, false);
-            this._animator.SetBool(key_isKokeru, false);
+            if (_Attack == false)
+            {
+                // Wait or RunからAttackに遷移する
+                this._animator.SetBool(key_isAttack, true);
+                this._animator.SetBool(key_isRun, false);
+                this._animator.SetBool(key_isKokeru, false);
 
-            //アニメーション最初から再生
-            _animator.Play("Attack", 0, Atk_StartTime);
+                //アニメーション最初から再生
+                _animator.Play("Attack", 0, Atk_StartTime);
 
-            //アニメーション　再生スピード　変更
-            _animator.speed = AttackSpeed;
+                //アニメーション　再生スピード　変更
+                _animator.speed = AttackSpeed;
 
-            AttackCollider.SetActive(true); //攻撃用コライダー　アクティブ化
-            AttackEffect.SetActive(true);        //攻撃エフェクト　アクティブ化
-            _Attack = true;
+                AttackCollider.SetActive(true); //攻撃用コライダー　アクティブ化
+                AttackEffect.SetActive(true);        //攻撃エフェクト　アクティブ化
+                _Attack = true;
+            }
         }
     }
 
