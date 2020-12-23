@@ -157,4 +157,6 @@ public class PlayerCamera : MonoBehaviour
         MyPos.position = workpos;
         Debug.Log("補正");
     }
+
+
 }

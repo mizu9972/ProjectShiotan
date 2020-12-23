@@ -25,6 +25,9 @@ public class ClearManager : MonoBehaviour
     //初期のカメラ座標
     private Vector3 defaultPosition;
     private Vector3 defaultRotate;
+
+    private PlayerMove clear;
+
     private void Awake()
     {
         if(ResultCanvas == null)
@@ -41,6 +44,16 @@ public class ClearManager : MonoBehaviour
         mainCamera = Camera.main;
         defaultPosition = mainCamera.transform.position;
         defaultRotate = mainCamera.transform.rotation.eulerAngles;
+
+        clear = GameObject.FindGameObjectWithTag("Human").GetComponent<PlayerMove>();
+    }
+
+    private void Update()
+    {
+        if(Camera.main.transform.localPosition==cameraPosition)
+        {
+            clear.SetZoomC();
+        }
     }
 
     //クリア演出
@@ -65,6 +78,9 @@ public class ClearManager : MonoBehaviour
     //クリア演出再生
     private void PlayDirecting()
     {
+        //カメラ追跡処理　停止
+        Camera.main.GetComponent<PlayerCamera>().enabled = false;
+
         //プレイヤーアニメーション開始
 
         //クリア画像表示

@@ -7,6 +7,8 @@ public class FallStartLine : MonoBehaviour
     [SerializeField, Header("落下地点のPlane")]
     private GameObject FallEndPlane = null;
 
+    private SplashControl m_SplashControl = null;
+
     //落下地点のY座標
     float m_FallEndPositionY;
     //コンベアシステムオブジェクト
@@ -16,6 +18,7 @@ public class FallStartLine : MonoBehaviour
     void Start()
     {
         m_StageConveyor = GameObject.FindGameObjectWithTag("StageConveyor");
+        m_SplashControl = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<SplashControl>();
 
         if(FallEndPlane == null)
         {
@@ -38,6 +41,7 @@ public class FallStartLine : MonoBehaviour
     //FallStartLineにPlayerPointが到達したらコンベアシステムに通知する
     private void FallLine()
     {
+        m_SplashControl.isActive = false;//滝から落ちる時にイカダのエフェクトを消す
         var FallLineSyatem_ = m_StageConveyor.GetComponent<IStageConveyorSystem>();
         if(FallLineSyatem_ != null)
         {

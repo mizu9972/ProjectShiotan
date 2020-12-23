@@ -104,21 +104,17 @@ public class Status : MonoBehaviour
     //プレイヤー　ダメージ計算
     public bool DamageHP(int Damage,bool ac)
     {
-        //すぐに倒れるか
-        if (ac)
-        {
-            P_MoveScript.SetKokeru();
-        }
-        else
-        {
-            P_MoveScript.SetBlow();
-        }
-
         //無敵時間　以外　ダメージ受ける
         if (MutekiTime <= 0)
         {
+            //すぐに倒れるか
+            if (ac)
+            {
+                P_MoveScript.SetKokeru();
+            }
+
             HP -= Damage;
-            MutekiTime = SetMutekiTime; //無敵時間　セット
+            MutekiTime = SetMutekiTime; //無敵時間　セット\
 
             //体力・残機
             //０になった時

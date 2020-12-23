@@ -12,17 +12,14 @@ public class PlayerMove : MonoBehaviour
     [Header("攻撃のためのコライダー")]
     public GameObject AttackCollider;
 
+    [Header("攻撃時のエフェクト")]
+    public GameObject AttackEffect;
+
     [SerializeField, Header("イカダのどの位置にいるか")]
     private Vector2 OnRaftPosition;//イカダのどの位置にいるか
 
     [Header("回転の度合い")]
     public float ang;
-
-    [Header("吹っ飛ぶ速さ")]
-    public float BlowSpeed;
-
-    [Header("吹き飛ぶ高さ")]
-    public float BlowHigh;
 
     [SerializeField, Header("アニメーション基本の再生スピード")]
     private float AnimeSpeed = 1;
@@ -43,13 +40,11 @@ public class PlayerMove : MonoBehaviour
     public float Atk_EndTime;
 
     //基本Y座標　保存
-    [SerializeField, Header("イカダ着地高度")]
-    private float Savepos;
+    [SerializeField, Header("プレイヤー最高高度")]
+    private Vector3 Savepos;
     
     private bool _Attack;   //攻撃状態
     private bool _Kokeru;   //ダメージ受けてこけるアニメーション状態か
-    private bool _JumpKoke;
-    [SerializeField, Header("吹き飛び中か")]
     private bool _Blow;     //吹き飛び中か
 
     // Animator コンポーネント
@@ -65,10 +60,13 @@ public class PlayerMove : MonoBehaviour
 
     //立ち上がったか？
     private bool _Stand;
-
-    //ゴールしたか
-    private bool _Goal;
-
+    
+    private bool _Goal;     //ゴールしたか
+    private bool _Ikada;    //イカダ中心に移動したか
+    private bool _ZoomC;   //カメラズーム完了したか
+    
+    [SerializeField, Header("中心に戻る速度")]
+    public float GoalSpeed = 1;
 
 
     // Start is called before the first frame update
@@ -76,20 +74,19 @@ public class PlayerMove : MonoBehaviour
     {
         // 自分に設定されているAnimatorコンポーネントを習得する
         this._animator = GetComponent<Animator>();
+        
+        Savepos = transform.localPosition;    //基本Y座標　保存
+        rb = this.GetComponent<Rigidbody>();  //Rigidbody　取得
+        AttackCollider.SetActive(false);      //攻撃コライダー　非アクティブ
+        AttackEffect.SetActive(false);        //攻撃エフェクト　非アクティブ
 
-        //プレイヤー　最高高度　設定
-        BlowHigh = BlowHigh + this.transform.localPosition.y;
-        
-        Savepos = transform.localPosition.y;         //基本Y座標　保存
-        rb = this.GetComponent<Rigidbody>();    //Rigidbody　取得
-        AttackCollider.SetActive(false);        //攻撃コライダー　非アクティブ
-        
         _Attack = false;
         _Kokeru = false;
-        _JumpKoke = false;
         _Stand = true;
         _Goal = false;
-        _Blow = true;
+        _Ikada = false;
+        _ZoomC = false;
+        _Blow = false;
     }
 
     // Update is called once per frame
@@ -105,7 +102,7 @@ public class PlayerMove : MonoBehaviour
                 if (_Attack == false)
                 {
                     //吹き飛び中でない
-                    if(_Blow)
+                    if(_Blow == false)
                     {
                         //移動・アクティブ処理
                         MoveFunc();
@@ -121,6 +118,7 @@ public class PlayerMove : MonoBehaviour
                     this._animator.SetBool(key_isKokeru, false);
 
                     AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
+                    AttackEffect.SetActive(false);        //攻撃エフェクト　非アクティブ化
                 }
             }
             else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
@@ -132,6 +130,9 @@ public class PlayerMove : MonoBehaviour
 
                     //アニメーション　再生スピード　変更
                     _animator.speed = StandUpSpeed;
+
+                    //立ち上がりアニメーション　初めから再生
+                    _animator.Play("StandUp", 0, 0.0f);
                 }
                 else
                 {
@@ -139,80 +140,43 @@ public class PlayerMove : MonoBehaviour
                     _Kokeru = false;
                     _Attack = false;
                     _Stand = true;
-                    _Blow = true;
+                    _Blow = false;
                     this._animator.SetBool(key_isAttack, false);
                     this._animator.SetBool(key_isRun, false);
                     this._animator.SetBool(key_isKokeru, false);
                 }
             }
-
-            //イカダに着地
-            if (Savepos > transform.localPosition.y)
-            {
-                //重力　停止
-                rb.useGravity = false;
-                rb.velocity = new Vector3(0, 0, 0);
-
-                //イカダにめりこまない
-                Vector3 pos = this.transform.localPosition;
-                pos.y = Savepos;
-                this.transform.localPosition = pos;
-
-                //攻撃くらったか
-                if (_JumpKoke)
-                {
-                    _JumpKoke = false;
-                    SetKokeru();
-                }
-            }
-
-            //設定した高さまで飛んだ
-            if (BlowHigh < this.transform.localPosition.y)
-            {
-                rb.useGravity = true;
-                _JumpKoke = true;   //イカダ着地時　こける
-            }
-
+            
             //イカダからはみ出さない処理
             MoveLimit();
         }
         else
         {
-            //回転の度合い
-            float step = ang * Time.deltaTime;
+            float step = GoalSpeed * Time.deltaTime;
 
-            //ゴール後　イカダ中心に向かって移動
-            float LR=0;
-            float CB=0;
-
-            if (transform.localPosition.x < 0)
-            {
-                CB = -Speed*Time.deltaTime;
-            }
-
-            if (transform.localPosition.x > 0)
-            {
-                CB = Speed * Time.deltaTime;
-            }
-
-            if (transform.localPosition.y < 0)
-            {
-                LR = -Speed * Time.deltaTime;
-            }
-
-            if (transform.localPosition.y > 0)
-            {
-                LR = Speed * Time.deltaTime;
-            }
-
-            //プレイヤーの位置に入力の値足す
-            Vector3 targetPositon = new Vector3(transform.position.x + LR, transform.position.y, transform.position.z + CB);
-
+            //プレイヤーの移動の値足す
+            Vector3 targetPositon = Vector3.MoveTowards(transform.localPosition, Savepos, step);
+            
             //進行方向に回転していく
             Quaternion targetRotation = Quaternion.LookRotation(targetPositon - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step*3);
 
-            transform.position = targetPositon;
+            transform.localPosition = targetPositon;
+
+            //中心に移動
+            if ( transform.localPosition == Savepos)
+            {
+                this._animator.SetBool(key_isAttack, false);
+                this._animator.SetBool(key_isRun, false);
+                this._animator.SetBool(key_isKokeru, false);
+
+                //カメラズーム終了　＆　イカダ中心に移動
+                if(_ZoomC&&_Ikada)
+                {
+                    _animator.Play("Clear", 0, 0.0f);
+                    this.enabled = false;
+                }
+            }
         }
     }
 
@@ -235,6 +199,9 @@ public class PlayerMove : MonoBehaviour
         //コントローラー入力しているとき
         if (h != 0 || v != 0)
         {
+            // WaitからRunに遷移する
+            this._animator.SetBool(key_isRun, true);
+
             //プレイヤーの位置に入力の値足す
             Vector3 targetPositon = new Vector3(transform.position.x + (v * Speed * Time.deltaTime), transform.position.y, transform.position.z - (h * Speed * Time.deltaTime));
 
@@ -243,9 +210,6 @@ public class PlayerMove : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step);
 
             transform.position = targetPositon;
-
-            // WaitからRunに遷移する
-            this._animator.SetBool(key_isRun, true);
         }
         else
         {
@@ -299,21 +263,25 @@ public class PlayerMove : MonoBehaviour
         }
 
         //攻撃コライダー　アクティブ化
-        if (Input.GetKeyDown(KeyCode.Space) && _Attack == false)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
         {
-            // Wait or RunからAttackに遷移する
-            this._animator.SetBool(key_isAttack, true);
-            this._animator.SetBool(key_isRun, false);
-            this._animator.SetBool(key_isKokeru, false);
+            if (_Attack == false)
+            {
+                // Wait or RunからAttackに遷移する
+                this._animator.SetBool(key_isAttack, true);
+                this._animator.SetBool(key_isRun, false);
+                this._animator.SetBool(key_isKokeru, false);
 
-            //アニメーション最初から再生
-            _animator.Play("Attack", 0, Atk_StartTime);
+                //アニメーション最初から再生
+                _animator.Play("Attack", 0, Atk_StartTime);
 
-            //アニメーション　再生スピード　変更
-            _animator.speed = AttackSpeed;
+                //アニメーション　再生スピード　変更
+                _animator.speed = AttackSpeed;
 
-            AttackCollider.SetActive(true); //攻撃用コライダー　アクティブ化
-            _Attack = true;
+                AttackCollider.SetActive(true); //攻撃用コライダー　アクティブ化
+                AttackEffect.SetActive(true);        //攻撃エフェクト　アクティブ化
+                _Attack = true;
+            }
         }
     }
 
@@ -373,40 +341,51 @@ public class PlayerMove : MonoBehaviour
         //イカダのどこにいるかをセット
         OnRaftPosition = pos;
     }
+    
 
-    public void SetBlow()
+    public void SetGoal()
     {
-        _Blow = false;
+        _Goal= true;
+        rb.useGravity = false;
+        rb.isKinematic = true;
+    }
+
+    public void SetZoomC()
+    {
+        _ZoomC= true;
+    }
+
+    public void SetIkada()
+    {
+        _Ikada= true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
-        {
 
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        //クリアライン超えたとき
-        if (other.gameObject.tag == "ClearLine")
-        {
-            _Goal = true;
-        }
     }
 
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "IkadaMoveLimit")
+        //イカダに着地
+        if (other.gameObject.tag == "Player")
         {
-            //rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            //攻撃くらったか
+            if (_Blow && _Kokeru == false)
+            {
+                SetKokeru();
+            }
         }
 
     }
 
-    private void OnCollisionStay(Collision other)
+    private void OnCollisionExit(Collision other)
     {
+        //上昇した（上に吹き飛ばされた）
+        if (other.gameObject.tag == "Player")
+        {
+            _Blow = true;   //イカダ着地時　こける
+        }
     }
 }

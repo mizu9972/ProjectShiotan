@@ -10,14 +10,17 @@ public class JumpScript : MonoBehaviour
     //生成オブジェクト：ピラルク
     public GameObject piraruku;
 
+    //生成オブジェクト：ウナギ
+    public GameObject unagi;
+
     //生成位置
     Transform savepos;
 
 
-    [Header("ピラニア　進む力")]
+    [Header("魚　進む力")]
     public float JumpPower ;
 
-    [Header("ピラニア　飛ぶ高さ")]
+    [Header("魚　飛ぶ高さ")]
     public float JumpRange;
 
     // Start is called before the first frame update
@@ -72,6 +75,25 @@ public class JumpScript : MonoBehaviour
 
             Vector3 Throwpos = this.transform.position;
             Throwpos.y = this.transform.position.y + JumpRange/3;
+
+            //円　中心向かせる
+            bulletInstance.transform.LookAt(Throwpos);
+
+            //エフェクト再生
+            //bulletInstance.GetComponent<PiranhaScript>().EffectPlay();
+            //向いた方向に　飛ばす
+            bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * JumpPower, ForceMode.Impulse);
+        }
+
+        //ウナギ
+        if (other.tag == "Unagi")
+        {
+            savepos = other.transform;
+            Destroy(other.gameObject);
+            GameObject bulletInstance = (GameObject)Instantiate(unagi, savepos.position, this.transform.rotation);
+
+            Vector3 Throwpos = this.transform.position;
+            Throwpos.y = this.transform.position.y + JumpRange / 3;
 
             //円　中心向かせる
             bulletInstance.transform.LookAt(Throwpos);
