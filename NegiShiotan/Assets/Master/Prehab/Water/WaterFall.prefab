@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327410582447717153}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.9488277, y: 9.127598, z: -3.887167}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
@@ -92,9 +92,9 @@ VisualEffect:
       - m_Value: {x: 0, y: 135.19, z: 1}
         m_Name: Wind Direction_direction
         m_Overridden: 1
-      - m_Value: {x: 1, y: 1, z: 1}
+      - m_Value: {x: 100, y: 100, z: 100}
         m_Name: Effect Bounds_size
-        m_Overridden: 0
+        m_Overridden: 1
       - m_Value: {x: 0, y: -0.53, z: 1}
         m_Name: Up Vector_direction
         m_Overridden: 1
@@ -194,6 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1ab240829c8be146970d404099669a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Quality: 1
   OnPlay: 1
   DontDestroy: 0
 --- !u!73398921 &2245516951171529999
