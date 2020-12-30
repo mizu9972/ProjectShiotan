@@ -33,17 +33,11 @@ public class Status : MonoBehaviour
 
     private PlayerMove P_MoveScript;    //プレイヤー　倒れるアニメーション設定用
 
-    //ゲームオーバー用オブジェクト
-    private GameOverManager m_GameOverManager = null;
-
-
-
     // Start is called before the first frame update
     void Start()
     {
         HP = MAXHP;
 
-        m_GameOverManager = GameObject.FindWithTag("GameOverManager").GetComponent<GameOverManager>();
         P_MoveScript= GameObject.FindWithTag("Human").GetComponent<PlayerMove>();
 
         //イカダ端　位置セット
@@ -116,13 +110,9 @@ public class Status : MonoBehaviour
                 //残機によって復活可能なら
                 if (Zanki > 0)
                 {
-                    //演出
-                    //m_GameOverManager.HPGameOverFunction();
-
-                    //ResetHP();
+                    //HP0以下　倒れる＆起き上がる演出
+                    P_MoveScript.SetLive(1);
                 }
-
-                P_MoveScript.SetLive();
 
                 //残機減少
                 DownZanki(1);
@@ -170,7 +160,8 @@ public class Status : MonoBehaviour
         //残機がゼロになったら
         if (Zanki < 0)
         {
-            m_GameOverManager.ZankiGameOverFunction();
+            //HP0以下　倒れる演出
+            P_MoveScript.SetLive(2);
         }
     }
 

@@ -47,7 +47,7 @@ public class PlayerMove : MonoBehaviour
     private bool _Kokeru;   //ダメージ受けてこけるアニメーション状態か
     private bool _Blow;     //吹き飛び中か
     private bool _Over;     //HP0以下か
-    private bool _Live;     //HP0から復活
+    private int _Live;     //HP0から復活
 
     // Animator コンポーネント
     private Animator _animator;
@@ -94,7 +94,7 @@ public class PlayerMove : MonoBehaviour
         _ZoomC = false;
         _Blow = false;
         _Over = true;
-        _Live = true;
+        _Live = 0;
     }
 
     // Update is called once per frame
@@ -176,7 +176,7 @@ public class PlayerMove : MonoBehaviour
                     _Stand = true;
                     _Blow = false;
                     _Over = true;
-                    _Live = true;
+                    _Live = 0;
                     this._animator.SetBool(key_isAttack, false);
                     this._animator.SetBool(key_isRun, false);
                     this._animator.SetBool(key_isKokeru, false);
@@ -379,12 +379,12 @@ public class PlayerMove : MonoBehaviour
         this._animator.SetBool(key_isKokeru, true);
         AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
         _Attack = false;
-        Debug.Log("over");
     }
 
-    public void SetLive()
+    public void SetLive(int num)
     {
         _Over = false;
+        _Live = num;
     }
 
     //イカダの幅　取得
@@ -434,17 +434,26 @@ public class PlayerMove : MonoBehaviour
                 SetKokeru();
             }
         }
-
     }
 
     private void OnCollisionStay(Collision other)
     {
-        if (_Over == false && _Live)
+        if (_Over == false && _Live!=0)
         {
             SetCollapse();
-            _Live = false;
-            //演出
-            m_GameOverManager.HPGameOverFunction();
+
+            if(_Live==1)
+            {
+                //HP0以下　倒れる＆起き上がる演出
+                m_GameOverManager.HPGameOverFunction();
+            }
+            else
+            {
+                //HP0以下　倒れる演出
+                m_GameOverManager.ZankiGameOverFunction();
+            }
+
+            _Live = 0;
         }
     }
     private void OnCollisionExit(Collision other)
