@@ -46,6 +46,7 @@ public class PlayerMove : MonoBehaviour
     private bool _Attack;   //攻撃状態
     private bool _Kokeru;   //ダメージ受けてこけるアニメーション状態か
     private bool _Blow;     //吹き飛び中か
+    private bool _Live;     //残機存在するか
 
     // Animator コンポーネント
     private Animator _animator;
@@ -68,6 +69,9 @@ public class PlayerMove : MonoBehaviour
     [SerializeField, Header("中心に戻る速度")]
     public float GoalSpeed = 1;
 
+    //ゲームオーバー用オブジェクト
+    private GameOverManager m_GameOverManager = null;
+
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +83,7 @@ public class PlayerMove : MonoBehaviour
         rb = this.GetComponent<Rigidbody>();  //Rigidbody　取得
         AttackCollider.SetActive(false);      //攻撃コライダー　非アクティブ
         AttackEffect.SetActive(false);        //攻撃エフェクト　非アクティブ
+        m_GameOverManager = GameObject.FindWithTag("GameOverManager").GetComponent<GameOverManager>();
 
         _Attack = false;
         _Kokeru = false;
@@ -87,6 +92,7 @@ public class PlayerMove : MonoBehaviour
         _Ikada = false;
         _ZoomC = false;
         _Blow = false;
+        _Live = true;
     }
 
     // Update is called once per frame
@@ -95,30 +101,59 @@ public class PlayerMove : MonoBehaviour
         //ゴールしていない時　操作可能
         if (_Goal == false)
         {
-            //倒れている状態か
-            if (_Kokeru == false)
+            //HPなくなった時
+            if (_Live)
             {
-                //攻撃していない状態か
-                if (_Attack == false)
+                //倒れている状態か
+                if (_Kokeru == false)
                 {
-                    //吹き飛び中でない
-                    if(_Blow == false)
+                    //攻撃していない状態か
+                    if (_Attack == false)
                     {
-                        //移動・アクティブ処理
-                        MoveFunc();
+                        //吹き飛び中でない
+                        if (_Blow == false)
+                        {
+                            //移動・アクティブ処理
+                            MoveFunc();
+                        }
+                    }
+                    else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > Atk_EndTime)
+                    {
+                        //アニメーション終了
+                        _Kokeru = false;
+                        _Attack = false;
+                        this._animator.SetBool(key_isAttack, false);
+                        this._animator.SetBool(key_isRun, false);
+                        this._animator.SetBool(key_isKokeru, false);
+
+                        AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
+                        AttackEffect.SetActive(false);        //攻撃エフェクト　非アクティブ化
                     }
                 }
-                else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > Atk_EndTime)
+                else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
                 {
-                    //アニメーション終了
-                    _Kokeru = false;
-                    _Attack = false;
-                    this._animator.SetBool(key_isAttack, false);
-                    this._animator.SetBool(key_isRun, false);
-                    this._animator.SetBool(key_isKokeru, false);
+                    //立ち上がりしているか
+                    if (_Stand)
+                    {
+                        _Stand = false;
 
-                    AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
-                    AttackEffect.SetActive(false);        //攻撃エフェクト　非アクティブ化
+                        //アニメーション　再生スピード　変更
+                        _animator.speed = StandUpSpeed;
+
+                        //立ち上がりアニメーション　初めから再生
+                        _animator.Play("StandUp", 0, 0.0f);
+                    }
+                    else
+                    {
+                        //アニメーション終了
+                        _Kokeru = false;
+                        _Attack = false;
+                        _Stand = true;
+                        _Blow = false;
+                        this._animator.SetBool(key_isAttack, false);
+                        this._animator.SetBool(key_isRun, false);
+                        this._animator.SetBool(key_isKokeru, false);
+                    }
                 }
             }
             else if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
@@ -132,7 +167,7 @@ public class PlayerMove : MonoBehaviour
                     _animator.speed = StandUpSpeed;
 
                     //立ち上がりアニメーション　初めから再生
-                    _animator.Play("StandUp", 0, 0.0f);
+                    _animator.Play("Return", 0, 0.0f);
                 }
                 else
                 {
@@ -141,12 +176,13 @@ public class PlayerMove : MonoBehaviour
                     _Attack = false;
                     _Stand = true;
                     _Blow = false;
+                    _Live = true;
                     this._animator.SetBool(key_isAttack, false);
                     this._animator.SetBool(key_isRun, false);
                     this._animator.SetBool(key_isKokeru, false);
                 }
             }
-            
+
             //イカダからはみ出さない処理
             MoveLimit();
         }
@@ -330,6 +366,29 @@ public class PlayerMove : MonoBehaviour
         _Kokeru = true;
     }
 
+    //倒れるアニメーション　セット
+    public void SetCollapse()
+    {
+        //演出
+        m_GameOverManager.HPGameOverFunction();
+
+        //アニメーション　再生スピード　変更
+        _animator.speed = KokeruSpeed;
+
+        //アニメーション最初から再生
+        _animator.Play("GameOver", 0, 0.0f);
+        this._animator.SetBool(key_isAttack, false);
+        this._animator.SetBool(key_isRun, false);
+        this._animator.SetBool(key_isKokeru, true);
+        AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
+        _Attack = false;
+    }
+
+    public void SetLive()
+    {
+        _Live = false;
+    }
+
     //イカダの幅　取得
     public void SetIkadaWidth(float hasi)
     {
@@ -376,6 +435,12 @@ public class PlayerMove : MonoBehaviour
             {
                 SetKokeru();
             }
+
+            if(_Live == false)
+            {
+                SetCollapse();
+            }
+            
         }
 
     }

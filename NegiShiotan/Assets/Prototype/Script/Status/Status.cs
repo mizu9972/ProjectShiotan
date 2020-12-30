@@ -64,8 +64,6 @@ public class Status : MonoBehaviour
         {
             MutekiTime -= 0.1f;
         }
-
-
     }
 
     public float GetIkadaWidth()
@@ -99,6 +97,7 @@ public class Status : MonoBehaviour
     public void ResetHP()
     {
         HP = MAXHP;
+        MutekiTime = SetMutekiTime; //無敵時間　セット
     }
 
     //プレイヤー　ダメージ計算
@@ -114,7 +113,7 @@ public class Status : MonoBehaviour
             }
 
             HP -= Damage;
-            MutekiTime = SetMutekiTime; //無敵時間　セット\
+            MutekiTime = SetMutekiTime; //無敵時間　セット
 
             //体力・残機
             //０になった時
@@ -124,7 +123,9 @@ public class Status : MonoBehaviour
                 if (Zanki > 0)
                 {
                     //演出
-                    m_GameOverManager.HPGameOverFunction();
+                    //m_GameOverManager.HPGameOverFunction();
+
+                    P_MoveScript.SetLive();
                 }
 
                 //残機減少
