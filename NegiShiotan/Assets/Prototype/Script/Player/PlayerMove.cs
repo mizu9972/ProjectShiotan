@@ -42,11 +42,12 @@ public class PlayerMove : MonoBehaviour
     //基本Y座標　保存
     [SerializeField, Header("プレイヤー最高高度")]
     private Vector3 Savepos;
-    
+
     private bool _Attack;   //攻撃状態
     private bool _Kokeru;   //ダメージ受けてこけるアニメーション状態か
     private bool _Blow;     //吹き飛び中か
-    private bool _Live;     //残機存在するか
+    private bool _Over;     //HP0以下か
+    private bool _Live;     //HP0から復活
 
     // Animator コンポーネント
     private Animator _animator;
@@ -61,11 +62,11 @@ public class PlayerMove : MonoBehaviour
 
     //立ち上がったか？
     private bool _Stand;
-    
+
     private bool _Goal;     //ゴールしたか
     private bool _Ikada;    //イカダ中心に移動したか
     private bool _ZoomC;   //カメラズーム完了したか
-    
+
     [SerializeField, Header("中心に戻る速度")]
     public float GoalSpeed = 1;
 
@@ -78,7 +79,7 @@ public class PlayerMove : MonoBehaviour
     {
         // 自分に設定されているAnimatorコンポーネントを習得する
         this._animator = GetComponent<Animator>();
-        
+
         Savepos = transform.localPosition;    //基本Y座標　保存
         rb = this.GetComponent<Rigidbody>();  //Rigidbody　取得
         AttackCollider.SetActive(false);      //攻撃コライダー　非アクティブ
@@ -92,6 +93,7 @@ public class PlayerMove : MonoBehaviour
         _Ikada = false;
         _ZoomC = false;
         _Blow = false;
+        _Over = true;
         _Live = true;
     }
 
@@ -102,7 +104,7 @@ public class PlayerMove : MonoBehaviour
         if (_Goal == false)
         {
             //HPなくなった時
-            if (_Live)
+            if (_Over)
             {
                 //倒れている状態か
                 if (_Kokeru == false)
@@ -162,12 +164,9 @@ public class PlayerMove : MonoBehaviour
                 if (_Stand)
                 {
                     _Stand = false;
-
+                    
                     //アニメーション　再生スピード　変更
                     _animator.speed = StandUpSpeed;
-
-                    //立ち上がりアニメーション　初めから再生
-                    _animator.Play("Return", 0, 0.0f);
                 }
                 else
                 {
@@ -176,6 +175,7 @@ public class PlayerMove : MonoBehaviour
                     _Attack = false;
                     _Stand = true;
                     _Blow = false;
+                    _Over = true;
                     _Live = true;
                     this._animator.SetBool(key_isAttack, false);
                     this._animator.SetBool(key_isRun, false);
@@ -192,22 +192,22 @@ public class PlayerMove : MonoBehaviour
 
             //プレイヤーの移動の値足す
             Vector3 targetPositon = Vector3.MoveTowards(transform.localPosition, Savepos, step);
-            
+
             //進行方向に回転していく
             Quaternion targetRotation = Quaternion.LookRotation(targetPositon - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step*3);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step * 3);
 
             transform.localPosition = targetPositon;
 
             //中心に移動
-            if ( transform.localPosition == Savepos)
+            if (transform.localPosition == Savepos)
             {
                 this._animator.SetBool(key_isAttack, false);
                 this._animator.SetBool(key_isRun, false);
                 this._animator.SetBool(key_isKokeru, false);
 
                 //カメラズーム終了　＆　イカダ中心に移動
-                if(_ZoomC&&_Ikada)
+                if (_ZoomC && _Ikada)
                 {
                     _animator.Play("Clear", 0, 0.0f);
                     this.enabled = false;
@@ -369,9 +369,6 @@ public class PlayerMove : MonoBehaviour
     //倒れるアニメーション　セット
     public void SetCollapse()
     {
-        //演出
-        m_GameOverManager.HPGameOverFunction();
-
         //アニメーション　再生スピード　変更
         _animator.speed = KokeruSpeed;
 
@@ -382,11 +379,12 @@ public class PlayerMove : MonoBehaviour
         this._animator.SetBool(key_isKokeru, true);
         AttackCollider.SetActive(false); //攻撃用コライダー　非アクティブ化
         _Attack = false;
+        Debug.Log("over");
     }
 
     public void SetLive()
     {
-        _Live = false;
+        _Over = false;
     }
 
     //イカダの幅　取得
@@ -400,23 +398,23 @@ public class PlayerMove : MonoBehaviour
         //イカダのどこにいるかをセット
         OnRaftPosition = pos;
     }
-    
+
 
     public void SetGoal()
     {
-        _Goal= true;
+        _Goal = true;
         rb.useGravity = false;
         rb.isKinematic = true;
     }
 
     public void SetZoomC()
     {
-        _ZoomC= true;
+        _ZoomC = true;
     }
 
     public void SetIkada()
     {
-        _Ikada= true;
+        _Ikada = true;
     }
 
     private void OnTriggerExit(Collider other)
@@ -431,20 +429,24 @@ public class PlayerMove : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             //攻撃くらったか
-            if (_Blow && _Kokeru == false)
+            if (_Blow && _Kokeru == false&&_Over)
             {
                 SetKokeru();
             }
-
-            if(_Live == false)
-            {
-                SetCollapse();
-            }
-            
         }
 
     }
 
+    private void OnCollisionStay(Collision other)
+    {
+        if (_Over == false && _Live)
+        {
+            SetCollapse();
+            _Live = false;
+            //演出
+            m_GameOverManager.HPGameOverFunction();
+        }
+    }
     private void OnCollisionExit(Collision other)
     {
         //上昇した（上に吹き飛ばされた）

@@ -106,12 +106,6 @@ public class Status : MonoBehaviour
         //無敵時間　以外　ダメージ受ける
         if (MutekiTime <= 0)
         {
-            //すぐに倒れるか
-            if (ac)
-            {
-                P_MoveScript.SetKokeru();
-            }
-
             HP -= Damage;
             MutekiTime = SetMutekiTime; //無敵時間　セット
 
@@ -125,13 +119,22 @@ public class Status : MonoBehaviour
                     //演出
                     //m_GameOverManager.HPGameOverFunction();
 
-                    P_MoveScript.SetLive();
+                    //ResetHP();
                 }
+
+                P_MoveScript.SetLive();
 
                 //残機減少
                 DownZanki(1);
+
+                return true;
             }
 
+            //すぐに倒れるか
+            if (ac)
+            {
+                P_MoveScript.SetKokeru();
+            }
 
             return true;
         }
