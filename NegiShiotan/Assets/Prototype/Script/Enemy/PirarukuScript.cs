@@ -50,9 +50,6 @@ public class PirarukuScript : MonoBehaviour
         //イカダとぶつかる
         if (other.gameObject.tag == "Player")
         {
-            //ピラルク　吹き飛ぶ最高高度　設定
-            BlowHigh += this.transform.localPosition.y;
-
             //回転　防ぐ
             rb.isKinematic = true;
 
@@ -62,6 +59,9 @@ public class PirarukuScript : MonoBehaviour
                 //ピラルクのデータ　イカダ移動スクリプトに渡す
                 IkadaPos.SetOnPirarukuPos(this.gameObject);
                 OnePlay = false;
+
+                //ピラルク　吹き飛ぶ最高高度　設定
+                BlowHigh += this.transform.localPosition.y;
             }
         }
 
@@ -99,6 +99,8 @@ public class PirarukuScript : MonoBehaviour
             //飛んでいく方向　指定
             Vector3 Throwpos = other.transform.forward;
             Throwpos.y = other.transform.localPosition.y+ BlowHigh;
+
+            Debug.Log("attack");
 
             //エフェクト再生
             //bulletInstance.GetComponent<PiranhaScript>().EffectPlay();

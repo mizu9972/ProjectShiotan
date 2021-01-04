@@ -37,6 +37,9 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField, Header("ステージ選択で動かすオブジェクト")]
     private GameObject StageSelectPlayer = null;
 
+    [SerializeField, Header("プレイヤーのモデル")]
+    private GameObject StageSelectPlayer_Model = null;
+
     //現在選択中のステージ添字
     private static int m_nowSelectStageIter = 0;
 
@@ -50,7 +53,14 @@ public class StageSelectManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     { 
-        
+        if(StageSelectPlayer == null)
+        {
+            Debug.LogWarning("プレイヤーが設定されていません");
+        }
+        if(StageSelectPlayer_Model == null)
+        {
+            Debug.LogWarning("プレイヤーのモデルが設定されていません");
+        }
         StageSelectPlayer.transform.position = StageSquares[m_nowSelectStageIter].transform.position;
 
         SetStageCollections();
@@ -176,12 +186,16 @@ public class StageSelectManager : MonoBehaviour
         moveTimeperPoint = StageMoveTime / ObjectCount;
 
         isMoving = true;
-        
+
         //ステージ間
         for (int StageWhilePointIter = 0; StageWhilePointIter < stageWhileList.Count; StageWhilePointIter++)
         {
-            m_moveStageSequence.Append(
+            m_moveStageSequence.Append(//移動
                 StageSelectPlayer.transform.DOMove(stageWhileList[StageWhilePointIter].transform.position, moveTimeperPoint)
+            )
+            .Join(//移動先を向く
+                StageSelectPlayer_Model.transform.DOLookAt(stageWhileList[StageWhilePointIter].transform.position, 0.25f)
+                .SetEase(Ease.Linear)
             );
         }
 
