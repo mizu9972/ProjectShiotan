@@ -93,10 +93,14 @@ public class UnagiScript : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            ELEEfect.SetActive(false);
+        }
 
+        //ウナギ削除
         if (this.transform.localPosition.y < -4.0f)
         {
-            //ウナギ削除
             Destroy(this.gameObject);
         }
 
@@ -113,10 +117,11 @@ public class UnagiScript : MonoBehaviour
     {
         //イカダとぶつかる
         if (other.gameObject.tag == "Player")
-        {   
+        {
+            Debug.Log("aaaaaaaaa");
             //回転　防ぐ
             rb.isKinematic = true;
-
+            
             OnIkada = true;
         }
 

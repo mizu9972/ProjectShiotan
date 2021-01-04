@@ -195,6 +195,8 @@ public class PlayerMove : MonoBehaviour
 
             //進行方向に回転していく
             Quaternion targetRotation = Quaternion.LookRotation(targetPositon - transform.position);
+            targetRotation.x = 0;
+            targetRotation.z = 0;
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, step * 3);
 
             transform.localPosition = targetPositon;
