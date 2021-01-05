@@ -47,8 +47,6 @@ public class GameOverManager : MonoBehaviour
     {
         Observable.Timer(System.TimeSpan.FromSeconds(RebornStartTime))
             .Subscribe(_ => RebornFunction());
-
-        
     }
 
     //復活処理
