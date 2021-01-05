@@ -16,17 +16,21 @@ public class SparkScript : MonoBehaviour
     private Status PlayerStatus;    //プレイヤーのステータス
     private Rigidbody PlayerRb;     //プレイヤーのrigidbody
 
+    [Header("SE:放電")]
+    public SEPlayer SE;
+
     // Start is called before the first frame update
     void Start()
     {
         PlayerStatus = GameObject.FindGameObjectWithTag("Status").GetComponent<Status>();
         PlayerRb = GameObject.FindGameObjectWithTag("Human").GetComponent<Rigidbody>();
+        SE.PlaySound();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)

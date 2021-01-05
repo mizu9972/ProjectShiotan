@@ -17,6 +17,9 @@ public class FishBase : MonoBehaviour {
     private Transform Player;
     private Rigidbody rb;
 
+    [Header("SE:水の中移動中")]
+    public SEPlayer SE;
+
     [SerializeField] private bool m_TrackingFlg = false;
     [SerializeField] private bool m_SpawnFlg = false;
     [SerializeField] private float m_TrackingSpeed = 0.0f;
@@ -25,6 +28,7 @@ public class FishBase : MonoBehaviour {
     {
         Player = GameObject.FindGameObjectWithTag("Player")?.transform;
         rb = gameObject.GetComponent<Rigidbody>();
+        SE.PlaySound();
     }
 
     private void FixedUpdate() {

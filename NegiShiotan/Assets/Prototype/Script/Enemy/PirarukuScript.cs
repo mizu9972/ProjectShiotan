@@ -20,6 +20,9 @@ public class PirarukuScript : MonoBehaviour
     [Header("Effect")]
     public ParticleEffectScript m_Effect;
 
+    [Header("SE:オールにヒット時")]
+    public SEPlayer SE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,14 +99,14 @@ public class PirarukuScript : MonoBehaviour
         //攻撃にあたる
         if (other.tag == "Attack")
         {
+            SE.PlaySound();
+
             //移動制限解除
             rb.isKinematic = false;
 
             //飛んでいく方向　指定
             Vector3 Throwpos = other.transform.forward;
             Throwpos.y = other.transform.localPosition.y+ BlowHigh;
-
-            Debug.Log("attack");
 
             //エフェクト再生
             //bulletInstance.GetComponent<PiranhaScript>().EffectPlay();

@@ -34,6 +34,9 @@ public class UnagiScript : MonoBehaviour
     [Header("Effect")]
     public ParticleEffectScript m_Effect;
 
+    [Header("SE:オールにヒット時")]
+    public SEPlayer SE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -121,7 +124,6 @@ public class UnagiScript : MonoBehaviour
         //イカダとぶつかる
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("aaaaaaaaa");
             //回転　防ぐ
             rb.isKinematic = true;
             
@@ -149,6 +151,8 @@ public class UnagiScript : MonoBehaviour
         //攻撃にあたる
         if (other.tag == "Attack")
         {
+            SE.PlaySound();
+
             //移動制限解除
             rb.isKinematic = false;
 

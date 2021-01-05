@@ -10,10 +10,13 @@ public class RecoveryScript : MonoBehaviour
     [Header("HP管理マネージャー")]
     public Status HPStatus;
 
+    [Header("SE:回復のオブジェクトにあたった時")]
+    public SEPlayer SE;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SE=this.GetComponent<SEPlayer>();
     }
 
     // Update is called once per frame
@@ -27,6 +30,8 @@ public class RecoveryScript : MonoBehaviour
 
         if (layerName == "Player")
         {
+            SE.PlaySound();
+
             HPStatus.RecoveryHP
                 (UpHP);
             Destroy(this.gameObject);
