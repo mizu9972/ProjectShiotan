@@ -76,12 +76,12 @@ public class StageSelectManager : MonoBehaviour
     {
         if (isMoving == false)
         {
-            if (Input.GetButtonDown("SelectNext"))
+            if (Input.GetButtonDown("SelectNext") || Input.GetAxis("SelectJoyStickAxis") == 1)
             {
                 //前進
                 MoveSelectStage(StageSelectAction.Next);
             }
-            else if (Input.GetButtonDown("SelectPreview"))
+            else if (Input.GetButtonDown("SelectPreview") || Input.GetAxis("SelectJoyStickAxis") == -1)
             {
                 //後退
                 MoveSelectStage(StageSelectAction.Prev);
@@ -92,7 +92,7 @@ public class StageSelectManager : MonoBehaviour
                 MoveSelectStage(StageSelectAction.Load);
             }
         }
-
+        Debug.Log(Input.GetAxis("SelectJoyStickAxis"));
     }
 
     //StageSeqCollectionの設定
