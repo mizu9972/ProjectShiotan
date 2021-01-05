@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class TitleButton : MonoBehaviour
 {
+    [SerializeField, Header("SEPlayer")]
+    private SEPlayer TitleSEPlayer = null;
     private SceneLoader mySceneLoader = null;
+
+    private bool isLoading = false;
     // Start is called before the first frame update
     void Start()
     {
+        isLoading = false;  
         mySceneLoader = this.gameObject.GetComponent<SceneLoader>();
     }
 
@@ -16,6 +21,11 @@ public class TitleButton : MonoBehaviour
     {
         if (Input.anyKey)
         {
+            if (isLoading == false)
+            {
+                TitleSEPlayer.PlaySound();
+                isLoading = true;
+            }
             mySceneLoader.LoadScene();
         }
     }

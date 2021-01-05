@@ -42,6 +42,9 @@ public class StageSelectManager : MonoBehaviour
 
     [SerializeField, Header("カーソルSEPlayer")]
     private SEPlayer sePlayer = null;
+
+    [SerializeField,Header("決定SEPlayer")]
+    private SEPlayer SubmitSEPlayer = null;
     //現在選択中のステージ添字
     private static int m_nowSelectStageIter = 0;
 
@@ -149,6 +152,7 @@ public class StageSelectManager : MonoBehaviour
 
             //選択中のステージ読み込み
             case StageSelectAction.Load:
+                SubmitSEPlayer.PlaySound();
                 StageSquares[m_nowSelectStageIter].GetComponent<StageSquare>().setStagetype();
                 StageSquares[m_nowSelectStageIter].GetComponent<SceneLoader>().LoadScene();
                 break;

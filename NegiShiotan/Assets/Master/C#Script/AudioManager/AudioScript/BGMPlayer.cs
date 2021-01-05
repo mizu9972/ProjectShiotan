@@ -23,7 +23,7 @@ public class BGMPlayer : MonoBehaviour
         {
             m_audioSource = this.GetComponent<AudioSource>();
         }
-        m_audioSource.spatialBlend = 0f;//立体音響不使用
+        //m_audioSource.spatialBlend = 0f;//立体音響不使用 //滝で立体音響使用するのでコメントアウトしました a.m
         m_audioSource.volume = m_Volume;
     }
 

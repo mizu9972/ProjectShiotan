@@ -728,6 +728,7 @@ GameObject:
   - component: {fileID: 274668888}
   - component: {fileID: 274668890}
   - component: {fileID: 274668889}
+  - component: {fileID: 274668891}
   m_Layer: 0
   m_Name: StageSelectManager
   m_TagString: StageSelectManager
@@ -771,6 +772,7 @@ MonoBehaviour:
   StageSelectPlayer: {fileID: 1271805169}
   StageSelectPlayer_Model: {fileID: 893873247}
   sePlayer: {fileID: 274668889}
+  SubmitSEPlayer: {fileID: 274668891}
   StageMoveTime: 1
 --- !u!4 &274668887
 Transform:
@@ -911,6 +913,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &274668891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274668885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b471dae87d11af344be788f283293a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SEData: {fileID: 8300000, guid: 1cecf752c3a2d694f929dcd1263b6d8e, type: 3}
+  m_UseDoppler: 0
+  isLoop: 0
+  m_Volume: 0.5
+  m_DopplerLevel: 1
 --- !u!4 &281392759 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 704210446566098529, guid: 8a96d771a874f2f44bcbb5880e4686f2,

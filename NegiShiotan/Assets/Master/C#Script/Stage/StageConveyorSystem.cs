@@ -57,6 +57,11 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
         {
             FallSpeed = 1.0f;
         }
+
+        for(int PlaneNum = 0;PlaneNum < StagePlaneList.Count;PlaneNum++)
+        {
+            StagePlaneList[PlaneNum].SetActive(false);
+        }
     }
 
     void Start()
@@ -177,6 +182,7 @@ public class StageConveyorSystem : MonoBehaviour,IStageConveyorSystem
             StagePlaneIter = StagePlaneIter % StagePlaneList.Count;
         }
         GameObject newStageObject = Object.Instantiate(StagePlaneList[StagePlaneIter]/*, Vector3.zero, Quaternion.identity, this.transform*/);//設定されているStagePlaneを複製
+        newStageObject.SetActive(true);
         newStageObject.transform.parent = this.gameObject.transform;
         StageLineUpAtIter(num, newStageObject);//配置
         ActiveStagePlaneList.Add(newStageObject);//配列へ追加
