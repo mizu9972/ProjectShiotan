@@ -72,6 +72,9 @@ public class PlayerMove : MonoBehaviour
 
     //ゲームオーバー用オブジェクト
     private GameOverManager m_GameOverManager = null;
+    
+    [Header("SE:オール振った時")]
+    public SEPlayer SE;
 
 
     // Start is called before the first frame update
@@ -319,6 +322,8 @@ public class PlayerMove : MonoBehaviour
                 AttackCollider.SetActive(true); //攻撃用コライダー　アクティブ化
                 AttackEffect.SetActive(true);        //攻撃エフェクト　アクティブ化
                 _Attack = true;
+
+                SE.PlaySound();
             }
         }
     }

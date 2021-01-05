@@ -23,6 +23,9 @@ public class JumpScript : MonoBehaviour
     [Header("魚　飛ぶ高さ")]
     public float JumpRange;
 
+    [Header("SE:魚がイカダに向かってジャンプする時")]
+    public SEPlayer SE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +53,7 @@ public class JumpScript : MonoBehaviour
         //ピラニア
         if(other.tag== "Piranha")
         {
+            SE.PlaySound();
             savepos = other.transform;
             Destroy(other.gameObject);
             GameObject bulletInstance = (GameObject)Instantiate(pirania, savepos.position, this.transform.rotation);
@@ -69,6 +73,7 @@ public class JumpScript : MonoBehaviour
         //ピラルク
         if(other.tag=="Pillarc")
         {
+            SE.PlaySound();
             savepos = other.transform;
             Destroy(other.gameObject);
             GameObject bulletInstance = (GameObject)Instantiate(piraruku, savepos.position, this.transform.rotation);
@@ -80,7 +85,7 @@ public class JumpScript : MonoBehaviour
             bulletInstance.transform.LookAt(Throwpos);
 
             //エフェクト再生
-            //bulletInstance.GetComponent<PiranhaScript>().EffectPlay();
+            bulletInstance.GetComponent<PirarukuScript>().EffectPlay();
             //向いた方向に　飛ばす
             bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * JumpPower, ForceMode.Impulse);
         }
@@ -88,6 +93,7 @@ public class JumpScript : MonoBehaviour
         //ウナギ
         if (other.tag == "Unagi")
         {
+            SE.PlaySound();
             savepos = other.transform;
             Destroy(other.gameObject);
             GameObject bulletInstance = (GameObject)Instantiate(unagi, savepos.position, this.transform.rotation);
@@ -99,7 +105,7 @@ public class JumpScript : MonoBehaviour
             bulletInstance.transform.LookAt(Throwpos);
 
             //エフェクト再生
-            //bulletInstance.GetComponent<PiranhaScript>().EffectPlay();
+            bulletInstance.GetComponent<UnagiScript>().EffectPlay();
             //向いた方向に　飛ばす
             bulletInstance.GetComponent<Rigidbody>().AddForce(bulletInstance.transform.forward * JumpPower, ForceMode.Impulse);
         }

@@ -33,6 +33,9 @@ public class Status : MonoBehaviour
 
     private PlayerMove P_MoveScript;    //プレイヤー　倒れるアニメーション設定用
 
+    [Header("SE:プレイヤーダメージ受けた時")]
+    public SEPlayer SE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -100,6 +103,7 @@ public class Status : MonoBehaviour
         //無敵時間　以外　ダメージ受ける
         if (MutekiTime <= 0)
         {
+            SE.PlaySound();
             HP -= Damage;
             MutekiTime = SetMutekiTime; //無敵時間　セット
 
