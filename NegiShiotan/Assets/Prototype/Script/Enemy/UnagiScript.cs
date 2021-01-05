@@ -31,6 +31,8 @@ public class UnagiScript : MonoBehaviour
 
     private bool onePlay;
 
+    private bool _Blow;
+
     [Header("Effect")]
     public ParticleEffectScript m_Effect;
 
@@ -43,6 +45,7 @@ public class UnagiScript : MonoBehaviour
         onePlay = true;
         ELEEnable = false;
         OnIkada = false;
+        _Blow = true;
 
         //親子関係したとき　メッシュがずれるバグ解消のための一文
         this.transform.rotation = new Quaternion(0, this.transform.rotation.y, 0, this.transform.rotation.w);
@@ -128,6 +131,7 @@ public class UnagiScript : MonoBehaviour
             rb.isKinematic = true;
             
             OnIkada = true;
+            _Blow = true;
         }
 
         //イカダの上で魚とぶつかった時
@@ -149,9 +153,11 @@ public class UnagiScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //攻撃にあたる
-        if (other.tag == "Attack")
+        if (other.tag == "Attack"&&_Blow)
         {
+            Debug.Log("aaaaaaaaaaa");
             SE.PlaySound();
+            _Blow = false;
 
             //移動制限解除
             rb.isKinematic = false;

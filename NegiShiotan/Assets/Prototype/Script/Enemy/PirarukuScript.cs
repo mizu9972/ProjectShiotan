@@ -23,6 +23,11 @@ public class PirarukuScript : MonoBehaviour
     [Header("SE:オールにヒット時")]
     public SEPlayer SE;
 
+    [Header("SEクールタイム:オールにヒット時")]
+    public float SECoolTime;
+
+    private bool _Blow;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +44,7 @@ public class PirarukuScript : MonoBehaviour
         rb = this.GetComponent<Rigidbody>();    //Rigidbodyコンポーネント　取得
 
         OnePlay = true;
+        _Blow = true;
     }
 
     // Update is called once per frame
@@ -58,6 +64,8 @@ public class PirarukuScript : MonoBehaviour
         {
             //回転　防ぐ
             rb.isKinematic = true;
+
+            _Blow = true;
 
             //ピラルク　格納（一度だけ）
             if(OnePlay)
@@ -97,9 +105,10 @@ public class PirarukuScript : MonoBehaviour
         }
 
         //攻撃にあたる
-        if (other.tag == "Attack")
+        if (other.tag == "Attack"&&_Blow)
         {
             SE.PlaySound();
+            _Blow = false;
 
             //移動制限解除
             rb.isKinematic = false;

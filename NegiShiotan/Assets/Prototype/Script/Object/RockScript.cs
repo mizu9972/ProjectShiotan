@@ -21,10 +21,13 @@ public class RockScript : MonoBehaviour
 
     [Header("SE:イカダにヒット時")]
     public SEPlayer SE;
+    
+    private bool _Brake;
 
     // Start is called before the first frame update
     void Start()
     {
+        _Brake = true;
         HPStatus = GameObject.FindGameObjectWithTag("Status").GetComponent<Status>();
         effectCamera = Camera.main.GetComponent<EffectCamera>();
     }
@@ -37,9 +40,10 @@ public class RockScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player"&&_Brake)
         {
             SE.PlaySound();
+            _Brake = false;
 
             m_ModelMesh.enabled = false;//岩モデルの描画を消す
 
