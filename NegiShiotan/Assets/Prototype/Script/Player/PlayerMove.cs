@@ -304,7 +304,7 @@ public class PlayerMove : MonoBehaviour
         }
 
         //攻撃コライダー　アクティブ化
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 2"))
         {
             if (_Attack == false)
             {
