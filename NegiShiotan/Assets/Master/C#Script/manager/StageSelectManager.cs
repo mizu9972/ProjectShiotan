@@ -40,6 +40,8 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField, Header("プレイヤーのモデル")]
     private GameObject StageSelectPlayer_Model = null;
 
+    [SerializeField, Header("カーソルSEPlayer")]
+    private SEPlayer sePlayer = null;
     //現在選択中のステージ添字
     private static int m_nowSelectStageIter = 0;
 
@@ -207,6 +209,7 @@ public class StageSelectManager : MonoBehaviour
             )
             .AppendCallback(() =>
             {
+                sePlayer.PlaySound();
                 isMoving = false;
             });
     }

@@ -17,7 +17,7 @@ public class SEPlayer : MonoBehaviour
     public bool isLoop = false;
 
     [Header("音量"), Range(0f, 1f)]
-    public float m_Volume = 1f;
+    public float m_Volume = 0.5f;
 
     [HideInInspector]
     [Range(0f, 5f)] public float m_DopplerLevel = 1f;
