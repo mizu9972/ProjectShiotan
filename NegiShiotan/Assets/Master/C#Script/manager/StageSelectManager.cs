@@ -85,12 +85,14 @@ public class StageSelectManager : MonoBehaviour
             {
                 //後退
                 MoveSelectStage(StageSelectAction.Prev);
-            }else if (Input.GetButtonDown("SelectDecision"))
+            }
+            else if (Input.GetButtonDown("SelectDecision"))
             {
                 //決定
                 MoveSelectStage(StageSelectAction.Load);
             }
         }
+
     }
 
     //StageSeqCollectionの設定
@@ -194,7 +196,7 @@ public class StageSelectManager : MonoBehaviour
                 StageSelectPlayer.transform.DOMove(stageWhileList[StageWhilePointIter].transform.position, moveTimeperPoint)
             )
             .Join(//移動先を向く
-                StageSelectPlayer_Model.transform.DOLookAt(stageWhileList[StageWhilePointIter].transform.position, 0.25f)
+                StageSelectPlayer_Model.transform.DOLookAt(stageWhileList[StageWhilePointIter].transform.position, 0.25f,AxisConstraint.Y,Vector3.up)
                 .SetEase(Ease.Linear)
             );
         }
