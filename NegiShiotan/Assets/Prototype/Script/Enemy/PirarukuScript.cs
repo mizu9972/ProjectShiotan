@@ -23,14 +23,13 @@ public class PirarukuScript : MonoBehaviour
     [Header("SE:オールにヒット時")]
     public SEPlayer SE;
 
-    [Header("SEクールタイム:オールにヒット時")]
-    public float SECoolTime;
-
-    private bool _Blow;
+    [Header("攻撃食らったあと一定の無敵時間セット")] public float BlowCool;
+    private float CoolT;
 
     // Start is called before the first frame update
     void Start()
     {
+        CoolT = 0;
         //イカダ移動スクリプト　取得
         IkadaPos = GameObject.FindGameObjectWithTag("Player").GetComponent<RaftMove>();
 
@@ -44,12 +43,15 @@ public class PirarukuScript : MonoBehaviour
         rb = this.GetComponent<Rigidbody>();    //Rigidbodyコンポーネント　取得
 
         OnePlay = true;
-        _Blow = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(CoolT>0)
+        {
+            CoolT-=Time.deltaTime;
+        }
         if (this.transform.localPosition.y<-4.0f)
         {
             //ピラルク削除
@@ -62,13 +64,14 @@ public class PirarukuScript : MonoBehaviour
         //イカダとぶつかる
         if (other.gameObject.tag == "Player")
         {
-            //回転　防ぐ
-            rb.isKinematic = true;
-
-            _Blow = true;
+            if(rb.velocity.y < 0)
+            {
+                //回転　防ぐ
+                rb.isKinematic = true;
+            }
 
             //ピラルク　格納（一度だけ）
-            if(OnePlay)
+            if (OnePlay)
             {
                 //ピラルクのデータ　イカダ移動スクリプトに渡す
                 IkadaPos.SetOnPirarukuPos(this.gameObject);
@@ -105,10 +108,10 @@ public class PirarukuScript : MonoBehaviour
         }
 
         //攻撃にあたる
-        if (other.tag == "Attack"&&_Blow)
+        if (other.tag == "Attack"&&CoolT<=0)
         {
+            CoolT = BlowCool;
             SE.PlaySound();
-            _Blow = false;
 
             //移動制限解除
             rb.isKinematic = false;
