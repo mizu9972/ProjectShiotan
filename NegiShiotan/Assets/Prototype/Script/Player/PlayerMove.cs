@@ -244,7 +244,7 @@ public class PlayerMove : MonoBehaviour
             this._animator.SetBool(key_isRun, true);
 
             //プレイヤーの位置に入力の値足す
-            Vector3 targetPositon = new Vector3(transform.position.x + (v * -1 * Speed * Time.deltaTime), transform.position.y, transform.position.z - (h * Speed * Time.deltaTime));
+            Vector3 targetPositon = new Vector3(transform.position.x + (v * Speed * Time.deltaTime), transform.position.y, transform.position.z - (h * Speed * Time.deltaTime));
 
             //進行方向に回転していく
             Quaternion targetRotation = Quaternion.LookRotation(targetPositon - transform.position);
