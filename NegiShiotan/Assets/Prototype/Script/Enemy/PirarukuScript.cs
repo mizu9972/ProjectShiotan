@@ -17,6 +17,9 @@ public class PirarukuScript : MonoBehaviour
     //一度だけの処理
     private bool OnePlay;
 
+    [Header("Effect")]
+    public ParticleEffectScript m_Effect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,5 +110,10 @@ public class PirarukuScript : MonoBehaviour
             //向いた方向に　飛ばす
             rb.AddForce(Throwpos* BlowPower, ForceMode.Force);
         }
+    }
+
+    public void EffectPlay()//Effect再生
+    {
+        m_Effect.StartEffect();
     }
 }

@@ -31,6 +31,9 @@ public class UnagiScript : MonoBehaviour
 
     private bool onePlay;
 
+    [Header("Effect")]
+    public ParticleEffectScript m_Effect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -160,5 +163,9 @@ public class UnagiScript : MonoBehaviour
 
             NotCountTime = NotCoolCountTime;
         }
+    }
+    public void EffectPlay()//Effect再生
+    {
+        m_Effect.StartEffect();
     }
 }

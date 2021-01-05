@@ -154,6 +154,7 @@ Transform:
   m_Children:
   - {fileID: 2387423684795460118}
   - {fileID: 756227590407787126}
+  - {fileID: 9191008631869768008}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -207,6 +208,7 @@ MonoBehaviour:
   BlowHigh: 2.5
   BlowPower: 30
   BoundPower: 40
+  m_Effect: {fileID: 9191008631869768011}
 --- !u!65 &761444975402683677
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -500,3 +502,95 @@ Transform:
   m_Father: {fileID: 107978400356143523}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6059016634286571178
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2682006197206221531}
+    m_Modifications:
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531362909028325, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_Name
+      value: JumpSplash
+      objectReference: {fileID: 0}
+    - target: {fileID: 3141531363609352453, guid: f834b8c58c0e44a47af7b3b00b29697a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f834b8c58c0e44a47af7b3b00b29697a, type: 3}
+--- !u!4 &9191008631869768008 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3141531362909028322, guid: f834b8c58c0e44a47af7b3b00b29697a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6059016634286571178}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9191008631869768011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3141531362909028321, guid: f834b8c58c0e44a47af7b3b00b29697a,
+    type: 3}
+  m_PrefabInstance: {fileID: 6059016634286571178}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16a9747a4a3a3e4295434d0a50270cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
