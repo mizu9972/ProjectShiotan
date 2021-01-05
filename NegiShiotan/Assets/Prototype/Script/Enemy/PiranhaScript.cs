@@ -45,6 +45,8 @@ public class PiranhaScript : MonoBehaviour
 
     private float IkadaWidth;
 
+    [Header("SE:イカダ移動中")]
+    public SEPlayer SE;
 
     //Start is called before the first frame update
     void Start()
@@ -200,6 +202,7 @@ public class PiranhaScript : MonoBehaviour
 
             //移動可能に
             MoveActive = true;
+            SE.PlaySound();
         }
         
         //イカダの上で魚とぶつかった時

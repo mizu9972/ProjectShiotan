@@ -17,6 +17,10 @@ public class CoinScript : MonoBehaviour
     [Header("コインのモデル")]
     public MeshRenderer m_Model = null;
     // Start is called before the first frame update
+
+    [Header("SE:コインゲット時")]
+    public SEPlayer SE;
+
     void Start()
     {
         CoinStatus = GameObject.FindGameObjectWithTag("Status").GetComponent<Status>();
@@ -32,6 +36,7 @@ public class CoinScript : MonoBehaviour
     {
         if (other.tag == "Human"|| other.tag == "Bullet")
         {
+            SE.PlaySound();
             m_playPart.Play();//Effectを再生
             CoinStatus.UpCoin(UpCoin);
             m_Model.enabled = false;//モデルの描画を切る

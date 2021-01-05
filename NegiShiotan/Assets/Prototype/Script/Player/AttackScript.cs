@@ -7,6 +7,8 @@ public class AttackScript : MonoBehaviour
     [Header("再生成するオブジェクト")]
     public GameObject obj;
 
+    [Header("SE:ピラニア攻撃時")]
+    public SEPlayer SE;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,7 @@ public class AttackScript : MonoBehaviour
     {
         if (other.tag == "RidePiranha")
         {
+            SE.PlaySound();
             //ぶつかった　魚削除
             Destroy(other.gameObject);
 

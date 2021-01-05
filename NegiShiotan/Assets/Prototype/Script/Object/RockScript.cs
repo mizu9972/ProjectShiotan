@@ -19,6 +19,9 @@ public class RockScript : MonoBehaviour
 
     private EffectCamera effectCamera;
 
+    [Header("SE:イカダにヒット時")]
+    public SEPlayer SE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,8 @@ public class RockScript : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            SE.PlaySound();
+
             m_ModelMesh.enabled = false;//岩モデルの描画を消す
 
             m_playPart.StartEffect();//Effectを再生

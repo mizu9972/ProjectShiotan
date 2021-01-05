@@ -15,6 +15,9 @@ public class PlayEnemyParticle : MonoBehaviour
     [SerializeField, Header("着水エフェクトリスト使用状態")]
     List<bool> m_isUseParticle = new List<bool>();
 
+    [Header("SE:着水時")]
+    public SEPlayer SE;
+
     private Vector3 m_PopPosition;//パーティクルを表示させるポジション
     // Start is called before the first frame update
     void Awake()
@@ -42,6 +45,8 @@ public class PlayEnemyParticle : MonoBehaviour
     {
         if(other.tag=="RideFish"||other.tag=="RidePiranha")//魚介類が触れたらエフェクト再生
         {
+            SE.PlaySound();
+
             m_PopPosition = new Vector3(other.transform.position.x,
                                         m_EffectPosY,
                                         other.transform.position.z);//衝突オブジェクトのX,Z座標を格納
