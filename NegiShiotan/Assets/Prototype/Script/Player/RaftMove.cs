@@ -53,7 +53,7 @@ public class RaftMove : MonoBehaviour
 
     RaycastHit hit;//Rayが当たったオブジェクトいれる
 
-    int distance = 10;//Rayの飛ばす距離
+    int distance = 4;//Rayの飛ばす距離
     
     //ゴールしたか
     private bool _Goal;
@@ -203,13 +203,16 @@ public class RaftMove : MonoBehaviour
         //Rayの衝突検知
         if (Physics.Raycast(ray, out hit, distance, 1 << PlayerRaftLayer))
         {
-            //イカダにピラルクの現在位置を送信
-            SetOnPlusPos(hit.textureCoord);
-
-            //ピラルクの位置によっていかだを傾ける
-            if (raftTilt != null)
+            if (hit.collider.CompareTag("Player"))
             {
-                
+                //イカダにピラルクの現在位置を送信
+                SetOnPlusPos(hit.textureCoord);
+
+                //ピラルクの位置によっていかだを傾ける
+                if (raftTilt != null)
+                {
+
+                }
             }
         }
 
