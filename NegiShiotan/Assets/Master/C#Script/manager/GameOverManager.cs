@@ -29,6 +29,9 @@ public class GameOverManager : MonoBehaviour
     [SerializeField, Header("ステータス管理マネージャー")]
     private Status StatusManager = null;
     private float DefaultGameSpeed;
+
+    [SerializeField, Header("ゲームオーバーSEPlayer")]
+    private SEPlayer OverSEPlayer = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -81,6 +84,7 @@ public class GameOverManager : MonoBehaviour
 
     private void DeadFunction()
     {
+        OverSEPlayer.PlaySound();
         Time.timeScale = 0;
         ZankiGameOverObj.SetActive(true);
     }

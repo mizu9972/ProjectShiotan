@@ -1605,6 +1605,7 @@ MonoBehaviour:
   UnSelectabeButtons:
   - {fileID: 0}
   InitialSelectButton: {fileID: 0}
+  cancelSEPlayer: {fileID: 0}
 --- !u!1001 &352263132
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4857,6 +4858,8 @@ MonoBehaviour:
   cameraRotate: {x: 0, y: 90, z: 0}
   cameraSpeed: 1
   removeCameraSpeed: 1
+  GoalSEPlayer: {fileID: 0}
+  ClearSEPlayer: {fileID: 0}
 --- !u!1 &1239362138
 GameObject:
   m_ObjectHideFlags: 0
@@ -9191,6 +9194,7 @@ MonoBehaviour:
   GameSpeedResetTime: 3
   DeadStartTime: 0.5
   StatusManager: {fileID: 0}
+  OverSEPlayer: {fileID: 0}
 --- !u!1 &2027528790 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1894430033950931333, guid: 01c3fc8e19953c143b4229c75bbbffad,

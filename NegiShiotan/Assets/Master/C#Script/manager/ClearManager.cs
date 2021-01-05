@@ -18,6 +18,12 @@ public class ClearManager : MonoBehaviour
     [SerializeField, Header("元の位置へ戻るカメラの速度")]
     private float removeCameraSpeed = 1.0f;
 
+    [SerializeField,Header("ゴールSEPlayer")]
+    private SEPlayer GoalSEPlayer = null;
+
+    [SerializeField, Header("ステージクリアSEPlayer")]
+    private SEPlayer ClearSEPlayer = null;
+
     private StageConveyorSystem stageConveyorSystem = null;
     private Sequence clearSeq = null;
     private Camera mainCamera = null;
@@ -60,7 +66,7 @@ public class ClearManager : MonoBehaviour
     public void ClearFunction()
     {
         stageConveyorSystem.OnClearSystem();
-
+        GoalSEPlayer.PlaySound();
         {
             clearSeq = DOTween.Sequence();
             clearSeq.Append(
@@ -68,6 +74,8 @@ public class ClearManager : MonoBehaviour
                 )
                 .Join(
                 mainCamera.transform.DORotate(cameraRotate, cameraSpeed)
+                ).AppendCallback(() =>
+                { ClearSEPlayer.PlaySound(); }
                 );
 
             clearSeq.Play();
