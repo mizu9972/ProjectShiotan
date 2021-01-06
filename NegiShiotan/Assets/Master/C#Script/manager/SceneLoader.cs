@@ -15,7 +15,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField, HideInInspector]
     public int SceneIndex = 0;//選択されているシーンのビルド設定でのインデックス番号
 
-    [SerializeField, Header("クリア時のシーン遷移までの時間")]
+    [SerializeField, Header("シーン遷移までの時間")]
     private float turnSceneTime = 3.0f;
 
     [SerializeField, Header("基本ゲーム進行速度")]
@@ -46,6 +46,14 @@ public class SceneLoader : MonoBehaviour
             //SceneManager.LoadScene(SceneName);
             SceneManager.LoadScene(SceneIndex);
         }
+    }
+
+    //時間をおいてシーン遷移する場合
+    public void LoadScenebyTimer()
+    {
+        Time.timeScale = DefaultGameSpeed;
+        Observable.Timer(System.TimeSpan.FromSeconds(turnSceneTime))
+            .Subscribe(_ => LoadScene());
     }
 
     //現在のシーン再読み込み
