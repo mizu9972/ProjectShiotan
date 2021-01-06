@@ -32,7 +32,7 @@ public class RetryButton : MonoBehaviour
             //Observable.Timer(System.TimeSpan.FromSeconds(FadeSpeed)).Subscribe(_ =>
             //fadeCamera.StartFadeOut()
             //);
-            RetrySEPlayer.PlaySound();
+            //RetrySEPlayer.PlaySound();
             RetryScene();            
         }
     }
