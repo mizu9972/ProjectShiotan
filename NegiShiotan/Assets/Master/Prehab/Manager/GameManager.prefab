@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 2279979696647462538}
   - component: {fileID: 6685399806288635014}
   - component: {fileID: 251439150037988641}
+  - component: {fileID: 6738241119721652074}
+  - component: {fileID: 8293827633752666314}
+  - component: {fileID: 7590612289615370286}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,6 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResultCanvas: {fileID: 0}
+  cameraPosition: {x: 3, y: 3, z: 0}
+  cameraRotate: {x: 0, y: 90, z: 0}
+  cameraSpeed: 1
+  removeCameraSpeed: 1
+  GoalSEPlayer: {fileID: 8293827633752666314}
+  ClearSEPlayer: {fileID: 7590612289615370286}
 --- !u!114 &251439150037988641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,3 +67,136 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: StageSelect
+  SceneIndex: 0
+  turnSceneTime: 3
+  DefaultGameSpeed: 1
+--- !u!82 &6738241119721652074
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077596088516534927}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &8293827633752666314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077596088516534927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b471dae87d11af344be788f283293a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SEData: {fileID: 8300000, guid: 4e15d9ed9ff09c84a85b56800545f5bd, type: 3}
+  m_UseDoppler: 0
+  isLoop: 0
+  m_Volume: 1
+  m_DopplerLevel: 1
+--- !u!114 &7590612289615370286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077596088516534927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b471dae87d11af344be788f283293a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SEData: {fileID: 8300000, guid: e5fce453caef8a841ace6c6bc9fdf376, type: 3}
+  m_UseDoppler: 0
+  isLoop: 0
+  m_Volume: 0.5
+  m_DopplerLevel: 1

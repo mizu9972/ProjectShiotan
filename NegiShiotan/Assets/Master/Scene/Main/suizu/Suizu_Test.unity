@@ -310,6 +310,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6150202527749466738, guid: 6051e31c32367dd4985b2ace41b2bc42,
+        type: 3}
+      propertyPath: m_audioSource
+      value: 
+      objectReference: {fileID: 1315164478}
     - target: {fileID: 6500600127239171166, guid: 6051e31c32367dd4985b2ace41b2bc42,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -2580,6 +2585,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93636ee2eb895be42a247f40395d55df, type: 3}
+--- !u!82 &1315164478 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7432946973243119776, guid: 6051e31c32367dd4985b2ace41b2bc42,
+    type: 3}
+  m_PrefabInstance: {fileID: 152659965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1316030446
 GameObject:
   m_ObjectHideFlags: 0
