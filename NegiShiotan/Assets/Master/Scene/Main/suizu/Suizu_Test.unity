@@ -4216,8 +4216,7 @@ PrefabInstance:
         type: 3}
       propertyPath: EnemyObject
       value: 
-      objectReference: {fileID: 3600556424587105511, guid: fd2f36de1db440f4e918d42a80474001,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
       propertyPath: Erea.Array.data[2]
@@ -4251,12 +4250,7 @@ PrefabInstance:
     - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
       propertyPath: m_FishType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
-        type: 3}
-      propertyPath: PnJumpPower
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
@@ -4274,6 +4268,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3252045439493166699, guid: 4cf75125187fa524ca73c1e4cb571e1c,
         type: 3}
+    - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: PiranhaObj
+      value: 
+      objectReference: {fileID: 3600556424587105511, guid: 780dbd4646e75834f90936284c83e9ef,
+        type: 3}
+    - target: {fileID: 742384373883704280, guid: f5800c69f4cae454090632a0ca8d7c69,
+        type: 3}
+      propertyPath: UnagiObj
+      value: 
+      objectReference: {fileID: 7758297837396930408, guid: ab7ee37d98e34d74da0e547abd03edf6,
+        type: 3}
     - target: {fileID: 742384373883704281, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
       propertyPath: m_IsActive
@@ -4287,7 +4293,7 @@ PrefabInstance:
     - target: {fileID: 742384373883704286, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.3
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 742384373883704287, guid: f5800c69f4cae454090632a0ca8d7c69,
         type: 3}
@@ -4508,6 +4514,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2470278044320575156, guid: ce721a0d993ec5f43b08958db517bcf2,
+        type: 3}
+      propertyPath: SceneIndex
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3096363548039846730, guid: ce721a0d993ec5f43b08958db517bcf2,
         type: 3}
