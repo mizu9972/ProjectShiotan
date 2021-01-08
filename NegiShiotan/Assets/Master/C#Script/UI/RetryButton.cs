@@ -11,6 +11,10 @@ public class RetryButton : MonoBehaviour
 
     private FadebyTex fadeCamera = null;
     private SceneLoader sceneLoader = null;
+
+    [SerializeField, Header("SEPlayer")]
+    private SEPlayer RetrySEPlayer = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +32,7 @@ public class RetryButton : MonoBehaviour
             //Observable.Timer(System.TimeSpan.FromSeconds(FadeSpeed)).Subscribe(_ =>
             //fadeCamera.StartFadeOut()
             //);
-
+            //RetrySEPlayer.PlaySound();
             RetryScene();            
         }
     }

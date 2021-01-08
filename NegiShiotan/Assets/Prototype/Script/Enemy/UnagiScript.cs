@@ -31,21 +31,23 @@ public class UnagiScript : MonoBehaviour
 
     private bool onePlay;
 
-    private bool _Blow;
-
     [Header("Effect")]
     public ParticleEffectScript m_Effect;
 
     [Header("SE:オールにヒット時")]
     public SEPlayer SE;
 
+
+    [Header("攻撃食らったあと一定の無敵時間セット")] public float BlowCool=0.5f;
+    private float CoolT;
+
     // Start is called before the first frame update
     void Start()
     {
+        CoolT = 0;
         onePlay = true;
         ELEEnable = false;
         OnIkada = false;
-        _Blow = true;
 
         //親子関係したとき　メッシュがずれるバグ解消のための一文
         this.transform.rotation = new Quaternion(0, this.transform.rotation.y, 0, this.transform.rotation.w);
@@ -61,7 +63,11 @@ public class UnagiScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(NotCountTime<0)
+        if (CoolT > 0)
+        {
+            CoolT -= Time.deltaTime;
+        }
+        if (NotCountTime<0)
         {
             ELETime += Time.deltaTime;  //放電時間カウント　増加
         }
@@ -127,11 +133,13 @@ public class UnagiScript : MonoBehaviour
         //イカダとぶつかる
         if (other.gameObject.tag == "Player")
         {
-            //回転　防ぐ
-            rb.isKinematic = true;
-            
+            if (rb.velocity.y < 0)
+            {
+                //回転　防ぐ
+                rb.isKinematic = true;
+            }
+
             OnIkada = true;
-            _Blow = true;
         }
 
         //イカダの上で魚とぶつかった時
@@ -153,11 +161,10 @@ public class UnagiScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //攻撃にあたる
-        if (other.tag == "Attack"&&_Blow)
+        if (other.tag == "Attack" && CoolT <= 0)
         {
-            Debug.Log("aaaaaaaaaaa");
+            CoolT = BlowCool;
             SE.PlaySound();
-            _Blow = false;
 
             //移動制限解除
             rb.isKinematic = false;

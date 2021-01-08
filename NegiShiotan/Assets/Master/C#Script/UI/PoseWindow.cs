@@ -21,6 +21,10 @@ public class PoseWindow : MonoBehaviour
 
     [SerializeField, Header("初期選択ボタン")]
     private Button InitialSelectButton = null;
+
+    [SerializeField, Header("キャンセルSEPlayer")]
+    private SEPlayer cancelSEPlayer = null;
+
     private bool m_isPoseActive = false;//ポーズ画面を開いているか判定用
     // Start is called before the first frame update
     void Start()
@@ -38,15 +42,16 @@ public class PoseWindow : MonoBehaviour
         if (m_isPoseActive == false)
         {
             if (Input.GetButtonDown("Pose"))
-            {
+            {//開く
                 OpenPoseWindow();
             }
         }
         else
         {
             if (Input.GetButtonDown("Pose"))
-            {
+            {//閉じる
                 ClosePoseWindow();
+                cancelSEPlayer.PlaySound();
             }
         }
     }

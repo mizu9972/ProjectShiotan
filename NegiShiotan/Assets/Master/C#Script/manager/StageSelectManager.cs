@@ -14,7 +14,7 @@ public enum StageSelectAction
 public class StageSelectManager : MonoBehaviour
 {
     [SerializeField, Header("ステージ個数")]
-    private const int STAGE_NUM = 10;
+    private const int STAGE_NUM = 8;
 
     [SerializeField, Header("ステージ選択マスオブジェクト群")]
     private List<GameObject> StageSquares = new List<GameObject>();
@@ -40,6 +40,11 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField, Header("プレイヤーのモデル")]
     private GameObject StageSelectPlayer_Model = null;
 
+    [SerializeField, Header("カーソルSEPlayer")]
+    private SEPlayer sePlayer = null;
+
+    [SerializeField,Header("決定SEPlayer")]
+    private SEPlayer SubmitSEPlayer = null;
     //現在選択中のステージ添字
     private static int m_nowSelectStageIter = 0;
 
@@ -76,12 +81,12 @@ public class StageSelectManager : MonoBehaviour
     {
         if (isMoving == false)
         {
-            if (Input.GetButtonDown("SelectNext"))
+            if (Input.GetButtonDown("SelectNext") || Input.GetAxis("SelectJoyStickAxis") == 1)
             {
                 //前進
                 MoveSelectStage(StageSelectAction.Next);
             }
-            else if (Input.GetButtonDown("SelectPreview"))
+            else if (Input.GetButtonDown("SelectPreview") || Input.GetAxis("SelectJoyStickAxis") == -1)
             {
                 //後退
                 MoveSelectStage(StageSelectAction.Prev);
@@ -92,7 +97,7 @@ public class StageSelectManager : MonoBehaviour
                 MoveSelectStage(StageSelectAction.Load);
             }
         }
-
+        Debug.Log(Input.GetAxis("SelectJoyStickAxis"));
     }
 
     //StageSeqCollectionの設定
@@ -111,7 +116,7 @@ public class StageSelectManager : MonoBehaviour
             StageSeqCollection[StageSquares[0]] = m_PreNexStageWhile[0];
         }
 
-        //ステージ２～９
+        //ステージ途中
         for (int StageNum = 1; StageNum < STAGE_NUM - 1; StageNum++)
         {
             m_PreNexStageWhile[StageNum].PreWhile = StageWhiles[StageNum - 1];
@@ -120,12 +125,12 @@ public class StageSelectManager : MonoBehaviour
             StageSeqCollection[StageSquares[StageNum]] = m_PreNexStageWhile[StageNum];
         }
 
-        //ステージ10
+        //ステージエンディング
         {
-            m_PreNexStageWhile[9].PreWhile = StageWhiles[8];
-            m_PreNexStageWhile[9].NexWhile = null;
+            m_PreNexStageWhile[STAGE_NUM - 1].PreWhile = StageWhiles[STAGE_NUM - 2];
+            m_PreNexStageWhile[STAGE_NUM - 1].NexWhile = null;
 
-            StageSeqCollection[StageSquares[9]] = m_PreNexStageWhile[9];
+            StageSeqCollection[StageSquares[STAGE_NUM - 1]] = m_PreNexStageWhile[STAGE_NUM - 1];
         }
     }
 
@@ -147,6 +152,7 @@ public class StageSelectManager : MonoBehaviour
 
             //選択中のステージ読み込み
             case StageSelectAction.Load:
+                SubmitSEPlayer.PlaySound();
                 StageSquares[m_nowSelectStageIter].GetComponent<StageSquare>().setStagetype();
                 StageSquares[m_nowSelectStageIter].GetComponent<SceneLoader>().LoadScene();
                 break;
@@ -207,6 +213,7 @@ public class StageSelectManager : MonoBehaviour
             )
             .AppendCallback(() =>
             {
+                sePlayer.PlaySound();
                 isMoving = false;
             });
     }
