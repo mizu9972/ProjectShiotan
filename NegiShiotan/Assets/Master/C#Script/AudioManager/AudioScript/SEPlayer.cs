@@ -72,6 +72,11 @@ public class SEPlayer : MonoBehaviour
                 break;
         }
     }
+
+    public void StopUse3DAudio()//立体音響を中止にする
+    {
+        m_audioSource.spatialBlend = 0f;
+    }
 }
 #if UNITY_EDITOR
 [CustomEditor(typeof(SEPlayer))]

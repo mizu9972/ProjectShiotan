@@ -8,6 +8,7 @@ public class BottomDetection : MonoBehaviour
     private GameObject m_Player = null;
     private SplashControl m_SplashControl = null;
     private ParticleEffectScript m_PartScript = null;
+    public SEPlayer m_SePlayer = null;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,8 @@ public class BottomDetection : MonoBehaviour
         {
             m_PartScript.StartEffect();
             m_SplashControl.isActive = true;//イカダのエフェクト再生
+            m_SePlayer.StopUse3DAudio();//SEを2Dに
+            m_SePlayer.PlaySound();//SE再生
         }
     }
 }
