@@ -36,9 +36,14 @@ public class Status : MonoBehaviour
     [Header("SE:プレイヤーダメージ受けた時")]
     public SEPlayer SE;
 
+    private DataManager m_SceneManager = null;
     // Start is called before the first frame update
     void Start()
     {
+        m_SceneManager = GameObject.Find("SceneManager").GetComponent<DataManager>();//DataManager取得
+
+        coin = m_SceneManager.GetComponent<DataManager>().Coin;//コイン引き継ぎ
+
         HP = MAXHP;
 
         P_MoveScript= GameObject.FindWithTag("Human").GetComponent<PlayerMove>();
@@ -61,6 +66,8 @@ public class Status : MonoBehaviour
         {
             MutekiTime -= 0.1f;
         }
+
+        m_SceneManager.Coin = coin;//コインを常に更新
     }
 
     public float GetIkadaWidth()
