@@ -43,6 +43,7 @@ public class Status : MonoBehaviour
         m_SceneManager = GameObject.Find("SceneManager").GetComponent<DataManager>();//DataManager取得
 
         coin = m_SceneManager.GetComponent<DataManager>().Coin;//コイン引き継ぎ
+        Zanki = m_SceneManager.GetComponent<DataManager>().Remain;
 
         HP = MAXHP;
 
@@ -68,6 +69,7 @@ public class Status : MonoBehaviour
         }
 
         m_SceneManager.Coin = coin;//コインを常に更新
+        m_SceneManager.Remain = Zanki;
     }
 
     public float GetIkadaWidth()

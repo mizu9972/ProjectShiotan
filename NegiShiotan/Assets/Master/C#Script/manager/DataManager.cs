@@ -8,11 +8,12 @@ public class DataManager : MonoBehaviour
     private int m_Coin;
 
     [SerializeField, Header("残機")]
-    private int m_Remain;
+    private int m_Remain = 1;
 
     private void Awake()
     {
         DontDestroyOnLoad(this);
+        m_Remain = 1;
     }
     #region Getter&Setter
     public int Coin
